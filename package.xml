@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Package name="replaceme">
-    <Dependencies>
-    </Dependencies>
+<Package name="cec173x_soteria_lib">
 </Package>

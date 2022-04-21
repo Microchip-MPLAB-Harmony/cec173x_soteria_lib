@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Module name="replaceme" id="e46814b4-415f-400e-91ba-f72c28461914" version="1.0.0">
+<Module name="cec173x_soteria_lib" id="79ab1cd5-36ee-4c07-8048-200549844b63" version="3.0.0">
     <ConfigRoot path="config/module.py"/>
 </Module>
