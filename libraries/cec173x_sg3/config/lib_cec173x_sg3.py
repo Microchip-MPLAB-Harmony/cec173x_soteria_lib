@@ -1,6 +1,6 @@
 # coding: utf-8
 """*****************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -22,7 +22,29 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *****************************************************************************"""
 
-def loadModule():
+def instantiateComponent(sg3LibComponent):
 
-    sg3_libComponent = Module.CreateComponent("sg3_lib", "CEC173x Soteria", "/Libraries/", "/libraries/cec173x_sg3/config/lib_cec173x_sg3.py")
-    sg3_libComponent.setDisplayType("Soteria library")
+    global sg3InstanceName
+
+    sg3InstanceName = sg3LibComponent.createStringSymbol("SG3_INSTANCE_NAME", None)
+    sg3InstanceName.setVisible(False)
+    sg3InstanceName.setDefaultValue(sg3LibComponent.getID().upper())
+
+    #SG3 library
+    configName = Variables.get("__CONFIGURATION_NAME")
+
+    sg3LibFile = sg3LibComponent.createLibrarySymbol("SG3_FILE_STATIC_LIB", None)
+
+    sg3LibFile.setSourcePath("/libraries/cec173x_sg3/templates/secureboot_app_lib.X.a")
+    sg3LibFile.setOutputName("secureboot_app_lib.a")
+    sg3LibFile.setDestPath("library/secureboot_app_lib")
+    
+    #SG3 dep library    
+    configName = Variables.get("__CONFIGURATION_NAME")
+
+    sg3DepLibFile = sg3LibComponent.createLibrarySymbol("SG3_FILE_EFUSE_STATIC_LIB", None)
+
+    sg3DepLibFile.setSourcePath("/libraries/cec173x_sg3/templates/secureboot_LIB.X.a")
+    sg3DepLibFile.setOutputName("secureboot_LIB.a")
+    sg3DepLibFile.setDestPath("library/secureboot_LIB")
+
