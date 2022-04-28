@@ -21,10 +21,18 @@ This content can also be downloaded using content manager by following these [in
 
 | Folder     | Description                                                                    |
 | ---        | ---                                                                            |
-| apps       | Link to example applications                                                   |
+| apps       | Contains Soteria-G3 library application projects                               |
 | config     | Soteria G3 library module configuration scripts                                |
 | docs       | Soteria secureboot solution library help documentation                         |
 | libraries  | Contains Soteria secure-boot solution firmware library and dependent libraries |
+
+## Code Examples
+
+The following applications are provided to demonstrate the typical or interesting usage models of Soteria-G3.
+
+| Name | Description |
+| ---- | ----------- |
+| [Soteria-G3 library application](apps/sg3_h3_port/readme.md) | This application demonstrates the Soteria-G3 secure-boot application |
 ____
 
 [![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/cec173x_soteria_lib/blob/master/mplab_harmony_license.md)
