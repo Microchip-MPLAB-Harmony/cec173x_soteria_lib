@@ -24,7 +24,7 @@
 
 For CEC173x family of devices:
   - [MPLAB® X IDE v6.00](https://www.microchip.com/mplab/mplab-x-ide)
-  - [MPLAB® XC32 C/C++ Compiler v2.50](https://www.microchip.com/mplab/compilers)
+  - [MPLAB® XC32 C/C++ Compiler v4.00](https://www.microchip.com/mplab/compilers)
 
 ### Notes
 
