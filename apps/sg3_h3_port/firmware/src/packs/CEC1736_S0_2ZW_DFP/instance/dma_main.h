@@ -24,4 +24,8 @@
 #ifndef _CEC_DMA_MAIN_INSTANCE_
 #define _CEC_DMA_MAIN_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for DMA_MAIN peripheral ========== */
+#define DMA_MAIN_CH_NUM                          (10)       /* Number of channels */
+
 #endif /* _CEC_DMA_MAIN_INSTANCE_ */

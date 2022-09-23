@@ -203,23 +203,11 @@ void PCR_ResetEnable0 (PCR_RESET_EN0 blockId)
     PCR_REGS->PCR_RST_EN_0 |= blockIdMsk;
 }
 
-void PCR_ResetDisable0 (PCR_RESET_EN0 blockId)
-{
-    uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_0_Msk;
-    PCR_REGS->PCR_RST_EN_0 &= ~blockIdMsk;
-}
-
 
 void PCR_ResetEnable1 (PCR_RESET_EN1 blockId)
 {
     uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_1_Msk;
     PCR_REGS->PCR_RST_EN_1 |= blockIdMsk;
-}
-
-void PCR_ResetDisable1 (PCR_RESET_EN1 blockId)
-{
-    uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_1_Msk;
-    PCR_REGS->PCR_RST_EN_1 &= ~blockIdMsk;
 }
 
 
@@ -229,22 +217,10 @@ void PCR_ResetEnable3 (PCR_RESET_EN3 blockId)
     PCR_REGS->PCR_RST_EN_3 |= blockIdMsk;
 }
 
-void PCR_ResetDisable3 (PCR_RESET_EN3 blockId)
-{
-    uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_3_Msk;
-    PCR_REGS->PCR_RST_EN_3 &= ~blockIdMsk;
-}
-
 
 void PCR_ResetEnable4 (PCR_RESET_EN4 blockId)
 {
     uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_4_Msk;
     PCR_REGS->PCR_RST_EN_4 |= blockIdMsk;
-}
-
-void PCR_ResetDisable4 (PCR_RESET_EN4 blockId)
-{
-    uint32_t blockIdMsk = (uint32_t)blockId & PCR_RST_EN_4_Msk;
-    PCR_REGS->PCR_RST_EN_4 &= ~blockIdMsk;
 }
 

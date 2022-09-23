@@ -31,6 +31,7 @@ extern void GPIO113_ISR(void);
 extern void GPIO127_ISR(void);
 extern void GPIO140_ISR(void);
 extern void GPIO201_ISR(void);
+extern void qmspi_isr(uint8_t channel);
 
 static void gpio_isr(GPIO_PIN pin, uintptr_t context)
 {
@@ -72,6 +73,40 @@ static void gpio_isr(GPIO_PIN pin, uintptr_t context)
 		default:
 		break;
 	}
+}
+
+/******************************************************************************/
+/**  qmspi_isr_callback
+ *  
+ *  @return None
+ *  
+ *  @details qmspi_isr_callback is used to handle all QMSPI ISRs
+ ******************************************************************************/
+static void qmspi_isr_callback(uintptr_t context)
+{
+	if(SPI_CHANNEL_0 == context)
+	{
+        qmspi_isr( SPI_CHANNEL_0);
+	}
+
+	if(SPI_CHANNEL_1 == context)
+	{
+        qmspi_isr( SPI_CHANNEL_1);
+	}
+}
+
+/******************************************************************************/
+/**  qmspi_register_isr_handlers
+ *  
+ *  @return None
+ *  
+ *  @details qmspi_register_isr_handlers is used to register QMSPI handlers
+ *  with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
+void qmspi_register_isr_handlers(void)
+{
+	QMSPI0_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_0);
+	QMSPI1_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_1);
 }
 
 void gpio_register_isr_handlers(void)

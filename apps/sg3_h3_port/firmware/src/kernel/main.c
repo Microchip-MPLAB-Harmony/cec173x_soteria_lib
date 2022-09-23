@@ -30,6 +30,7 @@ int main(void)
 {
 	SYS_Initialize(NULL);
 	gpio_register_isr_handlers();
+	qmspi_register_isr_handlers();
 
 	if(sg3_init())
 	{

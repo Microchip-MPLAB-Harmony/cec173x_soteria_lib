@@ -24,4 +24,9 @@
 #ifndef _CEC_SMB3_INSTANCE_
 #define _CEC_SMB3_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for SMB3 peripheral ========== */
+#define SMB3_DMA_ID_TARGET                       (6)        /* device number of SMB3 DMA target trigger */
+#define SMB3_DMA_ID_HOST                         (7)        /* device number of SMB3 DMA host trigger */
+
 #endif /* _CEC_SMB3_INSTANCE_ */

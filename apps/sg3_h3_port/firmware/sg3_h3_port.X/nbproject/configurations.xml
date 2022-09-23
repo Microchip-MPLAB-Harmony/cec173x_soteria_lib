@@ -11,22 +11,56 @@
         <logicalFolder name="include" displayName="include" projectFiles="true">
           <itemPath>../src/common/include/common.h</itemPath>
           <itemPath>../src/common/include/ahb_api_mpu.h</itemPath>
+          <itemPath>../src/common/include/rom_api_mpu.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="dma" displayName="dma" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/dma/plib_dma.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
               <itemPath>../src/config/default/peripheral/ecia/plib_ecia.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
               <itemPath>../src/config/default/peripheral/gpio/plib_gpio.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
+              <logicalFolder name="master" displayName="master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb1_master.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb0_master.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb_master_common.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb2_master.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb4_master.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb3_master.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="slave" displayName="slave" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb0_slave.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb1_slave.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb_slave_common.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb2_slave.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb3_slave.h</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb4_slave.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb0_master_slave_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb1_master_slave_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smb_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb4_master_slave_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb2_master_slave_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb3_master_slave_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/default/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="pcr" displayName="pcr" projectFiles="true">
               <itemPath>../src/config/default/peripheral/pcr/plib_pcr.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi_common.h</itemPath>
+              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi1.h</itemPath>
+              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi0.h</itemPath>
             </logicalFolder>
             <logicalFolder name="uart" displayName="uart" projectFiles="true">
               <itemPath>../src/config/default/peripheral/uart/plib_uart0.h</itemPath>
@@ -47,6 +81,9 @@
         </logicalFolder>
         <logicalFolder name="interrupt" displayName="interrupt" projectFiles="true">
           <itemPath>../src/hal/interrupt/interrupt_api.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
+          <itemPath>../src/hal/qmspi/qmspi_api.h</itemPath>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>../src/hal/uart/uart_api.h</itemPath>
@@ -169,6 +206,7 @@
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
         <itemPath>../src/platform/platform.h</itemPath>
+        <itemPath>../src/platform/platform_serial_flash.h</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">
         <itemPath>../src/startup/startup.h</itemPath>
@@ -190,17 +228,47 @@
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="default" displayName="default" projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="dma" displayName="dma" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/dma/plib_dma.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
               <itemPath>../src/config/default/peripheral/ecia/plib_ecia.c</itemPath>
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
               <itemPath>../src/config/default/peripheral/gpio/plib_gpio.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
+              <logicalFolder name="master" displayName="master" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb1_master.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb0_master.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb2_master.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb4_master.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb3_master.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="slave" displayName="slave" projectFiles="true">
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb0_slave.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb1_slave.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb2_slave.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb3_slave.c</itemPath>
+                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb4_slave.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb0_master_slave_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb1_master_slave_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smb_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb4_master_slave_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb2_master_slave_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_smb3_master_slave_common.c</itemPath>
+              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/default/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="pcr" displayName="pcr" projectFiles="true">
               <itemPath>../src/config/default/peripheral/pcr/plib_pcr.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
+              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi1.c</itemPath>
+              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi0.c</itemPath>
             </logicalFolder>
             <logicalFolder name="uart" displayName="uart" projectFiles="true">
               <itemPath>../src/config/default/peripheral/uart/plib_uart0.c</itemPath>
@@ -217,6 +285,9 @@
         </logicalFolder>
         <logicalFolder name="interrupt" displayName="interrupt" projectFiles="true">
           <itemPath>../src/hal/interrupt/interrupt_api.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
+          <itemPath>../src/hal/qmspi/qmspi_api.c</itemPath>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>../src/hal/uart/uart_api.c</itemPath>
@@ -238,6 +309,7 @@
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
         <itemPath>../src/platform/irqhandler.c</itemPath>
+        <itemPath>../src/platform/platform_serial_flash.c</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">
         <itemPath>../src/startup/startup_CEC173x.S</itemPath>
@@ -261,14 +333,14 @@
         <targetDevice>CEC1736_S0_2ZW</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>pk4hybrid</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.00</languageToolchainVersion>
+        <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
+        <pack name="CEC_DFP" vendor="Microchip" version="1.7.151"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="CEC_DFP" vendor="Microchip" version="1.5.142"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

@@ -77,6 +77,7 @@ typedef enum IRQn
   Reset_IRQn                = -15, /* -15 Reset Vector, invoked on Power up and warm reset */
   NonMaskableInt_IRQn       = -14, /* -14 Non maskable Interrupt, cannot be stopped or preempted */
   HardFault_IRQn            = -13, /* -13 Hard Fault, all classes of Fault    */
+  MemMgnt_IRQn              = -12, /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
   BusFault_IRQn             = -11, /* -11 Bus Fault, Pre-Fetch-, Memory Access Fault, other address/memory related Fault */
   UsageFault_IRQn           = -10, /* -10 Usage Fault, i.e. Undef Instruction, Illegal State Transition */
   SVCall_IRQn               =  -5, /* -5  System Service Call via SVC instruction */
@@ -172,7 +173,7 @@ typedef struct _DeviceVectors
   void* pfnReset_Handler;                        /* -15 Reset Vector, invoked on Power up and warm reset */
   void* pfnNonMaskableInt_Handler;               /* -14 Non maskable Interrupt, cannot be stopped or preempted */
   void* pfnHardFault_Handler;                    /* -13 Hard Fault, all classes of Fault */
-  void* pvReservedC12;
+  void* pfnMemMgnt_Handler;                      /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
   void* pfnBusFault_Handler;                     /* -11 Bus Fault, Pre-Fetch-, Memory Access Fault, other address/memory related Fault */
   void* pfnUsageFault_Handler;                   /* -10 Usage Fault, i.e. Undef Instruction, Illegal State Transition */
   void* pvReservedC9;
@@ -392,6 +393,7 @@ typedef struct _DeviceVectors
 void Reset_Handler                 ( void );
 void NonMaskableInt_Handler        ( void );
 void HardFault_Handler             ( void );
+void MemMgnt_Handler               ( void );
 void BusFault_Handler              ( void );
 void UsageFault_Handler            ( void );
 void SVCall_Handler                ( void );

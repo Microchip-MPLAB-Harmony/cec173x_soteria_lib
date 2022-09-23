@@ -24,4 +24,9 @@
 #ifndef _CEC_QMSPI0_INSTANCE_
 #define _CEC_QMSPI0_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for QMSPI0 peripheral ========== */
+#define QMSPI0_DMA_ID_TX                         (10)       /* device number of DMA TX trigger */
+#define QMSPI0_DMA_ID_RX                         (11)       /* device number of DMA RX trigger */
+
 #endif /* _CEC_QMSPI0_INSTANCE_ */

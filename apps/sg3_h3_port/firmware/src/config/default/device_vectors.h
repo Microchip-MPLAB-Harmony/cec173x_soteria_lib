@@ -59,7 +59,7 @@
 typedef void (*pfn_handler_t)(void);
 
 /* Structure defining device vector types */
-typedef struct _H3DeviceVectors
+typedef struct H3DeviceVectorsTag
 {
   /* Stack pointer */
   uint32_t* pvStack;
@@ -68,7 +68,7 @@ typedef struct _H3DeviceVectors
   pfn_handler_t pfnReset_Handler;                   /* -15 Reset Vector, invoked on Power up and warm reset */
   pfn_handler_t pfnNonMaskableInt_Handler;          /* -14 Non maskable Interrupt, cannot be stopped or preempted */
   pfn_handler_t pfnHardFault_Handler;               /* -13 Hard Fault, all classes of Fault */
-  pfn_handler_t pfnReservedC12;
+  pfn_handler_t pfnMemMgnt_Handler;                 /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
   pfn_handler_t pfnBusFault_Handler;                /* -11 Bus Fault, Pre-Fetch-, Memory Access Fault, other address/memory related Fault */
   pfn_handler_t pfnUsageFault_Handler;              /* -10 Usage Fault, i.e. Undef Instruction, Illegal State Transition */
   pfn_handler_t pfnReservedC9;

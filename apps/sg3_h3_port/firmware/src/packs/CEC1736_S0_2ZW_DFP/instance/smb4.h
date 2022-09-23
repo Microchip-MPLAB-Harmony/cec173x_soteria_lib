@@ -24,4 +24,9 @@
 #ifndef _CEC_SMB4_INSTANCE_
 #define _CEC_SMB4_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for SMB4 peripheral ========== */
+#define SMB4_DMA_ID_TARGET                       (8)        /* device number of SMB4 DMA target trigger */
+#define SMB4_DMA_ID_HOST                         (9)        /* device number of SMB4 DMA host trigger */
+
 #endif /* _CEC_SMB4_INSTANCE_ */

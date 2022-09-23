@@ -41,13 +41,13 @@
 
 
 /* -------- GCR_DEV_SUBID : (GCR Offset: 0x1D) ( R/ 8) A read-only register which provides device sub ID information. -------- */
-#define GCR_DEV_SUBID_RESETVALUE              _UINT8_(0x41)                                        /*  (GCR_DEV_SUBID) A read-only register which provides device sub ID information.  Reset Value */
+#define GCR_DEV_SUBID_RESETVALUE              _UINT8_(0x52)                                        /*  (GCR_DEV_SUBID) A read-only register which provides device sub ID information.  Reset Value */
 
 #define GCR_DEV_SUBID_Msk                     _UINT8_(0x00)                                        /* (GCR_DEV_SUBID) Register Mask  */
 
 
 /* -------- GCR_DEV_ID : (GCR Offset: 0x1E) ( R/ 16) A read-only register which provides device identification LSB. -------- */
-#define GCR_DEV_ID_RESETVALUE                 _UINT16_(0x23)                                       /*  (GCR_DEV_ID) A read-only register which provides device identification LSB.  Reset Value */
+#define GCR_DEV_ID_RESETVALUE                 _UINT16_(0x24)                                       /*  (GCR_DEV_ID) A read-only register which provides device identification LSB.  Reset Value */
 
 #define GCR_DEV_ID_Msk                        _UINT16_(0x0000)                                     /* (GCR_DEV_ID) Register Mask  */
 

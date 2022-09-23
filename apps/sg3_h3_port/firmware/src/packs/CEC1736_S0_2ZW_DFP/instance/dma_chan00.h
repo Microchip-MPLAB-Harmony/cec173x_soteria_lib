@@ -24,4 +24,8 @@
 #ifndef _CEC_DMA_CHAN00_INSTANCE_
 #define _CEC_DMA_CHAN00_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for DMA_CHAN00 peripheral ========== */
+#define DMA_CHAN00_CRC_ENGINE_PRESENT            (1)        /* CRC engine present */
+
 #endif /* _CEC_DMA_CHAN00_INSTANCE_ */

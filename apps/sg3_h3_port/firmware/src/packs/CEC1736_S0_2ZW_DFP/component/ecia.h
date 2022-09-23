@@ -2056,16 +2056,16 @@
 #define ECIA_SRC24_SPIMON0_LTMON_Pos          _UINT32_(2)                                          /* (ECIA_SRC24) SPIMON0_LTMON Position */
 #define ECIA_SRC24_SPIMON0_LTMON_Msk          (_UINT32_(0x1) << ECIA_SRC24_SPIMON0_LTMON_Pos)      /* (ECIA_SRC24) SPIMON0_LTMON Mask */
 #define ECIA_SRC24_SPIMON0_LTMON(value)       (ECIA_SRC24_SPIMON0_LTMON_Msk & (_UINT32_(value) << ECIA_SRC24_SPIMON0_LTMON_Pos)) /* Assigment of value for SPIMON0_LTMON in the ECIA_SRC24 register */
-#define ECIA_SRC24_SPIMON1_VLTN_Pos           _UINT32_(3)                                          /* (ECIA_SRC24) SPIMON1_VLTN Position */
+#define ECIA_SRC24_SPIMON1_VLTN_Pos           _UINT32_(4)                                          /* (ECIA_SRC24) SPIMON1_VLTN Position */
 #define ECIA_SRC24_SPIMON1_VLTN_Msk           (_UINT32_(0x1) << ECIA_SRC24_SPIMON1_VLTN_Pos)       /* (ECIA_SRC24) SPIMON1_VLTN Mask */
 #define ECIA_SRC24_SPIMON1_VLTN(value)        (ECIA_SRC24_SPIMON1_VLTN_Msk & (_UINT32_(value) << ECIA_SRC24_SPIMON1_VLTN_Pos)) /* Assigment of value for SPIMON1_VLTN in the ECIA_SRC24 register */
-#define ECIA_SRC24_SPIMON1_MTMON_Pos          _UINT32_(4)                                          /* (ECIA_SRC24) SPIMON1_MTMON Position */
+#define ECIA_SRC24_SPIMON1_MTMON_Pos          _UINT32_(5)                                          /* (ECIA_SRC24) SPIMON1_MTMON Position */
 #define ECIA_SRC24_SPIMON1_MTMON_Msk          (_UINT32_(0x1) << ECIA_SRC24_SPIMON1_MTMON_Pos)      /* (ECIA_SRC24) SPIMON1_MTMON Mask */
 #define ECIA_SRC24_SPIMON1_MTMON(value)       (ECIA_SRC24_SPIMON1_MTMON_Msk & (_UINT32_(value) << ECIA_SRC24_SPIMON1_MTMON_Pos)) /* Assigment of value for SPIMON1_MTMON in the ECIA_SRC24 register */
-#define ECIA_SRC24_SPIMON1_LTMON_Pos          _UINT32_(5)                                          /* (ECIA_SRC24) SPIMON1_LTMON Position */
+#define ECIA_SRC24_SPIMON1_LTMON_Pos          _UINT32_(6)                                          /* (ECIA_SRC24) SPIMON1_LTMON Position */
 #define ECIA_SRC24_SPIMON1_LTMON_Msk          (_UINT32_(0x1) << ECIA_SRC24_SPIMON1_LTMON_Pos)      /* (ECIA_SRC24) SPIMON1_LTMON Mask */
 #define ECIA_SRC24_SPIMON1_LTMON(value)       (ECIA_SRC24_SPIMON1_LTMON_Msk & (_UINT32_(value) << ECIA_SRC24_SPIMON1_LTMON_Pos)) /* Assigment of value for SPIMON1_LTMON in the ECIA_SRC24 register */
-#define ECIA_SRC24_Msk                        _UINT32_(0x0000003F)                                 /* (ECIA_SRC24) Register Mask  */
+#define ECIA_SRC24_Msk                        _UINT32_(0x00000077)                                 /* (ECIA_SRC24) Register Mask  */
 
 
 /* -------- ECIA_EN_SET24 : (ECIA Offset: 0x144) (R/W 32) GIRQ24 ENABLE SET -------- */
@@ -2080,16 +2080,16 @@
 #define ECIA_EN_SET24_SPIMON0_LTMON_Pos       _UINT32_(2)                                          /* (ECIA_EN_SET24) SPIMON0_LTMON Position */
 #define ECIA_EN_SET24_SPIMON0_LTMON_Msk       (_UINT32_(0x1) << ECIA_EN_SET24_SPIMON0_LTMON_Pos)   /* (ECIA_EN_SET24) SPIMON0_LTMON Mask */
 #define ECIA_EN_SET24_SPIMON0_LTMON(value)    (ECIA_EN_SET24_SPIMON0_LTMON_Msk & (_UINT32_(value) << ECIA_EN_SET24_SPIMON0_LTMON_Pos)) /* Assigment of value for SPIMON0_LTMON in the ECIA_EN_SET24 register */
-#define ECIA_EN_SET24_SPIMON1_VLTN_Pos        _UINT32_(3)                                          /* (ECIA_EN_SET24) SPIMON1_VLTN Position */
+#define ECIA_EN_SET24_SPIMON1_VLTN_Pos        _UINT32_(4)                                          /* (ECIA_EN_SET24) SPIMON1_VLTN Position */
 #define ECIA_EN_SET24_SPIMON1_VLTN_Msk        (_UINT32_(0x1) << ECIA_EN_SET24_SPIMON1_VLTN_Pos)    /* (ECIA_EN_SET24) SPIMON1_VLTN Mask */
 #define ECIA_EN_SET24_SPIMON1_VLTN(value)     (ECIA_EN_SET24_SPIMON1_VLTN_Msk & (_UINT32_(value) << ECIA_EN_SET24_SPIMON1_VLTN_Pos)) /* Assigment of value for SPIMON1_VLTN in the ECIA_EN_SET24 register */
-#define ECIA_EN_SET24_SPIMON1_MTMON_Pos       _UINT32_(4)                                          /* (ECIA_EN_SET24) SPIMON1_MTMON Position */
+#define ECIA_EN_SET24_SPIMON1_MTMON_Pos       _UINT32_(5)                                          /* (ECIA_EN_SET24) SPIMON1_MTMON Position */
 #define ECIA_EN_SET24_SPIMON1_MTMON_Msk       (_UINT32_(0x1) << ECIA_EN_SET24_SPIMON1_MTMON_Pos)   /* (ECIA_EN_SET24) SPIMON1_MTMON Mask */
 #define ECIA_EN_SET24_SPIMON1_MTMON(value)    (ECIA_EN_SET24_SPIMON1_MTMON_Msk & (_UINT32_(value) << ECIA_EN_SET24_SPIMON1_MTMON_Pos)) /* Assigment of value for SPIMON1_MTMON in the ECIA_EN_SET24 register */
-#define ECIA_EN_SET24_SPIMON1_LTMON_Pos       _UINT32_(5)                                          /* (ECIA_EN_SET24) SPIMON1_LTMON Position */
+#define ECIA_EN_SET24_SPIMON1_LTMON_Pos       _UINT32_(6)                                          /* (ECIA_EN_SET24) SPIMON1_LTMON Position */
 #define ECIA_EN_SET24_SPIMON1_LTMON_Msk       (_UINT32_(0x1) << ECIA_EN_SET24_SPIMON1_LTMON_Pos)   /* (ECIA_EN_SET24) SPIMON1_LTMON Mask */
 #define ECIA_EN_SET24_SPIMON1_LTMON(value)    (ECIA_EN_SET24_SPIMON1_LTMON_Msk & (_UINT32_(value) << ECIA_EN_SET24_SPIMON1_LTMON_Pos)) /* Assigment of value for SPIMON1_LTMON in the ECIA_EN_SET24 register */
-#define ECIA_EN_SET24_Msk                     _UINT32_(0x0000003F)                                 /* (ECIA_EN_SET24) Register Mask  */
+#define ECIA_EN_SET24_Msk                     _UINT32_(0x00000077)                                 /* (ECIA_EN_SET24) Register Mask  */
 
 
 /* -------- ECIA_RESULT24 : (ECIA Offset: 0x148) ( R/ 32) GIRQ24 RESULT -------- */
@@ -2104,16 +2104,16 @@
 #define ECIA_RESULT24_SPIMON0_LTMON_Pos       _UINT32_(2)                                          /* (ECIA_RESULT24) SPIMON0_LTMON Position */
 #define ECIA_RESULT24_SPIMON0_LTMON_Msk       (_UINT32_(0x1) << ECIA_RESULT24_SPIMON0_LTMON_Pos)   /* (ECIA_RESULT24) SPIMON0_LTMON Mask */
 #define ECIA_RESULT24_SPIMON0_LTMON(value)    (ECIA_RESULT24_SPIMON0_LTMON_Msk & (_UINT32_(value) << ECIA_RESULT24_SPIMON0_LTMON_Pos)) /* Assigment of value for SPIMON0_LTMON in the ECIA_RESULT24 register */
-#define ECIA_RESULT24_SPIMON1_VLTN_Pos        _UINT32_(3)                                          /* (ECIA_RESULT24) SPIMON1_VLTN Position */
+#define ECIA_RESULT24_SPIMON1_VLTN_Pos        _UINT32_(4)                                          /* (ECIA_RESULT24) SPIMON1_VLTN Position */
 #define ECIA_RESULT24_SPIMON1_VLTN_Msk        (_UINT32_(0x1) << ECIA_RESULT24_SPIMON1_VLTN_Pos)    /* (ECIA_RESULT24) SPIMON1_VLTN Mask */
 #define ECIA_RESULT24_SPIMON1_VLTN(value)     (ECIA_RESULT24_SPIMON1_VLTN_Msk & (_UINT32_(value) << ECIA_RESULT24_SPIMON1_VLTN_Pos)) /* Assigment of value for SPIMON1_VLTN in the ECIA_RESULT24 register */
-#define ECIA_RESULT24_SPIMON1_MTMON_Pos       _UINT32_(4)                                          /* (ECIA_RESULT24) SPIMON1_MTMON Position */
+#define ECIA_RESULT24_SPIMON1_MTMON_Pos       _UINT32_(5)                                          /* (ECIA_RESULT24) SPIMON1_MTMON Position */
 #define ECIA_RESULT24_SPIMON1_MTMON_Msk       (_UINT32_(0x1) << ECIA_RESULT24_SPIMON1_MTMON_Pos)   /* (ECIA_RESULT24) SPIMON1_MTMON Mask */
 #define ECIA_RESULT24_SPIMON1_MTMON(value)    (ECIA_RESULT24_SPIMON1_MTMON_Msk & (_UINT32_(value) << ECIA_RESULT24_SPIMON1_MTMON_Pos)) /* Assigment of value for SPIMON1_MTMON in the ECIA_RESULT24 register */
-#define ECIA_RESULT24_SPIMON1_LTMON_Pos       _UINT32_(5)                                          /* (ECIA_RESULT24) SPIMON1_LTMON Position */
+#define ECIA_RESULT24_SPIMON1_LTMON_Pos       _UINT32_(6)                                          /* (ECIA_RESULT24) SPIMON1_LTMON Position */
 #define ECIA_RESULT24_SPIMON1_LTMON_Msk       (_UINT32_(0x1) << ECIA_RESULT24_SPIMON1_LTMON_Pos)   /* (ECIA_RESULT24) SPIMON1_LTMON Mask */
 #define ECIA_RESULT24_SPIMON1_LTMON(value)    (ECIA_RESULT24_SPIMON1_LTMON_Msk & (_UINT32_(value) << ECIA_RESULT24_SPIMON1_LTMON_Pos)) /* Assigment of value for SPIMON1_LTMON in the ECIA_RESULT24 register */
-#define ECIA_RESULT24_Msk                     _UINT32_(0x0000003F)                                 /* (ECIA_RESULT24) Register Mask  */
+#define ECIA_RESULT24_Msk                     _UINT32_(0x00000077)                                 /* (ECIA_RESULT24) Register Mask  */
 
 
 /* -------- ECIA_EN_CLR24 : (ECIA Offset: 0x14C) (R/W 32) GIRQ24 ENABLE CLEAR -------- */
@@ -2128,16 +2128,16 @@
 #define ECIA_EN_CLR24_SPIMON0_LTMON_Pos       _UINT32_(2)                                          /* (ECIA_EN_CLR24) SPIMON0_LTMON Position */
 #define ECIA_EN_CLR24_SPIMON0_LTMON_Msk       (_UINT32_(0x1) << ECIA_EN_CLR24_SPIMON0_LTMON_Pos)   /* (ECIA_EN_CLR24) SPIMON0_LTMON Mask */
 #define ECIA_EN_CLR24_SPIMON0_LTMON(value)    (ECIA_EN_CLR24_SPIMON0_LTMON_Msk & (_UINT32_(value) << ECIA_EN_CLR24_SPIMON0_LTMON_Pos)) /* Assigment of value for SPIMON0_LTMON in the ECIA_EN_CLR24 register */
-#define ECIA_EN_CLR24_SPIMON1_VLTN_Pos        _UINT32_(3)                                          /* (ECIA_EN_CLR24) SPIMON1_VLTN Position */
+#define ECIA_EN_CLR24_SPIMON1_VLTN_Pos        _UINT32_(4)                                          /* (ECIA_EN_CLR24) SPIMON1_VLTN Position */
 #define ECIA_EN_CLR24_SPIMON1_VLTN_Msk        (_UINT32_(0x1) << ECIA_EN_CLR24_SPIMON1_VLTN_Pos)    /* (ECIA_EN_CLR24) SPIMON1_VLTN Mask */
 #define ECIA_EN_CLR24_SPIMON1_VLTN(value)     (ECIA_EN_CLR24_SPIMON1_VLTN_Msk & (_UINT32_(value) << ECIA_EN_CLR24_SPIMON1_VLTN_Pos)) /* Assigment of value for SPIMON1_VLTN in the ECIA_EN_CLR24 register */
-#define ECIA_EN_CLR24_SPIMON1_MTMON_Pos       _UINT32_(4)                                          /* (ECIA_EN_CLR24) SPIMON1_MTMON Position */
+#define ECIA_EN_CLR24_SPIMON1_MTMON_Pos       _UINT32_(5)                                          /* (ECIA_EN_CLR24) SPIMON1_MTMON Position */
 #define ECIA_EN_CLR24_SPIMON1_MTMON_Msk       (_UINT32_(0x1) << ECIA_EN_CLR24_SPIMON1_MTMON_Pos)   /* (ECIA_EN_CLR24) SPIMON1_MTMON Mask */
 #define ECIA_EN_CLR24_SPIMON1_MTMON(value)    (ECIA_EN_CLR24_SPIMON1_MTMON_Msk & (_UINT32_(value) << ECIA_EN_CLR24_SPIMON1_MTMON_Pos)) /* Assigment of value for SPIMON1_MTMON in the ECIA_EN_CLR24 register */
-#define ECIA_EN_CLR24_SPIMON1_LTMON_Pos       _UINT32_(5)                                          /* (ECIA_EN_CLR24) SPIMON1_LTMON Position */
+#define ECIA_EN_CLR24_SPIMON1_LTMON_Pos       _UINT32_(6)                                          /* (ECIA_EN_CLR24) SPIMON1_LTMON Position */
 #define ECIA_EN_CLR24_SPIMON1_LTMON_Msk       (_UINT32_(0x1) << ECIA_EN_CLR24_SPIMON1_LTMON_Pos)   /* (ECIA_EN_CLR24) SPIMON1_LTMON Mask */
 #define ECIA_EN_CLR24_SPIMON1_LTMON(value)    (ECIA_EN_CLR24_SPIMON1_LTMON_Msk & (_UINT32_(value) << ECIA_EN_CLR24_SPIMON1_LTMON_Pos)) /* Assigment of value for SPIMON1_LTMON in the ECIA_EN_CLR24 register */
-#define ECIA_EN_CLR24_Msk                     _UINT32_(0x0000003F)                                 /* (ECIA_EN_CLR24) Register Mask  */
+#define ECIA_EN_CLR24_Msk                     _UINT32_(0x00000077)                                 /* (ECIA_EN_CLR24) Register Mask  */
 
 
 /* -------- ECIA_SRC25 : (ECIA Offset: 0x154) (R/W 32) GIRQ25 SOURCE -------- */

@@ -1,4 +1,33 @@
 Description:
+	Build 0600:
+		1. Baselining for M2 release
+		2. Upgraded to DFP v1.7.151
+
+		Total Program Memory used  :     0x33c28      212008  92.4% of 0x38000
+		Total Data Memory used     :     0x23d78      146808  94.3% of 0x26000
+
+	Build 0505:
+		1. Moved to XC32 v4.10
+		2. Upgraded to DFP v1.6.149
+		
+		Total Program Memory used  :     0x33c28      212008  92.4% of 0x38000
+		Total Data Memory used     :     0x23d78      146808  94.3% of 0x26000
+
+	Build 0504:
+		1. H3 I2C/SMBUS low level plib integration
+		
+		Total Program Memory used  :     0x340a8      213160  92.9% of 0x38000
+		Total Data Memory used     :     0x23d24      146724  94.3% of 0x26000
+
+	Build 0503:
+		1. H3 DMA plib integration
+
+	Build 0502:
+		1. H3 QMSPI plib integration
+
+	Build 0501:
+		1. Updated linker script
+
 	Build 0500:
 		1. Baselining for M1 release
 
@@ -104,7 +133,7 @@ Description:
 		3. Secureboot application included in project as a libarary
 		
 	*******************************************************************************
-	****************XC32 Compiler version 2.50
+	****************XC32 Compiler version 4.10
 	****************MPLABX IDE Version 6.00
 	******************************************************************************
 Options:    unlocked

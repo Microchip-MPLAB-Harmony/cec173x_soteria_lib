@@ -24,4 +24,8 @@
 #ifndef _CEC_DMA_CHAN01_INSTANCE_
 #define _CEC_DMA_CHAN01_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for DMA_CHAN01 peripheral ========== */
+#define DMA_CHAN01_FILL_ENGINE_PRESENT           (1)        /* Fill engine present */
+
 #endif /* _CEC_DMA_CHAN01_INSTANCE_ */

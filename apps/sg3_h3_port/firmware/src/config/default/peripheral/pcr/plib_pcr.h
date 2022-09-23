@@ -317,13 +317,9 @@ void PCR_PrivilegeEnable4 (PCR_PRIV_EN4 blockId);
 void PCR_PrivilegeDisable4 (PCR_PRIV_EN4 blockId);
 
 void PCR_ResetEnable0 (PCR_RESET_EN0 blockId);
-void PCR_ResetDisable0 (PCR_RESET_EN0 blockId);
 void PCR_ResetEnable1 (PCR_RESET_EN1 blockId);
-void PCR_ResetDisable1 (PCR_RESET_EN1 blockId);
 void PCR_ResetEnable3 (PCR_RESET_EN3 blockId);
-void PCR_ResetDisable3 (PCR_RESET_EN3 blockId);
 void PCR_ResetEnable4 (PCR_RESET_EN4 blockId);
-void PCR_ResetDisable4 (PCR_RESET_EN4 blockId);
 
 
 #ifdef __cplusplus // Provide C++ Compatibility

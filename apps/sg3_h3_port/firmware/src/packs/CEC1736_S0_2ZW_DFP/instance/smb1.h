@@ -24,4 +24,9 @@
 #ifndef _CEC_SMB1_INSTANCE_
 #define _CEC_SMB1_INSTANCE_
 
+
+/* ========== Instance Parameter definitions for SMB1 peripheral ========== */
+#define SMB1_DMA_ID_TARGET                       (2)        /* device number of SMB1 DMA target trigger */
+#define SMB1_DMA_ID_HOST                         (3)        /* device number of SMB1 DMA host trigger */
+
 #endif /* _CEC_SMB1_INSTANCE_ */

@@ -104,6 +104,8 @@
 
 void SYS_Initialize ( void* data )
 {
+    /* MISRAC 2012 deviation block start */
+    /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
 
   
     GPIO_Initialize();
@@ -113,8 +115,24 @@ void SYS_Initialize ( void* data )
 
 
 
+    QMSPI0_Initialize();
+
+    I2CSMB4_Initialize();
+    
+    I2CSMB3_Initialize();
+    
+    QMSPI1_Initialize();
+
+    I2CSMB0_Initialize();
+    
 	UART0_Initialize();
 
+    DMA_Initialize();
+
+    I2CSMB2_Initialize();
+    
+    I2CSMB1_Initialize();
+    
 
 
 
@@ -122,6 +140,7 @@ void SYS_Initialize ( void* data )
     ECIA_Initialize();
     NVIC_Initialize();
 
+    /* MISRAC 2012 deviation block end */
 }
 
 

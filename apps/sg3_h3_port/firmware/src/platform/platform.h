@@ -75,6 +75,7 @@ extern "C" {
 #define MAX_IRQn (PERIPH_MAX_IRQn + 1)
 
 void gpio_register_isr_handlers(void);
+void qmspi_register_isr_handlers(void);
 
 #ifdef __cplusplus
 }

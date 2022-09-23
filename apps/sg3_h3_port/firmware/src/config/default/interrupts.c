@@ -54,17 +54,13 @@
 #include "definitions.h"
 
 
-extern void GIRQ13_Handler( void );
-extern void GIRQ14_Handler( void );
-extern void GIRQ18_Handler( void );
-extern void GIRQ24_Handler( void );
-extern void SVC_Handler( void );
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
 
+/* MISRA C-2012 Rule 8.6 deviated below. Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 extern uint32_t _stack;
 extern const H3DeviceVectors exception_table;
 
@@ -80,10 +76,15 @@ void __attribute__((optimize("-O1"),section(".text.Dummy_Handler"),long_call, no
     {
     }
 }
+
+/* MISRAC 2012 deviation block start */
+/* MISRA C-2012 Rule 8.6 deviated 68 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
 extern void BusFault_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void UsageFault_Handler         ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void MemMgnt_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void SVC_Handler                ( void );
 extern void DebugMonitor_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void SysTick_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -93,6 +94,7 @@ extern void GIRQ17_Handler             ( void ) __attribute__((weak, alias("Dumm
 extern void GIRQ20_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ21_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ23_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void GIRQ24_Handler             ( void );
 extern void GIRQ26_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void I2CSMB0_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void I2CSMB1_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -151,8 +153,11 @@ extern void SPIMON1_MTMON_Handler      ( void ) __attribute__((weak, alias("Dumm
 extern void SPIMON1_LTMON_Handler      ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void VTR1_PAD_MON_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void VTR2_PAD_MON_Handler       ( void ) __attribute__((weak, alias("Dummy_Handler")));
+extern void smb_isr                    ( void );
+extern void smb_dma_isr                ( void );
 
 
+/* MISRAC 2012 deviation block end */
 
 /* Multiple handlers for vector */
 static void GIRQ08_Handler( void )
@@ -185,42 +190,49 @@ static void GIRQ12_Handler( void )
 {
     GPIO201_GRP_InterruptHandler();
 }
-#if 0 /* Will be enabled after module support is available in H3 */
+
 static void GIRQ13_Handler( void )
 {
-    I2CSMB0_GRP_Handler();
-    I2CSMB1_GRP_Handler();
-    I2CSMB2_GRP_Handler();
-    I2CSMB3_GRP_Handler();
-    I2CSMB4_GRP_Handler();
+    // I2CSMB0_GRP_InterruptHandler();
+    // I2CSMB1_GRP_InterruptHandler();
+    // I2CSMB2_GRP_InterruptHandler();
+    // I2CSMB3_GRP_InterruptHandler();
+    // I2CSMB4_GRP_InterruptHandler();
+    //smb interrupts    
+    smb_isr();
 }
 
 static void GIRQ14_Handler( void )
 {
-    DMA_CH00_GRP_Handler();
-    DMA_CH01_GRP_Handler();
-    DMA_CH02_GRP_Handler();
-    DMA_CH03_GRP_Handler();
-    DMA_CH04_GRP_Handler();
-    DMA_CH05_GRP_Handler();
-    DMA_CH06_GRP_Handler();
-    DMA_CH07_GRP_Handler();
-    DMA_CH08_GRP_Handler();
-    DMA_CH09_GRP_Handler();
+    // DMA_CH00_GRP_InterruptHandler();
+    // DMA_CH01_GRP_InterruptHandler();
+    // DMA_CH02_GRP_InterruptHandler();
+    // DMA_CH03_GRP_InterruptHandler();
+    // DMA_CH04_GRP_InterruptHandler();
+    // DMA_CH05_GRP_InterruptHandler();
+    // DMA_CH06_GRP_InterruptHandler();
+    // DMA_CH07_GRP_InterruptHandler();
+    // DMA_CH08_GRP_InterruptHandler();
+    // DMA_CH09_GRP_InterruptHandler();
+    //dma interrupts    
+    smb_dma_isr();  
 }
 
 static void GIRQ18_Handler( void )
 {
-    QMSPI0_GRP_Handler();
-    QMSPI1_GRP_Handler();
+    QMSPI0_GRP_InterruptHandler();
+    QMSPI1_GRP_InterruptHandler();
 }
 
+#if 0
 static void GIRQ24_Handler( void )
 {
     SPIMON0_VLTN_GRP_Handler();
     SPIMON0_MTMON_GRP_Handler();
     SPIMON0_LTMON_GRP_Handler();
     SPIMON1_VLTN_GRP_Handler();
+    SPIMON1_MTMON_GRP_Handler();
+    SPIMON1_LTMON_GRP_Handler();
 }
 #endif
 
@@ -236,6 +248,7 @@ const H3DeviceVectors exception_table=
     .pfnReset_Handler              = Reset_Handler,
     .pfnNonMaskableInt_Handler     = NonMaskableInt_Handler,
     .pfnHardFault_Handler          = HardFault_Handler,
+    .pfnMemMgnt_Handler            = MemMgnt_Handler,
     .pfnBusFault_Handler           = BusFault_Handler,
     .pfnUsageFault_Handler         = UsageFault_Handler,
     .pfnSVCall_Handler             = SVC_Handler,
@@ -281,8 +294,8 @@ const H3DeviceVectors exception_table=
     .pfnLED0_Handler               = LED0_Handler,
     .pfnLED1_Handler               = LED1_Handler,
     .pfnSPT0_Handler               = SPT0_Handler,
-    .pfnQMSPI0_Handler             = QMSPI0_Handler,
-    .pfnQMSPI1_Handler             = QMSPI1_Handler,
+    .pfnQMSPI0_Handler             = QMSPI0_GRP_InterruptHandler,
+    .pfnQMSPI1_Handler             = QMSPI1_GRP_InterruptHandler,
     .pfnRTMR_Handler               = RTMR_Handler,
     .pfnHTMR0_Handler              = HTMR0_Handler,
     .pfnHTMR1_Handler              = HTMR1_Handler,

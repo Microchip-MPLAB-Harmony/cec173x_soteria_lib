@@ -29,13 +29,19 @@
 #include "trace.h"
 
 #include "peripheral/gpio/plib_gpio.h"
+#include "peripheral/qmspi/plib_qmspi_common.h"
+#include "peripheral/qmspi/plib_qmspi0.h"
+#include "peripheral/qmspi/plib_qmspi1.h"
 #include "interrupt/interrupt_api.h"
 #include "gpio/gpio_api.h"
 #include "uart/uart_api.h"
+#include "qmspi/qmspi_api.h"
 
 #include "ahb_api_mpu.h"
+#include "rom_api_mpu.h"
 
 #include "platform.h"
+#include "platform_serial_flash.h"
 
 #ifdef __cplusplus
 extern "C" {
