@@ -21,10 +21,14 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *****************************************************************************"""
+def destroyComponent(sg3LibComponent):
+    Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":False})
 
 def instantiateComponent(sg3LibComponent):
 
     global sg3InstanceName
+
+    Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":True})
 
     sg3InstanceName = sg3LibComponent.createStringSymbol("SG3_INSTANCE_NAME", None)
     sg3InstanceName.setVisible(False)
