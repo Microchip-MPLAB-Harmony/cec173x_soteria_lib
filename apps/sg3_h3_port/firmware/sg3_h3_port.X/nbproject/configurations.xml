@@ -9,70 +9,72 @@
           <itemPath>../src/common/debug/trace.h</itemPath>
         </logicalFolder>
         <logicalFolder name="include" displayName="include" projectFiles="true">
-          <itemPath>../src/common/include/common.h</itemPath>
           <itemPath>../src/common/include/ahb_api_mpu.h</itemPath>
           <itemPath>../src/common/include/rom_api_mpu.h</itemPath>
+          <itemPath>../src/common/include/common.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="default" displayName="default" projectFiles="true">
+        <logicalFolder name="cec1736_s0_2zw_ev19k07a"
+                       displayName="cec1736_s0_2zw_ev19k07a"
+                       projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/dma/plib_dma.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/ecia/plib_ecia.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ecia/plib_ecia.h</itemPath>
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/gpio/plib_gpio.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/gpio/plib_gpio.h</itemPath>
             </logicalFolder>
             <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
               <logicalFolder name="master" displayName="master" projectFiles="true">
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb1_master.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb0_master.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb_master_common.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb2_master.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb4_master.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb3_master.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb_master_common.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb0_master.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb4_master.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb2_master.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb1_master.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb3_master.h</itemPath>
               </logicalFolder>
               <logicalFolder name="slave" displayName="slave" projectFiles="true">
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb0_slave.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb1_slave.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb_slave_common.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb2_slave.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb3_slave.h</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb4_slave.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb3_slave.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb4_slave.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb0_slave.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb_slave_common.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb1_slave.h</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb2_slave.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb0_master_slave_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb1_master_slave_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smb_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb4_master_slave_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb2_master_slave_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb3_master_slave_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb0_master_slave_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb1_master_slave_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_i2c_smb_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb3_master_slave_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb2_master_slave_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb4_master_slave_common.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/nvic/plib_nvic.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="pcr" displayName="pcr" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/pcr/plib_pcr.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/pcr/plib_pcr.h</itemPath>
             </logicalFolder>
             <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi_common.h</itemPath>
-              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi1.h</itemPath>
-              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi0.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/qmspi/plib_qmspi_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/qmspi/plib_qmspi1.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/qmspi/plib_qmspi0.h</itemPath>
             </logicalFolder>
             <logicalFolder name="uart" displayName="uart" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/uart/plib_uart0.h</itemPath>
-              <itemPath>../src/config/default/peripheral/uart/plib_uart_common.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/uart/plib_uart0.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/uart/plib_uart_common.h</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <itemPath>../src/config/default/device_cache.h</itemPath>
-          <itemPath>../src/config/default/device_vectors.h</itemPath>
-          <itemPath>../src/config/default/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/default/device.h</itemPath>
-          <itemPath>../src/config/default/definitions.h</itemPath>
-          <itemPath>../src/config/default/interrupts.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/device_cache.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/device.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/interrupts.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/definitions.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/device_vectors.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
@@ -108,77 +110,77 @@
                        displayName="CEC1736_S0_2ZW_DFP"
                        projectFiles="true">
           <logicalFolder name="component" displayName="component" projectFiles="true">
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/qmspi.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/led.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/gpio.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/otp.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/spi_mon.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/ecia.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/imspi.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_chan01.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/qmspi.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/pcr.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/wdt.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/ec_reg_bank.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/spt.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/gcr.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/led.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_chan02.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_main.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/imspi.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/tfdp.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/htm.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/cct.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/timer32.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/pwm.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/ecia.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/spi_mon.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/tfdp.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/env_mon.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/htm.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/smb.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_chan00.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/wdt.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/cct.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/pcr.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/gcr.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/spt.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/rtos.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_chan01.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/ec_reg_bank.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/vtr_reg_bank.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/rtos.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/gpio.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/smb.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/env_mon.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/component/dma_chan00.h</itemPath>
           </logicalFolder>
           <logicalFolder name="instance" displayName="instance" projectFiles="true">
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan01.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan05.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb3.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan09.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spi_mon0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_main.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/ecia.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/cct.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/timer32_0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/led1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan00.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb2.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spt0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan04.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan08.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/gcr.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/pcr.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/htm0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/wdt.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/timer32_1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan03.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan07.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spt1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/uart0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/tfdp.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/qmspi1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/htm1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/env_mon.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/pwm0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan02.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan06.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/rtos.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb4.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spi_mon1.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/imspi.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/otp.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/ec_reg_bank.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/gpio.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/qmspi0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb0.h</itemPath>
-            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/led0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan08.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb3.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan04.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan00.h</itemPath>
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/vtr_reg_bank.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spi_mon0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/env_mon.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/wdt.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/gpio.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/cct.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan07.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/led1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb4.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan03.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spi_mon1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/pcr.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/rtos.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/qmspi0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/ec_reg_bank.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan06.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/led0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan02.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/pwm0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spt1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/htm1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/timer32_1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/otp.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/qmspi1.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan09.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/smb2.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/uart0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan05.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_chan01.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/tfdp.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/timer32_0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/htm0.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/ecia.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/dma_main.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/imspi.h</itemPath>
+            <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/instance/spt0.h</itemPath>
           </logicalFolder>
           <logicalFolder name="pio" displayName="pio" projectFiles="true">
             <itemPath>../src/packs/CEC1736_S0_2ZW_DFP/pio/cec1736_s0_2zw.h</itemPath>
@@ -190,23 +192,23 @@
             <logicalFolder name="Core" displayName="Core" projectFiles="true">
               <logicalFolder name="Include" displayName="Include" projectFiles="true">
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
-                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
                 <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
-        <itemPath>../src/platform/platform.h</itemPath>
         <itemPath>../src/platform/platform_serial_flash.h</itemPath>
+        <itemPath>../src/platform/platform.h</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">
         <itemPath>../src/startup/startup.h</itemPath>
@@ -215,7 +217,13 @@
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
-      <itemPath>../src/common/include/secureboot_app.ld</itemPath>
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="cec1736_s0_2zw_ev19k07a"
+                       displayName="cec1736_s0_2zw_ev19k07a"
+                       projectFiles="true">
+          <itemPath>../src/common/include/secureboot_app.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -226,57 +234,59 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="default" displayName="default" projectFiles="true">
+        <logicalFolder name="cec1736_s0_2zw_ev19k07a"
+                       displayName="cec1736_s0_2zw_ev19k07a"
+                       projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/dma/plib_dma.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.c</itemPath>
             </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/ecia/plib_ecia.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ecia/plib_ecia.c</itemPath>
             </logicalFolder>
             <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/gpio/plib_gpio.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/gpio/plib_gpio.c</itemPath>
             </logicalFolder>
             <logicalFolder name="i2c" displayName="i2c" projectFiles="true">
               <logicalFolder name="master" displayName="master" projectFiles="true">
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb1_master.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb0_master.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb2_master.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb4_master.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/master/plib_smb3_master.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb4_master.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb0_master.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb2_master.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb3_master.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/master/plib_smb1_master.c</itemPath>
               </logicalFolder>
               <logicalFolder name="slave" displayName="slave" projectFiles="true">
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb0_slave.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb1_slave.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb2_slave.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb3_slave.c</itemPath>
-                <itemPath>../src/config/default/peripheral/i2c/slave/plib_smb4_slave.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb3_slave.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb4_slave.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb0_slave.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb1_slave.c</itemPath>
+                <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/slave/plib_smb2_slave.c</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb0_master_slave_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb1_master_slave_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smb_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb4_master_slave_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb2_master_slave_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_smb3_master_slave_common.c</itemPath>
-              <itemPath>../src/config/default/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb0_master_slave_common.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb1_master_slave_common.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_i2c_smb_common.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb3_master_slave_common.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_i2c_smbus_lowlevel_intf.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb2_master_slave_common.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/i2c/plib_smb4_master_slave_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/nvic/plib_nvic.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="pcr" displayName="pcr" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/pcr/plib_pcr.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/pcr/plib_pcr.c</itemPath>
             </logicalFolder>
             <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi1.c</itemPath>
-              <itemPath>../src/config/default/peripheral/qmspi/plib_qmspi0.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/qmspi/plib_qmspi1.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/qmspi/plib_qmspi0.c</itemPath>
             </logicalFolder>
             <logicalFolder name="uart" displayName="uart" projectFiles="true">
-              <itemPath>../src/config/default/peripheral/uart/plib_uart0.c</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/uart/plib_uart0.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <itemPath>../src/config/default/exceptions.c</itemPath>
-          <itemPath>../src/config/default/interrupts.c</itemPath>
-          <itemPath>../src/config/default/initialization.c</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/initialization.c</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/exceptions.c</itemPath>
+          <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/interrupts.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
@@ -293,9 +303,6 @@
           <itemPath>../src/hal/uart/uart_api.c</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <logicalFolder name="kernel" displayName="kernel" projectFiles="true">
-        <itemPath>../src/kernel/main.c</itemPath>
-      </logicalFolder>
       <logicalFolder name="oem" displayName="oem" projectFiles="true">
         <logicalFolder name="oem_task1" displayName="oem_task1" projectFiles="true">
           <itemPath>../src/oem/oem_task1/oem_task1.c</itemPath>
@@ -308,12 +315,13 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
-        <itemPath>../src/platform/irqhandler.c</itemPath>
         <itemPath>../src/platform/platform_serial_flash.c</itemPath>
+        <itemPath>../src/platform/irqhandler.c</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">
         <itemPath>../src/startup/startup_CEC173x.S</itemPath>
       </logicalFolder>
+      <itemPath>../src/main.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -322,12 +330,9 @@
       <itemPath>sg3_h3_port.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>../src</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="default" type="2">
+    <conf name="cec1736_s0_2zw_ev19k07a" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>CEC1736_S0_2ZW</targetDevice>
@@ -335,7 +340,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.10</languageToolchainVersion>
+        <languageToolchainVersion>4.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -347,8 +352,8 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/default/library/secureboot_LIB/secureboot_LIB.a</linkerLibFileItem>
-            <linkerLibFileItem>../src/config/default/library/secureboot_app_lib/secureboot_app_lib.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_app_lib/secureboot_app_lib.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_LIB/secureboot_LIB.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -371,64 +376,29 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
-      <item path="../src/config/default/peripheral/gpio/plib_gpio.c"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/config/default/peripheral/gpio/plib_gpio.h"
-            ex="false"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/default;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;..\src\common\debug;..\src\common\include;..\src\hal;..\src\kernel;..\src\oem;..\src\platform"/>
+                  value="../src;../src/common/debug;../src/common/include;../src/config/cec1736_s0_2zw_ev19k07a;../src/hal;../src/kernel;../src/oem/oem_task1;../src/oem/oem_task2;../src/oem/oem_task3;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/platform;../src/startup"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros" value=""/>
         <property key="strict-ansi" value="false"/>
         <property key="support-ansi" value="false"/>
-        <property key="tentative-definitions" value="${tentative.default}"/>
+        <property key="tentative-definitions" value="-fno-common"/>
         <property key="toplevel-reordering" value=""/>
         <property key="unaligned-access" value=""/>
         <property key="use-cci" value="false"/>
@@ -466,13 +436,14 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value="-u irqhandler_tag"/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
         <property key="exclude-floating-point-library" value="false"/>
         <property key="exclude-standard-libraries" value="false"/>
         <property key="extra-lib-directories"
-                  value="..\src\config\default\library\secureboot_app_lib;..\src\config\default\library\secureboot_LIB"/>
+                  value="../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_LIB;../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_app_lib"/>
         <property key="fill-flash-options-addr" value=""/>
         <property key="fill-flash-options-const" value=""/>
         <property key="fill-flash-options-how" value="0"/>
@@ -507,6 +478,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -516,12 +488,12 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/default;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/cec1736_s0_2zw_ev19k07a;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="isolate-each-function" value="true"/>
+        <property key="isolate-each-function" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -547,189 +519,6 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
-      <ICD4Tool>
-        <property key="AutoSelectMemRanges" value="auto"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UpdateOptions"
-                  value="ToolFirmwareOption.UseLatest"/>
-        <property key="ToolFirmwareToolPack"
-                  value="Press to select which tool pack to use"/>
-        <property key="communication.interface.jtag" value="2wire"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.simultaneous.debug" value="false"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="hwtoolclock.frcindebug" value="false"/>
-        <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="true"/>
-        <property key="memories.configurationmemory" value="true"/>
-        <property key="memories.configurationmemory2" value="true"/>
-        <property key="memories.dataflash" value="true"/>
-        <property key="memories.eeprom" value="true"/>
-        <property key="memories.exclude.configurationmemory" value="true"/>
-        <property key="memories.flashdata" value="true"/>
-        <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges"
-                  value="${memories.instruction.ram.ranges}"/>
-        <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="c8000-117fff"/>
-        <property key="poweroptions.powerenable" value="false"/>
-        <property key="programoptions.donoteraseauxmem" value="false"/>
-        <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.ledbrightness" value="5"/>
-        <property key="programoptions.pgcconfig" value="pull down"/>
-        <property key="programoptions.pgcresistor.value" value="4.7"/>
-        <property key="programoptions.pgdconfig" value="pull down"/>
-        <property key="programoptions.pgdresistor.value" value="4.7"/>
-        <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
-        <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges"
-                  value="${memories.dataflash.default}"/>
-        <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveeeprom.ranges" value=""/>
-        <property key="programoptions.preserveprogram.ranges" value=""/>
-        <property key="programoptions.preserveprogramrange" value="false"/>
-        <property key="programoptions.preserveuserid" value="false"/>
-        <property key="programoptions.program.otpconfig" value="false"/>
-        <property key="programoptions.programcalmem" value="false"/>
-        <property key="programoptions.programuserotp" value="false"/>
-        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
-        <property key="toolpack.updateoptions"
-                  value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion"
-                  value="Press to select which tool pack to use"/>
-        <property key="voltagevalue" value="3.25"/>
-      </ICD4Tool>
-      <Tool>
-        <property key="AutoSelectMemRanges" value="auto"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UpdateOptions"
-                  value="ToolFirmwareOption.UseLatest"/>
-        <property key="ToolFirmwareToolPack"
-                  value="Press to select which tool pack to use"/>
-        <property key="communication.activationmode" value="nohv"/>
-        <property key="communication.interface" value="swd"/>
-        <property key="communication.interface.jtag" value="2wire"/>
-        <property key="communication.speed" value="2.000"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.simultaneous.debug" value="false"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="freeze.timers" value="false"/>
-        <property key="hwtoolclock.frcindebug" value="false"/>
-        <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="true"/>
-        <property key="memories.configurationmemory" value="true"/>
-        <property key="memories.configurationmemory2" value="true"/>
-        <property key="memories.dataflash" value="true"/>
-        <property key="memories.eeprom" value="true"/>
-        <property key="memories.exclude.configurationmemory" value="true"/>
-        <property key="memories.flashdata" value="true"/>
-        <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges"
-                  value="${memories.instruction.ram.ranges}"/>
-        <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="c8000-117fff"/>
-        <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="E:/Shreyas/shreyas_p4v_workspace/depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/Harmony/sg3_h3_port/firmware/sg3_h3_port.X/debug/default/sg3_h3_port_ptg"/>
-        <property key="programmerToGoImageName" value="sg3_h3_port_ptg"/>
-        <property key="programoptions.donoteraseauxmem" value="false"/>
-        <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.ledbrightness" value="5"/>
-        <property key="programoptions.pgcconfig" value="pull down"/>
-        <property key="programoptions.pgcresistor.value" value="4.7"/>
-        <property key="programoptions.pgdconfig" value="pull down"/>
-        <property key="programoptions.pgdresistor.value" value="4.7"/>
-        <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
-        <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges"
-                  value="${memories.dataflash.default}"/>
-        <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveeeprom.ranges" value=""/>
-        <property key="programoptions.preserveprogram.ranges" value=""/>
-        <property key="programoptions.preserveprogramrange" value="false"/>
-        <property key="programoptions.preserveuserid" value="false"/>
-        <property key="programoptions.program.otpconfig" value="false"/>
-        <property key="programoptions.programcalmem" value="false"/>
-        <property key="programoptions.programuserotp" value="false"/>
-        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
-        <property key="ptgProgramImage" value="true"/>
-        <property key="ptgSendImage" value="true"/>
-        <property key="toolpack.updateoptions"
-                  value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion"
-                  value="Press to select which tool pack to use"/>
-        <property key="voltagevalue" value="3.25"/>
-      </Tool>
-      <pk4hybrid>
-        <property key="AutoSelectMemRanges" value="auto"/>
-        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
-        <property key="ToolFirmwareFilePath"
-                  value="Press to browse for a specific firmware version"/>
-        <property key="ToolFirmwareOption.UpdateOptions"
-                  value="ToolFirmwareOption.UseLatest"/>
-        <property key="ToolFirmwareToolPack"
-                  value="Press to select which tool pack to use"/>
-        <property key="communication.activationmode" value="nohv"/>
-        <property key="communication.interface" value="swd"/>
-        <property key="communication.interface.jtag" value="2wire"/>
-        <property key="communication.speed" value="2.000"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="debugoptions.simultaneous.debug" value="false"/>
-        <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="freeze.timers" value="false"/>
-        <property key="memories.aux" value="false"/>
-        <property key="memories.bootflash" value="true"/>
-        <property key="memories.configurationmemory" value="true"/>
-        <property key="memories.configurationmemory2" value="true"/>
-        <property key="memories.dataflash" value="true"/>
-        <property key="memories.eeprom" value="true"/>
-        <property key="memories.exclude.configurationmemory" value="true"/>
-        <property key="memories.flashdata" value="true"/>
-        <property key="memories.id" value="true"/>
-        <property key="memories.instruction.ram.ranges"
-                  value="${memories.instruction.ram.ranges}"/>
-        <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="c8000-117fff"/>
-        <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoImageName" value="sg3_h3_port_ptg"/>
-        <property key="programoptions.donoteraseauxmem" value="false"/>
-        <property key="programoptions.eraseb4program" value="true"/>
-        <property key="programoptions.ledbrightness" value="5"/>
-        <property key="programoptions.pgcconfig" value="pull down"/>
-        <property key="programoptions.pgcresistor.value" value="4.7"/>
-        <property key="programoptions.pgdconfig" value="pull down"/>
-        <property key="programoptions.pgdresistor.value" value="4.7"/>
-        <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
-        <property key="programoptions.preservedataflash" value="false"/>
-        <property key="programoptions.preservedataflash.ranges"
-                  value="${memories.dataflash.default}"/>
-        <property key="programoptions.preserveeeprom" value="false"/>
-        <property key="programoptions.preserveeeprom.ranges" value=""/>
-        <property key="programoptions.preserveprogram.ranges" value=""/>
-        <property key="programoptions.preserveprogramrange" value="false"/>
-        <property key="programoptions.preserveuserid" value="false"/>
-        <property key="programoptions.program.otpconfig" value="false"/>
-        <property key="programoptions.programcalmem" value="false"/>
-        <property key="programoptions.programuserotp" value="false"/>
-        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
-        <property key="ptgProgramImage" value="true"/>
-        <property key="ptgSendImage" value="true"/>
-        <property key="toolpack.updateoptions"
-                  value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion"
-                  value="Press to select which tool pack to use"/>
-        <property key="voltagevalue" value="3.25"/>
-      </pk4hybrid>
     </conf>
   </confs>
 </configurationDescriptor>
