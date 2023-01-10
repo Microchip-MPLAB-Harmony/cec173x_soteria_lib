@@ -21,7 +21,7 @@
 Version Control Information (Perforce)
 ******************************************************************************
 $Revision: #2 $ 
-$DateTime: 2023/01/02 04:42:23 $ 
+$DateTime: 2023/01/10 04:08:48 $ 
 $Author: i64652 $
 Last Change:    None
 ******************************************************************************/
@@ -169,8 +169,11 @@ enum SPI_CHANNEL
  * @return number of bytes written
  */
 uint32_t qmspi_flash_program_ldma(uint8_t prog_cmd, uint32_t spi_addr, 
-									uint32_t nbytes, uint32_t maddr, 
-									uint8_t port);
+                                  uint32_t nbytes, uint32_t maddr, 
+                                  uint8_t port);
+
+void qmspi_set_tap_control(uint16_t tap_vl, uint8_t tap_ctrl,
+                                  uint8_t port);
 
 /**
  * qmspi_spi_flash_dev_reset - Resets the flash memory to default state

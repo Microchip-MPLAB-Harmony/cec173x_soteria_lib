@@ -298,6 +298,10 @@ void PCR_PrivilegeEnLock (void);
 
 void PCR_PrivilegeEnUnLock (void);
 
+uint32_t PCR_PowerFailResetStatusRegGet(void);
+
+void PCR_PowerFailResetStatusClear(uint32_t pfsr_bits);
+
 void PCR_SleepEnable0 (PCR_SLEEP_EN0 blockId);
 void PCR_SleepDisable0 (PCR_SLEEP_EN0 blockId);
 void PCR_SleepEnable1 (PCR_SLEEP_EN1 blockId);

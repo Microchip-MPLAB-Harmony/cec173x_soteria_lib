@@ -67,12 +67,12 @@ uint8_t platform_serial_flash_read_ldma_nonblocking_no_fill(uint32_t spi_addr, u
 				break;
 			case 2:
 				qmspi_xfer_cfg.command = 0x3C;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x01;
+				qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
 				qmspi_xfer_cfg.qmspi_ifc_mode = DUAL_OUTPUT;
 				break;
 			case 3:
 				qmspi_xfer_cfg.command = 0x6C;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
+				qmspi_xfer_cfg.num_of_dummy_byte = 0x04;
 				qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
 				break;
 			case 0: // fall through

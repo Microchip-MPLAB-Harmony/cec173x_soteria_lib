@@ -24,8 +24,8 @@
  *  SMSC version control information (Perforce):
  *
  *  FILE:     $File: //depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/Harmony/secureboot_app_library/sg3_h3_port/firmware/src/common/debug/trace.h $
- *  REVISION: $Revision: #2 $
- *  DATETIME: $DateTime: 2023/01/02 04:42:23 $
+ *  REVISION: $Revision: #3 $
+ *  DATETIME: $DateTime: 2023/01/10 04:01:19 $
  *  AUTHOR:   $Author: i64652 $
  *
  *  Revision history (latest first):

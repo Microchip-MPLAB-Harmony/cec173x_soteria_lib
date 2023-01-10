@@ -6600,11 +6600,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>2672c005f3c27c5329581f30aa94592edf9c8d7eea1f45ad34e08c078defda70</hash>
+         <hash>730de6b14111c6c5b4494baa4b20958093aad6e240923f3b3bcd4a6cec8662fe</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>87a737db3265c4a6e58dbe1c0e9698a897a9cba09929743627b84cd6fdee649f</hash>
+         <hash>e986bdffd935fc357de37df2277cfe462b2a79e5c41d6510f81d8d04c4cac6f2</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
@@ -6632,7 +6632,7 @@
       </entry>
       <entry>
          <file>..\src\common\debug\trace.h</file>
-         <hash>8f10023655db553c12e3a690287925c6d935c7e6c4e8193eedbc72e3432c3d9f</hash>
+         <hash>a20e08d510cd1e491e8bc9c436676d4114b6d26cb799c19a62d24cb3e6779221</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan00.h</file>
@@ -6640,7 +6640,7 @@
       </entry>
       <entry>
          <file>..\src\hal\interrupt\interrupt_api.h</file>
-         <hash>f052c87bc5b5c6e1001f820f8f4155b16041e927e4ded69abbfc8b532a8ed525</hash>
+         <hash>573dec7162e729af99ace2f9e9d652f15b3316bd40de9471c07bcd6b4245bb48</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\tfdp.h</file>
@@ -6676,7 +6676,7 @@
       </entry>
       <entry>
          <file>..\src\hal\interrupt\interrupt_api.c</file>
-         <hash>fd988b5ac29fe13b5e6cdec54ee133f54b39274d646837642b8f02f930263527</hash>
+         <hash>a42569dda8d3bd5c242d8a33a5859c92ab026ca4a9dd20a5a2b09510d5010d1a</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb1.h</file>
@@ -6716,7 +6716,7 @@
       </entry>
       <entry>
          <file>..\src\platform\platform_serial_flash.c</file>
-         <hash>b63d02604e92b0e0851dea2ee261e179a0f4b898d5fe561cd86d2105829d36d2</hash>
+         <hash>58879fedd06c0cffc40ac167d10f68c91813a28e2221eb23c30314ef960e73e3</hash>
       </entry>
       <entry>
          <file>..\src\platform\platform_serial_flash.h</file>
@@ -6776,7 +6776,7 @@
       </entry>
       <entry>
          <file>..\src\hal\uart\uart_api.h</file>
-         <hash>905817a86239c162da192271d6b97c07f94d2c88a65a1800acea5041abf10ea1</hash>
+         <hash>9b2d6bf3ba6a49066bb75b2b407bc87b96e8289d213804c6495c43fd9abbd413</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\wdt.h</file>
@@ -6785,6 +6785,10 @@
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.h</file>
          <hash>0c100dcd29a18d8d4a5173d60f5c290ecf260619143c684482b864ec0d795e71</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.h</file>
+         <hash>587554db797b130215e627ce40e744892deea2ef1fa01d34a2764f04d061e799</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\uart.h</file>
@@ -6796,7 +6800,11 @@
       </entry>
       <entry>
          <file>..\src\hal\uart\uart_api.c</file>
-         <hash>627ad3419b1f07fdb567564b97d92ec6009bfdd1bc46ce0ef2f7eaed423dfa0c</hash>
+         <hash>e4b6d517db350083a2ce7b84d2f6529065156fc106a3c0586a60af8d145555b1</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.c</file>
+         <hash>7b7f6407552a3e700bd7a70765ad251ba15b578891f89b942793ce047c065aaa</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.c</file>
@@ -6840,7 +6848,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.c</file>
-         <hash>b30cae63304215bd334091559394c5af5600e80987da271007d08635b08ad3ae</hash>
+         <hash>71ea1d70b87d96ffe2463580a5626040b156faebb7e0409da8aea815522e4db6</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\rtos.h</file>
@@ -6856,7 +6864,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\gpio\plib_gpio.h</file>
-         <hash>6948733ce26a732acee93e1bdfc2fe91f20fb0a1dd81ec7e9e7178639b1789fc</hash>
+         <hash>de0f188990341817aee0ff15e6e237826cf76ed5e5a8660b22dc175e1beadde3</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb4.h</file>
@@ -6868,7 +6876,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.h</file>
-         <hash>a1ee7d0eb72aa9c306b61a7011fda4d083655a21e8d80038f67405fe73d845c5</hash>
+         <hash>f060d2368a6b3823986824182b52918003adfe7cd8a363a786e3dcd3fe00fefe</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart0.h</file>
@@ -6880,7 +6888,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\gpio\plib_gpio.c</file>
-         <hash>f68536e7631881b4ed002cfa119b4725aa35127ff00ca0375c26924d8bd143f0</hash>
+         <hash>c3279f133bcdf9bc92f13f6814c6285b566de0d3dbd9b6089a716cfdbb7e1a23</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb3_slave.c</file>
@@ -6912,7 +6920,7 @@
       </entry>
       <entry>
          <file>..\src\hal\gpio\gpio_api.h</file>
-         <hash>fe32e85ad0152c3efd98b91cb802c4d2e3946748a46217eea36de4ee6a4dadc4</hash>
+         <hash>44f72210f60ce9fed3204e8b2e7ec0464e168d8214e8000924c59c782308c89a</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.c</file>
@@ -6920,7 +6928,7 @@
       </entry>
       <entry>
          <file>..\src\hal\gpio\gpio_api.c</file>
-         <hash>597b2624f177be68561a3c60b27840543d60d574d86ab4124b215f20878391e5</hash>
+         <hash>be43a1bcebfc2e3829907f66f94c586fc14749d67b809bf3e08b50bc8d7932a0</hash>
       </entry>
       <entry>
          <file>..\src\main.c</file>
@@ -6932,7 +6940,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\toolchain_specifics.h</file>
-         <hash>c93f9d68b1623668727be21b4449250a7e4a5d7040776d6f6d604a7528ffc9eb</hash>
+         <hash>0322d8a252c0047ffd9e533cc76c470158ed1f3ac5193e63b507fe5eb6e1855f</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.h</file>
@@ -7048,7 +7056,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\device_vectors.h</file>
-         <hash>3f044849cc062d72db8e35ea850d39e70c4a0e4b0ca7b17f96b06c1b4a63d220</hash>
+         <hash>64d0518ba00cbb7fd62f13ce95c364677fdb4eea4781129d93a7177306260127</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\device.h</file>
@@ -7056,15 +7064,15 @@
       </entry>
       <entry>
          <file>..\src\common\include\secureboot_app.ld</file>
-         <hash>1433680c973cebbc8e67a112dd8c2612944658412a1abf7031ece878f6db8814</hash>
+         <hash>2ed9b0cffc575d616f4bfde8b1871cb8a15404ab4fd36ee7a5b13d74cabf1ec8</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pcr\plib_pcr.c</file>
-         <hash>d765c55b1fba44df40f5159adca625bd4a866beafe1644815c91884924b201ed</hash>
+         <hash>137fbf029423ec6270f6e24c1e109557fae707dbeece24079e75d38db3e453d8</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pcr\plib_pcr.h</file>
-         <hash>a77d352924aa73f1c8708546b15930bf16c305512767b64bdd585d49ce110203</hash>
+         <hash>6acc5666fa1478c6855d7724276eb7f707ac7b57c624cba3d47681975813b2d7</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\otp.h</file>
@@ -7072,7 +7080,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>4c000bb08334826566662fda15b99aeec69e2dd06ef5476d65dc390523ba02c5</hash>
+         <hash>d2e272d872bc0302b7a03b1e7a81f6c575af101eb67dc21cb4ad34533ab3c15f</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
@@ -7132,7 +7140,7 @@
       </entry>
       <entry>
          <file>..\src\hal\qmspi\qmspi_api.c</file>
-         <hash>8107dbc525d08f9f5b6c99ae4f8b68940f61426a7363c60288832a9f12021ff2</hash>
+         <hash>4bee771ad87e6b07be83ff1d2e5c5717d3d04255402798621d22314754cec04f</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\htm0.h</file>
@@ -7140,7 +7148,7 @@
       </entry>
       <entry>
          <file>..\src\hal\qmspi\qmspi_api.h</file>
-         <hash>9bc7afda5e3b53ee0d3a9ab8ad17a94d98da7af3d93f7c8a74b158a0ea912fed</hash>
+         <hash>2080eafde0d841d53016f1fcca220df8240225b118d412d81b5bf05c63822e2e</hash>
       </entry>
       <entry>
          <file>..\src\common\debug\serial.c</file>
@@ -7264,7 +7272,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>e750c9e8afbaa1f7723d67d70e0d44a5ec7f961c33ffcb648dca45a865154d8f</hash>
+         <hash>428f79c5b3f528f3adb1d60b10d76e30e54f62b9ace2909070721dd2df522265</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>

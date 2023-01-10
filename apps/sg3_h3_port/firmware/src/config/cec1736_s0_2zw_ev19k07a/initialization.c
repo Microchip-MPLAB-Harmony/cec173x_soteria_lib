@@ -115,10 +115,10 @@ void SYS_Initialize ( void* data )
 
 
 
-    QMSPI0_Initialize();
-
     I2CSMB4_Initialize();
     
+    QMSPI0_Initialize();
+
     I2CSMB3_Initialize();
     
     QMSPI1_Initialize();
@@ -128,6 +128,8 @@ void SYS_Initialize ( void* data )
 	UART0_Initialize();
 
     DMA_Initialize();
+
+EC_REG_BANK_Initialize();
 
     I2CSMB2_Initialize();
     

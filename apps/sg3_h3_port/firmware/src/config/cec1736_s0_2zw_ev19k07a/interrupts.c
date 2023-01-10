@@ -78,9 +78,8 @@ void __attribute__((optimize("-O1"),section(".text.Dummy_Handler"),long_call, no
 }
 
 /* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated 69 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
+/* MISRA C-2012 Rule 8.6 deviated 68 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
-extern void MemMgnt_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void SysTick_Handler            ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -226,7 +225,7 @@ const H3DeviceVectors exception_table=
     .pfnReset_Handler              = Reset_Handler,
     .pfnNonMaskableInt_Handler     = NonMaskableInt_Handler,
     .pfnHardFault_Handler          = HardFault_Handler,
-    .pfnMemMgnt_Handler            = MemMgnt_Handler,
+    .pfnMemoryManagement_Handler   = MemoryManagement_Handler,
     .pfnBusFault_Handler           = BusFault_Handler,
     .pfnUsageFault_Handler         = UsageFault_Handler,
     .pfnSVCall_Handler             = SVCall_Handler,

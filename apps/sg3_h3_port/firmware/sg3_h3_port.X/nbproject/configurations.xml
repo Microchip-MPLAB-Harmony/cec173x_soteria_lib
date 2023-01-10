@@ -22,6 +22,9 @@
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="ec_reg_bank" displayName="ec_reg_bank" projectFiles="true">
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ec_reg_bank/plib_ec_reg_bank.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ecia/plib_ecia.h</itemPath>
             </logicalFolder>
@@ -241,6 +244,9 @@
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="ec_reg_bank" displayName="ec_reg_bank" projectFiles="true">
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ec_reg_bank/plib_ec_reg_bank.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="ecia" displayName="ecia" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/ecia/plib_ecia.c</itemPath>
             </logicalFolder>
@@ -338,14 +344,14 @@
         <targetDevice>CEC1736_S0_2ZW</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>ICD4Tool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.20</languageToolchainVersion>
+        <languageToolchainVersion>4.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CEC_DFP" vendor="Microchip" version="1.7.151"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="CEC_DFP" vendor="Microchip" version="1.7.151"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

@@ -23,9 +23,9 @@
  **********************************************************************************
  *  SMSC version control information (Perforce):
  *
- *  FILE:     $File: //depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/Harmony/sg3_h3_port/firmware/src/common/debug/trace.h $
- *  REVISION: $Revision: #3 $
- *  DATETIME: $DateTime: 2022/03/28 06:17:18 $
+ *  FILE:     $File: //depot_pcs/FWEng/solutions/Glacier_GEN3/maincodeline/Harmony/secureboot_app_library/cec173x_soteria_lib/libraries/cec173x_sg3/src/common/debug/trace.h $
+ *  REVISION: $Revision: #1 $
+ *  DATETIME: $DateTime: 2023/01/02 04:27:58 $
  *  AUTHOR:   $Author: i64652 $
  *
  *  Revision history (latest first):

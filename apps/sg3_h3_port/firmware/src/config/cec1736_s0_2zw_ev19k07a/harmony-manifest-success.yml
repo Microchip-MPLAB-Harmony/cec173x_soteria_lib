@@ -4,7 +4,7 @@
 
 
 project: sg3_h3_port
-creation_date: 2023-01-02T15:03:39.121+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2023-01-11T17:03:41.328+05:30[Asia/Calcutta]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
 mhc_version: NA
@@ -13,7 +13,7 @@ plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
 
 modules:
-    - {name: "csp", version: "v3.14.0"}
-    - {name: "dev_packs", version: "v3.14.0"}
-    - {name: "cec173x_soteria_lib", version: "v3.1.0"}
+    - {name: "csp", version: "unknown"}
+    - {name: "dev_packs", version: "unknown"}
+    - {name: "cec173x_soteria_lib", version: "unknown"}
 
