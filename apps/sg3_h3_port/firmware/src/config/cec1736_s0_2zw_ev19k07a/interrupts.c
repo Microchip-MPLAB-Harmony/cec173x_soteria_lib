@@ -78,7 +78,7 @@ void __attribute__((optimize("-O1"),section(".text.Dummy_Handler"),long_call, no
 }
 
 /* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated 68 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
+/* MISRA C-2012 Rule 8.6 deviated 67 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -87,7 +87,6 @@ extern void GIRQ15_Handler             ( void ) __attribute__((weak, alias("Dumm
 extern void GIRQ16_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ17_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ20_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
-extern void GIRQ21_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ23_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ24_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void GIRQ26_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -211,6 +210,11 @@ static void GIRQ18_Handler( void )
 {
     QMSPI0_GRP_InterruptHandler();
     QMSPI1_GRP_InterruptHandler();
+}
+
+static void GIRQ21_Handler( void )
+{
+    WDT_GRP_InterruptHandler();
 }
 
 

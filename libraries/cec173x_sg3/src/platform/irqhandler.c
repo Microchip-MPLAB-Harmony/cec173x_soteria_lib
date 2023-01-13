@@ -57,44 +57,44 @@ void DMA_CH09_GRP_InterruptHandler       ( void ) __attribute__((alias("DMA_GRP_
 
 static void gpio_isr(GPIO_PIN pin, uintptr_t context)
 {
-	switch(pin)
-	{
-		case GPIO_PIN_GPIO013:
-			GPIO013_ISR();
-		break;
-		case GPIO_PIN_GPIO015:
-			GPIO015_ISR();
-		break;		
-		case GPIO_PIN_GPIO046:
-			GPIO046_ISR();
-		break;
-		case GPIO_PIN_GPIO047:
-			GPIO047_ISR();
-		break;
-		case GPIO_PIN_GPIO050:
-			GPIO050_ISR();
-		break;
-		case GPIO_PIN_GPIO063:
-			GPIO063_ISR();
-		break;
-		case GPIO_PIN_GPIO107:
-			GPIO107_ISR();
-		break;
-		case GPIO_PIN_GPIO113:
-			GPIO113_ISR();
-		break;
-		case GPIO_PIN_GPIO127:
-			GPIO127_ISR();
-		break;
-		case GPIO_PIN_GPIO140:
-			GPIO140_ISR();
-		break;
-		case GPIO_PIN_GPIO201:
-			GPIO201_ISR();
-		break;
-		default:
-		break;
-	}
+    switch(pin)
+    {
+        case GPIO_PIN_GPIO013:
+            GPIO013_ISR();
+        break;
+        case GPIO_PIN_GPIO015:
+            GPIO015_ISR();
+        break;        
+        case GPIO_PIN_GPIO046:
+            GPIO046_ISR();
+        break;
+        case GPIO_PIN_GPIO047:
+            GPIO047_ISR();
+        break;
+        case GPIO_PIN_GPIO050:
+            GPIO050_ISR();
+        break;
+        case GPIO_PIN_GPIO063:
+            GPIO063_ISR();
+        break;
+        case GPIO_PIN_GPIO107:
+            GPIO107_ISR();
+        break;
+        case GPIO_PIN_GPIO113:
+            GPIO113_ISR();
+        break;
+        case GPIO_PIN_GPIO127:
+            GPIO127_ISR();
+        break;
+        case GPIO_PIN_GPIO140:
+            GPIO140_ISR();
+        break;
+        case GPIO_PIN_GPIO201:
+            GPIO201_ISR();
+        break;
+        default:
+        break;
+    }
 }
 
 /******************************************************************************/
@@ -106,15 +106,15 @@ static void gpio_isr(GPIO_PIN pin, uintptr_t context)
  ******************************************************************************/
 static void qmspi_isr_callback(uintptr_t context)
 {
-	if(SPI_CHANNEL_0 == context)
-	{
+    if(SPI_CHANNEL_0 == context)
+    {
         qmspi_isr( SPI_CHANNEL_0);
-	}
+    }
 
-	if(SPI_CHANNEL_1 == context)
-	{
+    if(SPI_CHANNEL_1 == context)
+    {
         qmspi_isr( SPI_CHANNEL_1);
-	}
+    }
 }
 
 /******************************************************************************/
@@ -127,23 +127,23 @@ static void qmspi_isr_callback(uintptr_t context)
  ******************************************************************************/
 void qmspi_register_isr_handlers(void)
 {
-	QMSPI0_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_0);
-	QMSPI1_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_1);
+    QMSPI0_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_0);
+    QMSPI1_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_1);
 }
 
 void gpio_register_isr_handlers(void)
 {
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO013, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO015, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO046, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO047, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO050, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO063, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO107, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO113, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO127, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO140, gpio_isr, 0);
-	GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO201, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO013, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO015, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO046, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO047, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO050, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO063, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO107, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO113, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO127, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO140, gpio_isr, 0);
+    GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO201, gpio_isr, 0);
 }
 
 void I2CSMB_GRP_InterruptHandler ( void )

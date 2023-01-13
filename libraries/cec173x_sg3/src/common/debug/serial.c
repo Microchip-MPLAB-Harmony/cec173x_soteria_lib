@@ -24,8 +24,8 @@
  *----------------------------------------------------------------------------*/
 void SER_init(void)
 {
-	uart_pins_init(DEBUG_UART_NUMBER);
-	uart_hw_init(DEBUG_UART_NUMBER);
+    uart_pins_init(DEBUG_UART_NUMBER);
+    uart_hw_init(DEBUG_UART_NUMBER);
 }
 
 /*----------------------------------------------------------------------------

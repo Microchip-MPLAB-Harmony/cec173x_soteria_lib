@@ -38,7 +38,7 @@ extern "C" {
 /* add MMCRARRAY() & EXTERNMMCRARRAY() */
 /* General Constants */
 
-#define BIT_n_MASK(n)	(1ul << (n))
+#define BIT_n_MASK(n)    (1ul << (n))
 #define BIT_0_MASK    (1<<0)
 #define BIT_1_MASK    (1<<1)
 #define BIT_2_MASK    (1<<2)

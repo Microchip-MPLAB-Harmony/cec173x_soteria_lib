@@ -1,22 +1,23 @@
 /*******************************************************************************
-  NVIC PLIB Implementation
+  Interface definition of WDT PLIB.
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    plib_nvic.c
+    plib_wdt.h
 
   Summary:
-    NVIC PLIB Source File
+    Interface definition of the Watch Dog Timer Plib (WDT).
 
   Description:
-    None
-
+    This file defines the interface for the WDT Plib.
+    It allows user to setup timeout duration and restart watch dog timer.
 *******************************************************************************/
 
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,83 +38,68 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
 
-#include "device.h"
-#include "plib_nvic.h"
-
+#ifndef PLIB_WDT_H    // Guards against multiple inclusion
+#define PLIB_WDT_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: NVIC Implementation
+// Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
-void NVIC_Initialize( void )
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+    extern "C" {
+
+#endif
+// DOM-IGNORE-END
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface
+// *****************************************************************************
+// *****************************************************************************
+
+typedef enum
 {
-    /* Priority 0 to 7 and no sub-priority. 0 is the highest priority */
-    NVIC_SetPriorityGrouping( 0x00 );
+    WDT_TIMEOUT_ACTION_INTERRUPT = 0,
+    WDT_TIMEOUT_ACTION_RESET
+}WDT_TIMEOUT_ACTION;
 
-    /* Enable NVIC Controller */
-    __DMB();
-    __enable_irq();
+typedef void (*WDT_CALLBACK)(uintptr_t context);
 
-    /* Enable the interrupt sources and configure the priorities as configured
-     * from within the "Interrupt Manager" of MHC. */
-    NVIC_SetPriority(GIRQ08_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ08_IRQn);
-    NVIC_SetPriority(GIRQ09_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ09_IRQn);
-    NVIC_SetPriority(GIRQ10_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ10_IRQn);
-    NVIC_SetPriority(GIRQ11_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ11_IRQn);
-    NVIC_SetPriority(GIRQ12_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ12_IRQn);
-    NVIC_SetPriority(GIRQ13_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ13_IRQn);
-    NVIC_SetPriority(GIRQ14_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ14_IRQn);
-    NVIC_SetPriority(GIRQ18_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ18_IRQn);
-    NVIC_SetPriority(GIRQ21_IRQn, 7);
-    NVIC_EnableIRQ(GIRQ21_IRQn);
-
-    /* Enable Usage fault */
-    SCB->SHCSR |= (SCB_SHCSR_USGFAULTENA_Msk);
-    /* Trap divide by zero */
-    SCB->CCR   |= SCB_CCR_DIV_0_TRP_Msk;
-
-    /* Enable Bus fault */
-    SCB->SHCSR |= (SCB_SHCSR_BUSFAULTENA_Msk);
-
-}
-
-void NVIC_INT_Enable( void )
+typedef struct
 {
-    __DMB();
-    __enable_irq();
-}
+    WDT_CALLBACK   callback;
+    uintptr_t      context;
+} WDT_OBJECT ;
 
-bool NVIC_INT_Disable( void )
-{
-    bool processorStatus = (__get_PRIMASK() == 0U);
+void WDT_Initialize( void );
+void WDT_Enable( void );
+void WDT_Disable( void );
+bool WDT_IsEnabled( void );
+void WDT_Clear( void );
+uint16_t WDT_CountGet(void);
+bool WDT_isPowerFailWDTEventSet(void);
+void WDT_PowerFailWDTEventClear(void);
+void WDT_PeriodLoad(uint16_t period);
+void WDT_TimeoutActionSet(WDT_TIMEOUT_ACTION action);
+void WDT_CallbackRegister( WDT_CALLBACK callback, uintptr_t context );
 
-    __disable_irq();
-    __DMB();
 
-    return processorStatus;
-}
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
-void NVIC_INT_Restore( bool state )
-{
-    if( state == true )
-    {
-        __DMB();
-        __enable_irq();
     }
-    else
-    {
-        __disable_irq();
-        __DMB();
-    }
-}
+
+#endif
+// DOM-IGNORE-END
+
+#endif // PLIB_WDT_H

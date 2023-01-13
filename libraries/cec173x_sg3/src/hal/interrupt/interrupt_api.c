@@ -1,40 +1,22 @@
 /*****************************************************************************
-* © 2015 Microchip Technology Inc. and its subsidiaries.
-* You may use this software and any derivatives exclusively with
-* Microchip products.
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
-* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
-* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
-* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
-* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
-* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
-* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
-* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
-* OF THESE TERMS.
-******************************************************************************
-
-Version Control Information (Perforce)
-******************************************************************************
-$Revision: #1 $
-$DateTime: 2023/01/02 04:27:58 $
-$Author: i64652 $
-Last Change: Renamed ecia_init to interrupt_init
-******************************************************************************/
-/** @file interrupt_api.c
-* \brief Interrupt APIs Source File
-* \author jvasanth
-*
-* This file implements the Interrupt Source file
-******************************************************************************/
-
-/** @defgroup Interrupt
- *  @{
- */
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * You may use this software and any derivatives exclusively with
+ * Microchip products.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+ * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+ * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+ * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+ * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+ * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+ * OF THESE TERMS.
+ *****************************************************************************/
 
 #include "common.h"
 #include "peripheral/ecia/plib_ecia.h"
@@ -73,14 +55,14 @@ void interrupt_device_enable(uint32_t dev_iroute, uint8_t is_aggregated)
 
     if (is_aggregated == 1) {
         nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_IA_NVIC_ID_BITPOS)) & 0xFFul);
-	} else {
+    } else {
         nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & 0xFFul);
-	}
+    }
 
     nvic_isave = __get_PRIMASK(); // Coverity DCL37-C Identifier should not start with is or to
     NVIC_INT_Disable();
     NVIC_EnableIRQ(nvic_num);
-	ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
+    ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
     __DSB();
 
     if (!nvic_isave) { // Coverity DCL37-C Identifier should not start with is or to
@@ -108,7 +90,7 @@ void interrupt_device_disable(uint32_t dev_iroute, uint8_t is_aggregated)
         nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & 0xFFul);
 
     NVIC_DisableIRQ(nvic_num);
-	ECIA_GIRQSourceDisable((ECIA_INT_SOURCE)dev_iroute);
+    ECIA_GIRQSourceDisable((ECIA_INT_SOURCE)dev_iroute);
     __DSB();
 
     if (!nvic_isave) { // Coverity DCL37-C Identifier should not start with is or to
@@ -125,7 +107,7 @@ void interrupt_device_disable(uint32_t dev_iroute, uint8_t is_aggregated)
  */
 void interrupt_device_ecia_source_clear(const uint32_t dev_iroute)
 {
-	ECIA_GIRQSourceClear((ECIA_INT_SOURCE)dev_iroute);
+    ECIA_GIRQSourceClear((ECIA_INT_SOURCE)dev_iroute);
     __DSB();
 }
 
@@ -143,7 +125,7 @@ uint32_t interrupt_device_ecia_result_get(const uint32_t dev_iroute)
     ia_bit_pos = (uint8_t)(dev_iroute >> (ECIA_GIRQ_BIT_BITPOS)) & 0x1Fu;
 
     retVal = ECIA_GIRQResultGet((ECIA_INT_SOURCE)dev_iroute);
-	
+    
     return retVal;
 }
 
@@ -159,7 +141,7 @@ void interrupt_device_ecia_enable_clear(const uint32_t dev_iroute)
     girq_num = (uint8_t)(dev_iroute >> (ECIA_GIRQ_ID_BITPOS)) & 0x1Fu;
     ia_bit_pos = (uint8_t)(dev_iroute >> (ECIA_GIRQ_BIT_BITPOS)) & 0x1Fu;
 
-	ECIA_GIRQSourceDisable((ECIA_INT_SOURCE)dev_iroute);
+    ECIA_GIRQSourceDisable((ECIA_INT_SOURCE)dev_iroute);
 }
 
 /** Enable the specified interrupt in the ECIA for the device
@@ -174,7 +156,7 @@ void interrupt_device_ecia_enable_set(const uint32_t dev_iroute)
     girq_num = (uint8_t)(dev_iroute >> (ECIA_GIRQ_ID_BITPOS)) & 0x1Fu;
     ia_bit_pos = (uint8_t)(dev_iroute >> (ECIA_GIRQ_BIT_BITPOS)) & 0x1Fu;
 
-	 ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
+     ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
 }
 
 /**
@@ -210,12 +192,12 @@ void mchp_privileged_ecia_init(uint32_t direct_bitmap, uint8_t dflt_priority)
     EC_REG_BANK_REGS->EC_REG_BANK_INTR_CTRL &= (~BIT_0_MASK);
 
     /* disconnect all GIRQ aggregated block outputs from NVIC */
-	ECIA_GIRQBlockDisableAll();
+    ECIA_GIRQBlockDisableAll();
     
     /* clear all ECIA GIRQ individual enables and status(source) bits */
-	ECIA_GIRQSourceDisableAll();
-	
-	ECIA_GIRQSourceClearAll();
+    ECIA_GIRQSourceDisableAll();
+    
+    ECIA_GIRQSourceClearAll();
 
     /* clear all NVIC enables and pending status */
     nvic_enpend_clr();
@@ -230,24 +212,24 @@ void mchp_privileged_ecia_init(uint32_t direct_bitmap, uint8_t dflt_priority)
     aggr_bitmap = MCHP_ECIA_ALL_MASK & ~(direct_bitmap);
 
     /* Route all aggregated GIRQn outputs to NVIC */
-	for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
-	{
-		if(aggr_bitmap & (0x01 << i)) {
-			ECIA_GIRQBlockEnable((ECIA_GIRQ_BLOCK_NUM)i);
-		}
-	}
+    for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
+    {
+        if(aggr_bitmap & (0x01 << i)) {
+            ECIA_GIRQBlockEnable((ECIA_GIRQ_BLOCK_NUM)i);
+        }
+    }
    
     enable_nvic_bitmap(aggr_bitmap, 0U);
 
     /* enable any direct connections? */
     if (direct_bitmap) {
         /* Disconnect aggregated GIRQ output for direct mapped */
-		for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
-		{
-			if(direct_bitmap & (0x01 << i)) {
-				ECIA_GIRQBlockDisable((ECIA_GIRQ_BLOCK_NUM)i);
-			}
-		}
+        for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
+        {
+            if(direct_bitmap & (0x01 << i)) {
+                ECIA_GIRQBlockDisable((ECIA_GIRQ_BLOCK_NUM)i);
+            }
+        }
         EC_REG_BANK_REGS->EC_REG_BANK_INTR_CTRL |= BIT_0_MASK;
         enable_nvic_bitmap(direct_bitmap, 1U);
     }
@@ -287,7 +269,7 @@ static void enable_nvic_bitmap(uint32_t bitmap, uint8_t direct)
  */
 void interrupt_device_girqs_source_reset(void)
 {
-	ECIA_GIRQSourceClearAll();
+    ECIA_GIRQSourceClearAll();
 }
 
 /*
@@ -335,7 +317,3 @@ static void nvic_enpend_clr(void)
 }
 
 /* ------------------------------------------------------------------------------- */
-
-/* end interrupt_api.c */
-/**   @}
- */

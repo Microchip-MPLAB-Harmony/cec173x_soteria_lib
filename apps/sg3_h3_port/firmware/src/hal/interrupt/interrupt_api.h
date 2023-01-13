@@ -1,40 +1,22 @@
 /*****************************************************************************
-* © 2015 Microchip Technology Inc. and its subsidiaries.
-* You may use this software and any derivatives exclusively with
-* Microchip products.
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
-* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
-* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
-* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
-* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
-* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
-* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
-* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
-* OF THESE TERMS.
-******************************************************************************
-
-Version Control Information (Perforce)
-******************************************************************************
-$Revision: #3 $ 
-$DateTime: 2023/01/10 04:01:19 $ 
-$Author: i64652 $
-Last Change: Renamed ecia_init to interrupt_init
-******************************************************************************/
-/** @file interrupt_api.h
-* \brief Interrupt Header File
-* \author jvasanth
-* 
-* This file implements the Interrupt Module Header file  
-******************************************************************************/
-
-/** @defgroup Interrupt
- *  @{
- */
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * You may use this software and any derivatives exclusively with
+ * Microchip products.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+ * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+ * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+ * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+ * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+ * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+ * OF THESE TERMS.
+ *****************************************************************************/
 
 #ifndef INTERRUPT_H
 #define INTERRUPT_H
@@ -292,9 +274,3 @@ void interrupt_device_girqs_source_reset(void);
 void mchp_privileged_ecia_init(uint32_t direct_bitmap, uint8_t dflt_priority);
 
 #endif // #ifndef INTERRUPT_H
-/* end interrupt_api.h */
-/**   @}
- */
-
-
-

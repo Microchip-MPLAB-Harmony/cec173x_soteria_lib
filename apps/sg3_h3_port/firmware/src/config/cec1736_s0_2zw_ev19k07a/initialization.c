@@ -125,16 +125,20 @@ void SYS_Initialize ( void* data )
 
     I2CSMB0_Initialize();
     
-	UART0_Initialize();
-
     DMA_Initialize();
+
+WDT_Initialize();
 
 EC_REG_BANK_Initialize();
 
     I2CSMB2_Initialize();
     
+PWM0_Initialize();
+
     I2CSMB1_Initialize();
     
+	UART0_Initialize();
+
 
 
 

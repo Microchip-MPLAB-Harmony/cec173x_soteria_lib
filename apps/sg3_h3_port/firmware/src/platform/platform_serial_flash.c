@@ -38,93 +38,93 @@
 *******************************************************************************/
 uint8_t platform_serial_flash_read_ldma_nonblocking_no_fill(uint32_t spi_addr, uint32_t mem_addr, uint32_t data_len, uint8_t mode, uint32_t *qmspi_status,  uint8_t spi_select)
 {
-	uint32_t noofbytes;
-	uint8_t ret_val = SPI_DONE_OK;
-	uint8_t port = 0u;
+    uint32_t noofbytes;
+    uint8_t ret_val = SPI_DONE_OK;
+    uint8_t port = 0u;
 
-	port = SPI_GET_PORT(spi_select);
+    port = SPI_GET_PORT(spi_select);
 
     if(INT_SPI == port)
     {
         port = SHD_SPI;
     }
 
-	chipSelectSPI(spi_select, SELECT);
+    chipSelectSPI(spi_select, SELECT);
 
-	QMSPI_DESCRIPTOR_XFER_T qmspi_xfer_cfg;
-	memset(&qmspi_xfer_cfg, 0x00, sizeof(qmspi_xfer_cfg));
+    QMSPI_DESCRIPTOR_XFER_T qmspi_xfer_cfg;
+    memset(&qmspi_xfer_cfg, 0x00, sizeof(qmspi_xfer_cfg));
 
-	// 0x03/0x13, 0x0b/0x0c, 0x3b/0x3c, 0x6b/0x6c
-	if (SPI_4BYTE_ADDR_REQUIRED(spi_addr, data_len))
-	{
-		qmspi_xfer_cfg.address_32_bit_en = true;
-		switch(mode)
-		{
-			case 1:
-				qmspi_xfer_cfg.command = 0x0C;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x01;
-				qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
-				break;
-			case 2:
-				qmspi_xfer_cfg.command = 0x3C;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
-				qmspi_xfer_cfg.qmspi_ifc_mode = DUAL_OUTPUT;
-				break;
-			case 3:
-				qmspi_xfer_cfg.command = 0x6C;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x04;
-				qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
-				break;
-			case 0: // fall through
-			default:
-				qmspi_xfer_cfg.command = 0x13;
-				qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
-				// 0 dummy bytes
-		}
-	}
-	else
-	{
-		switch(mode)
-		{
-			case 1:
-				qmspi_xfer_cfg.command = 0x0B;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x01;
-				qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
-				break;
-			case 2:
-				qmspi_xfer_cfg.command = 0x3B;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
-				qmspi_xfer_cfg.qmspi_ifc_mode = DUAL_OUTPUT;
-				break;
-			case 3:
-				qmspi_xfer_cfg.command = 0x6B;
-				qmspi_xfer_cfg.num_of_dummy_byte = 0x04;
-				qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
-				break;
-			case 0: // fall through
-			default:
-				qmspi_xfer_cfg.command = 0x03;
-				qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
-				// 0 dummy bytes
-		}
-	}
+    // 0x03/0x13, 0x0b/0x0c, 0x3b/0x3c, 0x6b/0x6c
+    if (SPI_4BYTE_ADDR_REQUIRED(spi_addr, data_len))
+    {
+        qmspi_xfer_cfg.address_32_bit_en = true;
+        switch(mode)
+        {
+            case 1:
+                qmspi_xfer_cfg.command = 0x0C;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x01;
+                qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
+                break;
+            case 2:
+                qmspi_xfer_cfg.command = 0x3C;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
+                qmspi_xfer_cfg.qmspi_ifc_mode = DUAL_OUTPUT;
+                break;
+            case 3:
+                qmspi_xfer_cfg.command = 0x6C;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x04;
+                qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
+                break;
+            case 0: // fall through
+            default:
+                qmspi_xfer_cfg.command = 0x13;
+                qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
+                // 0 dummy bytes
+        }
+    }
+    else
+    {
+        switch(mode)
+        {
+            case 1:
+                qmspi_xfer_cfg.command = 0x0B;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x01;
+                qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
+                break;
+            case 2:
+                qmspi_xfer_cfg.command = 0x3B;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x02;
+                qmspi_xfer_cfg.qmspi_ifc_mode = DUAL_OUTPUT;
+                break;
+            case 3:
+                qmspi_xfer_cfg.command = 0x6B;
+                qmspi_xfer_cfg.num_of_dummy_byte = 0x04;
+                qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
+                break;
+            case 0: // fall through
+            default:
+                qmspi_xfer_cfg.command = 0x03;
+                qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
+                // 0 dummy bytes
+        }
+    }
 
-	qmspi_xfer_cfg.address = spi_addr;
-	qmspi_xfer_cfg.ldma_enable = true;
-	qmspi_xfer_cfg.ldma_incr_addr_disable = true;
-	qmspi_xfer_cfg.ldma_channel_num = QMSPI_LDMA_CHANNEL_0;
+    qmspi_xfer_cfg.address = spi_addr;
+    qmspi_xfer_cfg.ldma_enable = true;
+    qmspi_xfer_cfg.ldma_incr_addr_disable = true;
+    qmspi_xfer_cfg.ldma_channel_num = QMSPI_LDMA_CHANNEL_0;
 
-	switch(port)
-	{
-		case PVT_SPI:
-			noofbytes = QMSPI1_DMATransferRead(&qmspi_xfer_cfg, (void*)mem_addr, data_len);
-			break;
-		default: //SHD_SPI and INT_SPI
-			noofbytes = QMSPI0_DMATransferRead(&qmspi_xfer_cfg, (void*)mem_addr, data_len);
-			break;
-	}
+    switch(port)
+    {
+        case PVT_SPI:
+            noofbytes = QMSPI1_DMATransferRead(&qmspi_xfer_cfg, (void*)mem_addr, data_len);
+            break;
+        default: //SHD_SPI and INT_SPI
+            noofbytes = QMSPI0_DMATransferRead(&qmspi_xfer_cfg, (void*)mem_addr, data_len);
+            break;
+    }
 
-	return ret_val;
+    return ret_val;
 }
 
 /**   @}                                                                       

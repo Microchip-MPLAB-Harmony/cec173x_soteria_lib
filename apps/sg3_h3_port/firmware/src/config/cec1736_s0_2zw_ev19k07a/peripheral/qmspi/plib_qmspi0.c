@@ -600,15 +600,18 @@ void QMSPI0_CallbackRegister(QMSPI_CALLBACK callback, uintptr_t context)
 
 void QMSPI0_GRP_InterruptHandler(void)
 {
-    ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_QMSPI0);
-
-    if ((QMSPI0_REGS->QMSPI_STS & QMSPI_STS_TRANS_COMPL_Msk) != 0U)
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_QMSPI0))
     {
-        QMSPI0_REGS->QMSPI_STS |= QMSPI_STS_TRANS_COMPL_Msk;
-        QMSPI0_REGS->QMSPI_IEN &= ~QMSPI_IEN_TRANS_COMPL_EN_Msk;
-        if(qmspi0Obj.callback != NULL)
+        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_QMSPI0);
+
+        if ((QMSPI0_REGS->QMSPI_STS & QMSPI_STS_TRANS_COMPL_Msk) != 0U)
         {
-            qmspi0Obj.callback(qmspi0Obj.context);
+            QMSPI0_REGS->QMSPI_STS |= QMSPI_STS_TRANS_COMPL_Msk;
+            QMSPI0_REGS->QMSPI_IEN &= ~QMSPI_IEN_TRANS_COMPL_EN_Msk;
+            if(qmspi0Obj.callback != NULL)
+            {
+                qmspi0Obj.callback(qmspi0Obj.context);
+            }
         }
     }
 }

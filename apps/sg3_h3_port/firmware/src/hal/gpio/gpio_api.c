@@ -1,40 +1,22 @@
 /*****************************************************************************
-* © 2020 Microchip Technology Inc. and its subsidiaries.
-* You may use this software and any derivatives exclusively with
-* Microchip products.
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
-* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
-* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
-* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
-* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
-* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
-* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
-* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
-* OF THESE TERMS.
-******************************************************************************
-
-Version Control Information (Perforce)
-******************************************************************************
-$Revision: #3 $
-$DateTime: 2023/01/10 04:01:19 $
-$Author: i64652 $
-Last Change:    None
-******************************************************************************/
-/** @file gpio_api.c
-* \brief GPIO API Source file
-* \author pramans
-*
-* This file implements the GPIO API functions
-******************************************************************************/
-
-/** @defgroup GPIO
- *  @{
- */
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * You may use this software and any derivatives exclusively with
+ * Microchip products.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+ * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+ * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+ * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+ * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+ * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+ * OF THESE TERMS.
+ *****************************************************************************/
 
 #include "common.h"
 #include "peripheral/gpio/plib_gpio.h"
@@ -70,7 +52,7 @@ extern "C" {
 #define TIMER_CNT_50US          (153ul)
 // 1 millisecond sample 50 micro second x 20  = 1 millisecond
 #define SAMPLE_1MS              (20ul)
-#define MAX_PIN					(GPIO_PIN_GPIO253 + 1)
+#define MAX_PIN                    (GPIO_PIN_GPIO253 + 1)
 
 extern void timer_delay_us(uint32_t num_us);
 static uint8_t gpio_is_valid( GPIO_PIN pin );
@@ -133,22 +115,22 @@ uint8_t gpio_init( GPIO_PIN pin, GPIO_INP_READ new_val, GPIO_FUNCTION new_mux, G
     uint8_t ret_init_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-		gpio_property_set(pin, GPIO_PROP_INP_EN_DIS, new_val);
-		gpio_property_set(pin, GPIO_PROP_MUX_SEL, new_mux);
-		gpio_property_set(pin, GPIO_PROP_POLARITY, new_pol);
-		gpio_property_set(pin, GPIO_PROP_DIR, new_dir);
-		gpio_property_set(pin, GPIO_PROP_OBUFF_TYPE, new_obuf);
-		gpio_property_set(pin, GPIO_PROP_INT_DET, new_idet);
-		gpio_property_set(pin, GPIO_PROP_PWR_GATE, new_pwrg);
-		gpio_property_set(pin, GPIO_PROP_PU_PD, new_pud);
-		
+        gpio_property_set(pin, GPIO_PROP_INP_EN_DIS, new_val);
+        gpio_property_set(pin, GPIO_PROP_MUX_SEL, new_mux);
+        gpio_property_set(pin, GPIO_PROP_POLARITY, new_pol);
+        gpio_property_set(pin, GPIO_PROP_DIR, new_dir);
+        gpio_property_set(pin, GPIO_PROP_OBUFF_TYPE, new_obuf);
+        gpio_property_set(pin, GPIO_PROP_INT_DET, new_idet);
+        gpio_property_set(pin, GPIO_PROP_PWR_GATE, new_pwrg);
+        gpio_property_set(pin, GPIO_PROP_PU_PD, new_pud);
+        
         ret_init_sts = 0u;
     }
     else
     {
         ret_init_sts = 1u;
     }
-	
+    
     return ret_init_sts;
 }
 
@@ -172,23 +154,23 @@ uint8_t gpio_output_set( GPIO_PIN pin, GPIO_ALT_OUT out_src, const uint32_t gpio
     if ( gpio_is_valid(pin) )
     {
 //        p_gpio_output_write_enable( pin, out_src );
-		GPIO_PinGroupOutputConfig( pin, out_src );
+        GPIO_PinGroupOutputConfig( pin, out_src );
 
         if ( out_src )
         {
-			if(gpio_state) {
-				GPIO_GroupPinSet(pin);
-			} else {
-				GPIO_GroupPinClear(pin);
-			}
+            if(gpio_state) {
+                GPIO_GroupPinSet(pin);
+            } else {
+                GPIO_GroupPinClear(pin);
+            }
         }
         else
         {
-			if(gpio_state) {
-				GPIO_PinSet(pin);
-			} else {
-				GPIO_PinClear(pin);
-			}
+            if(gpio_state) {
+                GPIO_PinSet(pin);
+            } else {
+                GPIO_PinClear(pin);
+            }
         }
 
         ret_op_set_sts = 0u;
@@ -239,7 +221,7 @@ uint8_t gpio_slewRate_set( GPIO_PIN pin, GPIO_SLEW_RATE new_slew )
     uint8_t ret_slw_set_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-		GPIO_PinSlewRateConfig(pin, new_slew);
+        GPIO_PinSlewRateConfig(pin, new_slew);
 
         ret_slw_set_sts = 0u;
     }
@@ -267,8 +249,8 @@ uint8_t gpio_drvStr_set( GPIO_PIN pin, GPIO_DRV drv_str )
     uint8_t ret_drvstr_set_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-		GPIO_DrvStrConfig(pin, drv_str);
-		
+        GPIO_DrvStrConfig(pin, drv_str);
+        
         ret_drvstr_set_sts = 0u;
     }
     else
@@ -374,7 +356,3 @@ static uint8_t gpio_is_valid( GPIO_PIN pin )
 #ifdef __cplusplus
 }
 #endif
-
-/* end of gpio_api.c */
-/**   @}
- */

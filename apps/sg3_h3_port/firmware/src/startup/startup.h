@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Microchip Technologies Inc.
+ * Copyright 2022 Microchip Technologies Inc.
  */
 
 /*

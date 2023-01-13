@@ -59,19 +59,21 @@
 #include "peripheral/i2c/plib_smb0_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb0_master.h"
 #include "peripheral/i2c/slave/plib_smb0_slave.h"
-#include "peripheral/uart/plib_uart0.h"
 #include "peripheral/gpio/plib_gpio.h"
 #include "peripheral/pcr/plib_pcr.h"
 #include "peripheral/ecia/plib_ecia.h"
 #include "peripheral/nvic/plib_nvic.h"
 #include "peripheral/dma/plib_dma.h"
+#include "peripheral/wdt/plib_wdt.h"
 #include "peripheral/ec_reg_bank/plib_ec_reg_bank.h"
 #include "peripheral/i2c/plib_smb2_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb2_master.h"
 #include "peripheral/i2c/slave/plib_smb2_slave.h"
+#include "peripheral/pwm/plib_pwm0.h"
 #include "peripheral/i2c/plib_smb1_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb1_master.h"
 #include "peripheral/i2c/slave/plib_smb1_slave.h"
+#include "peripheral/uart/plib_uart0.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

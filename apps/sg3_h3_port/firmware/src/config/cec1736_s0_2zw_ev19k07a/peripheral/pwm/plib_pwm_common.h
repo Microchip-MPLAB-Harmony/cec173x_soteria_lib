@@ -1,22 +1,25 @@
 /*******************************************************************************
- System Interrupts File
+  PWM Peripheral Library Interface Header File
 
-  Company:
+  Company
     Microchip Technology Inc.
 
-  File Name:
-    interrupt.h
+  File Name
+    plib_pwm_common.h
 
-  Summary:
-    Interrupt vectors mapping
+  Summary
+    PWM peripheral library interface.
 
-  Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+  Description
+    This file defines the interface to the PWM peripheral library.  This
+    library provides access to and control of the associated peripheral
+    instance.
+
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -36,64 +39,63 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- *******************************************************************************/
+*******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
+#ifndef PLIB_PWM_COMMON_H    // Guards against multiple inclusion
+#define PLIB_PWM_COMMON_H
+
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
 
+/*  This section lists the other files that are included in this file.
+*/
 
+#include <stddef.h>
+#include <stdbool.h>
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
+extern "C" {
+
+#endif
+
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Handler Routines
+// Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+/*  The following data type definitions are used by the functions in this
+    interface and should be considered part it.
+*/
 
-void Reset_Handler (void);
-void NonMaskableInt_Handler (void);
-void HardFault_Handler (void);
-void MemoryManagement_Handler (void);
-void BusFault_Handler (void);
-void UsageFault_Handler (void);
-void DebugMonitor_Handler (void);
-void GPIO140_GRP_InterruptHandler (void);
-void GPIO107_GRP_InterruptHandler (void);
-void GPIO113_GRP_InterruptHandler (void);
-void GPIO127_GRP_InterruptHandler (void);
-void GPIO046_GRP_InterruptHandler (void);
-void GPIO047_GRP_InterruptHandler (void);
-void GPIO050_GRP_InterruptHandler (void);
-void GPIO063_GRP_InterruptHandler (void);
-void GPIO013_GRP_InterruptHandler (void);
-void GPIO015_GRP_InterruptHandler (void);
-void GPIO201_GRP_InterruptHandler (void);
-void I2CSMB0_GRP_InterruptHandler (void);
-void I2CSMB1_GRP_InterruptHandler (void);
-void I2CSMB2_GRP_InterruptHandler (void);
-void I2CSMB3_GRP_InterruptHandler (void);
-void I2CSMB4_GRP_InterruptHandler (void);
-void DMA_CH00_GRP_InterruptHandler (void);
-void DMA_CH01_GRP_InterruptHandler (void);
-void DMA_CH02_GRP_InterruptHandler (void);
-void DMA_CH03_GRP_InterruptHandler (void);
-void DMA_CH04_GRP_InterruptHandler (void);
-void DMA_CH05_GRP_InterruptHandler (void);
-void DMA_CH06_GRP_InterruptHandler (void);
-void DMA_CH07_GRP_InterruptHandler (void);
-void DMA_CH08_GRP_InterruptHandler (void);
-void DMA_CH09_GRP_InterruptHandler (void);
-void QMSPI0_GRP_InterruptHandler (void);
-void QMSPI1_GRP_InterruptHandler (void);
-void WDT_GRP_InterruptHandler (void);
+typedef uint32_t PWM_CLK_SEL;
+typedef uint32_t PWM_OUTPUT;
+
+#define PWM_CLK_SEL_LOW_100KHZ  1
+#define PWM_CLK_SEL_HIGH_48MHZ  0
+
+#define PWM_OUTPUT_ON_STATE_ACTIVE_LOW      1
+#define PWM_OUTPUT_ON_STATE_ACTIVE_HIGH     0
 
 
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
 
-#endif // INTERRUPTS_H
+}
+
+#endif
+// DOM-IGNORE-END
+
+#endif //PLIB_PWM_COMMON_H
+
+/**
+ End of File
+*/

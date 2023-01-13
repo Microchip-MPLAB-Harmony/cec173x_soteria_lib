@@ -1,40 +1,22 @@
 /*****************************************************************************
-* © 2018 Microchip Technology Inc. and its subsidiaries.
-* You may use this software and any derivatives exclusively with
-* Microchip products.
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
-* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
-* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
-* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
-* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
-* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
-* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
-* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
-* OF THESE TERMS.
-******************************************************************************
-
-Version Control Information (Perforce)
-******************************************************************************
-$Revision: #1 $ 
-$DateTime: 2023/01/02 04:27:58 $ 
-$Author: i64652 $
-Last Change:    None
-******************************************************************************/
-/** @file uart_api.c
-* \brief UART API Source file
-* \author pramans
-* 
-* This file implements the UART API functions  
-******************************************************************************/
-
-/** @defgroup UART
- *  @{
- */
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * You may use this software and any derivatives exclusively with
+ * Microchip products.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+ * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+ * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+ * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+ * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+ * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+ * OF THESE TERMS.
+ *****************************************************************************/
 
 #include "common.h"
 #include "uart_api.h"
@@ -70,24 +52,24 @@ static uint8_t uart_id_is_valid( uint8_t uart_id )
  */
 void uart_pins_init( uint8_t uart_id )
 {
-	if ( uart_id_is_valid(uart_id) ) {
-		switch ( uart_id )
-		{
-			case UART0_ID:
-				//Tx
-				AHB_API_gpio_init( GPIO_PIN_GPIO104, GPIO_INP_DISABLE, GPIO_FUNCTION_FUNC1, \
-									GPIO_POLARITY_NON_INVERTED, GPIO_DIR_OUTPUT, GPIO_OUTPUT_BUFFER_TYPE_PUSH_PULL, \
-									GPIO_INTDET_TYPE_DISABLED, GPIO_PWR_VTR, GPIO_PULL_TYPE_NONE );
-				//Rx
-				AHB_API_gpio_init( GPIO_PIN_GPIO105, GPIO_INP_ENABLE, GPIO_FUNCTION_FUNC1, \
-									GPIO_POLARITY_INVERTED, GPIO_DIR_INPUT, GPIO_OUTPUT_BUFFER_TYPE_PUSH_PULL, \
-									GPIO_INTDET_TYPE_DISABLED, GPIO_PWR_VTR, GPIO_PULL_TYPE_NONE );
-				break;
+    if ( uart_id_is_valid(uart_id) ) {
+        switch ( uart_id )
+        {
+            case UART0_ID:
+                //Tx
+                AHB_API_gpio_init( GPIO_PIN_GPIO104, GPIO_INP_DISABLE, GPIO_FUNCTION_FUNC1, \
+                                    GPIO_POLARITY_NON_INVERTED, GPIO_DIR_OUTPUT, GPIO_OUTPUT_BUFFER_TYPE_PUSH_PULL, \
+                                    GPIO_INTDET_TYPE_DISABLED, GPIO_PWR_VTR, GPIO_PULL_TYPE_NONE );
+                //Rx
+                AHB_API_gpio_init( GPIO_PIN_GPIO105, GPIO_INP_ENABLE, GPIO_FUNCTION_FUNC1, \
+                                    GPIO_POLARITY_INVERTED, GPIO_DIR_INPUT, GPIO_OUTPUT_BUFFER_TYPE_PUSH_PULL, \
+                                    GPIO_INTDET_TYPE_DISABLED, GPIO_PWR_VTR, GPIO_PULL_TYPE_NONE );
+                break;
 
-			default:
-				break;
-		}
-	}
+            default:
+                break;
+        }
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -103,16 +85,16 @@ void uart_pins_init( uint8_t uart_id )
  */
 void uart_hw_init( uint8_t uart_id )
 {
-	if ( uart_id_is_valid(uart_id) ) {
-		switch ( uart_id )
-		{
-			case UART0_ID:
-				UART0_Initialize();
-				break;
-			default:
-				break;
-		}
-	}
+    if ( uart_id_is_valid(uart_id) ) {
+        switch ( uart_id )
+        {
+            case UART0_ID:
+                UART0_Initialize();
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 /* --------------------------------------------------------------------------------------------- */
@@ -133,23 +115,23 @@ void uart_hw_init( uint8_t uart_id )
  */
 void uart_protocol_init( uint8_t uart_id, uint32_t baud, uint8_t wrd_len, uint8_t stp_bit, uint8_t parity_type)
 {
-	UART_SERIAL_SETUP uart_config = {
-		.baudRate = baud,
-		.dataWidth = wrd_len,
-		.parity = parity_type,
-		.stopBits = stp_bit
-	};
-	
+    UART_SERIAL_SETUP uart_config = {
+        .baudRate = baud,
+        .dataWidth = wrd_len,
+        .parity = parity_type,
+        .stopBits = stp_bit
+    };
+    
     if ( uart_id_is_valid(uart_id) )
-	{
+    {
         switch ( uart_id )
-		{
-			case UART0_ID:
-				UART0_SerialSetup(&uart_config, 1843200);
-				break;
-			default:
-				break;
-		}
+        {
+            case UART0_ID:
+                UART0_SerialSetup(&uart_config, 1843200);
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -166,16 +148,16 @@ void uart_protocol_init( uint8_t uart_id, uint32_t baud, uint8_t wrd_len, uint8_
 void uart_transmit( uint8_t uart_id, uint8_t data )
 {
     if ( uart_id_is_valid(uart_id) )
-	{
+    {
         switch ( uart_id )
-		{
-			case UART0_ID:
-				while(false == UART0_TransmitterIsReady());
-				UART0_WriteByte((int)data);
-				break;
-			default:
-				break;
-		}
+        {
+            case UART0_ID:
+                while(false == UART0_TransmitterIsReady());
+                UART0_WriteByte((int)data);
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -191,20 +173,15 @@ void uart_transmit( uint8_t uart_id, uint8_t data )
 uint8_t uart_receive( uint8_t uart_id )
 {
     if ( uart_id_is_valid(uart_id) )
-	{
+    {
         switch ( uart_id )
-		{
-			case UART0_ID:
-				while(false == UART0_ReceiverIsReady());
-				return UART0_ReadByte();
-				break;
-			default:
-				break;
-		}
+        {
+            case UART0_ID:
+                while(false == UART0_ReceiverIsReady());
+                return UART0_ReadByte();
+                break;
+            default:
+                break;
+        }
     }
 }
-
-/* end of uart_api.c */
-/**   @}
- */
-

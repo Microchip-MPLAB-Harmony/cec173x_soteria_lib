@@ -32,66 +32,66 @@
    POSSIBILITY OF SUCH DAMAGE.
    ---------------------------------------------------------------------------*/
 /*
- * Additional Copyright (c) 2020 Microchip Technologies Inc.
+ * Additional Copyright (c) 2022 Microchip Technologies Inc.
  */
 
 #include "startup.h"
 
-	.syntax unified
-	.arch   armv7e-m
+    .syntax unified
+    .arch   armv7e-m
 
-	.section .stack
-	.align  3
+    .section .stack
+    .align  3
 #ifdef __STACK_SIZE
-	.equ    Stack_Size, __STACK_SIZE
+    .equ    Stack_Size, __STACK_SIZE
 #else
-	.equ    Stack_Size, 0x1000
+    .equ    Stack_Size, 0x1000
 #endif
-	.globl  __StackTop
-	.globl  __StackLimit
+    .globl  __StackTop
+    .globl  __StackLimit
 __StackLimit:
-	.space  Stack_Size
-	.size   __StackLimit, . - __StackLimit
+    .space  Stack_Size
+    .size   __StackLimit, . - __StackLimit
 __StackTop:
-	.size   __StackTop, . - __StackTop
+    .size   __StackTop, . - __StackTop
 
-	.section .heap
-	.align  3
+    .section .heap
+    .align  3
 #ifdef __HEAP_SIZE
-	.equ    Heap_Size, __HEAP_SIZE
+    .equ    Heap_Size, __HEAP_SIZE
 #else
-	.equ    Heap_Size, 0
+    .equ    Heap_Size, 0
 #endif
-	.globl  __HeapBase
-	.globl  __HeapLimit
+    .globl  __HeapBase
+    .globl  __HeapLimit
 __HeapBase:
-	.if Heap_Size
-	.space  Heap_Size
-	.endif
-	.size   __HeapBase, . - __HeapBase
+    .if Heap_Size
+    .space  Heap_Size
+    .endif
+    .size   __HeapBase, . - __HeapBase
 __HeapLimit:
-	.size   __HeapLimit, . - __HeapLimit
+    .size   __HeapLimit, . - __HeapLimit
 
-	.section .startup,code
-	.thumb
-	.thumb_func
-	.align 2
-	.weak  reset_hook_1
-	.type  reset_hook_1, %function
+    .section .startup,code
+    .thumb
+    .thumb_func
+    .align 2
+    .weak  reset_hook_1
+    .type  reset_hook_1, %function
 reset_hook_1:
-	nop
-	nop
-	bx	lr
+    nop
+    nop
+    bx    lr
 
-	.pool
-	.size	reset_hook_1, . - reset_hook_1
+    .pool
+    .size    reset_hook_1, . - reset_hook_1
 
-	.section .startup, code
-	.thumb
-	.thumb_func
-	.align  2
-	.globl  Reset_Handler
-	.type   Reset_Handler, %function
+    .section .startup, code
+    .thumb
+    .thumb_func
+    .align  2
+    .globl  Reset_Handler
+    .type   Reset_Handler, %function
 Reset_Handler:
 /*
  * On Vector or chip reset vector table is 0 (Boot-ROM)
@@ -99,31 +99,31 @@ Reset_Handler:
  * register at 0xE000ED08.
  * We load SP with stack pointer from out vector table.
  */
-	ldr	r2, =exception_table
-	ldr	r3, =0xE000ED08
-	str	r2, [r3]
-	dsb
-	isb
-	ldr	r3, [r2]
-	msr	msp, r3
-	isb	0xf
-	msr	psp, r3
-	isb	0xf
+    ldr    r2, =exception_table
+    ldr    r3, =0xE000ED08
+    str    r2, [r3]
+    dsb
+    isb
+    ldr    r3, [r2]
+    msr    msp, r3
+    isb    0xf
+    msr    psp, r3
+    isb    0xf
 
-	bl	reset_hook_1
+    bl    reset_hook_1
 
 #ifdef STACK_SENTINEL
 /*
  *  Help diagnose stack underflow by filling the stack with
  *  a sentinel value.
  */
-	ldr	r0, =STACK_SENTINEL_VAL
-	ldr	r1, =__StackLimit
-	ldr	r2, =__StackTop
+    ldr    r0, =STACK_SENTINEL_VAL
+    ldr    r1, =__StackLimit
+    ldr    r2, =__StackTop
 .L_loop_ss0:
-	str	r0, [r1], #4
-	cmp	r1, r2
-	bne	.L_loop_ss0
+    str    r0, [r1], #4
+    cmp    r1, r2
+    bne    .L_loop_ss0
 #endif
 
 /*
@@ -145,25 +145,25 @@ Reset_Handler:
  *
  *  All addresses must be aligned to 4 bytes boundary.
  */
-	ldr	r4, =__copy_table_start__
-	ldr	r5, =__copy_table_end__
+    ldr    r4, =__copy_table_start__
+    ldr    r5, =__copy_table_end__
 
 .L_loop0:
-	cmp	r4, r5
-	bge	.L_loop0_done
-	ldr	r1, [r4]
-	ldr	r2, [r4, #4]
-	ldr	r3, [r4, #8]
+    cmp    r4, r5
+    bge    .L_loop0_done
+    ldr    r1, [r4]
+    ldr    r2, [r4, #4]
+    ldr    r3, [r4, #8]
 
 .L_loop0_0:
-	subs	r3, #4
-	ittt	ge
-	ldrge	r0, [r1, r3]
-	strge	r0, [r2, r3]
-	bge	.L_loop0_0
+    subs    r3, #4
+    ittt    ge
+    ldrge    r0, [r1, r3]
+    strge    r0, [r2, r3]
+    bge    .L_loop0_0
 
-	adds	r4, #12
-	b	.L_loop0
+    adds    r4, #12
+    b    .L_loop0
 
 .L_loop0_done:
 #else
@@ -177,16 +177,16 @@ Reset_Handler:
  *
  *  All addresses must be aligned to 4 bytes boundary.
  */
-	ldr	r1, =__etext
-	ldr	r2, =__data_start__
-	ldr	r3, =__data_end__
+    ldr    r1, =__etext
+    ldr    r2, =__data_start__
+    ldr    r3, =__data_end__
 
 .L_loop1:
-	cmp	r2, r3
-	ittt	lt
-	ldrlt	r0, [r1], #4
-	strlt	r0, [r2], #4
-	blt	.L_loop1
+    cmp    r2, r3
+    ittt    lt
+    ldrlt    r0, [r1], #4
+    strlt    r0, [r2], #4
+    blt    .L_loop1
 #endif /*__STARTUP_COPY_MULTIPLE */
 
 /*
@@ -209,24 +209,24 @@ Reset_Handler:
  *    offset 0: Start of a BSS section
  *    offset 4: Size of this BSS section. Must be multiply of 4
  */
-	ldr	r3, =__zero_table_start__
-	ldr	r4, =__zero_table_end__
+    ldr    r3, =__zero_table_start__
+    ldr    r4, =__zero_table_end__
 
 .L_loop2:
-	cmp	r3, r4
-	bge	.L_loop2_done
-	ldr	r1, [r3]
-	ldr	r2, [r3, #4]
-	movs	r0, 0
+    cmp    r3, r4
+    bge    .L_loop2_done
+    ldr    r1, [r3]
+    ldr    r2, [r3, #4]
+    movs    r0, 0
 
 .L_loop2_0:
-	subs	r2, #4
-	itt	ge
-	strge	r0, [r1, r2]
-	bge	.L_loop2_0
+    subs    r2, #4
+    itt    ge
+    strge    r0, [r1, r2]
+    bge    .L_loop2_0
 
-	adds	r3, #8
-	b	.L_loop2
+    adds    r3, #8
+    b    .L_loop2
 .L_loop2_done:
 #elif defined (__STARTUP_CLEAR_BSS)
 /*
@@ -238,40 +238,40 @@ Reset_Handler:
  *
  *  Both addresses must be aligned to 4 bytes boundary.
  */
-	ldr	r1, =__bss_start__
-	ldr	r2, =__bss_end__
+    ldr    r1, =__bss_start__
+    ldr    r2, =__bss_end__
 
-	movs	r0, 0
+    movs    r0, 0
 .L_loop3:
-	cmp	r1, r2
-	itt	lt
-	strlt	r0, [r1], #4
-	blt	.L_loop3
+    cmp    r1, r2
+    itt    lt
+    strlt    r0, [r1], #4
+    blt    .L_loop3
 #endif /* __STARTUP_CLEAR_BSS_MULTIPLE || __STARTUP_CLEAR_BSS */
 
 #ifndef __NO_SYSTEM_INIT
-	bl	SystemInit
+    bl    SystemInit
 #endif
-	bl	__libc_init_array
-	
+    bl    __libc_init_array
+    
 #ifndef __START
 #define __START _start
 #endif
-	bl	main
+    bl    main
 
-	.pool
-	.size	Reset_Handler, . - Reset_Handler
+    .pool
+    .size    Reset_Handler, . - Reset_Handler
 
-	.section .startup,code
-	.balign 8
-	.thumb_func
-	.weak	Unimplemented_Handler
-	.type	Unimplemented, %function
+    .section .startup,code
+    .balign 8
+    .thumb_func
+    .weak    Unimplemented_Handler
+    .type    Unimplemented, %function
 Unimplemented_Handler:
 #ifdef __UNIMPLEMENTED_ISR
-	b 	__UNIMPLEMENTED_ISR
+    b     __UNIMPLEMENTED_ISR
 #else
-	mov	r0, #13
-	b	.
+    mov    r0, #13
+    b    .
 #endif
-	.size	Unimplemented_Handler, . - Unimplemented_Handler
+    .size    Unimplemented_Handler, . - Unimplemented_Handler
