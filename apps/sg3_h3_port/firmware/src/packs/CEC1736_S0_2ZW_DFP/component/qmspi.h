@@ -1,7 +1,7 @@
 /*
  * Component description for QMSPI
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_QMSPI_COMPONENT_H_
 #define _CEC_QMSPI_COMPONENT_H_
 
@@ -529,15 +529,6 @@
 #define QMSPI_TAP_CTRL_Msk                    _UINT32_(0x00070107)                                 /* (QMSPI_TAP_CTRL) Register Mask  */
 
 
-/* -------- QMSPI_DESC_LDMA_TXEN : (QMSPI Offset: 0x104) (R/W 32) QMSPI Descriptor Local DMA Tx Enable Register -------- */
-#define QMSPI_DESC_LDMA_TXEN_RESETVALUE       _UINT32_(0x00)                                       /*  (QMSPI_DESC_LDMA_TXEN) QMSPI Descriptor Local DMA Tx Enable Register  Reset Value */
-
-#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos _UINT32_(0)                                          /* (QMSPI_DESC_LDMA_TXEN) This enables the Local TX DMA usage (instead of the Central DMA) when the Descriptor Buffer register enables the DMA. Position */
-#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Msk (_UINT32_(0xFFFF) << QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos) /* (QMSPI_DESC_LDMA_TXEN) This enables the Local TX DMA usage (instead of the Central DMA) when the Descriptor Buffer register enables the DMA. Mask */
-#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN(value) (QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Msk & (_UINT32_(value) << QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos)) /* Assigment of value for DESC_LDMA_TXEN in the QMSPI_DESC_LDMA_TXEN register */
-#define QMSPI_DESC_LDMA_TXEN_Msk              _UINT32_(0x0000FFFF)                                 /* (QMSPI_DESC_LDMA_TXEN) Register Mask  */
-
-
 /* -------- QMSPI_DESC_LDMA_RXEN : (QMSPI Offset: 0x100) (R/W 32) QMSPI Descriptor Local DMA Rx Enable Register -------- */
 #define QMSPI_DESC_LDMA_RXEN_RESETVALUE       _UINT32_(0x00)                                       /*  (QMSPI_DESC_LDMA_RXEN) QMSPI Descriptor Local DMA Rx Enable Register  Reset Value */
 
@@ -545,6 +536,15 @@
 #define QMSPI_DESC_LDMA_RXEN_DESC_LDMA_RXEN_Msk (_UINT32_(0xFFFF) << QMSPI_DESC_LDMA_RXEN_DESC_LDMA_RXEN_Pos) /* (QMSPI_DESC_LDMA_RXEN) This enables the Local RX DMA usage (instead of the Central DMA) when the Descriptor Buffer register enables the DMA. Mask */
 #define QMSPI_DESC_LDMA_RXEN_DESC_LDMA_RXEN(value) (QMSPI_DESC_LDMA_RXEN_DESC_LDMA_RXEN_Msk & (_UINT32_(value) << QMSPI_DESC_LDMA_RXEN_DESC_LDMA_RXEN_Pos)) /* Assigment of value for DESC_LDMA_RXEN in the QMSPI_DESC_LDMA_RXEN register */
 #define QMSPI_DESC_LDMA_RXEN_Msk              _UINT32_(0x0000FFFF)                                 /* (QMSPI_DESC_LDMA_RXEN) Register Mask  */
+
+
+/* -------- QMSPI_DESC_LDMA_TXEN : (QMSPI Offset: 0x104) (R/W 32) QMSPI Descriptor Local DMA Tx Enable Register -------- */
+#define QMSPI_DESC_LDMA_TXEN_RESETVALUE       _UINT32_(0x00)                                       /*  (QMSPI_DESC_LDMA_TXEN) QMSPI Descriptor Local DMA Tx Enable Register  Reset Value */
+
+#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos _UINT32_(0)                                          /* (QMSPI_DESC_LDMA_TXEN) This enables the Local TX DMA usage (instead of the Central DMA) when the Descriptor Buffer register enables the DMA. Position */
+#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Msk (_UINT32_(0xFFFF) << QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos) /* (QMSPI_DESC_LDMA_TXEN) This enables the Local TX DMA usage (instead of the Central DMA) when the Descriptor Buffer register enables the DMA. Mask */
+#define QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN(value) (QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Msk & (_UINT32_(value) << QMSPI_DESC_LDMA_TXEN_DESC_LDMA_TXEN_Pos)) /* Assigment of value for DESC_LDMA_TXEN in the QMSPI_DESC_LDMA_TXEN register */
+#define QMSPI_DESC_LDMA_TXEN_Msk              _UINT32_(0x0000FFFF)                                 /* (QMSPI_DESC_LDMA_TXEN) Register Mask  */
 
 
 /** \brief QMSPI register offsets definitions */
@@ -591,8 +591,8 @@
 #define QMSPI_TAPS_REG_OFST            _UINT32_(0xD0)      /* (QMSPI_TAPS) QMSPI TAPs Register Offset */
 #define QMSPI_TAP_ADJ_REG_OFST         _UINT32_(0xD4)      /* (QMSPI_TAP_ADJ) QMSPI TAP Control Register Offset */
 #define QMSPI_TAP_CTRL_REG_OFST        _UINT32_(0xD8)      /* (QMSPI_TAP_CTRL) QMSPI TAP Adjustment Register Offset */
-#define QMSPI_DESC_LDMA_TXEN_REG_OFST  _UINT32_(0x104)     /* (QMSPI_DESC_LDMA_TXEN) QMSPI Descriptor Local DMA Tx Enable Register Offset */
 #define QMSPI_DESC_LDMA_RXEN_REG_OFST  _UINT32_(0x100)     /* (QMSPI_DESC_LDMA_RXEN) QMSPI Descriptor Local DMA Rx Enable Register Offset */
+#define QMSPI_DESC_LDMA_TXEN_REG_OFST  _UINT32_(0x104)     /* (QMSPI_DESC_LDMA_TXEN) QMSPI Descriptor Local DMA Tx Enable Register Offset */
 
 #if !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief LDMA_RX register API structure */

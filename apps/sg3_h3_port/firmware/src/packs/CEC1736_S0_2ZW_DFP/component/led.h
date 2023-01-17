@@ -1,7 +1,7 @@
 /*
  * Component description for LED
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_LED_COMPONENT_H_
 #define _CEC_LED_COMPONENT_H_
 
@@ -34,15 +34,33 @@
 #define LED_CFG_CTRL_Pos                      _UINT32_(0)                                          /* (LED_CFG) CONTROL 3=PWM is always on                  2=LED blinking (standard PWM)                  1=LED breathing configuration                  0=PWM is always off. All internal registers and counters are reset to 0. Clocks are gated Position */
 #define LED_CFG_CTRL_Msk                      (_UINT32_(0x3) << LED_CFG_CTRL_Pos)                  /* (LED_CFG) CONTROL 3=PWM is always on                  2=LED blinking (standard PWM)                  1=LED breathing configuration                  0=PWM is always off. All internal registers and counters are reset to 0. Clocks are gated Mask */
 #define LED_CFG_CTRL(value)                   (LED_CFG_CTRL_Msk & (_UINT32_(value) << LED_CFG_CTRL_Pos)) /* Assigment of value for CTRL in the LED_CFG register */
+#define   LED_CFG_CTRL_PWM_ALWAYS_OFF_Val     _UINT32_(0x0)                                        /* (LED_CFG) PWM is always off  */
+#define   LED_CFG_CTRL_LED_BREATHING_Val      _UINT32_(0x1)                                        /* (LED_CFG) LED Breathing  */
+#define   LED_CFG_CTRL_LED_BLINKING_Val       _UINT32_(0x2)                                        /* (LED_CFG) LED Blinking  */
+#define   LED_CFG_CTRL_PWM_ALWAYS_ON_Val      _UINT32_(0x3)                                        /* (LED_CFG) PWM is always on  */
+#define LED_CFG_CTRL_PWM_ALWAYS_OFF           (LED_CFG_CTRL_PWM_ALWAYS_OFF_Val << LED_CFG_CTRL_Pos) /* (LED_CFG) PWM is always off Position  */
+#define LED_CFG_CTRL_LED_BREATHING            (LED_CFG_CTRL_LED_BREATHING_Val << LED_CFG_CTRL_Pos) /* (LED_CFG) LED Breathing Position  */
+#define LED_CFG_CTRL_LED_BLINKING             (LED_CFG_CTRL_LED_BLINKING_Val << LED_CFG_CTRL_Pos)  /* (LED_CFG) LED Blinking Position  */
+#define LED_CFG_CTRL_PWM_ALWAYS_ON            (LED_CFG_CTRL_PWM_ALWAYS_ON_Val << LED_CFG_CTRL_Pos) /* (LED_CFG) PWM is always on Position  */
 #define LED_CFG_CLK_SRC_Pos                   _UINT32_(2)                                          /* (LED_CFG) 1=Clock source is the 48 MHz clock, 0=Clock source is the 32.768 KHz clock Position */
 #define LED_CFG_CLK_SRC_Msk                   (_UINT32_(0x1) << LED_CFG_CLK_SRC_Pos)               /* (LED_CFG) 1=Clock source is the 48 MHz clock, 0=Clock source is the 32.768 KHz clock Mask */
 #define LED_CFG_CLK_SRC(value)                (LED_CFG_CLK_SRC_Msk & (_UINT32_(value) << LED_CFG_CLK_SRC_Pos)) /* Assigment of value for CLK_SRC in the LED_CFG register */
+#define   LED_CFG_CLK_SRC_LED_CLK_SRC_32KHZ_Val _UINT32_(0x0)                                        /* (LED_CFG) 32.768 KHz clock  */
+#define   LED_CFG_CLK_SRC_LED_CLK_SRC_48MHZ_Val _UINT32_(0x1)                                        /* (LED_CFG) 48 MHz clock  */
+#define LED_CFG_CLK_SRC_LED_CLK_SRC_32KHZ     (LED_CFG_CLK_SRC_LED_CLK_SRC_32KHZ_Val << LED_CFG_CLK_SRC_Pos) /* (LED_CFG) 32.768 KHz clock Position  */
+#define LED_CFG_CLK_SRC_LED_CLK_SRC_48MHZ     (LED_CFG_CLK_SRC_LED_CLK_SRC_48MHZ_Val << LED_CFG_CLK_SRC_Pos) /* (LED_CFG) 48 MHz clock Position  */
 #define LED_CFG_SYNCH_Pos                     _UINT32_(3)                                          /* (LED_CFG) SYNCHRONIZE  When this bit is '1', all counters for all LEDs are reset to their initial values. When this bit is '0' in the LED Configuration Register for all LEDs, then all counters for LEDs that are configured to blink or breathe will increment or decrement, as required. Position */
 #define LED_CFG_SYNCH_Msk                     (_UINT32_(0x1) << LED_CFG_SYNCH_Pos)                 /* (LED_CFG) SYNCHRONIZE  When this bit is '1', all counters for all LEDs are reset to their initial values. When this bit is '0' in the LED Configuration Register for all LEDs, then all counters for LEDs that are configured to blink or breathe will increment or decrement, as required. Mask */
 #define LED_CFG_SYNCH(value)                  (LED_CFG_SYNCH_Msk & (_UINT32_(value) << LED_CFG_SYNCH_Pos)) /* Assigment of value for SYNCH in the LED_CFG register */
 #define LED_CFG_PWM_SIZE_Pos                  _UINT32_(4)                                          /* (LED_CFG) PWM_SIZE This bit controls the behavior of PWM:                  3=Reserved                  2=PWM is configured as a 6-bit PWM                  1=PWM is configured as a 7-bit PWM                  0=PWM is configured as an 8-bit PWM Position */
 #define LED_CFG_PWM_SIZE_Msk                  (_UINT32_(0x3) << LED_CFG_PWM_SIZE_Pos)              /* (LED_CFG) PWM_SIZE This bit controls the behavior of PWM:                  3=Reserved                  2=PWM is configured as a 6-bit PWM                  1=PWM is configured as a 7-bit PWM                  0=PWM is configured as an 8-bit PWM Mask */
 #define LED_CFG_PWM_SIZE(value)               (LED_CFG_PWM_SIZE_Msk & (_UINT32_(value) << LED_CFG_PWM_SIZE_Pos)) /* Assigment of value for PWM_SIZE in the LED_CFG register */
+#define   LED_CFG_PWM_SIZE_PWM_SIZE_8BIT_Val  _UINT32_(0x0)                                        /* (LED_CFG) PWM is configured as an 8-bit PWM  */
+#define   LED_CFG_PWM_SIZE_PWM_SIZE_7BIT_Val  _UINT32_(0x1)                                        /* (LED_CFG) PWM is configured as an 7-bit PWM  */
+#define   LED_CFG_PWM_SIZE_PWM_SIZE_6BIT_Val  _UINT32_(0x2)                                        /* (LED_CFG) PWM is configured as an 6-bit PWM  */
+#define LED_CFG_PWM_SIZE_PWM_SIZE_8BIT        (LED_CFG_PWM_SIZE_PWM_SIZE_8BIT_Val << LED_CFG_PWM_SIZE_Pos) /* (LED_CFG) PWM is configured as an 8-bit PWM Position  */
+#define LED_CFG_PWM_SIZE_PWM_SIZE_7BIT        (LED_CFG_PWM_SIZE_PWM_SIZE_7BIT_Val << LED_CFG_PWM_SIZE_Pos) /* (LED_CFG) PWM is configured as an 7-bit PWM Position  */
+#define LED_CFG_PWM_SIZE_PWM_SIZE_6BIT        (LED_CFG_PWM_SIZE_PWM_SIZE_6BIT_Val << LED_CFG_PWM_SIZE_Pos) /* (LED_CFG) PWM is configured as an 6-bit PWM Position  */
 #define LED_CFG_EN_UPDATE_Pos                 _UINT32_(6)                                          /* (LED_CFG) ENABLE_UPDATE  This bit is set to 1 when written with a '1'. Writes of '0' have no effect. Hardware clears this bit to 0 when the breathing configuration registers are updated at the end of a PWM period. The current state of the bit is readable any time. Position */
 #define LED_CFG_EN_UPDATE_Msk                 (_UINT32_(0x1) << LED_CFG_EN_UPDATE_Pos)             /* (LED_CFG) ENABLE_UPDATE  This bit is set to 1 when written with a '1'. Writes of '0' have no effect. Hardware clears this bit to 0 when the breathing configuration registers are updated at the end of a PWM period. The current state of the bit is readable any time. Mask */
 #define LED_CFG_EN_UPDATE(value)              (LED_CFG_EN_UPDATE_Msk & (_UINT32_(value) << LED_CFG_EN_UPDATE_Pos)) /* Assigment of value for EN_UPDATE in the LED_CFG register */

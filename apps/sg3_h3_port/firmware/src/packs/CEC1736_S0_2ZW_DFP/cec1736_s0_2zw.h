@@ -1,7 +1,7 @@
 /*
  * Header file for CEC1736_S0_2ZW
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* File generated from device description version 2021-05-26T17:25:30Z */
+/* File generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC1736_S0_2ZW_H_
 #define _CEC1736_S0_2ZW_H_
 
@@ -77,7 +77,7 @@ typedef enum IRQn
   Reset_IRQn                = -15, /* -15 Reset Vector, invoked on Power up and warm reset */
   NonMaskableInt_IRQn       = -14, /* -14 Non maskable Interrupt, cannot be stopped or preempted */
   HardFault_IRQn            = -13, /* -13 Hard Fault, all classes of Fault    */
-  MemMgnt_IRQn              = -12, /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
+  MemoryManagement_IRQn     = -12, /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
   BusFault_IRQn             = -11, /* -11 Bus Fault, Pre-Fetch-, Memory Access Fault, other address/memory related Fault */
   UsageFault_IRQn           = -10, /* -10 Usage Fault, i.e. Undef Instruction, Illegal State Transition */
   SVCall_IRQn               =  -5, /* -5  System Service Call via SVC instruction */
@@ -173,7 +173,7 @@ typedef struct _DeviceVectors
   void* pfnReset_Handler;                        /* -15 Reset Vector, invoked on Power up and warm reset */
   void* pfnNonMaskableInt_Handler;               /* -14 Non maskable Interrupt, cannot be stopped or preempted */
   void* pfnHardFault_Handler;                    /* -13 Hard Fault, all classes of Fault */
-  void* pfnMemMgnt_Handler;                      /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
+  void* pfnMemoryManagement_Handler;             /* -12 Memory Management, MPU mismatch, including Access Violation and No Match */
   void* pfnBusFault_Handler;                     /* -11 Bus Fault, Pre-Fetch-, Memory Access Fault, other address/memory related Fault */
   void* pfnUsageFault_Handler;                   /* -10 Usage Fault, i.e. Undef Instruction, Illegal State Transition */
   void* pvReservedC9;
@@ -393,7 +393,7 @@ typedef struct _DeviceVectors
 void Reset_Handler                 ( void );
 void NonMaskableInt_Handler        ( void );
 void HardFault_Handler             ( void );
-void MemMgnt_Handler               ( void );
+void MemoryManagement_Handler      ( void );
 void BusFault_Handler              ( void );
 void UsageFault_Handler            ( void );
 void SVCall_Handler                ( void );
@@ -684,7 +684,8 @@ void VTR2_PAD_MON_Handler          ( void );
 /*   MEMORY MAPPING DEFINITIONS FOR CEC1736_S0_2ZW                            */
 /* ************************************************************************** */
 #define CODE_SRAM_SIZE                 _UINT32_(0x00050000)    /*  320kB Memory segment type: ram */
-#define DATA_SRAM_SIZE                 _UINT32_(0x00010000)    /*   64kB Memory segment type: ram */
+#define DATA_SRAM_SIZE                 _UINT32_(0x0000a000)    /*   40kB Memory segment type: ram */
+#define BOOTROM_SRAM_SIZE              _UINT32_(0x00006000)    /*   24kB Memory segment type: ram */
 #define DATA_SRAM2_SIZE                _UINT32_(0x00010000)    /*   64kB Memory segment type: ram */
 #define DATA_SRAM3_SIZE                _UINT32_(0x00010000)    /*   64kB Memory segment type: ram */
 #define DATA_SRAM_ALIAS_SIZE           _UINT32_(0x00008000)    /*   32kB Memory segment type: ram */
@@ -697,6 +698,7 @@ void VTR2_PAD_MON_Handler          ( void );
 
 #define CODE_SRAM_ADDR                 _UINT32_(0x000c8000)    /* CODE_SRAM base address (type: ram)*/
 #define DATA_SRAM_ADDR                 _UINT32_(0x00118000)    /* DATA_SRAM base address (type: ram)*/
+#define BOOTROM_SRAM_ADDR              _UINT32_(0x00122000)    /* BOOTROM_SRAM base address (type: ram)*/
 #define DATA_SRAM2_ADDR                _UINT32_(0x00128000)    /* DATA_SRAM2 base address (type: ram)*/
 #define DATA_SRAM3_ADDR                _UINT32_(0x00138000)    /* DATA_SRAM3 base address (type: ram)*/
 #define DATA_SRAM_ALIAS_ADDR           _UINT32_(0x20000000)    /* DATA_SRAM_ALIAS base address (type: ram)*/

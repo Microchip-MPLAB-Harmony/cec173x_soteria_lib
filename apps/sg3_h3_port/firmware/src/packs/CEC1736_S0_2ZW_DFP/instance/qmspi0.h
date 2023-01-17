@@ -1,7 +1,7 @@
 /*
  * Instance header file for CEC1736_S0_2ZW
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,13 +20,13 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_QMSPI0_INSTANCE_
 #define _CEC_QMSPI0_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for QMSPI0 peripheral ========== */
-#define QMSPI0_DMA_ID_TX                         (10)       /* device number of DMA TX trigger */
 #define QMSPI0_DMA_ID_RX                         (11)       /* device number of DMA RX trigger */
+#define QMSPI0_DMA_ID_TX                         (10)       /* device number of DMA TX trigger */
 
 #endif /* _CEC_QMSPI0_INSTANCE_ */

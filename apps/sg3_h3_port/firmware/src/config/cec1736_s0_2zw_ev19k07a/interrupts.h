@@ -92,6 +92,8 @@ void DMA_CH08_GRP_InterruptHandler (void);
 void DMA_CH09_GRP_InterruptHandler (void);
 void QMSPI0_GRP_InterruptHandler (void);
 void QMSPI1_GRP_InterruptHandler (void);
+void VTR1_PAD_MON_GRP_InterruptHandler (void);
+void VTR2_PAD_MON_GRP_InterruptHandler (void);
 void WDT_GRP_InterruptHandler (void);
 
 

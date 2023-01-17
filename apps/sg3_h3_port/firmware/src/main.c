@@ -41,6 +41,8 @@ int main ( void )
     SYS_Initialize(NULL);
     gpio_register_isr_handlers();
     qmspi_register_isr_handlers();
+    vtr_mon_register_isr_handlers();
+    wdt_register_isr_handler();
     
     if(sg3_init())
     {

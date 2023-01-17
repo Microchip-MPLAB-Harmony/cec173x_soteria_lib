@@ -76,6 +76,8 @@ extern "C" {
 
 void gpio_register_isr_handlers(void);
 void qmspi_register_isr_handlers(void);
+void wdt_register_isr_handler(void);
+void vtr_mon_register_isr_handlers(void);
 
 #ifdef __cplusplus
 }

@@ -11,4 +11,4 @@ settings:
   TRUSTZONE: 'false'
   CMSISPath: dev_packs\arm\CMSIS\5.8.0
   MERGE_STRATEGY: USER_ALL
-  DFPPath: dev_packs\Microchip\CEC_DFP\1.7.151\cec1736\atdf\CEC1736_S0_2ZW.atdf
+  DFPPath: dev_packs\Microchip\CEC_DFP\1.8.258\cec1736\atdf\CEC1736_S0_2ZW.atdf

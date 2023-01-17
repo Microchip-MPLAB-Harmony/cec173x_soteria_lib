@@ -20,7 +20,7 @@
 
 #include "common.h"
 
-void oem_task2_function(void)
+__attribute__((optimize("O0"))) void oem_task2_function(void)
 {
     tracex("%s\r\n", __FUNCTION__);
 }

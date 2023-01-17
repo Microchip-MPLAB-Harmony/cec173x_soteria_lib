@@ -75,6 +75,20 @@ typedef enum
     VTR_PAD_MON_DEB_CTRL_100MS,
 }VTR_PAD_MON_DEB_CTRL;
 
+typedef enum
+{
+    VTR1_PAD_MON_STS_PU = EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk,
+    VTR1_PAD_MON_STS_PD = EC_REG_BANK_PD_MON_STS_VTR1_PD_STS_Msk,
+    VTR1_PAD_MON_STS_CS = EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk,
+}VTR1_PAD_MON_STS;
+
+typedef enum
+{
+    VTR2_PAD_MON_STS_PU = EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk,
+    VTR2_PAD_MON_STS_PD = EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk,
+    VTR2_PAD_MON_STS_CS = EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk,
+}VTR2_PAD_MON_STS;
+
 typedef void (*EC_REG_BANK_CALLBACK)(uintptr_t context);
 
 typedef struct
@@ -139,10 +153,24 @@ void EC_REG_BANK_VTR2PadMonPDIntEn(void);
 
 void EC_REG_BANK_VTR2PadMonPDIntDis(void);
 
-uint32_t EC_REG_BANK_PadMonStatusGet(void);
+VTR1_PAD_MON_STS EC_REG_BANK_VTR1PadMonStatusGet(void);
 
-void EC_REG_BANK_PadMonStatusClr(uint32_t statusBitMask);
+void EC_REG_BANK_VTR1PadMonStatusClr(VTR1_PAD_MON_STS statusBitMask);
 
+VTR2_PAD_MON_STS EC_REG_BANK_VTR2PadMonStatusGet(void);
+
+void EC_REG_BANK_VTR2PadMonStatusClr(VTR2_PAD_MON_STS statusBitMask);
+
+
+
+void EC_REG_BANK_VTR1_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context );
+
+void VTR1_PAD_MON_GRP_InterruptHandler(void);
+
+
+void EC_REG_BANK_VTR2_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context );
+
+void VTR2_PAD_MON_GRP_InterruptHandler(void);
 
 
 

@@ -1,7 +1,7 @@
 /*
  * Component description for CCT
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_CCT_COMPONENT_H_
 #define _CEC_CCT_COMPONENT_H_
 
@@ -79,39 +79,135 @@
 #define CCT_CAP0_CTRL_CAP_EDGE0_Pos           _UINT32_(0)                                          /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 0. Position */
 #define CCT_CAP0_CTRL_CAP_EDGE0_Msk           (_UINT32_(0x3) << CCT_CAP0_CTRL_CAP_EDGE0_Pos)       /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 0. Mask */
 #define CCT_CAP0_CTRL_CAP_EDGE0(value)        (CCT_CAP0_CTRL_CAP_EDGE0_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_CAP_EDGE0_Pos)) /* Assigment of value for CAP_EDGE0 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_CAP_EDGE0_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Capture on falling edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE0_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Capture on rising edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE0_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP0_CTRL_CAP_EDGE0_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Capture event disabled  */
+#define CCT_CAP0_CTRL_CAP_EDGE0_FALLING       (CCT_CAP0_CTRL_CAP_EDGE0_FALLING_Val << CCT_CAP0_CTRL_CAP_EDGE0_Pos) /* (CCT_CAP0_CTRL) Capture on falling edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE0_RISING        (CCT_CAP0_CTRL_CAP_EDGE0_RISING_Val << CCT_CAP0_CTRL_CAP_EDGE0_Pos) /* (CCT_CAP0_CTRL) Capture on rising edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE0_BOTH          (CCT_CAP0_CTRL_CAP_EDGE0_BOTH_Val << CCT_CAP0_CTRL_CAP_EDGE0_Pos) /* (CCT_CAP0_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE0_DISABLED      (CCT_CAP0_CTRL_CAP_EDGE0_DISABLED_Val << CCT_CAP0_CTRL_CAP_EDGE0_Pos) /* (CCT_CAP0_CTRL) Capture event disabled Position  */
 #define CCT_CAP0_CTRL_FILTER_BYP0_Pos         _UINT32_(2)                                          /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 0, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP0_CTRL_FILTER_BYP0_Msk         (_UINT32_(0x1) << CCT_CAP0_CTRL_FILTER_BYP0_Pos)     /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 0, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP0_CTRL_FILTER_BYP0(value)      (CCT_CAP0_CTRL_FILTER_BYP0_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FILTER_BYP0_Pos)) /* Assigment of value for FILTER_BYP0 in the CCT_CAP0_CTRL register */
 #define CCT_CAP0_CTRL_FCLK_SEL0_Pos           _UINT32_(5)                                          /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 0. Position */
 #define CCT_CAP0_CTRL_FCLK_SEL0_Msk           (_UINT32_(0x7) << CCT_CAP0_CTRL_FCLK_SEL0_Pos)       /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 0. Mask */
 #define CCT_CAP0_CTRL_FCLK_SEL0(value)        (CCT_CAP0_CTRL_FCLK_SEL0_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FCLK_SEL0_Pos)) /* Assigment of value for FCLK_SEL0 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL0_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_1         (CCT_CAP0_CTRL_FCLK_SEL0_DIV_1_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_2         (CCT_CAP0_CTRL_FCLK_SEL0_DIV_2_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_4         (CCT_CAP0_CTRL_FCLK_SEL0_DIV_4_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_8         (CCT_CAP0_CTRL_FCLK_SEL0_DIV_8_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_16        (CCT_CAP0_CTRL_FCLK_SEL0_DIV_16_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_32        (CCT_CAP0_CTRL_FCLK_SEL0_DIV_32_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_64        (CCT_CAP0_CTRL_FCLK_SEL0_DIV_64_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL0_DIV_128       (CCT_CAP0_CTRL_FCLK_SEL0_DIV_128_Val << CCT_CAP0_CTRL_FCLK_SEL0_Pos) /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP0_CTRL_CAP_EDGE1_Pos           _UINT32_(8)                                          /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 1. Position */
 #define CCT_CAP0_CTRL_CAP_EDGE1_Msk           (_UINT32_(0x3) << CCT_CAP0_CTRL_CAP_EDGE1_Pos)       /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 1. Mask */
 #define CCT_CAP0_CTRL_CAP_EDGE1(value)        (CCT_CAP0_CTRL_CAP_EDGE1_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_CAP_EDGE1_Pos)) /* Assigment of value for CAP_EDGE1 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_CAP_EDGE1_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Capture on falling edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE1_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Capture on rising edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE1_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP0_CTRL_CAP_EDGE1_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Capture event disabled  */
+#define CCT_CAP0_CTRL_CAP_EDGE1_FALLING       (CCT_CAP0_CTRL_CAP_EDGE1_FALLING_Val << CCT_CAP0_CTRL_CAP_EDGE1_Pos) /* (CCT_CAP0_CTRL) Capture on falling edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE1_RISING        (CCT_CAP0_CTRL_CAP_EDGE1_RISING_Val << CCT_CAP0_CTRL_CAP_EDGE1_Pos) /* (CCT_CAP0_CTRL) Capture on rising edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE1_BOTH          (CCT_CAP0_CTRL_CAP_EDGE1_BOTH_Val << CCT_CAP0_CTRL_CAP_EDGE1_Pos) /* (CCT_CAP0_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE1_DISABLED      (CCT_CAP0_CTRL_CAP_EDGE1_DISABLED_Val << CCT_CAP0_CTRL_CAP_EDGE1_Pos) /* (CCT_CAP0_CTRL) Capture event disabled Position  */
 #define CCT_CAP0_CTRL_FILTER_BYP1_Pos         _UINT32_(10)                                         /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 1, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP0_CTRL_FILTER_BYP1_Msk         (_UINT32_(0x1) << CCT_CAP0_CTRL_FILTER_BYP1_Pos)     /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 1, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP0_CTRL_FILTER_BYP1(value)      (CCT_CAP0_CTRL_FILTER_BYP1_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FILTER_BYP1_Pos)) /* Assigment of value for FILTER_BYP1 in the CCT_CAP0_CTRL register */
 #define CCT_CAP0_CTRL_FCLK_SEL1_Pos           _UINT32_(13)                                         /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 1. Position */
 #define CCT_CAP0_CTRL_FCLK_SEL1_Msk           (_UINT32_(0x7) << CCT_CAP0_CTRL_FCLK_SEL1_Pos)       /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 1. Mask */
 #define CCT_CAP0_CTRL_FCLK_SEL1(value)        (CCT_CAP0_CTRL_FCLK_SEL1_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FCLK_SEL1_Pos)) /* Assigment of value for FCLK_SEL1 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL1_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_1         (CCT_CAP0_CTRL_FCLK_SEL1_DIV_1_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_2         (CCT_CAP0_CTRL_FCLK_SEL1_DIV_2_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_4         (CCT_CAP0_CTRL_FCLK_SEL1_DIV_4_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_8         (CCT_CAP0_CTRL_FCLK_SEL1_DIV_8_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_16        (CCT_CAP0_CTRL_FCLK_SEL1_DIV_16_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_32        (CCT_CAP0_CTRL_FCLK_SEL1_DIV_32_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_64        (CCT_CAP0_CTRL_FCLK_SEL1_DIV_64_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL1_DIV_128       (CCT_CAP0_CTRL_FCLK_SEL1_DIV_128_Val << CCT_CAP0_CTRL_FCLK_SEL1_Pos) /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP0_CTRL_CAP_EDGE2_Pos           _UINT32_(16)                                         /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 2. Position */
 #define CCT_CAP0_CTRL_CAP_EDGE2_Msk           (_UINT32_(0x3) << CCT_CAP0_CTRL_CAP_EDGE2_Pos)       /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 2. Mask */
 #define CCT_CAP0_CTRL_CAP_EDGE2(value)        (CCT_CAP0_CTRL_CAP_EDGE2_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_CAP_EDGE2_Pos)) /* Assigment of value for CAP_EDGE2 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_CAP_EDGE2_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Capture on falling edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE2_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Capture on rising edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE2_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP0_CTRL_CAP_EDGE2_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Capture event disabled  */
+#define CCT_CAP0_CTRL_CAP_EDGE2_FALLING       (CCT_CAP0_CTRL_CAP_EDGE2_FALLING_Val << CCT_CAP0_CTRL_CAP_EDGE2_Pos) /* (CCT_CAP0_CTRL) Capture on falling edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE2_RISING        (CCT_CAP0_CTRL_CAP_EDGE2_RISING_Val << CCT_CAP0_CTRL_CAP_EDGE2_Pos) /* (CCT_CAP0_CTRL) Capture on rising edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE2_BOTH          (CCT_CAP0_CTRL_CAP_EDGE2_BOTH_Val << CCT_CAP0_CTRL_CAP_EDGE2_Pos) /* (CCT_CAP0_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE2_DISABLED      (CCT_CAP0_CTRL_CAP_EDGE2_DISABLED_Val << CCT_CAP0_CTRL_CAP_EDGE2_Pos) /* (CCT_CAP0_CTRL) Capture event disabled Position  */
 #define CCT_CAP0_CTRL_FILTER_BYP2_Pos         _UINT32_(18)                                         /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 2, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP0_CTRL_FILTER_BYP2_Msk         (_UINT32_(0x1) << CCT_CAP0_CTRL_FILTER_BYP2_Pos)     /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 2, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP0_CTRL_FILTER_BYP2(value)      (CCT_CAP0_CTRL_FILTER_BYP2_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FILTER_BYP2_Pos)) /* Assigment of value for FILTER_BYP2 in the CCT_CAP0_CTRL register */
 #define CCT_CAP0_CTRL_FCLK_SEL2_Pos           _UINT32_(21)                                         /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 2. Position */
 #define CCT_CAP0_CTRL_FCLK_SEL2_Msk           (_UINT32_(0x7) << CCT_CAP0_CTRL_FCLK_SEL2_Pos)       /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 2. Mask */
 #define CCT_CAP0_CTRL_FCLK_SEL2(value)        (CCT_CAP0_CTRL_FCLK_SEL2_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FCLK_SEL2_Pos)) /* Assigment of value for FCLK_SEL2 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL2_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_1         (CCT_CAP0_CTRL_FCLK_SEL2_DIV_1_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_2         (CCT_CAP0_CTRL_FCLK_SEL2_DIV_2_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_4         (CCT_CAP0_CTRL_FCLK_SEL2_DIV_4_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_8         (CCT_CAP0_CTRL_FCLK_SEL2_DIV_8_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_16        (CCT_CAP0_CTRL_FCLK_SEL2_DIV_16_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_32        (CCT_CAP0_CTRL_FCLK_SEL2_DIV_32_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_64        (CCT_CAP0_CTRL_FCLK_SEL2_DIV_64_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL2_DIV_128       (CCT_CAP0_CTRL_FCLK_SEL2_DIV_128_Val << CCT_CAP0_CTRL_FCLK_SEL2_Pos) /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP0_CTRL_CAP_EDGE3_Pos           _UINT32_(24)                                         /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 3. Position */
 #define CCT_CAP0_CTRL_CAP_EDGE3_Msk           (_UINT32_(0x3) << CCT_CAP0_CTRL_CAP_EDGE3_Pos)       /* (CCT_CAP0_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 3. Mask */
 #define CCT_CAP0_CTRL_CAP_EDGE3(value)        (CCT_CAP0_CTRL_CAP_EDGE3_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_CAP_EDGE3_Pos)) /* Assigment of value for CAP_EDGE3 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_CAP_EDGE3_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Capture on falling edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE3_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Capture on rising edge  */
+#define   CCT_CAP0_CTRL_CAP_EDGE3_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP0_CTRL_CAP_EDGE3_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Capture event disabled  */
+#define CCT_CAP0_CTRL_CAP_EDGE3_FALLING       (CCT_CAP0_CTRL_CAP_EDGE3_FALLING_Val << CCT_CAP0_CTRL_CAP_EDGE3_Pos) /* (CCT_CAP0_CTRL) Capture on falling edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE3_RISING        (CCT_CAP0_CTRL_CAP_EDGE3_RISING_Val << CCT_CAP0_CTRL_CAP_EDGE3_Pos) /* (CCT_CAP0_CTRL) Capture on rising edge Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE3_BOTH          (CCT_CAP0_CTRL_CAP_EDGE3_BOTH_Val << CCT_CAP0_CTRL_CAP_EDGE3_Pos) /* (CCT_CAP0_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP0_CTRL_CAP_EDGE3_DISABLED      (CCT_CAP0_CTRL_CAP_EDGE3_DISABLED_Val << CCT_CAP0_CTRL_CAP_EDGE3_Pos) /* (CCT_CAP0_CTRL) Capture event disabled Position  */
 #define CCT_CAP0_CTRL_FILTER_BYP3_Pos         _UINT32_(26)                                         /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 3, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP0_CTRL_FILTER_BYP3_Msk         (_UINT32_(0x1) << CCT_CAP0_CTRL_FILTER_BYP3_Pos)     /* (CCT_CAP0_CTRL) This bit enables bypassing the input noise filter for Capture Register 3, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP0_CTRL_FILTER_BYP3(value)      (CCT_CAP0_CTRL_FILTER_BYP3_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FILTER_BYP3_Pos)) /* Assigment of value for FILTER_BYP3 in the CCT_CAP0_CTRL register */
 #define CCT_CAP0_CTRL_FCLK_SEL3_Pos           _UINT32_(29)                                         /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 3. Position */
 #define CCT_CAP0_CTRL_FCLK_SEL3_Msk           (_UINT32_(0x7) << CCT_CAP0_CTRL_FCLK_SEL3_Pos)       /* (CCT_CAP0_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 3. Mask */
 #define CCT_CAP0_CTRL_FCLK_SEL3(value)        (CCT_CAP0_CTRL_FCLK_SEL3_Msk & (_UINT32_(value) << CCT_CAP0_CTRL_FCLK_SEL3_Pos)) /* Assigment of value for FCLK_SEL3 in the CCT_CAP0_CTRL register */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP0_CTRL_FCLK_SEL3_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_1         (CCT_CAP0_CTRL_FCLK_SEL3_DIV_1_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_2         (CCT_CAP0_CTRL_FCLK_SEL3_DIV_2_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_4         (CCT_CAP0_CTRL_FCLK_SEL3_DIV_4_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_8         (CCT_CAP0_CTRL_FCLK_SEL3_DIV_8_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_16        (CCT_CAP0_CTRL_FCLK_SEL3_DIV_16_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_32        (CCT_CAP0_CTRL_FCLK_SEL3_DIV_32_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_64        (CCT_CAP0_CTRL_FCLK_SEL3_DIV_64_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP0_CTRL_FCLK_SEL3_DIV_128       (CCT_CAP0_CTRL_FCLK_SEL3_DIV_128_Val << CCT_CAP0_CTRL_FCLK_SEL3_Pos) /* (CCT_CAP0_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP0_CTRL_Msk                     _UINT32_(0xE7E7E7E7)                                 /* (CCT_CAP0_CTRL) Register Mask  */
 
 
@@ -121,21 +217,69 @@
 #define CCT_CAP1_CTRL_CAP_EDGE4_Pos           _UINT32_(0)                                          /* (CCT_CAP1_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 4. Position */
 #define CCT_CAP1_CTRL_CAP_EDGE4_Msk           (_UINT32_(0x3) << CCT_CAP1_CTRL_CAP_EDGE4_Pos)       /* (CCT_CAP1_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 4. Mask */
 #define CCT_CAP1_CTRL_CAP_EDGE4(value)        (CCT_CAP1_CTRL_CAP_EDGE4_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_CAP_EDGE4_Pos)) /* Assigment of value for CAP_EDGE4 in the CCT_CAP1_CTRL register */
+#define   CCT_CAP1_CTRL_CAP_EDGE4_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP1_CTRL) Capture on falling edge  */
+#define   CCT_CAP1_CTRL_CAP_EDGE4_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP1_CTRL) Capture on rising edge  */
+#define   CCT_CAP1_CTRL_CAP_EDGE4_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP1_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP1_CTRL_CAP_EDGE4_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP1_CTRL) Capture event disabled  */
+#define CCT_CAP1_CTRL_CAP_EDGE4_FALLING       (CCT_CAP1_CTRL_CAP_EDGE4_FALLING_Val << CCT_CAP1_CTRL_CAP_EDGE4_Pos) /* (CCT_CAP1_CTRL) Capture on falling edge Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE4_RISING        (CCT_CAP1_CTRL_CAP_EDGE4_RISING_Val << CCT_CAP1_CTRL_CAP_EDGE4_Pos) /* (CCT_CAP1_CTRL) Capture on rising edge Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE4_BOTH          (CCT_CAP1_CTRL_CAP_EDGE4_BOTH_Val << CCT_CAP1_CTRL_CAP_EDGE4_Pos) /* (CCT_CAP1_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE4_DISABLED      (CCT_CAP1_CTRL_CAP_EDGE4_DISABLED_Val << CCT_CAP1_CTRL_CAP_EDGE4_Pos) /* (CCT_CAP1_CTRL) Capture event disabled Position  */
 #define CCT_CAP1_CTRL_FILTER_BYP4_Pos         _UINT32_(2)                                          /* (CCT_CAP1_CTRL) This bit enables bypassing the input noise filter for Capture Register 4, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP1_CTRL_FILTER_BYP4_Msk         (_UINT32_(0x1) << CCT_CAP1_CTRL_FILTER_BYP4_Pos)     /* (CCT_CAP1_CTRL) This bit enables bypassing the input noise filter for Capture Register 4, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP1_CTRL_FILTER_BYP4(value)      (CCT_CAP1_CTRL_FILTER_BYP4_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_FILTER_BYP4_Pos)) /* Assigment of value for FILTER_BYP4 in the CCT_CAP1_CTRL register */
 #define CCT_CAP1_CTRL_FCLK_SEL4_Pos           _UINT32_(5)                                          /* (CCT_CAP1_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 4. Position */
 #define CCT_CAP1_CTRL_FCLK_SEL4_Msk           (_UINT32_(0x7) << CCT_CAP1_CTRL_FCLK_SEL4_Pos)       /* (CCT_CAP1_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 4. Mask */
 #define CCT_CAP1_CTRL_FCLK_SEL4(value)        (CCT_CAP1_CTRL_FCLK_SEL4_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_FCLK_SEL4_Pos)) /* Assigment of value for FCLK_SEL4 in the CCT_CAP1_CTRL register */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP1_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP1_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP1_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP1_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP1_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP1_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP1_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL4_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP1_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_1         (CCT_CAP1_CTRL_FCLK_SEL4_DIV_1_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_2         (CCT_CAP1_CTRL_FCLK_SEL4_DIV_2_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_4         (CCT_CAP1_CTRL_FCLK_SEL4_DIV_4_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_8         (CCT_CAP1_CTRL_FCLK_SEL4_DIV_8_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_16        (CCT_CAP1_CTRL_FCLK_SEL4_DIV_16_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_32        (CCT_CAP1_CTRL_FCLK_SEL4_DIV_32_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_64        (CCT_CAP1_CTRL_FCLK_SEL4_DIV_64_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL4_DIV_128       (CCT_CAP1_CTRL_FCLK_SEL4_DIV_128_Val << CCT_CAP1_CTRL_FCLK_SEL4_Pos) /* (CCT_CAP1_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP1_CTRL_CAP_EDGE5_Pos           _UINT32_(8)                                          /* (CCT_CAP1_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 5. Position */
 #define CCT_CAP1_CTRL_CAP_EDGE5_Msk           (_UINT32_(0x3) << CCT_CAP1_CTRL_CAP_EDGE5_Pos)       /* (CCT_CAP1_CTRL) This field selects the edge type that triggers the capture of the Free Running Counter into Capture Register 5. Mask */
 #define CCT_CAP1_CTRL_CAP_EDGE5(value)        (CCT_CAP1_CTRL_CAP_EDGE5_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_CAP_EDGE5_Pos)) /* Assigment of value for CAP_EDGE5 in the CCT_CAP1_CTRL register */
+#define   CCT_CAP1_CTRL_CAP_EDGE5_FALLING_Val _UINT32_(0x0)                                        /* (CCT_CAP1_CTRL) Capture on falling edge  */
+#define   CCT_CAP1_CTRL_CAP_EDGE5_RISING_Val  _UINT32_(0x1)                                        /* (CCT_CAP1_CTRL) Capture on rising edge  */
+#define   CCT_CAP1_CTRL_CAP_EDGE5_BOTH_Val    _UINT32_(0x2)                                        /* (CCT_CAP1_CTRL) Capture on both falling and rising edges  */
+#define   CCT_CAP1_CTRL_CAP_EDGE5_DISABLED_Val _UINT32_(0x3)                                        /* (CCT_CAP1_CTRL) Capture event disabled  */
+#define CCT_CAP1_CTRL_CAP_EDGE5_FALLING       (CCT_CAP1_CTRL_CAP_EDGE5_FALLING_Val << CCT_CAP1_CTRL_CAP_EDGE5_Pos) /* (CCT_CAP1_CTRL) Capture on falling edge Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE5_RISING        (CCT_CAP1_CTRL_CAP_EDGE5_RISING_Val << CCT_CAP1_CTRL_CAP_EDGE5_Pos) /* (CCT_CAP1_CTRL) Capture on rising edge Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE5_BOTH          (CCT_CAP1_CTRL_CAP_EDGE5_BOTH_Val << CCT_CAP1_CTRL_CAP_EDGE5_Pos) /* (CCT_CAP1_CTRL) Capture on both falling and rising edges Position  */
+#define CCT_CAP1_CTRL_CAP_EDGE5_DISABLED      (CCT_CAP1_CTRL_CAP_EDGE5_DISABLED_Val << CCT_CAP1_CTRL_CAP_EDGE5_Pos) /* (CCT_CAP1_CTRL) Capture event disabled Position  */
 #define CCT_CAP1_CTRL_FILTER_BYP5_Pos         _UINT32_(10)                                         /* (CCT_CAP1_CTRL) This bit enables bypassing the input noise filter for Capture Register 5, so that the input signal goes directly into the timer. Position */
 #define CCT_CAP1_CTRL_FILTER_BYP5_Msk         (_UINT32_(0x1) << CCT_CAP1_CTRL_FILTER_BYP5_Pos)     /* (CCT_CAP1_CTRL) This bit enables bypassing the input noise filter for Capture Register 5, so that the input signal goes directly into the timer. Mask */
 #define CCT_CAP1_CTRL_FILTER_BYP5(value)      (CCT_CAP1_CTRL_FILTER_BYP5_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_FILTER_BYP5_Pos)) /* Assigment of value for FILTER_BYP5 in the CCT_CAP1_CTRL register */
 #define CCT_CAP1_CTRL_FCLK_SEL5_Pos           _UINT32_(13)                                         /* (CCT_CAP1_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 5. Position */
 #define CCT_CAP1_CTRL_FCLK_SEL5_Msk           (_UINT32_(0x7) << CCT_CAP1_CTRL_FCLK_SEL5_Pos)       /* (CCT_CAP1_CTRL) This 3-bit field sets the clock source for the input filter for Capture Register 5. Mask */
 #define CCT_CAP1_CTRL_FCLK_SEL5(value)        (CCT_CAP1_CTRL_FCLK_SEL5_Msk & (_UINT32_(value) << CCT_CAP1_CTRL_FCLK_SEL5_Pos)) /* Assigment of value for FCLK_SEL5 in the CCT_CAP1_CTRL register */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_1_Val   _UINT32_(0x0)                                        /* (CCT_CAP1_CTRL) Divide by 1 (48 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_2_Val   _UINT32_(0x1)                                        /* (CCT_CAP1_CTRL) Divide by 2 (24 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_4_Val   _UINT32_(0x2)                                        /* (CCT_CAP1_CTRL) Divide by 4 (12 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_8_Val   _UINT32_(0x3)                                        /* (CCT_CAP1_CTRL) Divide by 8 (6 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_16_Val  _UINT32_(0x4)                                        /* (CCT_CAP1_CTRL) Divide by 16 (3 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_32_Val  _UINT32_(0x5)                                        /* (CCT_CAP1_CTRL) Divide by 32 (1.5 MHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_64_Val  _UINT32_(0x6)                                        /* (CCT_CAP1_CTRL) Divide by 64 (750 KHz)  */
+#define   CCT_CAP1_CTRL_FCLK_SEL5_DIV_128_Val _UINT32_(0x7)                                        /* (CCT_CAP1_CTRL) Divide by 128 (375 KHz)  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_1         (CCT_CAP1_CTRL_FCLK_SEL5_DIV_1_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 1 (48 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_2         (CCT_CAP1_CTRL_FCLK_SEL5_DIV_2_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 2 (24 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_4         (CCT_CAP1_CTRL_FCLK_SEL5_DIV_4_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 4 (12 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_8         (CCT_CAP1_CTRL_FCLK_SEL5_DIV_8_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 8 (6 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_16        (CCT_CAP1_CTRL_FCLK_SEL5_DIV_16_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 16 (3 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_32        (CCT_CAP1_CTRL_FCLK_SEL5_DIV_32_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 32 (1.5 MHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_64        (CCT_CAP1_CTRL_FCLK_SEL5_DIV_64_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 64 (750 KHz) Position  */
+#define CCT_CAP1_CTRL_FCLK_SEL5_DIV_128       (CCT_CAP1_CTRL_FCLK_SEL5_DIV_128_Val << CCT_CAP1_CTRL_FCLK_SEL5_Pos) /* (CCT_CAP1_CTRL) Divide by 128 (375 KHz) Position  */
 #define CCT_CAP1_CTRL_Msk                     _UINT32_(0x0000E7E7)                                 /* (CCT_CAP1_CTRL) Register Mask  */
 
 

@@ -63,8 +63,9 @@ void EC_REG_BANK_Initialize( void )
 {
     
     
-    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = EC_REG_BANK_PD_MON_CTRL_VTR1_PROTECN_Msk | EC_REG_BANK_PD_MON_CTRL_VTR2_PROTECN_Msk;
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = EC_REG_BANK_PD_MON_CTRL_VTR1_PROTECN_Msk | EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1(0x1) | EC_REG_BANK_PD_MON_CTRL_VTR2_PROTECN_Msk | EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2(0x1);
     
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_INT_EN = EC_REG_BANK_PD_MON_INT_EN_VTR1_PU_INTEN_Msk | EC_REG_BANK_PD_MON_INT_EN_VTR1_PD_INTEN_Msk | EC_REG_BANK_PD_MON_INT_EN_VTR2_PU_INTEN_Msk | EC_REG_BANK_PD_MON_INT_EN_VTR2_PD_INTEN_Msk;
     
 }
 uint32_t EC_REG_BANK_AHBErrorAddrGet(void)
@@ -202,14 +203,60 @@ void EC_REG_BANK_VTR2PadMonPDIntDis(void)
     EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_INT_EN &= ~EC_REG_BANK_PD_MON_INT_EN_VTR2_PD_INTEN_Msk;
 }
 
-uint32_t EC_REG_BANK_PadMonStatusGet(void)
+VTR1_PAD_MON_STS EC_REG_BANK_VTR1PadMonStatusGet(void)
 {
-    return EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & EC_REG_BANK_PD_MON_STS_Msk;
+    return EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR1_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk);
 }
 
-void EC_REG_BANK_PadMonStatusClr(uint32_t statusBitMask)
+void EC_REG_BANK_VTR1PadMonStatusClr(VTR1_PAD_MON_STS statusBitMask)
+{
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = statusBitMask;
+}
+
+VTR2_PAD_MON_STS EC_REG_BANK_VTR2PadMonStatusGet(void)
+{
+    return EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk);
+}
+
+void EC_REG_BANK_VTR2PadMonStatusClr(VTR2_PAD_MON_STS statusBitMask)
 {
     EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = statusBitMask;
 }
 
 
+
+void EC_REG_BANK_VTR1_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context )
+{
+   ec_reg_bank[1].callback = callback;
+   ec_reg_bank[1].context = context;
+}
+
+void VTR1_PAD_MON_GRP_InterruptHandler(void)
+{
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR1_PAD_MON))
+    {
+        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR1_PAD_MON);
+        if (ec_reg_bank[1].callback != NULL)
+        {
+            ec_reg_bank[1].callback(ec_reg_bank[1].context);
+        }
+    }
+}
+
+void EC_REG_BANK_VTR2_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context )
+{
+   ec_reg_bank[2].callback = callback;
+   ec_reg_bank[2].context = context;
+}
+
+void VTR2_PAD_MON_GRP_InterruptHandler(void)
+{
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR2_PAD_MON))
+    {
+        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR2_PAD_MON);
+        if (ec_reg_bank[2].callback != NULL)
+        {
+            ec_reg_bank[2].callback(ec_reg_bank[2].context);
+        }
+    }
+}

@@ -1,7 +1,7 @@
 /*
  * Instance header file for CEC1736_S0_2ZW
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,13 +20,13 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_SMB1_INSTANCE_
 #define _CEC_SMB1_INSTANCE_
 
 
 /* ========== Instance Parameter definitions for SMB1 peripheral ========== */
-#define SMB1_DMA_ID_TARGET                       (2)        /* device number of SMB1 DMA target trigger */
 #define SMB1_DMA_ID_HOST                         (3)        /* device number of SMB1 DMA host trigger */
+#define SMB1_DMA_ID_TARGET                       (2)        /* device number of SMB1 DMA target trigger */
 
 #endif /* _CEC_SMB1_INSTANCE_ */

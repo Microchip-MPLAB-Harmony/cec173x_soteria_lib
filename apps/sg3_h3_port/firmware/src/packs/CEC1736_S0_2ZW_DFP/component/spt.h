@@ -1,7 +1,7 @@
 /*
  * Component description for SPT
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_SPT_COMPONENT_H_
 #define _CEC_SPT_COMPONENT_H_
 
@@ -37,6 +37,14 @@
 #define SPT_SPI_CFG_TAR_TIM_SEL_Pos           _UINT32_(8)                                          /* (SPT_SPI_CFG) Turn Around Time select for Quad wire mode.         0h = 1 cycle.         1h = 2 cycles.         2h = 4 cycles.         3h = 8 cycles.         Other values are reserved. Position */
 #define SPT_SPI_CFG_TAR_TIM_SEL_Msk           (_UINT32_(0x7) << SPT_SPI_CFG_TAR_TIM_SEL_Pos)       /* (SPT_SPI_CFG) Turn Around Time select for Quad wire mode.         0h = 1 cycle.         1h = 2 cycles.         2h = 4 cycles.         3h = 8 cycles.         Other values are reserved. Mask */
 #define SPT_SPI_CFG_TAR_TIM_SEL(value)        (SPT_SPI_CFG_TAR_TIM_SEL_Msk & (_UINT32_(value) << SPT_SPI_CFG_TAR_TIM_SEL_Pos)) /* Assigment of value for TAR_TIM_SEL in the SPT_SPI_CFG register */
+#define   SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_1_CYCLE_Val _UINT32_(0x0)                                        /* (SPT_SPI_CFG) 1 cycle  */
+#define   SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_2_CYCLE_Val _UINT32_(0x1)                                        /* (SPT_SPI_CFG) 2 cycle  */
+#define   SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_4_CYCLE_Val _UINT32_(0x2)                                        /* (SPT_SPI_CFG) 4 cycle  */
+#define   SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_8_CYCLE_Val _UINT32_(0x3)                                        /* (SPT_SPI_CFG) 8 cycle  */
+#define SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_1_CYCLE (SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_1_CYCLE_Val << SPT_SPI_CFG_TAR_TIM_SEL_Pos) /* (SPT_SPI_CFG) 1 cycle Position  */
+#define SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_2_CYCLE (SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_2_CYCLE_Val << SPT_SPI_CFG_TAR_TIM_SEL_Pos) /* (SPT_SPI_CFG) 2 cycle Position  */
+#define SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_4_CYCLE (SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_4_CYCLE_Val << SPT_SPI_CFG_TAR_TIM_SEL_Pos) /* (SPT_SPI_CFG) 4 cycle Position  */
+#define SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_8_CYCLE (SPT_SPI_CFG_TAR_TIM_SEL_TAR_TIME_8_CYCLE_Val << SPT_SPI_CFG_TAR_TIM_SEL_Pos) /* (SPT_SPI_CFG) 8 cycle Position  */
 #define SPT_SPI_CFG_WAIT_TIME_Pos             _UINT32_(16)                                         /* (SPT_SPI_CFG) These bits set the amount of wait time in cycles before transmitting data back to master.         During this wait time status bits will be transmitted Position */
 #define SPT_SPI_CFG_WAIT_TIME_Msk             (_UINT32_(0xFF) << SPT_SPI_CFG_WAIT_TIME_Pos)        /* (SPT_SPI_CFG) These bits set the amount of wait time in cycles before transmitting data back to master.         During this wait time status bits will be transmitted Mask */
 #define SPT_SPI_CFG_WAIT_TIME(value)          (SPT_SPI_CFG_WAIT_TIME_Msk & (_UINT32_(value) << SPT_SPI_CFG_WAIT_TIME_Pos)) /* Assigment of value for WAIT_TIME in the SPT_SPI_CFG register */

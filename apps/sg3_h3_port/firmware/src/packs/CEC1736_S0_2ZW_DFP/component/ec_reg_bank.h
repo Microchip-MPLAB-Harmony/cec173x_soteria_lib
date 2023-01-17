@@ -1,7 +1,7 @@
 /*
  * Component description for EC_REG_BANK
  *
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2023 Microchip Technology Inc. and its subsidiaries.
  *
  * Subject to your compliance with these terms, you may use Microchip software and any derivatives
  * exclusively with Microchip products. It is your responsibility to comply with third party license
@@ -20,7 +20,7 @@
  *
  */
 
-/* file generated from device description version 2021-05-26T17:25:30Z */
+/* file generated from device description version 2023-01-17T13:00:30Z */
 #ifndef _CEC_EC_REG_BANK_COMPONENT_H_
 #define _CEC_EC_REG_BANK_COMPONENT_H_
 
@@ -216,6 +216,14 @@
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos _UINT32_(0)                                          /* (EC_REG_BANK_PD_MON_CTRL) Pad Monitor Control VTR1. 0=OFF, 1=1ms delay, 2=10ms delay, 3=100ms delay Position */
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Msk (_UINT32_(0x3) << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) Pad Monitor Control VTR1. 0=OFF, 1=1ms delay, 2=10ms delay, 3=100ms delay Mask */
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1(value) (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos)) /* Assigment of value for CTRL_VTR1 in the EC_REG_BANK_PD_MON_CTRL register */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_DISABLED_Val _UINT32_(0x0)                                        /* (EC_REG_BANK_PD_MON_CTRL) Disabled  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_1MS_DEBOUNCE_CNTR_Val _UINT32_(0x1)                                        /* (EC_REG_BANK_PD_MON_CTRL) 1ms Debounce Counter Enable  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_10MS_DEBOUNCE_CNTR_Val _UINT32_(0x2)                                        /* (EC_REG_BANK_PD_MON_CTRL) 10ms Debounce Counter Enable  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_100MS_DEBOUNCE_CNTR_Val _UINT32_(0x3)                                        /* (EC_REG_BANK_PD_MON_CTRL) 100ms Debounce Counter Enable  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_DISABLED (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_DISABLED_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) Disabled Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_1MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_1MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 1ms Debounce Counter Enable Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_10MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_10MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 10ms Debounce Counter Enable Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_100MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_100MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 100ms Debounce Counter Enable Position  */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1_Pos _UINT32_(4)                                          /* (EC_REG_BANK_PD_MON_CTRL) PAD Monitor Override VTR1 0=Normal Operation 1=Override input_disable and pad_protect_n Position */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1_Pos) /* (EC_REG_BANK_PD_MON_CTRL) PAD Monitor Override VTR1 0=Normal Operation 1=Override input_disable and pad_protect_n Mask */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1(value) (EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_CTRL_OVRD_VTR1_Pos)) /* Assigment of value for OVRD_VTR1 in the EC_REG_BANK_PD_MON_CTRL register */
@@ -228,6 +236,14 @@
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos _UINT32_(8)                                          /* (EC_REG_BANK_PD_MON_CTRL) Pad Monitor Control VTR2. 0=OFF, 1=1ms delay, 2=10ms delay, 3=100ms delay Position */
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Msk (_UINT32_(0x3) << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) Pad Monitor Control VTR2. 0=OFF, 1=1ms delay, 2=10ms delay, 3=100ms delay Mask */
 #define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2(value) (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos)) /* Assigment of value for CTRL_VTR2 in the EC_REG_BANK_PD_MON_CTRL register */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_DISABLED_Val _UINT32_(0x0)                                        /* (EC_REG_BANK_PD_MON_CTRL) Disabled  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_1MS_DEBOUNCE_CNTR_Val _UINT32_(0x1)                                        /* (EC_REG_BANK_PD_MON_CTRL) 1ms Debounce Counter Enable  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_10MS_DEBOUNCE_CNTR_Val _UINT32_(0x2)                                        /* (EC_REG_BANK_PD_MON_CTRL) 10ms Debounce Counter Enable  */
+#define   EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_100MS_DEBOUNCE_CNTR_Val _UINT32_(0x3)                                        /* (EC_REG_BANK_PD_MON_CTRL) 100ms Debounce Counter Enable  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_DISABLED (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_DISABLED_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) Disabled Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_1MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_1MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 1ms Debounce Counter Enable Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_10MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_10MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 10ms Debounce Counter Enable Position  */
+#define EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_100MS_DEBOUNCE_CNTR (EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_100MS_DEBOUNCE_CNTR_Val << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) 100ms Debounce Counter Enable Position  */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2_Pos _UINT32_(12)                                         /* (EC_REG_BANK_PD_MON_CTRL) PAD Monitor Override VTR2 0=Normal Operation 1=Override input_disable and pad_protect_n Position */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2_Pos) /* (EC_REG_BANK_PD_MON_CTRL) PAD Monitor Override VTR2 0=Normal Operation 1=Override input_disable and pad_protect_n Mask */
 #define EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2(value) (EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_CTRL_OVRD_VTR2_Pos)) /* Assigment of value for OVRD_VTR2 in the EC_REG_BANK_PD_MON_CTRL register */
@@ -267,13 +283,19 @@
 #define EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Pos _UINT32_(1)                                          /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR1 Power Up Status Position */
 #define EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Pos) /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR1 Power Up Status Mask */
 #define EC_REG_BANK_PD_MON_STS_VTR1_PU_STS(value) (EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Pos)) /* Assigment of value for VTR1_PU_STS in the EC_REG_BANK_PD_MON_STS register */
+#define EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Pos _UINT32_(7)                                          /* (EC_REG_BANK_PD_MON_STS) Pad Monitor Current state VTR1 Position */
+#define EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Pos) /* (EC_REG_BANK_PD_MON_STS) Pad Monitor Current state VTR1 Mask */
+#define EC_REG_BANK_PD_MON_STS_VTR1_CS_STS(value) (EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Pos)) /* Assigment of value for VTR1_CS_STS in the EC_REG_BANK_PD_MON_STS register */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Pos _UINT32_(8)                                          /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR2 Power Down Status Position */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Pos) /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR2 Power Down Status Mask */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PD_STS(value) (EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Pos)) /* Assigment of value for VTR2_PD_STS in the EC_REG_BANK_PD_MON_STS register */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Pos _UINT32_(9)                                          /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR2 Power Up Status Position */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Pos) /* (EC_REG_BANK_PD_MON_STS) Pad Monitor VTR2 Power Up Status Mask */
 #define EC_REG_BANK_PD_MON_STS_VTR2_PU_STS(value) (EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Pos)) /* Assigment of value for VTR2_PU_STS in the EC_REG_BANK_PD_MON_STS register */
-#define EC_REG_BANK_PD_MON_STS_Msk            _UINT32_(0x00000303)                                 /* (EC_REG_BANK_PD_MON_STS) Register Mask  */
+#define EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Pos _UINT32_(15)                                         /* (EC_REG_BANK_PD_MON_STS) Pad Monitor Current state VTR2 Position */
+#define EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk (_UINT32_(0x1) << EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Pos) /* (EC_REG_BANK_PD_MON_STS) Pad Monitor Current state VTR2 Mask */
+#define EC_REG_BANK_PD_MON_STS_VTR2_CS_STS(value) (EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk & (_UINT32_(value) << EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Pos)) /* Assigment of value for VTR2_CS_STS in the EC_REG_BANK_PD_MON_STS register */
+#define EC_REG_BANK_PD_MON_STS_Msk            _UINT32_(0x00008383)                                 /* (EC_REG_BANK_PD_MON_STS) Register Mask  */
 
 
 /** \brief EC_REG_BANK register offsets definitions */

@@ -31,6 +31,9 @@ extern void GPIO113_ISR(void);
 extern void GPIO127_ISR(void);
 extern void GPIO140_ISR(void);
 extern void GPIO201_ISR(void);
+extern void WDT_ISR(void);
+extern void VTR_MON_VTR1_ISR(void);
+extern void VTR_MON_VTR2_ISR(void);
 extern void qmspi_isr(uint8_t channel);
 extern void smb_isr(void);
 extern void smb_dma_isr(void);
@@ -98,6 +101,65 @@ static void gpio_isr(GPIO_PIN pin, uintptr_t context)
 }
 
 /******************************************************************************/
+/**  wdt_isr_callback
+ *  
+ *  @return None
+ *  
+ *  @details wdt_isr_callback is used to handle WDT monitor ISRs
+ ******************************************************************************/
+static void wdt_isr_callback(uintptr_t context)
+{
+    WDT_ISR();
+}
+
+/******************************************************************************/
+/**  vtr_mon_register_isr_handlers
+ *  
+ *  @return None
+ *  
+ *  @details vtr_mon_register_isr_handlers is used to register VTR
+ *  monitor handlers with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
+void wdt_register_isr_handler(void)
+{
+    WDT_CallbackRegister(wdt_isr_callback, 0);
+}
+
+/******************************************************************************/
+/**  vtr_mon_isr_callback
+ *  
+ *  @return None
+ *  
+ *  @details vtr_mon_isr_callback is used to handle all VTR monitor ISRs
+ ******************************************************************************/
+static void vtr_mon_isr_callback(uintptr_t context)
+{
+    if(VTR1 == context)
+    {
+        VTR_MON_VTR1_ISR();
+    }
+
+    if(VTR2 == context)
+    {
+        VTR_MON_VTR2_ISR();
+    }
+}
+
+/******************************************************************************/
+/**  vtr_mon_register_isr_handlers
+ *  
+ *  @return None
+ *  
+ *  @details vtr_mon_register_isr_handlers is used to register VTR
+ *  monitor handlers with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
+void vtr_mon_register_isr_handlers(void)
+{
+    EC_REG_BANK_VTR1_CallbackRegister(vtr_mon_isr_callback, VTR1);
+    EC_REG_BANK_VTR2_CallbackRegister(vtr_mon_isr_callback, VTR2);
+}
+
+/******************************************************************************/
 /**  qmspi_isr_callback
  *  
  *  @return None
@@ -131,6 +193,14 @@ void qmspi_register_isr_handlers(void)
     QMSPI1_CallbackRegister(qmspi_isr_callback, SPI_CHANNEL_1);
 }
 
+/******************************************************************************/
+/**  gpio_register_isr_handlers
+ *  
+ *  @return None
+ *  
+ *  @details gpio_register_isr_handlers is used to register GPIO handlers
+ *  with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
 void gpio_register_isr_handlers(void)
 {
     GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO013, gpio_isr, 0);
@@ -146,11 +216,25 @@ void gpio_register_isr_handlers(void)
     GPIO_PinInterruptCallbackRegister(GPIO_PIN_GPIO201, gpio_isr, 0);
 }
 
+/******************************************************************************/
+/**  I2CSMB_GRP_InterruptHandler
+ *  
+ *  @return None
+ *  
+ *  @details I2CSMB_GRP_InterruptHandler handles I2C interrupts
+ ******************************************************************************/
 void I2CSMB_GRP_InterruptHandler ( void )
 {
     smb_isr();
 }
 
+/******************************************************************************/
+/**  DMA_GRP_InterruptHandler
+ *  
+ *  @return None
+ *  
+ *  @details DMA_GRP_InterruptHandler handles DMA interrupts
+ ******************************************************************************/
 void DMA_GRP_InterruptHandler (void)
 {
     smb_dma_isr();
