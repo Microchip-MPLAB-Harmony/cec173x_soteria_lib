@@ -18,10 +18,6 @@
 * OF THESE TERMS.
 *****************************************************************************/
 
-/** @defgroup VTR_MON
- *  @{
- */
-
 #ifndef VTR_MON_API_H
 #define VTR_MON_API_H
 
@@ -340,7 +336,3 @@ void p_vtr_mon_power_down_sts_clr(VTR vtr);
 #endif
 
 #endif
-
-/* end of vtr_mon_api.h */
-/**   @}
- */

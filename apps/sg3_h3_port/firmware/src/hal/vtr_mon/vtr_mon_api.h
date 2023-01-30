@@ -1,26 +1,22 @@
 /*****************************************************************************
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
- * You may use this software and any derivatives exclusively with
- * Microchip products.
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
- * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
- * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
- * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
- * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
- * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
- * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
- * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
- * OF THESE TERMS.
- *****************************************************************************/
-
-/** @defgroup VTR_MON
- *  @{
- */
+* © 2022 Microchip Technology Inc. and its subsidiaries.
+* You may use this software and any derivatives exclusively with
+* Microchip products.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+* OF THESE TERMS.
+*****************************************************************************/
 
 #ifndef VTR_MON_API_H
 #define VTR_MON_API_H
@@ -65,6 +61,28 @@ typedef enum
  * @return uint8_t -  Delay value in ms
  */
 uint8_t vtr_mon_get_vtr_pad_ctrl_ms( VTR_PAD_CTRL_VALUE pad_ctrl_bits );
+
+/* --------------------------------------------------------------------------------------------- */
+/*  API Function - Function to write the PAD_CTRL_VALUE for VTR1                                 */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * vtr_mon_vtr1_wr_pad_ctrl - Writes the given Pad Ctrl value
+ * for VTR1 to PAD Ctrl register.
+ * @param pad_ctrl - Refen enum  VTR_PAD_CTRL_VALUE
+ * @return None
+ */
+void vtr_mon_vtr1_wr_pad_ctrl(VTR_PAD_CTRL_VALUE pad_ctrl);
+
+/* --------------------------------------------------------------------------------------------- */
+/*  API Function - Function to write the PAD_CTRL_VALUE for VTR2                                 */
+/* --------------------------------------------------------------------------------------------- */
+/**
+ * vtr_mon_vtr2_wr_pad_ctrl - Writes the given Pad Ctrl value
+ * for VTR2 to PAD Ctrl register.
+ * @param pad_ctrl - Refen enum  VTR_PAD_CTRL_VALUE
+ * @return None
+ */
+void vtr_mon_vtr2_wr_pad_ctrl(VTR_PAD_CTRL_VALUE pad_ctrl);
 
 /* --------------------------------------------------------------------------------------------- */
 /* API Function - Function to get VTR1 power up status                                      */
@@ -318,7 +336,3 @@ void p_vtr_mon_power_down_sts_clr(VTR vtr);
 #endif
 
 #endif
-
-/* end of uart_api.h */
-/**   @}
- */

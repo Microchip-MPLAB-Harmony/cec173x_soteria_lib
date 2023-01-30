@@ -19,6 +19,10 @@
                        displayName="cec1736_s0_2zw_ev19k07a"
                        projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="cct" displayName="cct" projectFiles="true">
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/cct/plib_cct.h</itemPath>
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/cct/plib_cct_common.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.h</itemPath>
             </logicalFolder>
@@ -251,6 +255,9 @@
                        displayName="cec1736_s0_2zw_ev19k07a"
                        projectFiles="true">
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="cct" displayName="cct" projectFiles="true">
+              <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/cct/plib_cct.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/dma/plib_dma.c</itemPath>
             </logicalFolder>

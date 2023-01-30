@@ -69,11 +69,12 @@
 #include "peripheral/i2c/plib_smb2_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb2_master.h"
 #include "peripheral/i2c/slave/plib_smb2_slave.h"
-#include "peripheral/pwm/plib_pwm0.h"
 #include "peripheral/i2c/plib_smb1_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb1_master.h"
 #include "peripheral/i2c/slave/plib_smb1_slave.h"
+#include "peripheral/pwm/plib_pwm0.h"
 #include "peripheral/uart/plib_uart0.h"
+#include "peripheral/cct/plib_cct.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
