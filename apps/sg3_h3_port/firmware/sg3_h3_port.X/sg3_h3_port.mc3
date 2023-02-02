@@ -59,7 +59,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.1.0"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.1.5"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -118,8 +118,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;cct&quot; x=&quot;960&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
@@ -137,6 +136,7 @@
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -2813,6 +2813,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;ECIA_GIRQ_BLOCK_REG_VAL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1343232&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_ALT_NVIC_INT_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_ALT_NVIC_INT_EN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -8064,6 +8075,15 @@
          <value>__ROOTVIEW</value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sg3_lib" name="SG3_INSTANCE_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sg3_lib&gt;
+  &lt;sg3_lib dnOrder=&quot;0&quot; id=&quot;SG3_INSTANCE_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/sg3_lib&gt;
+&lt;/sg3_lib&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="smb0" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>__ROOTVIEW</value>
       </entry>
@@ -8807,11 +8827,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>0b89f9e8bfc2ba382ecb49cd3a621fe82d8eb24b627d80817869ca44e95e6493</hash>
+         <hash>7a2febd6de6b7692e5ecd1e99a432aa86caddad1756d4610716ab1835725b193</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>7003df4a5ef5345870f25361ffb20d052d9aed616e18b852655b1c13d20585df</hash>
+         <hash>168d5cb67e0987e2e9989e88a84d0868472acc85e91082b66913d91b57e6a8d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
@@ -8903,7 +8923,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\rom_api_mpu.h</file>
-         <hash>8e38a6d6eaa8f2b875bcbd7f1e2f9cab1c0fbaafc88eebc634fb9b3e9ece3a55</hash>
+         <hash>6c94b9221e50d582b2a06de869896efb2e51a7208fe4e1b3ed0b23e6b91ad270</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_main.h</file>
@@ -9207,7 +9227,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\common.h</file>
-         <hash>84d7de24f9aa14c54ad8015f451c3243bff9a9794ffeac4a589944000a45cb2e</hash>
+         <hash>091eec56bfe2f129797737cec50e0bde3fde9faedb244889ba7613e883c3d2d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
@@ -9311,7 +9331,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>66bf6cd869adb1ba8fac17f7f4c996f2baf70c1307451a500250a0e9a1e2cbcc</hash>
+         <hash>f18b84c986ce68a7d4c0f5d612738449488dcc2458962c98de5e8fdaa2b78ebc</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
@@ -9408,6 +9428,10 @@
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan03.h</file>
          <hash>ad4ee0014b9aa1e6e187737aa1482ae5483e54122ced8be9a9ab45c873675b64</hash>
+      </entry>
+      <entry>
+         <file>..\src\data_iso\data_iso_checks.h</file>
+         <hash>7041d02aeaca26b3016d15f2f081461fb90cd2d9027f0ba1d93739161c470aed</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
@@ -9519,7 +9543,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>a365210a152ec4fd9c98f0757263f050a3525b53bc86d344f1b86cffb1f9fc78</hash>
+         <hash>6359850786cf27472e9eb97db479e81517e11097002aa3832cb810c498e5c509</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>

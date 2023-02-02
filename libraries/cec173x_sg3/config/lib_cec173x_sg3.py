@@ -122,6 +122,16 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskSourceFile.setType("LINKER")
     mctpSmbusTaskSourceFile.setMarkup(False)
 
+    #Add common/data_iso/data_iso_checks.h
+    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/data_iso/data_iso_checks.h")
+    mctpSmbusTaskSourceFile.setDestPath("../../data_iso")
+    mctpSmbusTaskSourceFile.setOutputName("data_iso_checks.h")  
+    mctpSmbusTaskSourceFile.setProjectPath("data_iso/")
+    mctpSmbusTaskSourceFile.setOverwrite(True)
+    mctpSmbusTaskSourceFile.setType("HEADER")
+    mctpSmbusTaskSourceFile.setMarkup(False)
+
     #Add hal/gpio/gpio_api.c
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
     mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/hal/gpio/gpio_api.c")

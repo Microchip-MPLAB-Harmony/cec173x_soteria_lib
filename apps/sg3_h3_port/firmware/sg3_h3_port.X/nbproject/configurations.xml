@@ -91,6 +91,9 @@
           <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/device_vectors.h</itemPath>
         </logicalFolder>
       </logicalFolder>
+      <logicalFolder name="data_iso" displayName="data_iso" projectFiles="true">
+        <itemPath>../src/data_iso/data_iso_checks.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
         <logicalFolder name="gpio" displayName="gpio" projectFiles="true">
           <itemPath>../src/hal/gpio/gpio_api.h</itemPath>
@@ -376,8 +379,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CEC_DFP" vendor="Microchip" version="1.8.258"/>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
+        <pack name="CEC_DFP" vendor="Microchip" version="1.8.258"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

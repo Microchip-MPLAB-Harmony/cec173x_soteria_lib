@@ -46,6 +46,8 @@
 #include "platform.h"
 #include "platform_serial_flash.h"
 
+#include "../data_iso/data_iso_checks.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
