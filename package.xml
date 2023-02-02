@@ -3,5 +3,6 @@
     <Dependencies>
         <Dependency name="csp" version="v3.14.0"/>
         <Dependency name="dev_packs" version="v3.14.0"/>
+        <Dependency name="pmci" version="v3.0.0"/>
 </Dependencies>
 </Package>

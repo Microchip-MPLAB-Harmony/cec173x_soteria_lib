@@ -25,7 +25,6 @@ def destroyComponent(sg3LibComponent):
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":False})
 
 def instantiateComponent(sg3LibComponent):
-
     global sg3InstanceName
 
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":True})
@@ -33,6 +32,16 @@ def instantiateComponent(sg3LibComponent):
     sg3InstanceName = sg3LibComponent.createStringSymbol("SG3_INSTANCE_NAME", None)
     sg3InstanceName.setVisible(False)
     sg3InstanceName.setDefaultValue(sg3LibComponent.getID().upper())
+
+    moduleRoot = Variables.get("__MODULE_ROOT")
+    userGuideString = "**** Please refer documentation located in " + moduleRoot + "\docs\ ****"
+    userGuideString = userGuideString.replace("\\", "/")
+    sg3ModuleRoot = sg3LibComponent.createCommentSymbol("SG3_LIB_DOCS_LOC", None)
+    sg3ModuleRoot.setLabel(userGuideString)
+
+    sg3UtilsLinkString = "**** Utilities available at https://github.com/MicrochipTech/sg3_utilities/ ****"
+    sg3UtilsLink = sg3LibComponent.createCommentSymbol("SG3_LIB_UTILS_LOC", None)
+    sg3UtilsLink.setLabel(sg3UtilsLinkString)
 
     #SG3 library
     configName = Variables.get("__CONFIGURATION_NAME")
