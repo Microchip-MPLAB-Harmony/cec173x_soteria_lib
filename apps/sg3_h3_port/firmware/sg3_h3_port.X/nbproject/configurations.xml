@@ -9,15 +9,26 @@
           <itemPath>../src/common/debug/trace.h</itemPath>
         </logicalFolder>
         <logicalFolder name="include" displayName="include" projectFiles="true">
-          <itemPath>../src/common/include/ahb_api_mpu.h</itemPath>
           <itemPath>../src/common/include/rom_api_mpu.h</itemPath>
           <itemPath>../src/common/include/common.h</itemPath>
+          <itemPath>../src/common/include/ahb_api_mpu.h</itemPath>
+          <itemPath>../src/common/include/pmci.h</itemPath>
+          <itemPath>../src/common/include/FreeRTOS.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="config" displayName="config" projectFiles="true">
         <logicalFolder name="cec1736_s0_2zw_ev19k07a"
                        displayName="cec1736_s0_2zw_ev19k07a"
                        projectFiles="true">
+          <logicalFolder name="mctp" displayName="mctp" projectFiles="true">
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_task.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_control.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_common.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_smbus.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_config.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_base.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="cct" displayName="cct" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/cct/plib_cct.h</itemPath>
@@ -257,6 +268,12 @@
         <logicalFolder name="cec1736_s0_2zw_ev19k07a"
                        displayName="cec1736_s0_2zw_ev19k07a"
                        projectFiles="true">
+          <logicalFolder name="mctp" displayName="mctp" projectFiles="true">
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_task.c</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_control.c</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_smbus.c</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/mctp/mctp_base.c</itemPath>
+          </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="cct" displayName="cct" projectFiles="true">
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/cct/plib_cct.c</itemPath>
@@ -379,8 +396,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
         <pack name="CEC_DFP" vendor="Microchip" version="1.8.258"/>
+        <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -414,14 +431,13 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/common/debug;../src/common/include;../src/config/cec1736_s0_2zw_ev19k07a;../src/hal;../src/kernel;../src/oem/oem_task1;../src/oem/oem_task2;../src/oem/oem_task3;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/platform;../src/startup"/>
+                  value="../src;../src/common/debug;../src/common/include;../src/config/cec1736_s0_2zw_ev19k07a;../src/config/cec1736_s0_2zw_ev19k07a/mctp/;../src/hal;../src/kernel;../src/oem/oem_task1;../src/oem/oem_task2;../src/oem/oem_task3;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/platform;../src/startup"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>
@@ -471,7 +487,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value="-u irqhandler_tag"/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -513,7 +528,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -523,7 +537,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/cec1736_s0_2zw_ev19k07a;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/cec1736_s0_2zw_ev19k07a;../src/config/cec1736_s0_2zw_ev19k07a/mctp/;../src/packs/CEC1736_S0_2ZW_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="false"/>

@@ -12,10 +12,8 @@ MEMORY
     ram (rwx) : ORIGIN = 0x00100000, LENGTH = 152K
     LOG_MBX (rw): ORIGIN = 0x126600, LENGTH =  6000
 }
-
-/* Library configurations - Note required with XC32 v4.10 */
-/*GROUP(libgcc.a libc.a libm.a libnosys.a)*/
-
+/* Library configurations */
+GROUP(secureboot_app_lib.a secureboot_LIB.a)
 /* Variables used by FreeRTOS-MPU.
  * v10.4.1 has increased kernel data size. We must increase protection
  * region to next power of 2 size, 1024.

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2020 Microchip Technology Inc. and its subsidiaries.
  * You may use this software and any derivatives exclusively with
  * Microchip products.
  * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
@@ -18,46 +18,39 @@
  * OF THESE TERMS.
  *****************************************************************************/
 
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef MCTP_TASK_H
+#define MCTP_TASK_H
 
 #include <stddef.h>
 #include <stdint.h>
-#include <string.h>
-#include <xc.h>
-
-#include "trace.h"
-
-#include "peripheral/gpio/plib_gpio.h"
-#include "peripheral/qmspi/plib_qmspi_common.h"
-#include "peripheral/qmspi/plib_qmspi0.h"
-#include "peripheral/qmspi/plib_qmspi1.h"
-#include "peripheral/wdt/plib_wdt.h"
-#include "peripheral/ec_reg_bank/plib_ec_reg_bank.h"
-#include "interrupt/interrupt_api.h"
-#include "vtr_mon/vtr_mon_api.h"
-#include "gpio/gpio_api.h"
-#include "uart/uart_api.h"
-#include "qmspi/qmspi_api.h"
-
-#include "ahb_api_mpu.h"
-#include "rom_api_mpu.h"
-#include "pmci.h"
-
-#include "platform.h"
-#include "platform_serial_flash.h"
-
-#include "../data_iso/data_iso_checks_rom_api.h"
-
-
+#include "mctp_common.h"
+#include "mctp_config.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/* MPU */
+#define configMCTP_TASK1_PRIORITY MCTP_TASK_PRIORITY
+#define MCTP_TASK1_PRIORITY ((tskIDLE_PRIORITY + configMCTP_TASK1_PRIORITY) % configMAX_PRIORITIES)
+/* Stack size must be a power of 2 if the task is restricted */
+#define MCTP_TASK1_STACK_SIZE 512U       // 2 * configMINIMAL_STACK_SIZE (120)
+#define MCTP_TASK1_STACK_WORD_SIZE ((MCTP_TASK1_STACK_SIZE) / 4U)
+    
+#define MCTP_TASK1_STACK_ALIGN __attribute__ ((aligned(MCTP_TASK1_STACK_SIZE)))
+
+#define MCTP_TASK1_BUF_SIZE		512U
+#define MCTP_TASK1_BUF_MPU_ATTR 0U
+#define MCTP_TASK1_BUF_ALIGN __attribute__((aligned(MCTP_TASK1_BUF_SIZE)))
+
+#define MCTP_EVENT_BIT              (1U << 1)
+#define MCTP_I2C_ENABLE_BIT         (1U << 0)
+#define MCTP_SMB_RESPONSE_BIT       (2U << 1)
+#define MCTP_WAIT_FOR_SPDM_DONE     (1U << 18)
+#define MCTP_WAIT_FOR_PLDM_DONE     (1U << 19)
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* COMMON_H */
+#endif /* MCTP_TASK_H */

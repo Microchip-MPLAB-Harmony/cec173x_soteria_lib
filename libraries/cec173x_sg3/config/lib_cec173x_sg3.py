@@ -122,6 +122,26 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskSourceFile.setType("LINKER")
     mctpSmbusTaskSourceFile.setMarkup(False)
 
+    #Add common/include/pmci.h
+    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/pmci.h")
+    mctpSmbusTaskSourceFile.setDestPath("../../common/include")
+    mctpSmbusTaskSourceFile.setOutputName("pmci.h")  
+    mctpSmbusTaskSourceFile.setProjectPath("common/include/")
+    mctpSmbusTaskSourceFile.setOverwrite(True)
+    mctpSmbusTaskSourceFile.setType("HEADER")
+    mctpSmbusTaskSourceFile.setMarkup(False)
+
+    #Add common/include/FreeRTOS.h
+    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/FreeRTOS.h")
+    mctpSmbusTaskSourceFile.setDestPath("../../common/include")
+    mctpSmbusTaskSourceFile.setOutputName("FreeRTOS.h")  
+    mctpSmbusTaskSourceFile.setProjectPath("common/include/")
+    mctpSmbusTaskSourceFile.setOverwrite(True)
+    mctpSmbusTaskSourceFile.setType("HEADER")
+    mctpSmbusTaskSourceFile.setMarkup(False)
+
     #Add common/data_iso/data_iso_checks.h
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
     mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/data_iso/data_iso_checks_rom_api.h")

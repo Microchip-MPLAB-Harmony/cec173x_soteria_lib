@@ -42,11 +42,14 @@
 
 #include "ahb_api_mpu.h"
 #include "rom_api_mpu.h"
+#include "pmci.h"
 
 #include "platform.h"
 #include "platform_serial_flash.h"
 
 #include "../data_iso/data_iso_checks_rom_api.h"
+
+#include "config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
 
 #ifdef __cplusplus
 extern "C" {
