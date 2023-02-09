@@ -92,7 +92,7 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="data_iso" displayName="data_iso" projectFiles="true">
-        <itemPath>../src/data_iso/data_iso_checks.h</itemPath>
+        <itemPath>../src/data_iso/data_iso_checks_rom_api.h</itemPath>
       </logicalFolder>
       <logicalFolder name="hal" displayName="hal" projectFiles="true">
         <logicalFolder name="gpio" displayName="gpio" projectFiles="true">

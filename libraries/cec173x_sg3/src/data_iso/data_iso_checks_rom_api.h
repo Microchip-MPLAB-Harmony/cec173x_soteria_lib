@@ -1,29 +1,33 @@
 /*****************************************************************************
- * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
- * You may use this software and any derivatives exclusively with
- * Microchip products.
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
- * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
- * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
- * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
- * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
- * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
- * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
- * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
- * OF THESE TERMS.
- *****************************************************************************/
-#ifndef INCLUDE_DATA_ISO_CHECKS_H_
-#define INCLUDE_DATA_ISO_CHECKS_H_
+* Copyright 2021 Microchip Technology Inc. and its subsidiaries.
+* You may use this software and any derivatives exclusively with
+* Microchip products.
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP 'AS IS'.
+* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+* OF THESE TERMS.
+*****************************************************************************/
 
-#define DI_APP_ID_OEM1 10
-#define DI_APP_ID_OEM2 11
-#define DI_APP_ID_OEM3 12
+/** @file data_iso_checks_rom_api.h
+ * data_isolation cross checks
+ */
+/** @defgroup data_isolation
+ */
 
+#ifndef DATA_ISO_CHECKS_ROM_API_H
+#define DATA_ISO_CHECKS_ROM_API_H
+
+// DI Permissions
 enum di_permissions_rom_apis_tbl0
 {
     DI_PERMISSION_ROM_API_NONE_TBL0        = 0x40000000U,   //Table0 - NO PERM
@@ -86,14 +90,30 @@ enum di_permissions_rom_apis_tbl_1
 };
 
 /******************************************************************************/
-/** di_checks_rom_api_permission_add
-* Add an entry into the ROM API permission table
-* @param app_id     Application ID
+/** oem_task1_rom_api_permission_add
+* Add an entry into the ROM API permission table for OEM task1
 * @param reqd_permission  Permission that is required
 * @return None
 *******************************************************************************/
-uint8_t di_checks_rom_api_permission_add(uint8_t app_id, uint32_t reqd_permission);
+uint8_t oem_task1_rom_api_permission_add(uint32_t reqd_permission);
 
+/******************************************************************************/
+/** oem_task2_rom_api_permission_add
+* Add an entry into the ROM API permission table for OEM task2
+* @param reqd_permission  Permission that is required
+* @return None
+*******************************************************************************/
+uint8_t oem_task2_rom_api_permission_add(uint32_t reqd_permission);
 
+/******************************************************************************/
+/** oem_task3_rom_api_permission_add
+* Add an entry into the ROM API permission table for OEM task3
+* @param reqd_permission  Permission that is required
+* @return None
+*******************************************************************************/
+uint8_t oem_task3_rom_api_permission_add(uint32_t reqd_permission);
 
-#endif /* INCLUDE_DATA_ISO_CHECKS_H_ */
+#endif
+/* end DATA_ISO_CHECKS_SRAM_MBOX_H */
+/**   @}
+ */

@@ -118,7 +118,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;cct&quot; x=&quot;960&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
@@ -136,7 +137,6 @@
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -8827,7 +8827,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>7a2febd6de6b7692e5ecd1e99a432aa86caddad1756d4610716ab1835725b193</hash>
+         <hash>a27c5f71165815ba1872bb5dbf97b3c59b8be9b8bc7f7cb4354cf5839f5fd2dd</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
@@ -9227,7 +9227,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\common.h</file>
-         <hash>091eec56bfe2f129797737cec50e0bde3fde9faedb244889ba7613e883c3d2d2</hash>
+         <hash>b63f735daa9e277312c8f6d3312b63b88881a5d2e643a126e7b1d17e9eda472c</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
@@ -9236,6 +9236,10 @@
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi0.h</file>
          <hash>6fff2a8d90263ad77b889e2abd5fa7acbd01ab8eeb6976f7d9b40636515df361</hash>
+      </entry>
+      <entry>
+         <file>..\src\data_iso\data_iso_checks_rom_api.h</file>
+         <hash>cc40d009beac342f7700aef82f3ed1ea125ecef96d3ada3b85b396d2e6615ac0</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan08.h</file>
@@ -9430,10 +9434,6 @@
          <hash>ad4ee0014b9aa1e6e187737aa1482ae5483e54122ced8be9a9ab45c873675b64</hash>
       </entry>
       <entry>
-         <file>..\src\data_iso\data_iso_checks.h</file>
-         <hash>7041d02aeaca26b3016d15f2f081461fb90cd2d9027f0ba1d93739161c470aed</hash>
-      </entry>
-      <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
          <hash>afbe3c9cfa7fe56455cb0288eb3f51b16579eafbc660931cf64311438f8a35a3</hash>
       </entry>
@@ -9543,7 +9543,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>6359850786cf27472e9eb97db479e81517e11097002aa3832cb810c498e5c509</hash>
+         <hash>7c09a272a6ead6926d40c09b5e2a92af8db77560383554049b9f8eca68aac1bb</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>

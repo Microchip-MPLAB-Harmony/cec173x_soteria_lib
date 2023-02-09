@@ -124,9 +124,9 @@ def instantiateComponent(sg3LibComponent):
 
     #Add common/data_iso/data_iso_checks.h
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/data_iso/data_iso_checks.h")
+    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/data_iso/data_iso_checks_rom_api.h")
     mctpSmbusTaskSourceFile.setDestPath("../../data_iso")
-    mctpSmbusTaskSourceFile.setOutputName("data_iso_checks.h")  
+    mctpSmbusTaskSourceFile.setOutputName("data_iso_checks_rom_api.h")  
     mctpSmbusTaskSourceFile.setProjectPath("data_iso/")
     mctpSmbusTaskSourceFile.setOverwrite(True)
     mctpSmbusTaskSourceFile.setType("HEADER")
