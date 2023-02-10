@@ -35,8 +35,14 @@ typedef unsigned long    UBaseType_t;
 typedef portSTACK_TYPE   StackType_t;
 /* Max number of MCTP applications */
 #define DI_MAX_MCTP_APPS		2
+// SPDM configs
+#define SPDM_MAX_QMSPI_PORTS	2		// PLDM uses both ports depending on the APx
+#define SPDM_CRYPTO_BLOCKS_ACCESS	2	// SPDM needs access to both Block1 and Block2 crypto assets
 
 #define portTOTAL_NUM_REGIONS 8
+
+#define configTICK_RATE_HZ (200)
+#define pdMS_TO_TICKS( xTimeInMs )    ( ( TickType_t ) ( ( ( TickType_t ) ( xTimeInMs ) * ( TickType_t ) configTICK_RATE_HZ ) / ( TickType_t ) 1000U ) )
 
 typedef struct _CEC_AHB_PRIV_REGS_VALUES_
 {
@@ -264,6 +270,36 @@ typedef struct tskTaskControlBlock       /* The old naming convention is used to
     #endif
 } tskTCB;
 
+struct tmrTimerControl; /* The old naming convention is used to prevent breaking kernel aware debuggers. */
+typedef struct tmrTimerControl * TimerHandle_t;
+typedef void (* TimerCallbackFunction_t)( TimerHandle_t xTimer );
+
+/* The definition of the timers themselves. */
+typedef struct tmrTimerControl                  /* The old naming convention is used to prevent breaking kernel aware debuggers. */
+{
+    const char * pcTimerName;                   /*<< Text name.  This is not used by the kernel, it is included simply to make debugging easier. */ /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+    ListItem_t xTimerListItem;                  /*<< Standard linked list item as used by all kernel features for event management. */
+    TickType_t xTimerPeriodInTicks;             /*<< How quickly and often the timer expires. */
+    void * pvTimerID;                           /*<< An ID to identify the timer.  This allows the timer to be identified when the same callback is used for multiple timers. */
+    TimerCallbackFunction_t pxCallbackFunction; /*<< The function that will be called when the timer expires. */
+    #if ( configUSE_TRACE_FACILITY == 1 )
+        UBaseType_t uxTimerNumber;              /*<< An ID assigned by trace tools such as FreeRTOS+Trace */
+    #endif
+    uint8_t ucStatus;                           /*<< Holds bits to say if the timer was statically allocated or not, and if it is active or not. */
+} xTIMER;
+
+typedef struct xSTATIC_TIMER
+{
+    void * pvDummy1;
+    StaticListItem_t xDummy2;
+    TickType_t xDummy3;
+    void * pvDummy5;
+    TaskFunction_t pvDummy6;
+    #if ( configUSE_TRACE_FACILITY == 1 )
+        UBaseType_t uxDummy7;
+    #endif
+    uint8_t ucDummy8;
+} StaticTimer_t;
 
 struct tskTaskControlBlock;     /* The old naming convention is used to prevent breaking kernel aware debuggers. */
 typedef struct tskTaskControlBlock * TaskHandle_t;
@@ -290,13 +326,39 @@ BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue,
 
 
  #define portMAX_DELAY              ( TickType_t ) 0xffffffffUL
+typedef uint32_t * EventGroupHandle_t;
+typedef long             BaseType_t;
 EventBits_t MPU_xEventGroupSetBits( EventGroupHandle_t xEventGroup,
                                 const EventBits_t uxBitsToSet );
+#define xEventGroupSetBits MPU_xEventGroupSetBits
 EventBits_t MPU_xEventGroupWaitBits( EventGroupHandle_t xEventGroup,
                                  const EventBits_t uxBitsToWaitFor,
                                  const BaseType_t xClearOnExit,
                                  const BaseType_t xWaitForAllBits,
                                  TickType_t xTicksToWait );
+#define xEventGroupWaitBits MPU_xEventGroupWaitBits
+TimerHandle_t MPU_xTimerCreateStatic( const char * const pcTimerName,
+                                      const TickType_t xTimerPeriodInTicks,
+                                      const UBaseType_t uxAutoReload,
+                                      void * const pvTimerID,
+                                      TimerCallbackFunction_t pxCallbackFunction,
+                                      StaticTimer_t * pxTimerBuffer );
+#define xTimerCreateStatic MPU_xTimerCreateStatic    
+
+#define xTimerGenericCommand MPU_xTimerGenericCommand
+BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
+                                 const BaseType_t xCommandID,
+                                 const TickType_t xOptionalValue,
+                                 BaseType_t * const pxHigherPriorityTaskWoken,
+                                 const TickType_t xTicksToWait );
+TickType_t xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;                                
+#define tmrCOMMAND_START                        ( ( BaseType_t ) 1 )
+#define xTimerStart( xTimer, xTicksToWait ) \
+    xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
+#define tmrCOMMAND_STOP                         ( ( BaseType_t ) 3 )
+#define xTimerStop( xTimer, xTicksToWait ) \
+    xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP, 0U, NULL, ( xTicksToWait ) )
+
 typedef struct ST_DI_QUEUE_EVENT
 {
     /** Pointer to message queue handle */
@@ -348,4 +410,57 @@ typedef struct ST_DI_CONTEXT_MCTP
     SemaphoreHandle_t mutex_sb_core_handle;
 
 } DI_CONTEXT_MCTP;
+
+
+/******************************************************************************/
+/**  SPDM Data Isolation init members
+*******************************************************************************/
+typedef struct ST_DI_CONTEXT_SPDM
+{
+    // MCTP Request INFO
+    /** MCTP Request Message Queue and event group handle */
+    DI_QUEUE_EVENT mctp_request;
+
+    /** Semaphore for SPDM MCTP channel */
+    SemaphoreHandle_t mutex_mctp_handle;
+
+    /** SPDM Message Queue and event group handle */
+    DI_QUEUE_EVENT spdm_request;
+
+    /** QMSPI Request Message Queue and event group handle */
+    DI_QUEUE_EVENT qmspi_request;
+
+    /** Semaphore for SPDM QMSPI channel */
+    SemaphoreHandle_t mutex_qmspi_handle[SPDM_MAX_QMSPI_PORTS];
+
+    /** SPDM response message queue and event group handle to for QMSPI transactions */
+    DI_QUEUE_EVENT spdm_qmspi_response;
+
+    /** SB_CORE Request Message Queue and event group handle */
+    DI_QUEUE_EVENT sb_core_request;
+
+    /** Semaphore for SPDM SB_CORE request queue */
+    SemaphoreHandle_t mutex_sb_core_handle;
+
+    /** SPDM response message queue and event group handle to for sb_core transactions */
+    DI_QUEUE_EVENT spdm_sb_core_response;
+
+    /** Crypto Request Message Queue and event group handle */
+    DI_QUEUE_EVENT crypto_request;
+
+    /** Semaphore for Crypto request queue */
+    SemaphoreHandle_t mutex_crypto_handles[SPDM_CRYPTO_BLOCKS_ACCESS];
+
+    /** SPDM response message queue and event group handle to for crypto transactions */
+    DI_QUEUE_EVENT spdm_crypto_response;
+
+    /** Semaphore for I2C request queue */
+    SemaphoreHandle_t mutex_i2c_handle;
+
+    /** I2C Request Message Queue and event group handle */
+    DI_QUEUE_EVENT i2c_response; // get response from i2c
+    DI_QUEUE_EVENT i2c_request; // Send request to i2c
+
+} DI_CONTEXT_SPDM;
+
 #endif

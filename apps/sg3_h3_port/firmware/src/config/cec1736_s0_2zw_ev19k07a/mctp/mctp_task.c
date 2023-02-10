@@ -202,7 +202,7 @@ static void mctp_main(void* pvParameters)
 
     while(true)
     {
-        uxBits = MPU_xEventGroupWaitBits((mctpContext->xmctp_EventGroupHandle),
+        uxBits = xEventGroupWaitBits((mctpContext->xmctp_EventGroupHandle),
                                      (MCTP_EVENT_BIT | MCTP_I2C_ENABLE_BIT | MCTP_DI_EVENT_REQUEST | SMB_DI_EVENT_RESPONSE),
                                      pdTRUE,
                                      pdFALSE,
@@ -244,7 +244,7 @@ void SET_MCTP_EVENT_FLAG(void)
     {
         return;
     }
-    (void)MPU_xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_EVENT_BIT );
+    (void)xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_EVENT_BIT );
 }
 
 void mctp_i2c_update(uint8_t slv_addr, uint8_t freq, uint8_t eid)
@@ -337,7 +337,7 @@ void sb_mctp_enable(void)
     {
         return;
     }
-    MPU_xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_I2C_ENABLE_BIT );
+    xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_I2C_ENABLE_BIT );
 }
 
 /****************************************************************/

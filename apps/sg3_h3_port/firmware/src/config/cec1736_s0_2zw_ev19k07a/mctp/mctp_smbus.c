@@ -424,9 +424,35 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
 {
     MCTP_PKT_BUF *tx_buf;
     uint8_t ret_val;
+    uint8_t spdm_pend = 0x00;
+    uint8_t pldm_pend = 0x00;
 
     /* get current TX buffer pointer */
     tx_buf = (MCTP_PKT_BUF *)((void *) buffer_ptr);
+
+    if(store_msg_type_tx == MCTP_IC_MSGTYPE_SPDM)
+    {
+        if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
+        {
+            spdm_pend = true;
+        }
+        else
+        {
+            spdm_pend = false;
+        }
+    }
+    else if (store_msg_type_tx == MCTP_IC_MSGTYPE_PLDM)
+    {
+        if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
+        {
+            pldm_pend = true;
+        }
+        else
+        {
+            pldm_pend = false;
+        }
+    }
+
     /* based on status code, schedule re-transmission of packet or
     * drop the packet / mark buffer available */
     switch (status)
@@ -533,6 +559,22 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
         break;
 
     } /* end of switch */
+
+    if(spdm_pend)//if eom is not 1 for the spdm messaging, trigger spdm for further transmission over mctp
+    {
+        trigger_spdm_event();
+    }
+
+    if (is_pldm_request_firmware_update)
+    {
+        trigger_pldm_res_event();
+    }
+
+    if (pldm_pend)
+    {
+        trigger_pldm_res_event();
+    }
+
     return ret_val;
 
 }  /* End mctp_smbmaster_done */

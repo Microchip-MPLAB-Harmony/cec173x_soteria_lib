@@ -6,6 +6,10 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>SPDM</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>cct</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -189,7 +193,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_IS_SPDM_COMPONENT_CONNECTED&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
@@ -199,8 +203,13 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_IS_SPDM_REQUIRED"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_IS_SPDM_REQUIRED&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;false&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
@@ -222,6 +231,271 @@
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot;/&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_CERT_CHAIN_SLOT_01"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_CERT_CHAIN_SLOT_01&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;40&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_CERT_CHAIN_SLOT_23"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_CERT_CHAIN_SLOT_23&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_CERT_CHAIN_SLOT_45"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_CERT_CHAIN_SLOT_45&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_CERT_CHAIN_SLOT_67"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_CERT_CHAIN_SLOT_67&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_0"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_0&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_1"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_1&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_2"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_2&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_3"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_3&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_4"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_4&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_5"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_5&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_6"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_6&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_HEAD_POINTER_7"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_7&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE0123"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE0123&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE12131415"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE12131415&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE16171819"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE16171819&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE20212223"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE20212223&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE24252627"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE24252627&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE28293031"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE28293031&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE32333435"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE32333435&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE36373839"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE36373839&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE40414243"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE40414243&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE44454647"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE44454647&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE4567"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE4567&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE48495051"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE48495051&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE52535455"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE52535455&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE56575859"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE56575859&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE60616263"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE60616263&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="TAIL_CERTIFICATE891011"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;TAIL_CERTIFICATE891011&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
 </value>
       </entry>
       <entry>
@@ -280,26 +554,27 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MCTP&quot; x=&quot;950&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;cct&quot; x=&quot;960&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;pwm0&quot; x=&quot;190&quot; y=&quot;140&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;qmspi0&quot; x=&quot;800&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;qmspi1&quot; x=&quot;30&quot; y=&quot;60&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;sg3_lib&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;smb0&quot; x=&quot;190&quot; y=&quot;60&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;smb1&quot; x=&quot;350&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;smb2&quot; x=&quot;790&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;smb3&quot; x=&quot;510&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;smb4&quot; x=&quot;30&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;SPDM&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cct&quot; x=&quot;960&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;pwm0&quot; x=&quot;190&quot; y=&quot;140&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;qmspi0&quot; x=&quot;800&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;qmspi1&quot; x=&quot;30&quot; y=&quot;60&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sg3_lib&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;smb0&quot; x=&quot;190&quot; y=&quot;60&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;smb1&quot; x=&quot;350&quot; y=&quot;80&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;smb2&quot; x=&quot;790&quot; y=&quot;80&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;smb3&quot; x=&quot;510&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;smb4&quot; x=&quot;30&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -9296,7 +9571,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_control.c</file>
-         <hash>034524db3040e411b58e8b62b36d3837bf19c3565c11b583f4fc5e49db07b81b</hash>
+         <hash>ea5206f3a38c14eb68117d1396b8ee03696da8eea95ecb07f6e28db254b3ad27</hash>
       </entry>
       <entry>
          <file>..\src\platform\platform_serial_flash.h</file>
@@ -9327,6 +9602,10 @@
          <hash>48026476ea9fe08c1ac0e7b14a2a424e1b85afda29f88e61f2e135a078e9e21d</hash>
       </entry>
       <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.c</file>
+         <hash>b20143aa5591f269ec77a774bba41807d492d1ecc7c83270579a1f9a59ea5756</hash>
+      </entry>
+      <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.h</file>
          <hash>3ed3f52e16248881afc0020850f4a2e15bb93756d3dfe6cab88fe3dc7638f1ed</hash>
       </entry>
@@ -9345,6 +9624,10 @@
       <entry>
          <file>..\src\hal\uart\uart_api.h</file>
          <hash>a705da4e12ddb085803f492ddf2029f9706e4f45c1b8c1cbd730eda3570f8caa</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm.h</file>
+         <hash>2f98451967750ce86f098cdd9abd23ad50f867649cf9fa9c8fc9042ed0101127</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\wdt.h</file>
@@ -9373,6 +9656,10 @@
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan09.h</file>
          <hash>ac55c0c9f0a854adcb187b65be3467974e0051e2b44e336f1cfae743e27974a4</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.h</file>
+         <hash>e4d08640f3fb5835fd53ab76850d755ad9a8ba1ff1f2eb8e81243e10a30c8be4</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\vtr_reg_bank.h</file>
@@ -9555,6 +9842,10 @@
          <hash>da2ececbd7785f7f164afbbf542921f81a05224dcf4da91fe497afe732608bb6</hash>
       </entry>
       <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.h</file>
+         <hash>e24b4c703a8420e18bb03c9b9d5e1d7db1dbf275fe5ecb9aeb3e94e581694e46</hash>
+      </entry>
+      <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart_common.h</file>
          <hash>09bacbcb0b6be07f8e880b6f3970073441788a474fa194cf5682f16b3e28c34c</hash>
       </entry>
@@ -9567,8 +9858,12 @@
          <hash>0fcfddd297fa38d18b43fe1780c6612078e8c6b2d9dec21b8873d864fb1307a8</hash>
       </entry>
       <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.c</file>
+         <hash>837accea01fc67d702cfd68c5f2a1a1d46da26963c9b1dc244bda0b49a4a7b69</hash>
+      </entry>
+      <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.c</file>
-         <hash>ba7d5fa48c1b1882279d50603073e4bd739e74f1c8602c0796628e5a0805b875</hash>
+         <hash>4d45f31437b581404f297a196deaef24cceddbe3f56c19054b921de2e1acdb6e</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_task.h</file>
@@ -9580,7 +9875,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.h</file>
-         <hash>986847cc926ceff93ea2c55d462021b4146fec8b0a22192b4ae0748993a22f9d</hash>
+         <hash>9eedef2ac79ce9b88e2b27d116ed590348c6e71b1c7bc4911419548a6b4c2383</hash>
       </entry>
       <entry>
          <file>..\src\common\debug\serial.c</file>
@@ -9620,11 +9915,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.h</file>
-         <hash>14f4dac72fcb1226912c4cd0b35fdad9e764e82e64b836067beb5c2bfa89641f</hash>
+         <hash>a83cf0b4b9235065255faf4a0883438497a6d21af12eb82584fd4d5575094b13</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.c</file>
-         <hash>64156092f9ff927db3468d06c76b77efc2dccb10ac072a06980fc7365ba5c58f</hash>
+         <hash>1f056364fb5465db18fb891eab10a41070b46f3acde83c4b9e79b514981c8c68</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb3_master.h</file>
@@ -9672,7 +9967,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>c73182f7efd1ea0cfc2ec7b8fa8cc1665817490dc8f288c831ce67244f218eb7</hash>
+         <hash>2057805879907524a91c77c8358b382b4d6494971c059da0ebc4dc3deded5fee</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
@@ -9700,7 +9995,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>7003df4a5ef5345870f25361ffb20d052d9aed616e18b852655b1c13d20585df</hash>
+         <hash>168d5cb67e0987e2e9989e88a84d0868472acc85e91082b66913d91b57e6a8d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
@@ -9871,6 +10166,10 @@
          <hash>d59a9e3ed4cf43a3c74a2e48f344d41be2b6363ef9394ea2c551052fe553a6af</hash>
       </entry>
       <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_config.h</file>
+         <hash>ddbe2d491b3f395ef9b3a13077a21a37cb5d63ee5b87ad3b9d20454c49824ecd</hash>
+      </entry>
+      <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\gpio.h</file>
          <hash>1c3af5a2858a2d0113cf46ae609eccd6331899a2cb136975c96a1058d398c2d5</hash>
       </entry>
@@ -9916,7 +10215,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>4d6b0d652fb25aa398f85071c3597dc180c361b9906e11927d3e96ccbd102093</hash>
+         <hash>5260c69ff6806553eaf8452f9396dd2f432899c73e4ae137176ddf879dbb5401</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
@@ -9972,7 +10271,7 @@
       </entry>
       <entry>
          <file>..\src\data_iso\data_iso_checks.h</file>
-         <hash>bdf1fe38802975d499b663a405387ed3c66939b2a30c635d8143125cd7c36201</hash>
+         <hash>7041d02aeaca26b3016d15f2f081461fb90cd2d9027f0ba1d93739161c470aed</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
@@ -10000,7 +10299,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp.h</file>
-         <hash>4b82bd9a2c3468f9f14f186b53faa1da1949ca3139f724fd780397676c61320c</hash>
+         <hash>df405526af35315d2399e6db1790f928a3105637f388824f2462c2119e69224c</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\gpio.h</file>
@@ -10023,12 +10322,20 @@
          <hash>217d40fd159304cdfee04b1dabfc46c99333c5fa4ac7419851188509806ca34d</hash>
       </entry>
       <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_task.h</file>
+         <hash>6174104d10cd9549c8eeac21fca54750ad6e9570cee3405bce752d36dca05e7a</hash>
+      </entry>
+      <entry>
          <file>..\src\hal\vtr_mon\vtr_mon_api.c</file>
          <hash>ed844b1856cbc76bec0ab10e9d06244a59dba179f376f03b2fc7e4222af5b3eb</hash>
       </entry>
       <entry>
          <file>..\src\hal\vtr_mon\vtr_mon_api.h</file>
          <hash>92274d0fac5d59e2af5370604371f58d8a5294569ee2bbc4a6cf08fc68f8a0b5</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_task.c</file>
+         <hash>d44684d35ea55563dba42095d61d413876fca26292fa24a9f84058afa3301024</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
