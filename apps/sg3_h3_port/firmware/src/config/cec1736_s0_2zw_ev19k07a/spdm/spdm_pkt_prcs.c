@@ -32,7 +32,6 @@
 
 #define SPI_DATA_MAX_BUFF 4096U
 
-// extern SPDM_BSS1_ATTR DI_CONTEXT_SPDM *spdm_di_context;
 extern SPDM_BSS1_ATTR uint8_t curr_ec_id;
 SPDM_BSS1_ATTR uint8_t hw_config_buff[SRAM_MBOX_HW_CONFIG_SIZE] __attribute__((aligned(8)));
 
@@ -427,7 +426,6 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
  *******************************************************************************/
 void spdm_pkt_init_immutable_rom_block(SPDM_CONTEXT *spdmContext)
 {
-    tracex("\r\n immutable code s");
     if (NULL == spdmContext)
     {
         return;
@@ -464,11 +462,8 @@ void spdm_pkt_init_immutable_rom_block(SPDM_CONTEXT *spdmContext)
         req_and_response_sz[1] = msr_block_buffer[indx].msr_size[0];
         spdmContext->get_requests_state = RUN_TIME_HASH_MODE;
         spdm_get_len_for_runtime_hash(spdmContext);
-        tracex("\r\n immutable code end1");
         spdm_crypto_ops_run_time_hashing((uint8_t *)&msr_block_buffer[indx].msr_frmt, length, spdmContext);
-        tracex("\r\n immutable code end2");
     }
-    tracex("\r\n immutable code end");
 }
 
 /******************************************************************************/
@@ -3267,7 +3262,6 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
     {
         error_handle = SPDM_ERROR_MJR_VRS_MISMATCH;
     }
-    tracex("\r\n get cmd %d", get_cmd);
     switch (get_cmd)
     {
     case SPDM_GET_VERSION:
@@ -3372,7 +3366,6 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
         }
         break;
     case SPDM_GET_CERT:
-        tracex("\r\n get cert");
         if (error_handle == 0)
         {
             if ((spdm_rqst_cur_state == SPDM_GET_DIGEST) || (spdmContext->previous_state == SPDM_GET_DIGEST))
@@ -3402,7 +3395,6 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
         }
         break;
     case SPDM_CHALLENGE_AUTH_RQ:
-        tracex("\r\n channleng auth");
         if (error_handle == 0)
         {
             if ((spdm_rqst_cur_state == SPDM_GET_CERT) || (spdmContext->previous_state == SPDM_GET_CERT))
@@ -4107,8 +4099,6 @@ void get_cert2_base_address(uint32_t *cert_ptr)
     {
         *cert_ptr = ((*cert_ptr << 8) | efuse_data);
     }
-    tracex("\r\n cert ptr is %x", *cert_ptr);
-    *cert_ptr = 0x10000;
 }
 
 /******************************************************************************/

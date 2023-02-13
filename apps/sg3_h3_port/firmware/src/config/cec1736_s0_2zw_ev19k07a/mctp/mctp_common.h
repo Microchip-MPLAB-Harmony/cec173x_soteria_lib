@@ -29,10 +29,6 @@
 /* ************************************************************************** */
 #include "definitions.h"
 
-//#include "FreeRTOS.h"
-//#include "task.h"
-//#include "event_groups.h"
-
 /* Provide C++ Compatibility */
 #ifdef __cplusplus
 extern "C" {

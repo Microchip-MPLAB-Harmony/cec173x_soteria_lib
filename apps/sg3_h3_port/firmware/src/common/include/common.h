@@ -49,8 +49,6 @@
 
 #include "../data_iso/data_iso_checks_rom_api.h"
 
-
-
 #ifdef __cplusplus
 extern "C" {
 #endif

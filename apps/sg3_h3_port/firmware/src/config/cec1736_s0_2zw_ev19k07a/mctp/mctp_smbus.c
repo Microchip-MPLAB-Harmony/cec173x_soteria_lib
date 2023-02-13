@@ -26,12 +26,9 @@
 #include "mctp_smbus.h"
 #include "mctp_control.h"
 #include "trace.h"
-//#include "mctp_data_iso.h"
-//#include "spdm_pkt_prcs.h"
 #include "mctp_task.h"
 #include "mctp_config.h"
 #include "../common/include/common.h"
-//#include "smb_data_iso.h"
 
 MCTP_BSS_ATTR static uint8_t get_packet_len = 0x00;
 MCTP_BSS_ATTR static uint16_t smb_rx_index = 0x00;
@@ -710,6 +707,15 @@ uint8_t mctp_otp_get_crisis_mode_smb_port(void)
 
     return i2c_port;
 }
+
+/******************************************************************************/
+/** mctp_i2c_rx_register
+ * This function registers a I2C slave application
+ * @channel the channel on which the slave is registered
+ * @param slaveFuncPtr The application function to call on receiving a packet
+ * @return             I2C_SLAVE_APP_STATUS_OK on successful registration,
+ *                     else error status
+******************************************************************************/
 uint8_t mctp_i2c_rx_register(const uint8_t channel, 
                             I2C_SLAVE_FUNC_PTR slaveFuncPtr)
 {
@@ -717,6 +723,24 @@ uint8_t mctp_i2c_rx_register(const uint8_t channel,
                                 (I2C_SLAVE_FUNC_PTR)slaveFuncPtr);
 }
 
+
+/******************************************************************************/
+/** mctp_i2c_tx
+ * Initiates I2C master operation
+ * @param channel          i2c channel
+ * @param buffer_ptr       Buffer for the smbus transaction
+ * @param smb_protocol     smbus protocol byte
+ * @param pecEnable        Flag to enable/disable PEC
+ * @param WriteCount       Number of bytes to transmit
+ * @param di_master_req    Data Isolation structure
+ * @param readChainedFlag  flag to indicate if read needs to be done
+ *                         using dma chaining
+ * @param writeChainedFlag flag to indicate if write needs to be done
+ *                         using dma chaining
+ * @return                 MASTER_OK on success, MASTER_ERROR if i2c is
+ *                         not ready for master mode operation
+ * @note
+******************************************************************************/
 uint8_t mctp_i2c_tx(const uint8_t channel, 
                     uint8_t *buffer_ptr, 
                     const uint8_t smb_protocol, 
@@ -733,6 +757,19 @@ uint8_t mctp_i2c_tx(const uint8_t channel,
                                 pecEnable);
 }
 
+/******************************************************************************/
+/** mctp_i2c_configure_and_enable
+ * This function can be used to start and enable the i2c controller
+ * @param channel     channel (I2C controller number)
+ * @param own_address 7-bit smb address
+ * @param speed       speed
+ * @param port        I2C port (I2C port number inside the I2C controller)
+ * @param configFlag  |      BIT0      |      BIT1      |      BIT2      |    BIT3 - BIT7 |
+ *                    | i2c module     |     Unused     | MCTP fairness  |      Unused    |
+ *                    | enable/disable |                |protocol enable |                |
+ * @return            None
+ * @note
+******************************************************************************/
 void mctp_i2c_configure_and_enable(uint8_t channel, 
                                    uint16_t own_address, 
                                    uint8_t speed, 

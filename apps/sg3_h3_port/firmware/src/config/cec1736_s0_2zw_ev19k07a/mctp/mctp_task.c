@@ -97,8 +97,8 @@ int mctp_app_task_create(void *pvParams)
         return -1;
     }
 
-     TaskParameters_t td = mctp_task1_def;
-    tracex("\r\n siz of td, %d", sizeof(td));
+    TaskParameters_t td = mctp_task1_def;
+
     td.pvTaskCode = mctp_main;
     td.usStackDepth = MCTP_TASK1_STACK_WORD_SIZE,
     td.pvParameters = pvParams;
@@ -138,8 +138,6 @@ int mctp_app_task_create(void *pvParams)
     di_context = (DI_CONTEXT_MCTP*)pvParams;
     mctpContext->xmctp_EventGroupHandle = di_context->mctp_request.evt_grp_handle;
     
-    tracex("mctp_tsk_create: Done");
-
     return 0;
 }
 
@@ -193,7 +191,6 @@ static void mctp_main(void* pvParameters)
   
     for(i=0; i<DI_MAX_MCTP_APPS; i++)
     {
-        tracex("\r\n value of i %d", i);
         xSemaphoreGive(mctp_di_context->mctp_master_context.mutex_handles[i]); /*make semaphore available for aquisition*/
     }
 #endif
@@ -317,7 +314,6 @@ void mctp_i2c_enable()
         // smb_status = mctp_smbus_init();
 
         smb_address = mctpContext->i2c_slave_addr;
-        tracex("\r\n VALID PORT %x", smb_address);
         mctp_smbaddress_update(smb_address, attestation_port_sel);
         is_attest_port_enabled = 1U;
     }
@@ -362,6 +358,5 @@ int mctp_task_create(void *pvParams)
 #else
     return_val = mctp_app_task_create(di_ctxt);
 #endif
-    tracex("\r\n R %d", return_val);
     return return_val;
 }

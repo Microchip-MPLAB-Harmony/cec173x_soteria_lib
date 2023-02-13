@@ -27,8 +27,6 @@
 #include "mctp_control.h"
 #include "mctp_config.h"
 #include "trace.h"
-//#include "../spdm/spdm_pkt_prcs.h"
-//#include "mctp_data_iso.h"
 
 /* function declarations */
 void mctp_init_buffers(void);
@@ -432,7 +430,6 @@ void mctp_event_tx_handler(void)
         {
             acquire_status = MASTER_BUSY;
         }
-        acquire_status = MASTER_AVAILABLE;
         /* get current TX buffer pointer */
         tx_buf = (MCTP_PKT_BUF *)&mctp_pktbuf[mctp_txbuf_index];
 
