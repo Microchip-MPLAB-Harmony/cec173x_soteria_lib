@@ -275,23 +275,42 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
                 offset = ROOT_START_OFFSET;
                 get_mem = 0;
                 root_cert = true;
-                uint8_t cert_chain_valid_status = CERT_CHAIN_VALID;
+                uint8_t cert_chain_valid_status = CERT_CHAIN_VALID; // This local variable is used to check validity of chain
                 memset(spi_data, 0U, SPI_DATA_MAX_BUFF);
                 current_cert_ptr = slot_buf[slot].chain.head_ptr_val; // get head pointer - root cert
 
-                uint8_t counter = 8; /* Max 8 certificates in a chain are supported
-                                        If more than 8 certificates are present in a chain, prevent possible buffer-overflow     */
+                uint8_t counter = 0; /* Max 8 certificates in a chain are supported */
 
+                // Get number of certificates in the chain 
+                while (current_cert_ptr != END_OF_CHAIN)
+                {
+                    counter++;
+                    if ((current_cert_ptr >= MAX_CERTIFICATES) || (counter > MAX_CERT_PER_CHAIN)) /* The first check is used to prevent access of cert_buf array at out of bound location 
+                                            Second check used to prevent infinite while loop (If tail pointer of a certificate points to itself) */
+                    {
+                        cert_chain_valid_status = CERT_CHAIN_INVALID;
+                        break;
+                    }
+                    current_cert_ptr = cert_buf[current_cert_ptr].tail_ptr_val;
+                }
+
+                // Compute RootHash, Chain length
+                if(cert_chain_valid_status == CERT_CHAIN_VALID)
+                {
+                    current_cert_ptr = slot_buf[slot].chain.head_ptr_val; // get head pointer - root cert
                 // GET CHAIN LENGTH, ROOT Certificate and ROOTHASH
-                while (((cert_buf[current_cert_ptr].tail_ptr_val) != END_OF_CHAIN) && (counter > 0))
+                    while ((cert_buf[current_cert_ptr].tail_ptr_val) != END_OF_CHAIN)
                 {
                     get_mem = cert_buf[current_cert_ptr].mem_addr;
                     if (root_cert)
                     {
+                            
+                            
                         if (spdm_read_certificate(get_mem, &spi_data[offset], 1024, current_cert_ptr))
                         {
-							spdm_di_spi_tristate(INT_SPI);
-                            return;
+                                // spdmContext->spdm_state_info = SPDM_IDLE;
+                                cert_chain_valid_status = CERT_CHAIN_INVALID;
+                                break;
                         }
                         cert_chain_valid_status |= spdm_pkt_update_cert_data_len(offset, &cert_buf[current_cert_ptr].cert_size);
 
@@ -306,6 +325,7 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
                         {
                             /* Set roothash to 0U since root cert is invalid
                             However, since variable is global, which is initialized to 0U by default, memset to 0U is not needed */
+                                break;
                         }
                         root_cert = false;
                         offset += cert_buf[current_cert_ptr].cert_size;
@@ -314,29 +334,33 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
                     {
                         if (spdm_read_certificate(get_mem, &spi_data[offset], 4, current_cert_ptr))
                         {
-							spdm_di_spi_tristate(INT_SPI);
-                            return;
+                                // spdmContext->spdm_state_info = SPDM_IDLE;
+                                cert_chain_valid_status = CERT_CHAIN_INVALID;
+                                break;
                         }
                         cert_chain_valid_status |= spdm_pkt_update_cert_data_len(offset, &cert_buf[current_cert_ptr].cert_size);
                     }
 
                     get_tail_ptr = current_cert_ptr;
                     current_cert_ptr = cert_buf[get_tail_ptr].tail_ptr_val;
-                    counter--;
                 }
 
-                if(counter > 0) // max number of certificates not exceeded
+                    if (cert_chain_valid_status == CERT_CHAIN_VALID) // Get Tail certificate Length only if all certificates are valid
                 {
                     spdm_read_certificate(0, &spi_data[offset], 4, current_cert_ptr);
+                        // spi_data[offset + 2] = 0xFF;
                     cert_chain_valid_status |= spdm_pkt_update_cert_data_len(offset, &cert_buf[current_cert_ptr].cert_size);
                 }
+                }
+                
+                // If all the certificate in the chain are valid, proceed to compute chainHash which will be used in Challenge
+                if(cert_chain_valid_status == CERT_CHAIN_VALID) // If any of the certificate is invalid, set hash of the chain to zero
+                {
                 // Refer Certificate chain format in spdm spec, chain length includes length, reserved, hash bytes
                 slot_buf[slot].chain.chain_length = cert_len + 2U + 2U + SPDM_SHA384_LEN;
                 spi_data[0] = slot_buf[slot].chain.chain_length & 0xFF;           // Length of certificate chain - Byte 0
                 spi_data[1] = (slot_buf[slot].chain.chain_length & 0xFF00) >> 8U; // Length of certificate chain - Byte 1 (Little Endian)
 
-                if(cert_chain_valid_status == CERT_CHAIN_VALID) // If any of the certificate is invalid, set hash of the chain to zero
-                {
                     current_cert_ptr = slot_buf[slot].chain.head_ptr_val; // get head pointer - root cert
                     offset = ROOT_START_OFFSET + cert_buf[current_cert_ptr].cert_size;
 
@@ -363,27 +387,25 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
 
                     get_tail_ptr = current_cert_ptr;
                     current_cert_ptr = cert_buf[get_tail_ptr].tail_ptr_val;
-                    counter = 7U; /* Max 8 certificates in a chain are supported,we have already computed run-time hash for root certificate in Step 1
-                                        If more than 8 certificates are present in a chain, prevent possible buffer-overflow     */
-                    while (((cert_buf[current_cert_ptr].tail_ptr_val) != END_OF_CHAIN) && (counter > 0))
+
+                    while ((cert_buf[current_cert_ptr].tail_ptr_val) != END_OF_CHAIN)
                     {
                         get_mem = cert_buf[current_cert_ptr].mem_addr;
                         if (spdm_read_certificate(get_mem, &spi_data[offset], cert_buf[current_cert_ptr].cert_size, current_cert_ptr))
                         {
-							spdm_di_spi_tristate(INT_SPI);
-                            return;
+                            // spdmContext->spdm_state_info = SPDM_IDLE;
+                            slot_buf[slot].is_cert_chain_valid = CERT_CHAIN_INVALID;
+                            break;
                         }
 
                         req_and_response_sz[1] = cert_buf[current_cert_ptr].cert_size;
-                        spdm_get_len_for_runtime_hash(spdmContext);(spdmContext);
+                        spdm_get_len_for_runtime_hash(spdmContext);
                         spdm_crypto_ops_run_time_hashing(&spi_data[offset], length, spdmContext);
 
                         get_tail_ptr = current_cert_ptr;
                         current_cert_ptr = cert_buf[get_tail_ptr].tail_ptr_val;
-                        counter--;
                     }
-                    if (counter > 0) // max number of certificates not exceeded
-                    {
+
                         uint16_t size = 0U;
                         if(cert_buf[current_cert_ptr].cert_size > UINT16_MAX)
                         {
@@ -397,7 +419,8 @@ void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext)
                         req_and_response_sz[1] = cert_buf[current_cert_ptr].cert_size;
                         spdm_get_len_for_runtime_hash(spdmContext);
                         spdm_crypto_ops_run_time_hashing(&spi_data[offset], length, spdmContext);
-                    }
+
+
                     spdmContext->get_requests_state = END_OF_HASH;
                     spdm_crypto_ops_run_time_hashing(NULL, 0, spdmContext);
                     memcpy(&hash_of_chains[SPDM_SHA384_LEN * slot], &spdmContext->sha_digest[0], SPDM_SHA384_LEN);
@@ -806,6 +829,7 @@ void spdm_pkt_initialize_cert_params_to_default(SPDM_CONTEXT *spdmContext)
         slot_buf[slot].chain_no = NO_CHAIN_VAL;
         slot_buf[slot].chain_present = false;
         slot_buf[slot].chain.head_ptr_val = END_OF_CHAIN;
+        slot_buf[slot].is_cert_chain_valid = CERT_CHAIN_VALID;
     }
     for (cert_count = 0; cert_count < MAX_CERTIFICATES; cert_count++)
     {
@@ -2732,6 +2756,10 @@ uint8_t spdm_pkt_process_get_cert_cmd(MCTP_PKT_BUF *spdm_buf_tx, SPDM_CONTEXT *s
 
     if (cert2_base_addr != 0)
     {
+        if (slot_buf[requested_slot].is_cert_chain_valid == CERT_CHAIN_INVALID)
+        {
+            return SPDM_CMD_CHAIN_INVALID;
+        }
         // check if chain present
         if (slot_buf[requested_slot].chain_present)
         {
@@ -3262,6 +3290,7 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
     {
         error_handle = SPDM_ERROR_MJR_VRS_MISMATCH;
     }
+
     switch (get_cmd)
     {
     case SPDM_GET_VERSION:
@@ -3383,6 +3412,10 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
                 {
                     error_handle = SPDM_ERROR_INVLD_RQ;
                 }
+                else if (ret_val == SPDM_CMD_CHAIN_INVALID)
+                {
+                    error_handle = SPDM_ERROR_UNSPECIFIED;
+                }
                 else
                 {
                     spdm_rqst_cur_state = get_cmd;
@@ -3399,15 +3432,6 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
         {
             if ((spdm_rqst_cur_state == SPDM_GET_CERT) || (spdmContext->previous_state == SPDM_GET_CERT))
             {
-                spdmContext->previous_state = SPDM_GET_CERT;
-                spdm_rqst_cur_state = SPDM_CHALLENGE_AUTH_RQ;
-            }
-            else
-            {
-                error_handle = SPDM_ERROR_UNXPTD_RQ_CODE;
-            }
-            if (!(error_handle == SPDM_ERROR_UNXPTD_RQ_CODE))
-            {
                 spdmContext->get_requests_state = RUN_TIME_HASH_MODE;
                 spdmContext->request_or_response = 0; // 0 means request
                 req_and_response_sz[0] = spdmContext->current_request_length;
@@ -3418,13 +3442,22 @@ uint8_t spdm_pkt_validate_and_process_spdm_msg(uint8_t get_cmd, MCTP_PKT_BUF *sp
                 {
                     error_handle = SPDM_ERROR_INVLD_RQ;
                 }
+                else // Update states Only if Challenge is successful 
+                {
+                    spdmContext->previous_state = SPDM_GET_CERT;
+                    spdm_rqst_cur_state = SPDM_CHALLENGE_AUTH_RQ;
+                }
+            }
+            else
+            {
+                error_handle = SPDM_ERROR_UNXPTD_RQ_CODE;
             }
         }
         break;
     case SPDM_GET_MEASUREMENT:
         if (error_handle == 0)
         {
-            if (spdmContext->challenge_success_flag)
+            if (spdm_rqst_cur_state == SPDM_CHALLENGE_AUTH_RQ) // Only if Challenge was successful, process Measurements 
             {
                 // first call to go for init hash engine
                 if (spdmContext->get_requests_state == HASH_INIT_MODE)

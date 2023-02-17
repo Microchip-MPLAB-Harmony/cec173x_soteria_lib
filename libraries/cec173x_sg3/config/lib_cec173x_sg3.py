@@ -39,7 +39,7 @@ def instantiateComponent(sg3LibComponent):
     sg3ModuleRoot = sg3LibComponent.createCommentSymbol("SG3_LIB_DOCS_LOC", None)
     sg3ModuleRoot.setLabel(userGuideString)
 
-    sg3UtilsLinkString = "**** Utilities available at https://github.com/MicrochipTech/cec173x_soteria_utilities ****"
+    sg3UtilsLinkString = "**** Utilities available at https://github.com/MicrochipTech/sg3_utilities/ ****"
     sg3UtilsLink = sg3LibComponent.createCommentSymbol("SG3_LIB_UTILS_LOC", None)
     sg3UtilsLink.setLabel(sg3UtilsLinkString)
 

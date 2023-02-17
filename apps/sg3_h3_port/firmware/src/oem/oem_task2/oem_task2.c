@@ -22,5 +22,5 @@
 
 __attribute__((optimize("O0"))) void oem_task2_function(void)
 {
-    tracex("%s\r\n", __FUNCTION__);
+    tracex("\r\nOEM2");
 }

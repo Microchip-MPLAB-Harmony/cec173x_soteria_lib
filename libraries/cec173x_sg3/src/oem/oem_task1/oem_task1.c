@@ -22,5 +22,5 @@
 
 void oem_task1_function(void)
 {
-    tracex("%s\r\n", __FUNCTION__);
+    tracex("\r\nOEM1");
 }

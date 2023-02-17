@@ -18,23 +18,6 @@
 * OF THESE TERMS.
 *****************************************************************************/
 
-/** @file spdm_pkt_prcs.h
- *  Source file for SPDM packet processing
- */
-
-/*******************************************************************************
- *  MCHP version control information (Perforce):
- *
- *  FILE:     $ $
- *  REVISION: $Revision: #26 $
- *  DATETIME: $DateTime: 2022/09/28 08:34:45 $
- *  AUTHOR:   $Author: i67071 $
- *
- *  Revision history (latest first):
- *      # 1: Initial revision for the MCTP porting
- ***********************************************************************************
-*/
-
 #include "mctp.h"
 #include "../mctp/mctp_control.h"
 #include "spdm_task.h"
@@ -69,7 +52,6 @@ typedef struct CERT_CHAIN
     uint8_t head_ptr_val; //head pointer for the chain
     uint8_t root_cert_hash[SPDM_SHA384_LEN];
     uint32_t chain_length;
-
 } __attribute__((packed)) CERT_CHAIN;
 
 
@@ -79,6 +61,7 @@ typedef struct CERT_SLOT
     uint8_t chain_present; //for flag check if chain present
     uint8_t chain_no; //to store which chain is present in current slot
     CERT_CHAIN chain;//head ptr val for the chain
+	uint8_t is_cert_chain_valid; //Check if cert chain pointed by the slot is valid
 
 } __attribute__((packed)) CERT_SLOT;
 
@@ -261,6 +244,7 @@ typedef struct MEASUREMENT_BLOCK
 #define SPDM_CAP_FLAG_BYTE2_OFFSET         8u
 #define SPDM_CAP_FLAG_BYTE1_OFFSET         9u
 
+#define SPDM_CMD_CHAIN_INVALID                 2U
 #define SPDM_CMD_PASS                          1U
 #define SPDM_CMD_FAIL                          0U
 enum BYTE_OFFSETS

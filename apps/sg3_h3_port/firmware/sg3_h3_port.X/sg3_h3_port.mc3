@@ -554,7 +554,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MCTP&quot; x=&quot;950&quot; y=&quot;100&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;SPDM&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
@@ -574,7 +575,6 @@
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -3294,7 +3294,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR1_PU_INT_EN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3316,7 +3316,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR2_PU_INT_EN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -9583,7 +9583,7 @@
       </entry>
       <entry>
          <file>..\src\oem\oem_task1\oem_task1.c</file>
-         <hash>76306b0ceeb8171fddf4f57606fa7059f29f8023043ab9d1b2948d8d457f9fde</hash>
+         <hash>f31a4571f51032d3e39a300daf6bf8aede9ebe158ae9eee6017fc92f38f3b469</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb0_slave.h</file>
@@ -9591,7 +9591,7 @@
       </entry>
       <entry>
          <file>..\src\oem\oem_task1\oem_task1.h</file>
-         <hash>51a2f3bad3402c8fb63b96663a6a1e3b10155caaf7adb3e1eb633849d9d51e8d</hash>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.c</file>
@@ -9603,7 +9603,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.c</file>
-         <hash>b20143aa5591f269ec77a774bba41807d492d1ecc7c83270579a1f9a59ea5756</hash>
+         <hash>55d106ff41530c9622826d631eb53e7321ee17ca158979613ea5126b2fdc491f</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.h</file>
@@ -9647,7 +9647,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.c</file>
-         <hash>844c4e4c3f58f668df62e0e3c0a0035c550fb31971036ce8e03199d43e8ea07b</hash>
+         <hash>711bec7942eae81190669c3bf9e5e9914ce76b245d74d316e13bf4cf2b826e8e</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pcr.h</file>
@@ -9659,7 +9659,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.h</file>
-         <hash>e4d08640f3fb5835fd53ab76850d755ad9a8ba1ff1f2eb8e81243e10a30c8be4</hash>
+         <hash>190e1bd0408903165cfd7d653154ad1ec654db0068a178fab69323c1058ae17a</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\vtr_reg_bank.h</file>
@@ -9759,11 +9759,15 @@
       </entry>
       <entry>
          <file>..\src\common\include\common.h</file>
-         <hash>120107c682e599cb40a01e7fbcf48d74cb5dd98ac231367007c152a07fd8927f</hash>
+         <hash>a5ebe022dc1e7c1c600b15be11013c8ee8dedbef975ae9bb40b34072fe964307</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
          <hash>3822a371ead8c8148cf0cfc51f3c6c7c9c2fd1371d7317bc6f268bb361380ea4</hash>
+      </entry>
+      <entry>
+         <file>..\src\data_iso\data_iso_checks_rom_api.h</file>
+         <hash>cc40d009beac342f7700aef82f3ed1ea125ecef96d3ada3b85b396d2e6615ac0</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb0_master.c</file>
@@ -9807,7 +9811,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\secureboot_app.ld</file>
-         <hash>2ed9b0cffc575d616f4bfde8b1871cb8a15404ab4fd36ee7a5b13d74cabf1ec8</hash>
+         <hash>66e631546e3e37437da246bd3c6e0e7f133aab55c7fca022985b87a1e1b4b90a</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pcr\plib_pcr.c</file>
@@ -9823,7 +9827,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\pmci.h</file>
-         <hash>1e504ff3fb6f0f8856e124a580099d9651b0ec3077428c0c74cbe8d99b097234</hash>
+         <hash>51953be159c867cb3f22252e2789ca4c007d28f65ead48cb9a00474d88968de5</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi_common.h</file>
@@ -9907,7 +9911,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\FreeRTOS.h</file>
-         <hash>0df0d2dce7158d90c1fb89778ac3fa306ecfeaa40b66e1d24ce8626f38819a60</hash>
+         <hash>aaa06da7b0411b30180900dcba81cfd4fef5c9862c5cf3e3eb2bc883010013a9</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\wdt.h</file>
@@ -9955,11 +9959,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_LIB\secureboot_LIB.a</file>
-         <hash>12c2a5c5c5f1db2d648de26ab4e364903f5a6703c78d5f0946cd475ca33d04f9</hash>
+         <hash>4849d87480d5948971ecf152bdc2252529e7a902aa047e19b2bc5f97f1cc2b93</hash>
       </entry>
       <entry>
          <file>..\src\oem\oem_task2\oem_task2.h</file>
-         <hash>51a2f3bad3402c8fb63b96663a6a1e3b10155caaf7adb3e1eb633849d9d51e8d</hash>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\tfdp.h</file>
@@ -9967,7 +9971,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>2057805879907524a91c77c8358b382b4d6494971c059da0ebc4dc3deded5fee</hash>
+         <hash>4b99b7762a1fabb967b7f13bd87f85f4aa8ea58782bd4673a26bf329df6347d1</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
@@ -9975,7 +9979,7 @@
       </entry>
       <entry>
          <file>..\src\oem\oem_task2\oem_task2.c</file>
-         <hash>35647a7ab3ce721e417819342028540192cdf0975acf227ebe694069a075840d</hash>
+         <hash>68abe08f05c4c3398ebe77f495989cdd58efd5c32de7ee96f8cc8ff3fbc092ea</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb1_slave.c</file>
@@ -9991,11 +9995,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>0a9c17b4258ab773600b64ca272fd7e228e699f57c271283c6865a5d393a73de</hash>
+         <hash>7a2febd6de6b7692e5ecd1e99a432aa86caddad1756d4610716ab1835725b193</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>168d5cb67e0987e2e9989e88a84d0868472acc85e91082b66913d91b57e6a8d2</hash>
+         <hash>334c1427eb7ae6e3c5bcf230dd34727409221f353fd8808aec9d8996e55e4880</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
@@ -10215,7 +10219,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>5260c69ff6806553eaf8452f9396dd2f432899c73e4ae137176ddf879dbb5401</hash>
+         <hash>d66ecda9afc0db72d58dd050178dd09be9b5443984c7278ef0b293b55552dc54</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
@@ -10223,7 +10227,7 @@
       </entry>
       <entry>
          <file>..\src\oem\oem_task3\oem_task3.h</file>
-         <hash>51a2f3bad3402c8fb63b96663a6a1e3b10155caaf7adb3e1eb633849d9d51e8d</hash>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\timer32_0.h</file>
@@ -10247,7 +10251,7 @@
       </entry>
       <entry>
          <file>..\src\oem\oem_task3\oem_task3.c</file>
-         <hash>518690325e4fd5dc1b901c6fba29452dc1ec82f6dc0a7c4560d6465291c4eb6a</hash>
+         <hash>05e5600893336b26090b39768e4188d61a019c253d0132b5350d1e3a0a36fe9d</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb1_master.h</file>
@@ -10268,10 +10272,6 @@
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb0_master_slave_common.h</file>
          <hash>46ec0357ed1355f77311fc9b4dfc6813c3187b7b8603d19d28c3fac96f81bb40</hash>
-      </entry>
-      <entry>
-         <file>..\src\data_iso\data_iso_checks.h</file>
-         <hash>7041d02aeaca26b3016d15f2f081461fb90cd2d9027f0ba1d93739161c470aed</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
