@@ -23,11 +23,34 @@
 *****************************************************************************"""
 def destroyComponent(sg3LibComponent):
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":False})
+    Database.sendMessage("SPDM", "SOTERIA_CONNECTED", {"isConnected":False})
+
+def handleMessage(messageID, args):
+    global isMctpComponentConnected
+    global isSpdmComponentConnected
+    if(messageID == "MCTP_CONNECTED"):
+        if(args.get("isConnected") == True):
+            print("MCTP CONNECTED")
+            isMctpComponentConnected.setValue(True)
+        else:
+            print("MCTP DISCONNECTED")
+            isMctpComponentConnected.setValue(False)
+    if(messageID == "SPDM_CONNECTED"):
+        if(args.get("isConnected") == True):
+            print("SPDM CONNECTED")
+            isSpdmComponentConnected.setValue(True)
+        else:
+            print("SPDM DISCONNECTED")
+            isSpdmComponentConnected.setValue(False)
 
 def instantiateComponent(sg3LibComponent):
+
     global sg3InstanceName
+    global isMctpComponentConnected
+    global isSpdmComponentConnected
 
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":True})
+    Database.sendMessage("SPDM", "SOTERIA_CONNECTED", {"isConnected":True})
 
     sg3InstanceName = sg3LibComponent.createStringSymbol("SG3_INSTANCE_NAME", None)
     sg3InstanceName.setVisible(False)
@@ -39,10 +62,44 @@ def instantiateComponent(sg3LibComponent):
     sg3ModuleRoot = sg3LibComponent.createCommentSymbol("SG3_LIB_DOCS_LOC", None)
     sg3ModuleRoot.setLabel(userGuideString)
 
-    sg3UtilsLinkString = "**** Utilities available at https://github.com/MicrochipTech/sg3_utilities/ ****"
+    sg3UtilsLinkString = "**** Utilities available at https://github.com/MicrochipTech/cec173x_soteria_utilities ****"
     sg3UtilsLink = sg3LibComponent.createCommentSymbol("SG3_LIB_UTILS_LOC", None)
     sg3UtilsLink.setLabel(sg3UtilsLinkString)
 
+    isMctpComponentConnected = sg3LibComponent.createBooleanSymbol("SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED", None)
+    isMctpComponentConnected.setVisible(False)
+    isMctpComponentConnected.setDefaultValue(False)
+    isMctpComponentConnected.setValue(False)
+
+    isSpdmComponentConnected = sg3LibComponent.createBooleanSymbol("SOTERIA_LIB_IS_SPDM_COMPONENT_CONNECTED", None)
+    isSpdmComponentConnected.setVisible(False)
+    isSpdmComponentConnected.setDefaultValue(False)
+    isSpdmComponentConnected.setValue(False)
+    
+    if(Database.getComponentByID("MCTP")):
+        isMctpComponentConnected.setValue(True)
+    else:
+        isMctpComponentConnected.setValue(False)
+
+    if(Database.getComponentByID("SPDM")):
+        isSpdmComponentConnected.setValue(True)
+    else:
+        isSpdmComponentConnected.setValue(False)
+    
+    activeComponentIDs = Database.getActiveComponentIDs()
+
+    if "MCTP" in activeComponentIDs:
+        print("MCTP present")
+        isMctpComponentConnected.setValue(True)
+    else:
+        isMctpComponentConnected.setValue(False)
+        
+    if "SPDM" in activeComponentIDs:
+        print("SPDM present")
+        isSpdmComponentConnected.setValue(True)
+    else:
+        isSpdmComponentConnected.setValue(False)
+        
     #SG3 library
     configName = Variables.get("__CONFIGURATION_NAME")
 
@@ -94,13 +151,13 @@ def instantiateComponent(sg3LibComponent):
 
     #Add common/include/common.h
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/common.h")
+    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/templates/common.h.ftl")
     mctpSmbusTaskSourceFile.setDestPath("../../common/include")
     mctpSmbusTaskSourceFile.setOutputName("common.h")
     mctpSmbusTaskSourceFile.setProjectPath("common/include/")
     mctpSmbusTaskSourceFile.setOverwrite(True)
     mctpSmbusTaskSourceFile.setType("HEADER")
-    mctpSmbusTaskSourceFile.setMarkup(False)
+    mctpSmbusTaskSourceFile.setMarkup(True)
 
     #Add common/include/rom_api_mpu.h
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
@@ -123,24 +180,25 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskSourceFile.setMarkup(False)
 
     #Add common/include/pmci.h
-    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/pmci.h")
-    mctpSmbusTaskSourceFile.setDestPath("../../common/include")
-    mctpSmbusTaskSourceFile.setOutputName("pmci.h")  
-    mctpSmbusTaskSourceFile.setProjectPath("common/include/")
-    mctpSmbusTaskSourceFile.setOverwrite(True)
-    mctpSmbusTaskSourceFile.setType("HEADER")
-    mctpSmbusTaskSourceFile.setMarkup(False)
+    if (isMctpComponentConnected.getValue() == True):
+        mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+        mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/pmci.h")
+        mctpSmbusTaskSourceFile.setDestPath("../../common/include")
+        mctpSmbusTaskSourceFile.setOutputName("pmci.h")  
+        mctpSmbusTaskSourceFile.setProjectPath("common/include/")
+        mctpSmbusTaskSourceFile.setOverwrite(True)
+        mctpSmbusTaskSourceFile.setType("HEADER")
+        mctpSmbusTaskSourceFile.setMarkup(False)
 
-    #Add common/include/FreeRTOS.h
-    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/FreeRTOS.h")
-    mctpSmbusTaskSourceFile.setDestPath("../../common/include")
-    mctpSmbusTaskSourceFile.setOutputName("FreeRTOS.h")  
-    mctpSmbusTaskSourceFile.setProjectPath("common/include/")
-    mctpSmbusTaskSourceFile.setOverwrite(True)
-    mctpSmbusTaskSourceFile.setType("HEADER")
-    mctpSmbusTaskSourceFile.setMarkup(False)
+        #Add common/include/FreeRTOS.h
+        mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+        mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/common/include/FreeRTOS.h")
+        mctpSmbusTaskSourceFile.setDestPath("../../common/include")
+        mctpSmbusTaskSourceFile.setOutputName("FreeRTOS.h")  
+        mctpSmbusTaskSourceFile.setProjectPath("common/include/")
+        mctpSmbusTaskSourceFile.setOverwrite(True)
+        mctpSmbusTaskSourceFile.setType("HEADER")
+        mctpSmbusTaskSourceFile.setMarkup(False)
 
     #Add common/data_iso/data_iso_checks.h
     mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)

@@ -1,3 +1,20 @@
+<#--
+/*******************************************************************************
+  MCTP Freemarker Template File
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+   mctp.h.ftl
+
+  Summary:
+    MCTP Freemarker Template File
+
+  Description:
+
+*******************************************************************************/
+-->
 /*****************************************************************************
  * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
  * You may use this software and any derivatives exclusively with
@@ -42,15 +59,16 @@
 
 #include "ahb_api_mpu.h"
 #include "rom_api_mpu.h"
+<#if SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED == true>
 #include "pmci.h"
-
+</#if>
 #include "platform.h"
 #include "platform_serial_flash.h"
 
 #include "../data_iso/data_iso_checks_rom_api.h"
-
+<#if SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED == true>
 #include "config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
-
+</#if>
 #ifdef __cplusplus
 extern "C" {
 #endif
