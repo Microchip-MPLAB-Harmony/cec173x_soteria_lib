@@ -74,6 +74,16 @@ void PWM0_Stop (void)
     PWM0_REGS->PWM_CFG &= ~PWM_CFG_PWM_EN_Msk;
 }
 
+uint16_t PWM0_OnCountGet (void)
+{
+    return (uint16_t)PWM0_REGS->PWM_CNT_ON;
+}
+
+uint16_t PWM0_OffCountGet (void)
+{
+    return (uint16_t)PWM0_REGS->PWM_CNT_OFF;
+}
+
 void PWM0_OnCountSet (uint16_t onCount)
 {
     PWM0_REGS->PWM_CNT_ON = onCount;

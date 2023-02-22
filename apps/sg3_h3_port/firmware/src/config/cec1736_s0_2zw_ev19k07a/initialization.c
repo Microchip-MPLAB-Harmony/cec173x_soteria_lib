@@ -115,10 +115,10 @@ void SYS_Initialize ( void* data )
 
 
 
-    I2CSMB4_Initialize();
-    
     QMSPI0_Initialize();
 
+    I2CSMB4_Initialize();
+    
     I2CSMB3_Initialize();
     
     QMSPI1_Initialize();
@@ -133,10 +133,10 @@ EC_REG_BANK_Initialize();
 
     I2CSMB2_Initialize();
     
-    I2CSMB1_Initialize();
-    
 PWM0_Initialize();
 
+    I2CSMB1_Initialize();
+    
 	UART0_Initialize();
 
 CCT_Initialize();

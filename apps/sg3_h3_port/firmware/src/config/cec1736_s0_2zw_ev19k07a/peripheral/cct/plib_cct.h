@@ -88,7 +88,7 @@ uint32_t CCT_FreeRunningTimerGet( void );
 
 void CCT_FreeRunningTimerSet( uint32_t count);
 
-void CCT_FreqDivSet( uint32_t div );
+void CCT_FreqDivSet( uint32_t divs );
 
 uint32_t CCT_FrequencyGet(void);
 

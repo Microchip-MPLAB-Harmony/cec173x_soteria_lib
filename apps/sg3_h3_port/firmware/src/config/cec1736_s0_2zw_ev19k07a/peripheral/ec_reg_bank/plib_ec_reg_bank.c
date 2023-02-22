@@ -57,7 +57,12 @@
 // *****************************************************************************
 // *****************************************************************************
 
-EC_REG_BANK_OBJECT ec_reg_bank[2] = {0};
+
+/* MISRA C-2012 Rule 5.1 deviated:4 Deviation record ID -  H3_MISRAC_2012_R_5_1_DR_1 */
+
+
+static EC_REG_BANK_OBJECT ec_reg_bank[2] = {0};
+
 
 void EC_REG_BANK_Initialize( void )
 {
@@ -66,7 +71,6 @@ void EC_REG_BANK_Initialize( void )
     EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = EC_REG_BANK_PD_MON_CTRL_VTR1_PROTECN_Msk | EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1(0x1) | EC_REG_BANK_PD_MON_CTRL_VTR2_PROTECN_Msk | EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2(0x1);
     
     EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_INT_EN = EC_REG_BANK_PD_MON_INT_EN_VTR1_PD_INTEN_Msk | EC_REG_BANK_PD_MON_INT_EN_VTR2_PD_INTEN_Msk;
-    
     
 }
 uint32_t EC_REG_BANK_AHBErrorAddrGet(void)
@@ -96,7 +100,7 @@ void EC_REG_BANK_AltNVICVectorsEnable(void)
 
 void EC_REG_BANK_VTR1PadMonDebounceCtrl(VTR_PAD_MON_DEB_CTRL ctrl)
 {
-    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = (ctrl << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos);
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = ((uint32_t)ctrl << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR1_Pos);
 }
 
 void EC_REG_BANK_VTR1PadMonOverrideEn(void)
@@ -151,7 +155,7 @@ void EC_REG_BANK_VTR1PadMonPDIntDis(void)
 
 void EC_REG_BANK_VTR2PadMonDebounceCtrl(VTR_PAD_MON_DEB_CTRL ctrl)
 {
-    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = (ctrl << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos);
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_CTRL = ((uint32_t)ctrl << EC_REG_BANK_PD_MON_CTRL_CTRL_VTR2_Pos);
 }
 
 void EC_REG_BANK_VTR2PadMonOverrideEn(void)
@@ -206,37 +210,56 @@ void EC_REG_BANK_VTR2PadMonPDIntDis(void)
 
 VTR1_PAD_MON_STS EC_REG_BANK_VTR1PadMonStatusGet(void)
 {
-    return EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR1_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk);
+    uint32_t temp32_t = EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR1_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR1_CS_STS_Msk);
+    return (VTR1_PAD_MON_STS)temp32_t;
 }
 
 void EC_REG_BANK_VTR1PadMonStatusClr(VTR1_PAD_MON_STS statusBitMask)
 {
-    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = statusBitMask;
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = (uint32_t)statusBitMask;
 }
 
 VTR2_PAD_MON_STS EC_REG_BANK_VTR2PadMonStatusGet(void)
 {
-    return EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk);
+    uint32_t temp32_t = EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS & (EC_REG_BANK_PD_MON_STS_VTR2_PD_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_PU_STS_Msk | EC_REG_BANK_PD_MON_STS_VTR2_CS_STS_Msk);
+    return (VTR2_PAD_MON_STS)temp32_t;
 }
 
 void EC_REG_BANK_VTR2PadMonStatusClr(VTR2_PAD_MON_STS statusBitMask)
 {
-    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = statusBitMask;
+    EC_REG_BANK_REGS->EC_REG_BANK_PD_MON_STS = (uint32_t)statusBitMask;
 }
 
 
-
 void EC_REG_BANK_VTR1_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context )
+{
+   ec_reg_bank[0].callback = callback;
+   ec_reg_bank[0].context = context;
+}
+
+void VTR1_PAD_MON_GRP_InterruptHandler(void)
+{
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR1_PAD_MON) != 0U)
+    {
+        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR1_PAD_MON);
+        if (ec_reg_bank[0].callback != NULL)
+        {
+            ec_reg_bank[0].callback(ec_reg_bank[0].context);
+        }
+    }
+}
+
+void EC_REG_BANK_VTR2_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context )
 {
    ec_reg_bank[1].callback = callback;
    ec_reg_bank[1].context = context;
 }
 
-void VTR1_PAD_MON_GRP_InterruptHandler(void)
+void VTR2_PAD_MON_GRP_InterruptHandler(void)
 {
-    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR1_PAD_MON))
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR2_PAD_MON) != 0U)
     {
-        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR1_PAD_MON);
+        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR2_PAD_MON);
         if (ec_reg_bank[1].callback != NULL)
         {
             ec_reg_bank[1].callback(ec_reg_bank[1].context);
@@ -244,20 +267,5 @@ void VTR1_PAD_MON_GRP_InterruptHandler(void)
     }
 }
 
-void EC_REG_BANK_VTR2_CallbackRegister( EC_REG_BANK_CALLBACK callback, uintptr_t context )
-{
-   ec_reg_bank[2].callback = callback;
-   ec_reg_bank[2].context = context;
-}
+/* MISRAC 2012 deviation block end */
 
-void VTR2_PAD_MON_GRP_InterruptHandler(void)
-{
-    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_VTR2_PAD_MON))
-    {
-        ECIA_GIRQSourceClear(ECIA_AGG_INT_SRC_VTR2_PAD_MON);
-        if (ec_reg_bank[2].callback != NULL)
-        {
-            ec_reg_bank[2].callback(ec_reg_bank[2].context);
-        }
-    }
-}

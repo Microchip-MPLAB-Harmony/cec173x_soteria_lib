@@ -1,5 +1,5 @@
 /*******************************************************************************
-  RTOS Timer Peripheral Library Interface Source File
+  CCT Peripheral Library Interface Source File
 
   Company
     Microchip Technology Inc.
@@ -11,7 +11,7 @@
     CCT peripheral library source file.
 
   Description
-    This file implements the interface to the RTOS Timer peripheral library.  This
+    This file implements the interface to the CCT peripheral library.  This
     library provides access to and control of the associated peripheral
     instance.
 
@@ -61,7 +61,10 @@ void CCT_Initialize(void)
 {
     CCT_REGS->CCT_CTRL |= CCT_CTRL_FREE_RST_Msk;
 
-    while (CCT_REGS->CCT_CTRL & CCT_CTRL_FREE_RST_Msk);
+    while ((CCT_REGS->CCT_CTRL & CCT_CTRL_FREE_RST_Msk) != 0U)
+    {
+        /* Do Nothing */
+    }
 
     CCT_REGS->CCT_CTRL = CCT_CTRL_ACT_Msk | CCT_CTRL_CMP_EN0_Msk | CCT_CTRL_TCLK(0x4);
 
@@ -101,7 +104,10 @@ void CCT_FreeRunningTimerReset( void )
 {
     CCT_REGS->CCT_CTRL |= CCT_CTRL_FREE_RST_Msk;
 
-    while (CCT_REGS->CCT_CTRL & CCT_CTRL_FREE_RST_Msk);
+    while ((CCT_REGS->CCT_CTRL & CCT_CTRL_FREE_RST_Msk) != 0U)
+    {
+        /* Do Nothing */
+    }
 }
 
 uint32_t CCT_FreeRunningTimerGet( void )
@@ -123,15 +129,15 @@ void CCT_FreeRunningTimerSet( uint32_t count)
     CCT_REGS->CCT_CTRL |= cct_ctrl;
 }
 
-void CCT_FreqDivSet( uint32_t div )
+void CCT_FreqDivSet( uint32_t divs )
 {
-    CCT_REGS->CCT_CTRL = (CCT_REGS->CCT_CTRL & ~CCT_CTRL_TCLK_Msk) | (div << CCT_CTRL_TCLK_Pos);
+    CCT_REGS->CCT_CTRL = (CCT_REGS->CCT_CTRL & ~CCT_CTRL_TCLK_Msk) | (divs << CCT_CTRL_TCLK_Pos);
 }
 
 uint32_t CCT_FrequencyGet(void)
 {
     uint32_t freq_div = (CCT_REGS->CCT_CTRL & CCT_CTRL_TCLK_Msk) >> CCT_CTRL_TCLK_Pos;
-    uint32_t freq = 48000000/(freq_div + 1);
+    uint32_t freq = 48000000U/(freq_div + 1U);
     return freq;
 }
 

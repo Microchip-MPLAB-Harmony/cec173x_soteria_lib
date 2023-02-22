@@ -112,7 +112,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_I2C_CLK_FREQ"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_I2C_CLK_FREQ&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;400&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
 </value>
@@ -121,7 +128,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_I2C_CONTROLLER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_I2C_CONTROLLER&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
 </value>
@@ -130,7 +144,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_I2C_PORT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_I2C_PORT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
 </value>
@@ -219,7 +240,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_PHY_LAYER"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_PHY_LAYER&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;I2C&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
 </value>
@@ -228,7 +251,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_TASK_PRIORITY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_TASK_PRIORITY&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
 </value>
@@ -350,6 +375,17 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
   &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_HEAD_POINTER_7&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/SPDM&gt;
+&lt;/SPDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="SPDM" name="SPDM_IS_SG3_COMPONENT_CONNECTED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;SPDM&gt;
+  &lt;SPDM dnOrder=&quot;0&quot; id=&quot;SPDM_IS_SG3_COMPONENT_CONNECTED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;SPDM&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/SPDM&gt;
 &lt;/SPDM&gt;
 </value>
@@ -554,8 +590,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MCTP&quot; x=&quot;950&quot; y=&quot;100&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;SPDM&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
@@ -575,6 +610,7 @@
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -8780,6 +8816,28 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sg3_lib" name="SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sg3_lib&gt;
+  &lt;sg3_lib dnOrder=&quot;0&quot; id=&quot;SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sg3_lib&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sg3_lib&gt;
+&lt;/sg3_lib&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sg3_lib" name="SOTERIA_LIB_IS_SPDM_COMPONENT_CONNECTED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sg3_lib&gt;
+  &lt;sg3_lib dnOrder=&quot;0&quot; id=&quot;SOTERIA_LIB_IS_SPDM_COMPONENT_CONNECTED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sg3_lib&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sg3_lib&gt;
+&lt;/sg3_lib&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="smb0" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>__ROOTVIEW</value>
       </entry>
@@ -9603,7 +9661,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.c</file>
-         <hash>55d106ff41530c9622826d631eb53e7321ee17ca158979613ea5126b2fdc491f</hash>
+         <hash>81e4474d5cd156b1c5ca2003de9095497cfef47c7066dde5d6401e9a364b944d</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.h</file>
@@ -9647,7 +9705,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.c</file>
-         <hash>711bec7942eae81190669c3bf9e5e9914ce76b245d74d316e13bf4cf2b826e8e</hash>
+         <hash>708883110d7696a345ec8a38c54eab9f2e88bbc529436c4ad7b2d7a82ee2d02c</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pcr.h</file>
@@ -9723,7 +9781,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.h</file>
-         <hash>fb48fab4b63a8b20158002c853b181fe88d6b29bea7a9437166bc54234697ceb</hash>
+         <hash>7db70d58e89143c3087025bb4dff3c58f3663dfc1b32e66ec9fcd504ace88b97</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.c</file>
@@ -9731,7 +9789,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.c</file>
-         <hash>9672e0761ec46308569a2a7ed67e94520fda032f89a69b8aff19bb52f6534f2e</hash>
+         <hash>384fc31afe1dfd677cbc3ff92d228b199ff0616f76f1ef28fb1d9757d4e7f761</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\pcr.h</file>
@@ -9739,7 +9797,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\toolchain_specifics.h</file>
-         <hash>0322d8a252c0047ffd9e533cc76c470158ed1f3ac5193e63b507fe5eb6e1855f</hash>
+         <hash>c93f9d68b1623668727be21b4449250a7e4a5d7040776d6f6d604a7528ffc9eb</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.h</file>
@@ -9759,7 +9817,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\common.h</file>
-         <hash>a5ebe022dc1e7c1c600b15be11013c8ee8dedbef975ae9bb40b34072fe964307</hash>
+         <hash>2e46b8e34b2f29d2eb026beaddf3651f88fd02294317777a85f909dab9311657</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
@@ -9835,7 +9893,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.h</file>
-         <hash>e02c9d498f1fc778fe158e3ee896b09a4dbc96296209b27aa655eae844a9dc83</hash>
+         <hash>83ec4e2394cc8427b03036205419251c0e5c3c2a521accb4cfa74ae815efe864</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang_ltm.h</file>
@@ -9843,7 +9901,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.c</file>
-         <hash>da2ececbd7785f7f164afbbf542921f81a05224dcf4da91fe497afe732608bb6</hash>
+         <hash>662055efbc9c4698ed71ad217b8864878fb20467ba712d06bc8243e37dcd457f</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.h</file>
@@ -9899,7 +9957,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_config.h</file>
-         <hash>e3990626d229870d225dbcadde8ac4f60b0e0ba24caa1c6fb99416b9c0ae2a1d</hash>
+         <hash>d644ed7f01927fb91594a971348aaf7b17f9a3ca2011c30e3ee2f22cf9f6037a</hash>
       </entry>
       <entry>
          <file>..\src\common\include\ahb_api_mpu.h</file>
@@ -9971,7 +10029,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>4b99b7762a1fabb967b7f13bd87f85f4aa8ea58782bd4673a26bf329df6347d1</hash>
+         <hash>685e2f92bc23d4b14eb13cb6dd83b3b116216b1387aa5e5ec784080c1b4a638d</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
@@ -10015,7 +10073,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.c</file>
-         <hash>e4b9e52980ca5873365baced5ff511bf41b52997e91a830223af1374f77d44e1</hash>
+         <hash>4278fad6bbc0fb4ffee4827229f281e16b09cac1b4f2734677c94337edd50008</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan06.h</file>

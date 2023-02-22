@@ -83,7 +83,7 @@ void WDT_Disable(void)
 
 bool WDT_IsEnabled( void )
 {
-    return ((bool)WDT_REGS->WDT_CTRL & WDT_CTRL_WDT_EN_Msk);
+    return ((WDT_REGS->WDT_CTRL & WDT_CTRL_WDT_EN_Msk) != 0U);
 }
 
 void WDT_Clear(void)
@@ -100,19 +100,19 @@ uint16_t WDT_CountGet(void)
 
 bool WDT_isPowerFailWDTEventSet(void)
 {
-    if ((VTR_REG_BANK_REGS->VTR_REG_BANK_PFRS & VTR_REG_BANK_PFRS_WDT_EVT_Msk) != 0)
+    bool check = false;
+    if ((VTR_REG_BANK_REGS->VTR_REG_BANK_PFRS & VTR_REG_BANK_PFRS_WDT_EVT_Msk) != 0U)
     {
-        return true;
+        check = true;
     }
-    else
-    {
-        return false;
-    }
+    
+    return check;
+    
 }
 
 void WDT_PowerFailWDTEventClear(void)
 {
-    if (VTR_REG_BANK_REGS->VTR_REG_BANK_PFRS & VTR_REG_BANK_PFRS_WDT_EVT_Msk)
+    if ((VTR_REG_BANK_REGS->VTR_REG_BANK_PFRS & VTR_REG_BANK_PFRS_WDT_EVT_Msk) != 0U)
     {
         /* Write 1 to clear this bit */
         VTR_REG_BANK_REGS->VTR_REG_BANK_PFRS |= VTR_REG_BANK_PFRS_WDT_EVT_Msk;
@@ -127,7 +127,7 @@ void WDT_PeriodLoad(uint16_t period)
 
 void WDT_TimeoutActionSet(WDT_TIMEOUT_ACTION action)
 {
-    WDT_REGS->WDT_CTRL = (WDT_REGS->WDT_CTRL & ~WDT_CTRL_WDT_RST_Msk) | (action << WDT_CTRL_WDT_RST_Pos);
+    WDT_REGS->WDT_CTRL = (uint16_t)((WDT_REGS->WDT_CTRL & ~WDT_CTRL_WDT_RST_Msk) | ((uint16_t)action << WDT_CTRL_WDT_RST_Pos));
 }
 
 void WDT_CallbackRegister( WDT_CALLBACK callback, uintptr_t context )
@@ -138,7 +138,7 @@ void WDT_CallbackRegister( WDT_CALLBACK callback, uintptr_t context )
 
 void WDT_GRP_InterruptHandler( void )
 {
-    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_WDT))
+    if (ECIA_GIRQResultGet(ECIA_AGG_INT_SRC_WDT) != 0U)
     {
         WDT_REGS->WDT_STS = WDT_STS_WDT_EV_IRQ_Msk;
 

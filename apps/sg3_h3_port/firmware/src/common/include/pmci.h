@@ -307,8 +307,8 @@ uint8_t di_send_spdm_reponse_packet(uint8_t *buffer_ptr, uint8_t len, bool is_pl
                                     bool is_pldm_request_firmware_update);
 void spdm_di_mctp_done_set(void);
 uint8_t di_sb_apcfg_cert_data_request(void);
-uint8_t SRAM_RLOG_API_rom_event_read(uint8_t *buffer);
-uint8_t spdm_di_sb_ecfw_tagx_addr_get(uint32_t *tagx_ret, uint8_t ecfw_id);
+uint8_t SRAM_RLOG_API_rom_event_read(uint8_t *buffer);    
+uint8_t spdm_di_sb_ecfw_tagx_addr_get(uint32_t *tagx_ret, uint8_t ecfw_id);  
 uint8_t di_spdm_spi_send_read_request(uint32_t spi_addr,
                                       uint8_t *mem_addr,
                                       uint32_t data_len,

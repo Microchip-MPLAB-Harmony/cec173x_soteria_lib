@@ -90,6 +90,10 @@ void PWM0_Start(void);
 
 void PWM0_Stop (void);
 
+uint16_t PWM0_OnCountGet (void);
+
+uint16_t PWM0_OffCountGet (void);
+
 void PWM0_OnCountSet (uint16_t onCount);
 
 void PWM0_OffCountSet (uint16_t offCount);

@@ -180,7 +180,6 @@ extern void vAssertCalled(unsigned long ulLine, const char *const pcFileName);
 #define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE
 #define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE
 #define configLIST_VOLATILE
-
 struct xLIST_ITEM
 {
     listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE               /*< Set to a known value if configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
@@ -344,7 +343,7 @@ TimerHandle_t MPU_xTimerCreateStatic( const char * const pcTimerName,
                                       void * const pvTimerID,
                                       TimerCallbackFunction_t pxCallbackFunction,
                                       StaticTimer_t * pxTimerBuffer );
-#define xTimerCreateStatic MPU_xTimerCreateStatic
+#define xTimerCreateStatic MPU_xTimerCreateStatic    
 
 #define xTimerGenericCommand MPU_xTimerGenericCommand
 BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
@@ -352,7 +351,7 @@ BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
                                  const TickType_t xOptionalValue,
                                  BaseType_t * const pxHigherPriorityTaskWoken,
                                  const TickType_t xTicksToWait );
-TickType_t xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;
+TickType_t xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;                                
 #define tmrCOMMAND_START                        ( ( BaseType_t ) 1 )
 #define xTimerStart( xTimer, xTicksToWait ) \
     xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
