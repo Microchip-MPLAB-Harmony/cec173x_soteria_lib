@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="cec173x_soteria_lib">
     <Dependencies>
-        <Dependency name="csp" version="v3.14.0"/>
-        <Dependency name="dev_packs" version="v3.14.0"/>
+        <Dependency name="csp" version="v3.16.0"/>
+        <Dependency name="dev_packs" version="v3.16.0"/>
         <Dependency name="pmci" version="v3.0.0"/>
 </Dependencies>
 </Package>

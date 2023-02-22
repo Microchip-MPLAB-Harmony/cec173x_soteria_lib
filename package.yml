@@ -9,10 +9,10 @@ package:
   dependencies:
     - name: "csp"
       type: "package"
-      version: "3.14.0"
+      version: "3.16.0"
     - name: "dev_packs"
       type: "package"
-      version: "3.14.0"
+      version: "3.16.0"
     - name: "pmci"
       type: "package"
       version: "3.0.0"
