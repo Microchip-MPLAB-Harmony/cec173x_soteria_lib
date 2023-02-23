@@ -245,7 +245,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
-        <itemPath>../src/platform/platform_serial_flash.h</itemPath>
         <itemPath>../src/platform/platform.h</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">
@@ -379,7 +378,6 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="platform" displayName="platform" projectFiles="true">
-        <itemPath>../src/platform/platform_serial_flash.c</itemPath>
         <itemPath>../src/platform/irqhandler.c</itemPath>
       </logicalFolder>
       <logicalFolder name="startup" displayName="startup" projectFiles="true">

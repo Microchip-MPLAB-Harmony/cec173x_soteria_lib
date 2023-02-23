@@ -25,69 +25,7 @@
 #include "peripheral/qmspi/plib_qmspi1.h"
 
 extern void timer_delay_us(uint32_t num_us);
-
-/**
- * qmspi_flash_program_ldma - Writes data to flash memory using local DMA
- * @param prog_cmd Write command code
- * @param spi_addr destination address in flash
- * @param nbytes number of bytes to write
- * @param maddr source address
- * @param port QMSPI port
- * @return number of bytes written
- */
-uint32_t qmspi_flash_program_ldma(uint8_t prog_cmd, uint32_t spi_addr, 
-                                    uint32_t nbytes, uint32_t maddr, 
-                                    uint8_t port)
-{
-    QMSPI_DESCRIPTOR_XFER_T qmspi_xfer_cfg;
-    uint32_t noofbytes = 0;
-
-    memset(&qmspi_xfer_cfg, 0x00, sizeof(qmspi_xfer_cfg));
-
-    if (SPI_4BYTE_ADDR_REQUIRED(spi_addr, nbytes))
-    {
-        qmspi_xfer_cfg.address_32_bit_en = true;
-        prog_cmd = FLASH_CMD_PAGE_WRITE_4B;
-    } else {
-        // 3 byte/24 bit address mode
-    }
-
-    qmspi_xfer_cfg.command = prog_cmd;
-
-    switch(prog_cmd)
-    {
-        case 0x32:
-            qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
-            // no dummy bytes
-            break;
-        case 0x34:
-            qmspi_xfer_cfg.qmspi_ifc_mode = QUAD_OUTPUT;
-            // no dummy bytes
-            break;
-        case 0x12:
-        case 0x02:
-        default:
-            qmspi_xfer_cfg.qmspi_ifc_mode = SINGLE_BIT_SPI;
-            // no dummy bytes
-            // no break
-    }
-
-    qmspi_xfer_cfg.address = spi_addr;
-    qmspi_xfer_cfg.ldma_enable = true;
-    qmspi_xfer_cfg.ldma_channel_num = QMSPI_LDMA_CHANNEL_0;
-
-    switch(port)
-    {
-        case PVT_SPI:
-            noofbytes = QMSPI1_DMATransferWrite(&qmspi_xfer_cfg, (void*)maddr, nbytes);
-            break;
-        default: //SHD_SPI and INT_SPI
-            noofbytes = QMSPI0_DMATransferWrite(&qmspi_xfer_cfg, (void*)maddr, nbytes);
-            // no break
-    }
-
-    return noofbytes;
-}
+extern void chipSelectSPI(uint8_t cs, CS_SPI state);
 
 /**
  * qmspi_spi_flash_dev_reset - Resets the flash memory to default state
@@ -281,4 +219,25 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     chipSelectSPI(cs, DESELECT);
     /* ---------------------------------------------------------------------- */
     timer_delay_us(200);
+}
+
+/******************************************************************************/
+/** qmspi_set_tap_control();
+* Sets the QMSPI TAP registers for the given port
+* @param tap_vl -  TAP value programmed into QMSPI TAPS REGISTER
+* @param tap_ctrl - TAP value programmed into QMSPI TAPS CONTROL REGISTER
+* @param port - SHD_SPI(0), PVT_SPI(1) or INT_SPI(2)
+* @return True/False
+*******************************************************************************/
+void qmspi_set_tap_control(uint16_t tap_vl, uint8_t tap_ctrl, uint8_t port)
+{
+    switch(port)
+    {
+        case PVT_SPI:
+            QMSPI1_TapControlSet((uint16_t)tap_vl, (uint32_t)tap_ctrl);
+            break;
+        default: //SHD_SPI and INT_SPI
+            QMSPI0_TapControlSet((uint16_t)tap_vl, (uint32_t)tap_ctrl);
+            // no break
+    }
 }

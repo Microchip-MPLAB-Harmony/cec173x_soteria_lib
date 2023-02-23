@@ -63,7 +63,6 @@
 #include "pmci.h"
 </#if>
 #include "platform.h"
-#include "platform_serial_flash.h"
 
 #include "../data_iso/data_iso_checks_rom_api.h"
 <#if SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED == true>

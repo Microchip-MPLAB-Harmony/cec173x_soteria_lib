@@ -49,10 +49,10 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <string.h>
-#include "peripheral/qmspi/plib_qmspi0.h"
 #include "peripheral/i2c/plib_smb4_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb4_master.h"
 #include "peripheral/i2c/slave/plib_smb4_slave.h"
+#include "peripheral/qmspi/plib_qmspi0.h"
 #include "peripheral/i2c/plib_smb3_master_slave_common.h"
 #include "peripheral/i2c/master/plib_smb3_master.h"
 #include "peripheral/i2c/slave/plib_smb3_slave.h"

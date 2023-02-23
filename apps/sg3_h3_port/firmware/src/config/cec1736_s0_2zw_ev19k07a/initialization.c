@@ -115,10 +115,10 @@ void SYS_Initialize ( void* data )
 
 
 
-    QMSPI0_Initialize();
-
     I2CSMB4_Initialize();
     
+    QMSPI0_Initialize();
+
     I2CSMB3_Initialize();
     
     QMSPI1_Initialize();

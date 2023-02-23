@@ -9624,16 +9624,8 @@
          <hash>921af70012a5537b66bd4359513bd00717b39124fcf816fd27143c4da2d8043f</hash>
       </entry>
       <entry>
-         <file>..\src\platform\platform_serial_flash.c</file>
-         <hash>6603b2e593314066c412e4912ea5fe7d6fc62cb5eee5494ae87f2bd82c44d589</hash>
-      </entry>
-      <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_control.c</file>
          <hash>ea5206f3a38c14eb68117d1396b8ee03696da8eea95ecb07f6e28db254b3ad27</hash>
-      </entry>
-      <entry>
-         <file>..\src\platform\platform_serial_flash.h</file>
-         <hash>d40333c7eda36827e3a58f2752d6f4f06b3635c122147a4692ff9bc1ba74210e</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_control.h</file>
@@ -9705,7 +9697,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.c</file>
-         <hash>708883110d7696a345ec8a38c54eab9f2e88bbc529436c4ad7b2d7a82ee2d02c</hash>
+         <hash>670141a9c754945286fa18cf6f92e348b2b35cd43ef730177ec2548de183ee40</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pcr.h</file>
@@ -9817,7 +9809,7 @@
       </entry>
       <entry>
          <file>..\src\common\include\common.h</file>
-         <hash>2e46b8e34b2f29d2eb026beaddf3651f88fd02294317777a85f909dab9311657</hash>
+         <hash>944eac4d408ddef3025de9acaa25fd2cd97e7df46575426bc58e4a31e63b6d3c</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
@@ -9917,7 +9909,7 @@
       </entry>
       <entry>
          <file>..\src\hal\qmspi\qmspi_api.c</file>
-         <hash>0fcfddd297fa38d18b43fe1780c6612078e8c6b2d9dec21b8873d864fb1307a8</hash>
+         <hash>5426c1d03ab11a6b6d2c7f8b887edde1445be92494a1951cc4cf5ddb1a0ba470</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.c</file>
@@ -9933,7 +9925,7 @@
       </entry>
       <entry>
          <file>..\src\hal\qmspi\qmspi_api.h</file>
-         <hash>98af76debd2cf2c74d1a4335a9847e78379063df9e0cb1395a836c0d8a19222b</hash>
+         <hash>4884f9b7a324035a40cd55309749e395399862db0d074ec5dd1c733552b263fd</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.h</file>
@@ -10029,7 +10021,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>685e2f92bc23d4b14eb13cb6dd83b3b116216b1387aa5e5ec784080c1b4a638d</hash>
+         <hash>abd6b7798bf94e684a49b140ca3c612c913693c5930d3b8a173d4cd31428b375</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
@@ -10053,11 +10045,11 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>7a2febd6de6b7692e5ecd1e99a432aa86caddad1756d4610716ab1835725b193</hash>
+         <hash>a8a74371432ab7f8b7042f71cddd0c8089fb6719563b7ada2c86b2b7020eac80</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>334c1427eb7ae6e3c5bcf230dd34727409221f353fd8808aec9d8996e55e4880</hash>
+         <hash>2cf2e238c91db539b5d239fe08002bec62a0d0752eeba0eb22094d288067d045</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
@@ -10065,7 +10057,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.h</file>
-         <hash>533ec00fa5fed6c4f794d25ab59186f85b7a118780c944fd37053e5cabb083e6</hash>
+         <hash>4a0782f3cf6a351a8f24d991a088c5d96425e303539c1625bf581b19af46a86a</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.h</file>
@@ -10277,7 +10269,7 @@
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>d66ecda9afc0db72d58dd050178dd09be9b5443984c7278ef0b293b55552dc54</hash>
+         <hash>728c11117788f168cca48e4bfa4f778f3b9a12c5a9f431d072d4fa1d8b1112a1</hash>
       </entry>
       <entry>
          <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>

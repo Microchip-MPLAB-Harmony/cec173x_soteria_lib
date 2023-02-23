@@ -99,6 +99,13 @@ enum SPI_CHANNEL
     SPI_CHANNEL_MAX
 };
 
+/** CHIP SELECT */
+typedef enum
+{
+    SELECT,
+    DESELECT
+} CS_SPI;
+
 // Device ID used with DMA block
 #define QMSPI_TX_DMA_REQ_ID     (DMA_CH10_ID)
 #define QMSPI_RX_DMA_REQ_ID     (DMA_CH11_ID)
@@ -141,21 +148,7 @@ enum SPI_CHANNEL
 #define DMA_MEM_NO_INCR     0u
 #define DMA_MEM_INCR        1u
 
-/**
- * qmspi_flash_program_ldma - Writes data to flash memory using local DMA
- * @param prog_cmd 0-based UART ID
- * @param spi_addr destination address in flash
- * @param nbytes number of bytes to write
- * @param maddr source address
- * @param port QMSPI port
- * @return number of bytes written
- */
-uint32_t qmspi_flash_program_ldma(uint8_t prog_cmd, uint32_t spi_addr, 
-                                  uint32_t nbytes, uint32_t maddr, 
-                                  uint8_t port);
-
-void qmspi_set_tap_control(uint16_t tap_vl, uint8_t tap_ctrl,
-                                  uint8_t port);
+#define SPI_GET_PORT(cs) ((cs >> 2) & 0x3)
 
 /**
  * qmspi_spi_flash_dev_reset - Resets the flash memory to default state

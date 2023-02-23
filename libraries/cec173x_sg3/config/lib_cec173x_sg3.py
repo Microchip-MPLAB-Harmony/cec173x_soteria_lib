@@ -400,26 +400,6 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskHeaderFile.setType("HEADER")
     mctpSmbusTaskHeaderFile.setMarkup(False)
 
-    #Add platform/platform_serial_flash.c
-    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/platform/platform_serial_flash.c")
-    mctpSmbusTaskSourceFile.setDestPath("../../platform")
-    mctpSmbusTaskSourceFile.setOutputName("platform_serial_flash.c")
-    mctpSmbusTaskSourceFile.setProjectPath("platform/")
-    mctpSmbusTaskSourceFile.setOverwrite(True)
-    mctpSmbusTaskSourceFile.setType("SOURCE")
-    mctpSmbusTaskSourceFile.setMarkup(False)
-
-    #Add platform/platform_serial_flash.h
-    mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskHeaderFile.setSourcePath("/libraries/cec173x_sg3/src/platform/platform_serial_flash.h")
-    mctpSmbusTaskHeaderFile.setDestPath("../../platform")
-    mctpSmbusTaskHeaderFile.setOutputName("platform_serial_flash.h")
-    mctpSmbusTaskHeaderFile.setProjectPath("platform/")
-    mctpSmbusTaskHeaderFile.setOverwrite(True)
-    mctpSmbusTaskHeaderFile.setType("HEADER")
-    mctpSmbusTaskHeaderFile.setMarkup(False)
-
     #Add startup/startup.h
     mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)
     mctpSmbusTaskHeaderFile.setSourcePath("/libraries/cec173x_sg3/src/startup/startup.h")
