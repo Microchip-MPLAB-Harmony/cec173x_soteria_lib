@@ -28,7 +28,7 @@ static void spdm_main(void *pvParameters);
 static StaticTask_t spdm_tcb;
 
 extern SPDM_BSS1_ATTR DI_CONTEXT_SPDM *spdm_di_context;
-SPDM_BSS0_ATTR static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ALIGN;
+SPDM_STACK_ATTR static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ALIGN;
 SPDM_BSS2_ATTR TaskHandle_t spdm_handle = NULL;
 SPDM_BSS2_ATTR SPDM_CONTEXT *spdmContext = NULL;
 
@@ -36,7 +36,7 @@ union
 {
     uint32_t w[SPDM_TASK_BUF_SIZE / 4];
     uint8_t  b[SPDM_TASK_BUF_SIZE];
-} spdm_task_buf SPDM_BSS0_ATTR SPDM_TASK_BUF_ALIGN;
+} spdm_task_buf SPDM_BUF_ATTR SPDM_TASK_BUF_ALIGN;
 
 #define SPDM_TASK_BUF_ADDR &spdm_task_buf.w[0]
 /*

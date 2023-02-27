@@ -346,15 +346,15 @@ TimerHandle_t MPU_xTimerCreateStatic( const char * const pcTimerName,
 #define xTimerCreateStatic MPU_xTimerCreateStatic    
 
 #define xTimerGenericCommand MPU_xTimerGenericCommand
-BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
+extern BaseType_t xTimerGenericCommand( TimerHandle_t xTimer,
                                  const BaseType_t xCommandID,
                                  const TickType_t xOptionalValue,
                                  BaseType_t * const pxHigherPriorityTaskWoken,
                                  const TickType_t xTicksToWait );
-TickType_t xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;                                
+extern TickType_t MPU_xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;                              
 #define tmrCOMMAND_START                        ( ( BaseType_t ) 1 )
 #define xTimerStart( xTimer, xTicksToWait ) \
-    xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
+    xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( MPU_xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
 #define tmrCOMMAND_STOP                         ( ( BaseType_t ) 3 )
 #define xTimerStop( xTimer, xTicksToWait ) \
     xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP, 0U, NULL, ( xTicksToWait ) )

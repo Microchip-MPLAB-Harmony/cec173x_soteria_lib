@@ -372,6 +372,8 @@ SECTIONS
 	{
 		. = ALIGN(4);
 		spdm_bss0_start = .;
+        *(spdm_stack_buf*)
+        *(spdm_buf*)
         *(spdm_bss0*)
         . = spdm_bss0_start + spdm_bss0_size_;
         spdm_bss0_end = .;

@@ -441,7 +441,7 @@ void mctp_event_tx_handler(void)
             mctp_tx_state = (uint8_t)MCTP_TX_IN_PROGRESS;
             /*Fall Through to MCTP_TX_IN_PROGRESS state*/
         }
-        else if((uint8_t)I2C_MASTER_BUSY == acquire_status)
+        else
         {
             interval = mctp_timer_difference(start_time);
 
@@ -462,10 +462,6 @@ void mctp_event_tx_handler(void)
 
             /*Exit switch case*/
             break;
-        }
-        else
-        {
-            /* Invalid status */;
         }
     /*Fall thorugh to the next state MCTP_TX_IN_PROGRESS*/
     case (uint8_t)MCTP_TX_IN_PROGRESS:
