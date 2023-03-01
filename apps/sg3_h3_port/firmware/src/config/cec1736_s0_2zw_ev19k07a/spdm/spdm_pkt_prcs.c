@@ -3973,10 +3973,10 @@ uint8_t get_tag_image_loaded()
  *******************************************************************************/
 uint8_t signature_type()
 {
-    uint8_t tag_data[16];
+    uint8_t tag_data[16] = {0};
     uint32_t tagx_address = 0x00;
-    uint8_t loaded_tag_image;
-    uint8_t puf0_lock_feature_otp;
+    uint8_t loaded_tag_image = 0;
+    uint8_t puf0_lock_feature_otp = 0;
     uint8_t ret_sts = INVALID_SIGNATURE_FLAGS;
 
     do

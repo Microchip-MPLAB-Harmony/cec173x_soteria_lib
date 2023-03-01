@@ -767,6 +767,7 @@ uint16_t mctp_i2c_get_current_timestamp()
 uint8_t mctp_i2c_get_chan_busy_status(uint8_t channel)
 {
     di_request_smb_channel_busystatus(MCTP_SMBUS_CHANNEL);
+    return 0;
 }
 
 

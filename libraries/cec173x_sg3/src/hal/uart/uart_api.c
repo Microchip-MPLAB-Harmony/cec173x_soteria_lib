@@ -184,4 +184,5 @@ uint8_t uart_receive( uint8_t uart_id )
                 break;
         }
     }
+    return 0;
 }
