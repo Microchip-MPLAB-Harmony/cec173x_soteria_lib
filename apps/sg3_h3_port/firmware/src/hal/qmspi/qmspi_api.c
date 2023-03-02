@@ -51,13 +51,13 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* Quad mode is 2 clocks/byte. 24 clocks = 12 bytes */
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
-
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0x00;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
     /* qmspi_write_cfg.address = dont care */
     qmspi_write_cfg.num_of_dummy_byte = 12;
-    qmspi_write_cfg.qmspi_ifc_mode = QUAD_CMD; /* For Winbond devices */
+    qmspi_write_cfg.qmspi_ifc_mode = QUAD_OUTPUT; /* For Winbond devices */
     nbytes = 1;
 
     chipSelectSPI(cs, SELECT);
@@ -76,7 +76,7 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* Transmit full-duplex: 0xAB */
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
-
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0xAB;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
@@ -103,13 +103,13 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* Quad mode is 2 clocks/byte. 24 clocks = 12 bytes */
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
-
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0x00;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
     /* qmspi_write_cfg.address = dont care */
     qmspi_write_cfg.num_of_dummy_byte = 12;
-    qmspi_write_cfg.qmspi_ifc_mode = QUAD_CMD; /* For Winbond devices */
+    qmspi_write_cfg.qmspi_ifc_mode = QUAD_OUTPUT; /* For Winbond devices */
     nbytes = 1;
 
     chipSelectSPI(cs, SELECT);
@@ -128,6 +128,7 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* Transmit full-duplex: 0xF0,0xD0 */
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0xF0;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
@@ -146,7 +147,7 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
             status = QMSPI0_Write(&qmspi_write_cfg, (void*)&temp_buffer, nbytes);
             // no break
     }
-
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0xD0;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
@@ -171,7 +172,7 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* Transmit full-duplex: 0x66*/
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
-
+    memset(&qmspi_write_cfg, 0x00, sizeof(qmspi_write_cfg));
     qmspi_write_cfg.command = 0x66;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
@@ -194,11 +195,11 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
     /* ---------------------------------------------------------------------- */
     timer_delay_us(200);
 
-    /* Transmit full-duplex: 0x66*/
+    /* Transmit full-duplex: 0x99*/
     /* ---------------------------------------------------------------------- */
     MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
 
-    qmspi_write_cfg.command = 0x66;
+    qmspi_write_cfg.command = 0x99;
     qmspi_write_cfg.address_enable = false; /* No address for this command */
     /* qmspi_write_cfg.address_32_bit_en = dont care */
     /* qmspi_write_cfg.address = dont care */
@@ -217,6 +218,7 @@ void qmspi_spi_flash_dev_reset(uint8_t cs)
             // no break
     }
     chipSelectSPI(cs, DESELECT);
+    MPU_API_qmspi_init(qmode, QMSPI_FREQ_12M, 0 ,port);
     /* ---------------------------------------------------------------------- */
     timer_delay_us(200);
 }
