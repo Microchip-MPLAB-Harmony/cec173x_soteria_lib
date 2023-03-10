@@ -9,7 +9,7 @@
 MEMORY
 {
     rom (rx)  : ORIGIN = 0x000C8000, LENGTH = 224K              
-	ram (rwx) : ORIGIN = 0x00100000, LENGTH = 152K
+    ram (rwx) : ORIGIN = 0x00100000, LENGTH = 152K
     LOG_MBX (rw): ORIGIN = 0x126600, LENGTH =  6000
 }
 
@@ -20,41 +20,41 @@ GROUP(secureboot_app_lib.a secureboot_LIB.a)
  * v10.4.1 has increased kernel data size. We must increase protection
  * region to next power of 2 size, 1024.
  */
-__privileged_functions_region_size__ 	= 16K;
+__privileged_functions_region_size__     = 8K;
 
-__shared_data_size__ 					= 64;
-smb_bss0_size_ 					    	= 2K;
-smb_bss1_size_ 				    		= 1K;
+__shared_data_size__                     = 64;
+smb_bss0_size_                             = 2K;
+smb_bss1_size_                             = 1K;
 
-__privileged_data0_region_size__		= 4K;
-__privileged_data1_region_size__		= 8K;
-__privileged_data2_region_size__		= 8K;
-__privileged_data3_region_size__		= 2K;
+__privileged_data0_region_size__        = 4K;
+__privileged_data1_region_size__        = 8K;
+__privileged_data2_region_size__        = 8K;
+__privileged_data3_region_size__        = 2K;
 __privileged_data4_region_size__        = 1K;
-flash_copy_bss_size_	 				= 8K;
-spdm_bss0_size_ 						= 8K;
-spdm_bss1_size_ 						= 8K;
-sb_core_bss0_size_ 					= 16K;
-sb_core_bss1_size_ 					= 16K;
-crypto_bss0_size_					= 8K;
-crypto_bss1_size_					= 2K;
-spimon_bss0_size_ 					= 8K;
-i2c_bss_size_						= 8K;
-sb_core_bss2_size_ 					= 4K;
-mctp_bss_size_ 						= 4K;
-monitor_bss_size_					= 4K;
-qmspi_bss_size_						= 4K;
-smb_bss_size_ 						= 2K;
-led_bss_size_						= 2K;
-shared_bss_size_ 					= 2K;
-spimon_bss1_size_ 					= 1K;
+flash_copy_bss_size_                     = 8K;
+spdm_bss0_size_                         = 8K;
+spdm_bss1_size_                         = 8K;
+sb_core_bss0_size_                     = 16K;
+sb_core_bss1_size_                     = 16K;
+crypto_bss0_size_                    = 8K;
+crypto_bss1_size_                    = 2K;
+spimon_bss0_size_                     = 8K;
+i2c_bss_size_                        = 8K;
+sb_core_bss2_size_                     = 4K;
+mctp_bss_size_                         = 4K;
+monitor_bss_size_                    = 4K;
+qmspi_bss_size_                        = 4K;
+smb_bss_size_                         = 2K;
+led_bss_size_                        = 2K;
+shared_bss_size_                     = 2K;
+spimon_bss1_size_                     = 1K;
 spdm_bss2_size_                     = 2K;
 spimon_bss2_size_                   = 1K;
 i2c_bss1_size_                      = 4K;
 rpmc_header_data_size_              = 2K;
-BR_scratch_reg_0					= 0x4000FD80;
-rpmc_header_start_addr				= 0x000FF000;
-build_info_start_addr				= 0x000FF800;
+BR_scratch_reg_0                    = 0x4000FD80;
+rpmc_header_start_addr                = 0x000FF000;
+build_info_start_addr                = 0x000FF800;
 
 __FLASH_segment_start__ = ORIGIN( rom );
 __FLASH_segment_end__ = __FLASH_segment_start__ + LENGTH( rom );
@@ -101,14 +101,17 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
-    /* The startup code and FreeRTOS kernel code are placed into privileged ROM */
-    .privileged_functions :
+    .isr_vector :
     {
         . = ALIGN(4);
         KEEP(*(.vectors))
         KEEP(*(.vectors*))
         KEEP(*(.isr_vector))
         __isr_vector_size__ = .;
+    }
+    /* The startup code and FreeRTOS kernel code are placed into privileged ROM */
+    .privileged_functions :
+    {
         . = ALIGN(4);
         KEEP(*(.startup))
         . = ALIGN(4);
@@ -137,20 +140,20 @@ SECTIONS
         *(freertos_system_calls)
         *(freertos_system_calls*)
         __rom_api_syscalls_start__ = .;
-		*(rom_api_sys_calls)
-		*(rom_api_sys_calls*)
+        *(rom_api_sys_calls)
+        *(rom_api_sys_calls*)
         __rom_api_syscalls_end__ = .;
         __ahb_api_syscalls_start__ = .;
-		*(ahb_api_sys_calls)
-		*(ahb_api_sys_calls*)
+        *(ahb_api_sys_calls)
+        *(ahb_api_sys_calls*)
         __ahb_api_syscalls_end__ = .;
         __sram_mbox_api_syscalls_start__ = .;
-		*(sram_mbox_api_sys_calls)
-		*(sram_mbox_api_sys_calls*)
+        *(sram_mbox_api_sys_calls)
+        *(sram_mbox_api_sys_calls*)
         __sram_mbox_api_syscalls_end__ = .;
         __sram_rlog_api_syscalls_start__ = .;
-		*(sram_rlog_api_sys_calls)
-		*(sram_rlog_api_sys_calls*)
+        *(sram_rlog_api_sys_calls)
+        *(sram_rlog_api_sys_calls*)
         __sram_rlog_api_syscalls_end__ = .;
         __syscalls_flash_end__ = .;
         . = ALIGN(4);
@@ -200,19 +203,19 @@ SECTIONS
         *(.rodata*)
 
         *(vtable)
-		
-		*(.gnu.linkonce.t.*)
+        
+        *(.gnu.linkonce.t.*)
 
 /*        KEEP(*(.eh_frame*)) */
     } >rom
 
-	.sim_efuse_table :
-	{
-		. = ALIGN(4);
-		__sim_efuse_table_start = .;
-		*(sim_efuse_data*)
-		__sim_efuse_table_end = .;
-	} >rom
+    .sim_efuse_table :
+    {
+        . = ALIGN(4);
+        __sim_efuse_table_start = .;
+        *(sim_efuse_data*)
+        __sim_efuse_table_end = .;
+    } >rom
 
     .eh_frame :
     {
@@ -273,7 +276,7 @@ SECTIONS
      */
     __etext = ALIGN (4);
 
-	/*************** BSS sections start **************/		
+    /*************** BSS sections start **************/        
 
     .smb_bss0 (0x100000) :  
     {    
@@ -285,7 +288,7 @@ SECTIONS
         . = smb_bss0_start + smb_bss0_size_;
         smb_bss0_end = .;
         
-	} >ram
+    } >ram
 
     .smb_bss1 (smb_bss0_end) :  
     {
@@ -295,219 +298,219 @@ SECTIONS
 
         . = smb_bss1_start + smb_bss1_size_;
         smb_bss1_end = .;
-	} >ram
+    } >ram
 
-	.spimon_bss1 (smb_bss1_end) (NOLOAD) :
-	{
+    .spimon_bss1 (smb_bss1_end) (NOLOAD) :
+    {
         spimon_bss1_start = .;
         *(spimon_bss1*)
         . = spimon_bss1_start + spimon_bss1_size_;
         spimon_bss1_end = .;
-	} >ram
-
-	.shared_bss (spimon_bss1_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-		shared_bss_start = .;
-        *(shared_bss*)
-        . = shared_bss_start + shared_bss_size_;
-        shared_bss_end = .;	
     } >ram
 
-	.privileged_bss0 (shared_bss_end) (NOLOAD) :
-	{
- 		. = ALIGN(1024);
-		__privileged_data_start__ = .;
-		__privileged_bss0_start__ = __privileged_data_start__;
-		*(privileged_bss0*)
-		. = __privileged_bss0_start__ + __privileged_data0_region_size__;
-		__privileged_bss0_end__ = .;
-	}>ram
+    .shared_bss (spimon_bss1_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        shared_bss_start = .;
+        *(shared_bss*)
+        . = shared_bss_start + shared_bss_size_;
+        shared_bss_end = .;    
+    } >ram
 
-	.privileged_bss1 (__privileged_bss0_end__) (NOLOAD) :
-	{
-		__privileged_bss1_start__ = .;
-		*(privileged_bss1*)
-		. = __privileged_bss1_start__ + __privileged_data1_region_size__;
-		__privileged_bss1_end__ = .;
-	}>ram
+    .privileged_bss0 (shared_bss_end) (NOLOAD) :
+    {
+         . = ALIGN(1024);
+        __privileged_data_start__ = .;
+        __privileged_bss0_start__ = __privileged_data_start__;
+        *(privileged_bss0*)
+        . = __privileged_bss0_start__ + __privileged_data0_region_size__;
+        __privileged_bss0_end__ = .;
+    }>ram
 
-	.privileged_bss2 (__privileged_bss1_end__) (NOLOAD) :
-	{
-		__privileged_bss2_start__ = .;
-		*(privileged_data*)
-		*(privileged_bss2*)
-		. = __privileged_bss2_start__ + __privileged_data2_region_size__;
-		__privileged_bss2_end__ = .;
-		__privileged_data_end__ = __privileged_bss2_end__;
-	}>ram
+    .privileged_bss1 (__privileged_bss0_end__) (NOLOAD) :
+    {
+        __privileged_bss1_start__ = .;
+        *(privileged_bss1*)
+        . = __privileged_bss1_start__ + __privileged_data1_region_size__;
+        __privileged_bss1_end__ = .;
+    }>ram
 
-	.led_bss (__privileged_data_end__) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		led_bss_start = .;
+    .privileged_bss2 (__privileged_bss1_end__) (NOLOAD) :
+    {
+        __privileged_bss2_start__ = .;
+        *(privileged_data*)
+        *(privileged_bss2*)
+        . = __privileged_bss2_start__ + __privileged_data2_region_size__;
+        __privileged_bss2_end__ = .;
+        __privileged_data_end__ = __privileged_bss2_end__;
+    }>ram
+
+    .led_bss (__privileged_data_end__) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        led_bss_start = .;
         *(led_bss*)
         . = led_bss_start + led_bss_size_;
         led_bss_end = .;
-	} >ram
-	
-	.monitor_bss (led_bss_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		monitor_bss_start = .;
-		*(monitor_bss*)
-		. = monitor_bss_start + monitor_bss_size_;
-		monitor_bss_end = .;
-	} >ram
+    } >ram
+    
+    .monitor_bss (led_bss_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        monitor_bss_start = .;
+        *(monitor_bss*)
+        . = monitor_bss_start + monitor_bss_size_;
+        monitor_bss_end = .;
+    } >ram
 
     .flash_copy_bss (monitor_bss_end) (NOLOAD) :
     {
-		flash_copy_bss_start = .;
+        flash_copy_bss_start = .;
         *(flash_copy_bss*)
         . = flash_copy_bss_start + flash_copy_bss_size_;
-		flash_copy_bss_end = .;
+        flash_copy_bss_end = .;
     } >ram
 
-	.spdm_bss0 (flash_copy_bss_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		spdm_bss0_start = .;
+    .spdm_bss0 (flash_copy_bss_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        spdm_bss0_start = .;
         *(spdm_stack_buf*)
         *(spdm_buf*)
         *(spdm_bss0*)
         . = spdm_bss0_start + spdm_bss0_size_;
         spdm_bss0_end = .;
-	} >ram
+    } >ram
 
-	.spdm_bss1 (spdm_bss0_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		spdm_bss1_start = .;
+    .spdm_bss1 (spdm_bss0_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        spdm_bss1_start = .;
         *(spdm_bss1*)
         . = spdm_bss1_start + spdm_bss1_size_;
         spdm_bss1_end = .;
-	} >ram
+    } >ram
 
-	.crypto_bss0 (spdm_bss1_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		crypto_bss0_start = .;
+    .crypto_bss0 (spdm_bss1_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        crypto_bss0_start = .;
         *(crypto_bss0*)
         . = crypto_bss0_start + crypto_bss0_size_;
         crypto_bss0_end = .;
 
-	} >ram
+    } >ram
 
     .sb_core_bss0 (crypto_bss0_end) (NOLOAD) :
-	{
+    {
         . = ALIGN(4);
         sb_core_bss0_start = .;
-		*(sb_core_bss0*)
+        *(sb_core_bss0*)
         . = sb_core_bss0_start + sb_core_bss0_size_;
         sb_core_bss0_end = .;
-	} >ram
+    } >ram
 
-	.i2c_bss (sb_core_bss0_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		i2c_bss_start = .;
+    .i2c_bss (sb_core_bss0_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        i2c_bss_start = .;
         *(i2c_bss0*)
         . = i2c_bss_start + i2c_bss_size_;
         i2c_bss_end = .;
-	} >ram
+    } >ram
 
-	.qmspi_bss (i2c_bss_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		qmspi_bss_start = .;
+    .qmspi_bss (i2c_bss_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        qmspi_bss_start = .;
         *(qmspi_bss*)
         . = qmspi_bss_start + qmspi_bss_size_;
         qmspi_bss_end = .;
-	} >ram
+    } >ram
 
-	.sb_core_bss2 (qmspi_bss_end) (NOLOAD) :
-	{
+    .sb_core_bss2 (qmspi_bss_end) (NOLOAD) :
+    {
         . = ALIGN(4);
         sb_core_bss2_start = .;
         *(sb_core_buf*)
-		*(sb_core_bss2*)
+        *(sb_core_bss2*)
         . = sb_core_bss2_start + sb_core_bss2_size_;
         sb_core_bss2_end = .;
-	} >ram
+    } >ram
 
-	.sb_core_bss1 (sb_core_bss2_end) (NOLOAD) :
-	{
+    .sb_core_bss1 (sb_core_bss2_end) (NOLOAD) :
+    {
         . = ALIGN(4);
         sb_core_bss1_start = .;
-		*(sb_core_bss1*)
+        *(sb_core_bss1*)
         . = sb_core_bss1_start + sb_core_bss1_size_;
         sb_core_bss1_end = .;
-	} >ram
+    } >ram
 
-	.spimon_bss0 (sb_core_bss1_end) (NOLOAD) :
-	{
+    .spimon_bss0 (sb_core_bss1_end) (NOLOAD) :
+    {
         . = ALIGN(4);
         spimon_bss0_start = .;
         *(spimon_bss0*)
         . = spimon_bss0_start + spimon_bss0_size_;
         spimon_bss0_end = .;
-	} >ram
+    } >ram
 
 
     .mctp_bss (spimon_bss0_end) (NOLOAD) :
     {
         . = ALIGN(4);
-		mctp_bss_start = .;
+        mctp_bss_start = .;
         *(mctp_bss*)
         . = mctp_bss_start + mctp_bss_size_;
-		mctp_bss_end = .;
+        mctp_bss_end = .;
     } >ram
 
     .smb_bss (mctp_bss_end) (NOLOAD) :
-	{	
+    {    
         . = ALIGN(4);
-		smb_bss_start = .;
+        smb_bss_start = .;
         *(smb_bss)
         *(smb_bss*)
         *(smbBufBlock*)
         . = smb_bss_start + smb_bss_size_;
-		smb_bss_end = .;	
+        smb_bss_end = .;    
     } >ram
 
     .crypto_bss1 (smb_bss_end) (NOLOAD) :
-	{
-		. = ALIGN(4);
-		crypto_bss1_start = .;
+    {
+        . = ALIGN(4);
+        crypto_bss1_start = .;
         *(crypto_bss1*)
         . = crypto_bss1_start + crypto_bss1_size_;
         crypto_bss1_end = .;
-	} >ram
+    } >ram
 
-	.i2c_bss1 (crypto_bss1_end) (NOLOAD) :
-	{
+    .i2c_bss1 (crypto_bss1_end) (NOLOAD) :
+    {
         . = ALIGN(4);
-		i2c_bss1_start = .;
-		*(i2c_bss1*)
-		. = i2c_bss1_start + i2c_bss1_size_;
-		i2c_bss1_end = .;
-	}>ram
+        i2c_bss1_start = .;
+        *(i2c_bss1*)
+        . = i2c_bss1_start + i2c_bss1_size_;
+        i2c_bss1_end = .;
+    }>ram
 
     .spdm_bss2 (i2c_bss1_end) (NOLOAD) :
     {
         . = ALIGN(4);
-		spdm_bss2_start = .;
+        spdm_bss2_start = .;
         *(spdm_bss2*)
         . = spdm_bss2_start + spdm_bss2_size_;
-        spdm_bss2_end = .;	
+        spdm_bss2_end = .;    
     }
 
-	.privileged_bss3 (spdm_bss2_end) (NOLOAD) :
-	{
-		__privileged_bss3_start__ = .;
-		*(privileged_bss3*)
-		. = __privileged_bss3_start__ + __privileged_data3_region_size__;
-		__privileged_bss3_end__ = .;
-	}>ram
+    .privileged_bss3 (spdm_bss2_end) (NOLOAD) :
+    {
+        __privileged_bss3_start__ = .;
+        *(privileged_bss3*)
+        . = __privileged_bss3_start__ + __privileged_data3_region_size__;
+        __privileged_bss3_end__ = .;
+    }>ram
     
 
 
@@ -520,13 +523,13 @@ SECTIONS
         spimon_bss2_end = .;       
     } >ram
 
-	.privileged_bss4 (spimon_bss2_end) (NOLOAD) :
-	{
-		__privileged_bss4_start__ = .;
-		*(privileged_bss4*)
-		. = __privileged_bss4_start__ + __privileged_data4_region_size__;
-		__privileged_bss4_end__ = .;
-	}>ram
+    .privileged_bss4 (spimon_bss2_end) (NOLOAD) :
+    {
+        __privileged_bss4_start__ = .;
+        *(privileged_bss4*)
+        . = __privileged_bss4_start__ + __privileged_data4_region_size__;
+        __privileged_bss4_end__ = .;
+    }>ram
 
     .bss (__privileged_bss4_end__) (NOLOAD) :
     {
@@ -538,8 +541,8 @@ SECTIONS
     } >ram
     /*************** BSS sections end **************/
 
-	/*************** Data sections start **************/
-	.shared_data (__bss_end__) : 
+    /*************** Data sections start **************/
+    .shared_data (__bss_end__) : 
     {
 
         . = ALIGN(64);
@@ -553,24 +556,24 @@ SECTIONS
         . = ALIGN(4);
 
         *(.data*)
-		*(.dinit*)
+        *(.dinit*)
         
         . = shared_data_start + __shared_data_size__;
         shared_data_end = .;
     
-		/* All data end */
-		__data_end__ = .;
-		
+        /* All data end */
+        __data_end__ = .;
+        
     } >ram AT>rom
 
-	/*************** Data sections end **************/
+    /*************** Data sections end **************/
 
-	.ssp_sym (BR_scratch_reg_0):
-	{
-		. = ALIGN(4);
-		__stack_chk_guard = .;
-	}
-	
+    .ssp_sym (BR_scratch_reg_0):
+    {
+        . = ALIGN(4);
+        __stack_chk_guard = .;
+    }
+    
     .heap (COPY) :
     {
         __HeapBase = .;
