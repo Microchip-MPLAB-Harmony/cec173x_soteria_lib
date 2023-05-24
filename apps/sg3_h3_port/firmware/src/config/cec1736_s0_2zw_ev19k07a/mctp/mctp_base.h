@@ -47,6 +47,7 @@ extern "C" {
 #define MCTP_PACKET_MAX            73U
 
 #define MCTP_BYTECNT_OFFSET         3U
+#define MCTP_BYTE_CNT_OFFSET        2u
 #define MCTP_PEC_BYTE               1U
 #define PAYLOAD                     8U
 #define MCTP_BYTECNT_MIN            5U

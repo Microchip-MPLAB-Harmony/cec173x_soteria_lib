@@ -22,6 +22,8 @@
 #include "spdm_task.h"
 #include "spdm_pkt_prcs.h"
 #include "../../../common/include/common.h"
+#include "../pldm/pldm_common.h"
+#include "../pldm/pldm_pkt_prcs.h"
 
 /* MPU */
 static void spdm_main(void *pvParameters);
@@ -31,6 +33,7 @@ extern SPDM_BSS1_ATTR DI_CONTEXT_SPDM *spdm_di_context;
 SPDM_STACK_ATTR static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ALIGN;
 SPDM_BSS2_ATTR TaskHandle_t spdm_handle = NULL;
 SPDM_BSS2_ATTR SPDM_CONTEXT *spdmContext = NULL;
+PLDM_BSS2_ATTR PLDM_CONTEXT *pldmContext = NULL;
 
 union
 {
@@ -203,13 +206,15 @@ static void spdm_main(void* pvParameters)
         return;
     }
 
-    spdmContext->xPLDMRespTimer =
+    pldm_init_flags();
+    pldmContext = pldm_ctxt_get();
+    pldmContext->xPLDMRespTimer =
         xTimerCreateStatic("PLDMResp_timer", // Text name for the task.  Helps debugging only.  Not used by FreeRTOS.
                            pdMS_TO_TICKS(FD_T1), // The period of the timer in ticks.
                            pdTRUE, // This is an auto-reload timer.
                            NULL, // A variable incremented by the software timer's callback function.
                            PLDMResp_timer_callback, // The function to execute when the timer expires.
-                           &spdmContext->PLDMResp_TimerBuffer); // The buffer that will hold the software timer structure.
+                           &pldmContext->PLDMResp_TimerBuffer); // The buffer that will hold the software timer structure.
 
 
     spdmContext->spdm_state_info = SPDM_IDLE;
@@ -254,7 +259,7 @@ static void spdm_main(void* pvParameters)
                 break;
             case SPDM_CALC_HASH_CHAIN:
                 spdm_pkt_store_hash_of_chain(spdmContext);
-                pldm_pkt_get_config_from_apcfg(spdmContext);
+                pldm_pkt_get_config_from_apcfg(pldmContext);
                 break;
             case SPDM_CMD_PROCESS_MODE:
                 spdm_event_task(spdmContext);
@@ -275,7 +280,7 @@ static void spdm_main(void* pvParameters)
         {
             // PLDM:bit set step into event task for recv and trans
 //            trace0(SPDM_TRACE, SPDM_TSK, 0, "Splbs");
-            switch(spdmContext->pldm_state_info)
+            switch(pldmContext->pldm_state_info)
             {
             case PLDM_IDLE:
                 // do nothing
@@ -331,7 +336,8 @@ void SET_PLDM_EVENT_FLAG(void)
     {
         return;
     }
-    spdmContext->pldm_state_info = PLDM_CMD_PROCESS_MODE;
+    pldmContext = pldm_ctxt_get();
+    pldmContext->pldm_state_info = PLDM_CMD_PROCESS_MODE;
     //spdmContext->pldm_tx_state = PLDM_TX_IDLE;
     // PLDM:set event
 //    trace0(PLDM_TRACE, SPDM_TSK, 0, "PlSev");
@@ -372,12 +378,12 @@ int spdm_task_create(void *pvParams)
 *******************************************************************************/
 void pldm_response_timeout_start(void)
 {
-    spdmContext = spdm_ctxt_get();
-    if (NULL != spdmContext)
+    pldmContext = pldm_ctxt_get();
+    if (NULL != pldmContext)
     {
-        if (NULL != spdmContext->xPLDMRespTimer)
+        if (NULL != pldmContext->xPLDMRespTimer)
         {
-            if (xTimerStart(spdmContext->xPLDMRespTimer, 0) != pdPASS)
+            if (xTimerStart(pldmContext->xPLDMRespTimer, 0) != pdPASS)
             {
                 // Err:PLDMResp tmr could not set to active state
 //                trace0(PLDM_TRACE, SPDM_TSK, 1, "PlRtn");
@@ -395,12 +401,12 @@ void pldm_response_timeout_start(void)
 *******************************************************************************/
 void pldm_response_timeout_stop(void)
 {
-    spdmContext = spdm_ctxt_get();
-    if (NULL != spdmContext)
+    pldmContext = pldm_ctxt_get();
+    if (NULL != pldmContext)
     {
-        if (NULL != spdmContext->xPLDMRespTimer)
+        if (NULL != pldmContext->xPLDMRespTimer)
         {
-            if (xTimerStop(spdmContext->xPLDMRespTimer, 0) != pdPASS)
+            if (xTimerStop(pldmContext->xPLDMRespTimer, 0) != pdPASS)
             {
                 // Err:PLDMResp timer stop fail
 //                trace0(PLDM_TRACE, SPDM_TSK, 1, "PlTsF");
@@ -408,4 +414,20 @@ void pldm_response_timeout_stop(void)
             }
         }
     }
+}
+
+/******************************************************************************/
+/** spdm_ctxt_get()
+* Get the SPDM Context
+* @param void
+* @return SPDM_context
+*******************************************************************************/
+PLDM_CONTEXT* pldm_ctxt_get(void)
+{
+    spdmContext = spdm_ctxt_get();
+    if (NULL != spdmContext)
+    {
+        pldmContext = &spdmContext->pldm_context;
+    }
+    return pldmContext;
 }

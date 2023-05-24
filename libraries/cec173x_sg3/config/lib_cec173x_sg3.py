@@ -24,10 +24,13 @@
 def destroyComponent(sg3LibComponent):
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":False})
     Database.sendMessage("SPDM", "SOTERIA_CONNECTED", {"isConnected":False})
+    Database.sendMessage("PLDM", "SOTERIA_CONNECTED", {"isConnected":False})
 
 def handleMessage(messageID, args):
     global isMctpComponentConnected
     global isSpdmComponentConnected
+    global isPldmComponentConnected
+
     if(messageID == "MCTP_CONNECTED"):
         if(args.get("isConnected") == True):
             print("MCTP CONNECTED")
@@ -43,14 +46,24 @@ def handleMessage(messageID, args):
             print("SPDM DISCONNECTED")
             isSpdmComponentConnected.setValue(False)
 
+    if(messageID == "PLDM_CONNECTED"):
+        if(args.get("isConnected") == True):
+            print("PLDM CONNECTED")
+            isPldmComponentConnected.setValue(True)
+        else:
+            print("PLDM DISCONNECTED")
+            isPldmComponentConnected.setValue(False)
+
 def instantiateComponent(sg3LibComponent):
 
     global sg3InstanceName
     global isMctpComponentConnected
     global isSpdmComponentConnected
+    global isPldmComponentConnected
 
     Database.sendMessage("MCTP", "SOTERIA_CONNECTED", {"isConnected":True})
     Database.sendMessage("SPDM", "SOTERIA_CONNECTED", {"isConnected":True})
+    Database.sendMessage("PLDM", "SOTERIA_CONNECTED", {"isConnected":True})
 
     sg3InstanceName = sg3LibComponent.createStringSymbol("SG3_INSTANCE_NAME", None)
     sg3InstanceName.setVisible(False)
@@ -75,6 +88,11 @@ def instantiateComponent(sg3LibComponent):
     isSpdmComponentConnected.setVisible(False)
     isSpdmComponentConnected.setDefaultValue(False)
     isSpdmComponentConnected.setValue(False)
+
+    isPldmComponentConnected = sg3LibComponent.createBooleanSymbol("SOTERIA_LIB_IS_PLDM_COMPONENT_CONNECTED", None)
+    isPldmComponentConnected.setVisible(False)
+    isPldmComponentConnected.setDefaultValue(False)
+    isPldmComponentConnected.setValue(False)
     
     if(Database.getComponentByID("MCTP")):
         isMctpComponentConnected.setValue(True)
@@ -85,6 +103,11 @@ def instantiateComponent(sg3LibComponent):
         isSpdmComponentConnected.setValue(True)
     else:
         isSpdmComponentConnected.setValue(False)
+
+    if(Database.getComponentByID("PLDM")):
+        isPldmComponentConnected.setValue(True)
+    else:
+        isPldmComponentConnected.setValue(False)
     
     activeComponentIDs = Database.getActiveComponentIDs()
 
@@ -99,6 +122,12 @@ def instantiateComponent(sg3LibComponent):
         isSpdmComponentConnected.setValue(True)
     else:
         isSpdmComponentConnected.setValue(False)
+
+    if "PLDM" in activeComponentIDs:
+        print("PLDM present")
+        isPldmComponentConnected.setValue(True)
+    else:
+        isPldmComponentConnected.setValue(False)
         
     #SG3 library
     configName = Variables.get("__CONFIGURATION_NAME")

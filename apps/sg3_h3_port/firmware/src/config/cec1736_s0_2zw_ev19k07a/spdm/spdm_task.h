@@ -83,6 +83,7 @@ void spdm_pkt_get_cert_from_apcfg(SPDM_CONTEXT *spdmContext);
 void spdm_pkt_copy_cert_data_to_buf(SPDM_CONTEXT *spdmContext);
 void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext);
 SPDM_CONTEXT* spdm_ctxt_get(void);
+PLDM_CONTEXT* pldm_ctxt_get(void);
 
 /******************************************************************************/
 /** This function will periodically request for the status of post authentication

@@ -137,8 +137,6 @@ typedef struct SMB_MAPP_CBK_NEW_TX_
     uint8_t pecEnable;        /**< PEC Enable/Disable Flag */
 }SMB_MAPP_CBK_NEW_TX;
 
-// SPDM Context
-/******************************************************************************/
 /**  SPDM Context Information
 *******************************************************************************/
 typedef struct SPDM_CONTEXT

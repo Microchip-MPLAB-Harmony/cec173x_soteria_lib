@@ -47,9 +47,6 @@ extern "C" {
 
 #define STATUS_OK 0U
 
-#define is_add_safe(sum, aug_or_add) ((sum) < (aug_or_add) ? 0 : 1) // Coverity INT30-C Postcondition Test
-#define is_sub_safe(ui_a, ui_b) ((ui_a) < (ui_b) ? 0 : 1) // Coverity INT30-C Precondition Test
-
 typedef union
 {
     struct

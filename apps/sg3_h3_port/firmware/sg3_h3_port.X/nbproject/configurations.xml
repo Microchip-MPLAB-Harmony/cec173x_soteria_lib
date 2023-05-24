@@ -94,6 +94,12 @@
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/wdt/plib_wdt.h</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <logicalFolder name="pldm" displayName="pldm" projectFiles="true">
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_common.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_config.h</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_pkt_prcs.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="spdm" displayName="spdm" projectFiles="true">
             <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/spdm/spdm_task.h</itemPath>
             <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/spdm/spdm_config.h</itemPath>
@@ -339,6 +345,10 @@
               <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/wdt/plib_wdt.c</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <logicalFolder name="pldm" displayName="pldm" projectFiles="true">
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_common.c</itemPath>
+            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_pkt_prcs.c</itemPath>
+          </logicalFolder>
           <logicalFolder name="spdm" displayName="spdm" projectFiles="true">
             <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/spdm/spdm_task.c</itemPath>
             <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/spdm/spdm_pkt_prcs.c</itemPath>
@@ -392,6 +402,9 @@
       <itemPath>sg3_h3_port.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../src/config/cec1736_s0_2zw_ev19k07a/pldm</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="cec1736_s0_2zw_ev19k07a" type="2">
@@ -739,6 +752,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="c8000-117fff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="E:/Shreyas/GitHubRepo/Harmony/Internal/cec173x_soteria_lib/apps/sg3_h3_port/firmware/sg3_h3_port.X/debug/cec1736_s0_2zw_ev19k07a/sg3_h3_port_ptg"/>
         <property key="programmerToGoImageName" value="sg3_h3_port_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

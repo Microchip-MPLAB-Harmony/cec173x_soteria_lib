@@ -41,7 +41,6 @@ SPDM_BSS1_ATTR MCTP_PKT_BUF spdm_pktbuf_rx;
 
 SPDM_BSS1_ATTR MCTP_PKT_BUF spdm_pktbuf[1] __attribute__((aligned(8)));
 SPDM_BSS1_ATTR uint8_t spdm_tx_state;
-SPDM_BSS1_ATTR bool pldm_first_pkt;
 
 SPDM_BSS0_ATTR uint8_t spi_data[SPI_DATA_MAX_BUFF] __attribute__((aligned(8))); // This buffer is externed and used to read/Write certificate
 SPDM_BSS1_ATTR VERSION_NUM_ENTRY_TABLE version_tbl_buf[2 * SPDM_VER_NUM_ENTRY_COUNT];
@@ -770,7 +769,6 @@ void spdm_init_task(SPDM_CONTEXT *spdmContext)
     packet_sz = 0x00;
     pkt_seq_mctp = 0x00;
     first_pkt = true;
-    pldm_first_pkt = true;
     tbl_entry = 0x00;
     bytes_sent_over_mctp_for_cert = 0x00;
     struct_algo.AlgType = ALG_TYPE;
@@ -793,8 +791,6 @@ void spdm_init_task(SPDM_CONTEXT *spdmContext)
     memset(ecdsa_signature.signature_r_term, 0, CURVE_384_SZ);
     memset(ecdsa_signature.signature_s_term, 0, CURVE_384_SZ);
     spdmContext->spdm_state_info = SPDM_INIT_CERT_PARAMS;
-    spdmContext->pldm_state_info = PLDM_IDLE;
-    spdmContext->current_pkt_sequence = 0;
 
     spdmContext->get_requests_state = HASH_INIT_MODE;
 
@@ -802,9 +798,6 @@ void spdm_init_task(SPDM_CONTEXT *spdmContext)
     spdmContext->challenge_success_flag = 0;
     spdm_pkt_init_measurement_block(spdmContext);
 
-    spdmContext->pldm_previous_state = PLDM_IDLE_STATE;
-    spdmContext->pldm_current_state = PLDM_IDLE_STATE;
-    spdmContext->pldm_status_reason_code = INITIALIZATION_OF_FD;
     SET_SPDM_EVENT_FLAG(); // pldm ap cfg populated via spdm ap cfg cert data
 }
 
