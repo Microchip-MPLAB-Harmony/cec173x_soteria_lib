@@ -33,9 +33,9 @@
 extern "C" {
 #endif
 
-#define PLDM_BSS0_ATTR                                     __attribute__((section("spdm_bss0")))
-#define PLDM_BSS1_ATTR                                     __attribute__((section("spdm_bss1")))
-#define PLDM_BSS2_ATTR                                     __attribute__((section("spdm_bss2")))
+#define PLDM_BSS0_ATTR                                     __attribute__((section("pldm_bss0")))
+#define PLDM_BSS1_ATTR                                     __attribute__((section("pldm_bss1")))
+#define PLDM_BSS2_ATTR                                     __attribute__((section("pldm_bss2")))
 
 #define PLDM_COMP_IDENTIFIER_TAG0 0x1020
 #define PLDM_COMP_IDENTIFIER_TAG1 0x1021

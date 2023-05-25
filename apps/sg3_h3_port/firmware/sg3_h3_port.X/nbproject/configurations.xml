@@ -346,7 +346,6 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="pldm" displayName="pldm" projectFiles="true">
-            <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_common.c</itemPath>
             <itemPath>../src/config/cec1736_s0_2zw_ev19k07a/pldm/pldm_pkt_prcs.c</itemPath>
           </logicalFolder>
           <logicalFolder name="spdm" displayName="spdm" projectFiles="true">

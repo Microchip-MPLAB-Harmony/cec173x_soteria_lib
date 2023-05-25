@@ -378,6 +378,7 @@ SECTIONS
         *(spdm_stack_buf*)
         *(spdm_buf*)
         *(spdm_bss0*)
+        *(pldm_bss0*)
         . = spdm_bss0_start + spdm_bss0_size_;
         spdm_bss0_end = .;
     } >ram
@@ -387,6 +388,7 @@ SECTIONS
         . = ALIGN(4);
         spdm_bss1_start = .;
         *(spdm_bss1*)
+        *(pldm_bss1*)
         . = spdm_bss1_start + spdm_bss1_size_;
         spdm_bss1_end = .;
     } >ram
@@ -500,6 +502,7 @@ SECTIONS
         . = ALIGN(4);
         spdm_bss2_start = .;
         *(spdm_bss2*)
+        *(pldm_bss2*)
         . = spdm_bss2_start + spdm_bss2_size_;
         spdm_bss2_end = .;    
     }

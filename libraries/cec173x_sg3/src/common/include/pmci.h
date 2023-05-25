@@ -79,17 +79,15 @@ typedef enum
     SPI_SELECT_RESERVED3,
     SPI_SELECT_RESERVED4,
     SPI_SELECT_INT_COMP_0,    //10_00
-    SPI_SELECT_MAX
+    SPI_SELECT_MAX,
 } SPI_FLASH_SELECT;
 
-#define PLDM_IDLE_STATE 0
 #define DI_CHECK_FAIL      1
 #define RLOG_LOAD_FROM_TAG0             (0x08000000u)
 #define ECFW_IMG_TAG0 0
 #define ECFW_IMG_TAG1 1
 #define SILICON_VER_A0 0x55
 #define SRAM_MBOX_HW_CONFIG_SIZE                      (0x04)
-#define INITIALIZATION_OF_FD 0
 
 // SMB configs
 // Channel enums
@@ -137,6 +135,56 @@ typedef struct SMB_MAPP_CBK_NEW_TX_
     uint8_t pecEnable;        /**< PEC Enable/Disable Flag */
 }SMB_MAPP_CBK_NEW_TX;
 
+// PLDM Context
+/******************************************************************************/
+/**  PLDM Context Information
+*******************************************************************************/
+typedef struct PLDM_CONTEXT
+{
+    uint8_t pldm_state_info; // added this to track PLDM packets (if tracking with spdm_state_info, if spdm packet comes in between
+    // pldm packets, the current state would go into toss)
+
+    uint8_t pldm_tx_state;
+
+    uint8_t pldm_host_eid;
+
+    uint8_t pldm_ec_eid;
+
+    uint8_t pldm_ec_slv_addr;
+
+    uint8_t pldm_host_slv_addr;
+
+    uint8_t pldm_instance_id;
+
+    uint8_t pldm_current_response_cmd;
+
+    uint8_t pldm_current_state;
+
+    uint8_t pldm_previous_state;  // maintaining this for sending previous state in GetStatus command
+
+    uint8_t pldm_next_state;
+
+    uint8_t pldm_verify_state;
+
+    uint8_t pldm_apply_state;
+
+    uint8_t pldm_status_reason_code;
+
+    uint8_t current_pkt_sequence; // PLDM; used to find for packet loss and retry
+
+    uint8_t expected_pkt_sequence;
+
+    uint16_t pldm_current_request_length;
+    
+    /* PLDM timeout response Timer Handle*/
+    TimerHandle_t xPLDMRespTimer;
+
+    /* PLDM timeout response Timer buffer*/
+    StaticTimer_t PLDMResp_TimerBuffer __attribute__((aligned(8)));
+
+}__attribute__((packed)) PLDM_CONTEXT;
+
+/******************************************************************************/
 /**  SPDM Context Information
 *******************************************************************************/
 typedef struct SPDM_CONTEXT
@@ -187,46 +235,20 @@ typedef struct SPDM_CONTEXT
 
     uint16_t cert_bytes_requested[8];
 
-    uint8_t pldm_state_info; // added this to track PLDM packets (if tracking with spdm_state_info, if spdm packet comes in between
-    // pldm packets, the current state would go into toss)
-
-    uint8_t pldm_tx_state;
-
-    uint8_t pldm_host_eid;
-
-    uint8_t pldm_ec_eid;
-
-    uint8_t pldm_ec_slv_addr;
-
-    uint8_t pldm_host_slv_addr;
-
-    uint8_t pldm_instance_id;
-
-    uint8_t pldm_current_response_cmd;
-
-    uint8_t pldm_current_state;
-
-    uint8_t pldm_previous_state;  // maintaining this for sending previous state in GetStatus command
-
-    uint8_t pldm_next_state;
-
-    uint8_t pldm_verify_state;
-
-    uint8_t pldm_apply_state;
-
-    uint8_t pldm_status_reason_code;
-
-    uint8_t current_pkt_sequence; // PLDM; used to find for packet loss and retry
-
-    uint8_t expected_pkt_sequence;
-
-    /* PLDM timeout response Timer Handle*/
-    TimerHandle_t xPLDMRespTimer;
-
-    /* PLDM timeout response Timer buffer*/
-    StaticTimer_t PLDMResp_TimerBuffer __attribute__((aligned(8)));
+    PLDM_CONTEXT pldm_context __attribute__((aligned(8)));
 
 } __attribute__((packed)) SPDM_CONTEXT;
+
+typedef struct byte_match_details {
+        bool is_present;
+        uint8_t ap;
+        uint8_t comp_id;
+        uint8_t comp_img_id;
+        uint32_t staged_address;
+        uint32_t restore_address;
+        uint32_t spi_addr;
+        uint8_t image_id;
+} BYTE_MATCH_DETAILS;
 
 // Efuse address
 #define ATTESTATION_PORT_EFUSE_START_ADDR              367
@@ -289,7 +311,6 @@ uint32_t spdm_data_mpu_attr(void);
 void spdm_di_init(void *di_init_context);
 void PLDMResp_timer_callback(TimerHandle_t pxTimer);
 void spdm_di_get_i2c_response(void);
-void pldm_pkt_get_config_from_apcfg(SPDM_CONTEXT *spdmContext);
 void spdm_di_get_mctp_response(void);
 void spdm_di_get_sb_core_response(void);
 void pldm1_event_task(void);
@@ -304,6 +325,7 @@ uint8_t spdm_di_spi_tristate(uint8_t component);
 uint8_t di_send_spdm_reponse_packet(uint8_t *buffer_ptr, uint8_t len, bool is_pldm,
                                     bool is_pldm_request_firmware_update);
 void spdm_di_mctp_done_set(void);
+void pldm_di_mctp_done_set(void);
 uint8_t di_sb_apcfg_cert_data_request(void);
 uint8_t SRAM_RLOG_API_rom_event_read(uint8_t *buffer);    
 uint8_t spdm_di_sb_ecfw_tagx_addr_get(uint32_t *tagx_ret, uint8_t ecfw_id);  

@@ -18,25 +18,6 @@
 * OF THESE TERMS.
 *****************************************************************************/
 
-/** @file pldm_pkt_prcs.c
- * MEC1324 Peripheral common header file
- */
-/** @defgroup MEC1324 Peripherals
- */
-
-/*******************************************************************************
- *  MCHP version control information (Perforce):
- *
- *  FILE:     $ $
- *  REVISION: $Revision: #58 $
- *  DATETIME: $DateTime: 2023/02/27 05:44:49 $
- *  AUTHOR:   $Author: i67071 $
- *
- *  Revision history (latest first):
- *      # 1: Initial revision for the PLDM porting
- ***********************************************************************************
-*/
-
 #include <stdlib.h>
 #include "pldm.h"
 #include "pldm_common.h"
@@ -1789,7 +1770,7 @@ void pldm_pkt_rcv_packet()
     {
         pldm_msg_rx_buf->buf_full = MCTP_EMPTY;
     }
-    
+
     pldm_di_mctp_done_set();
     pldm_msg_rx_buf->pkt.data[PLDM_HEADER_COMMAND_CODE_POS] = 0;
 }
