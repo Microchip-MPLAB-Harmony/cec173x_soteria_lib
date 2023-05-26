@@ -364,9 +364,6 @@ extern void pldm_reset_firmware_update_flags(void);
  * -----------------------
  * The user is expected to add his/her own  activation method for 
  * firmware update complete process
- * single shot.
- * The PLDM module is designed for SHA384 hash calculations.
- * The user is expected to store the resultant hash in pldmContext->sha_digest.
  * -----------------------
  * Example:
  * -----------------------
@@ -437,7 +434,6 @@ void pldm_initiate_verify_req_to_update_agent(uint8_t verify_state);
  * -----------------------
  * The user is expected to use this function if there is requirment to 
  * move the user defined internal states.
- * firmware update complete process
  * -----------------------
  * Example:
  * -----------------------
