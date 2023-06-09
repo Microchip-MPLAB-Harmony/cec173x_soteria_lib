@@ -6,6 +6,10 @@
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
       <entry>
+         <string>PLDM</string>
+         <string>class com.microchip.mcc.harmony.HarmonyModule</string>
+      </entry>
+      <entry>
          <string>SPDM</string>
          <string>class com.microchip.mcc.harmony.HarmonyModule</string>
       </entry>
@@ -170,7 +174,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_IS_PLDM_COMPONENT_CONNECTED&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
@@ -180,8 +184,13 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCTP" name="MCTP_IS_PLDM_REQUIRED"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;MCTP&gt;
   &lt;MCTP dnOrder=&quot;0&quot; id=&quot;MCTP_IS_PLDM_REQUIRED&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;false&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;MCTP&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
@@ -256,6 +265,550 @@
     &lt;/Values&gt;
   &lt;/MCTP&gt;
 &lt;/MCTP&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="!@#harmonyAttachmentState"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot;/&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="#&amp;__MCC_Group_Parrent_id"/>
+         <value>__ROOTVIEW</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_COMP_CLASSIFICATION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_COMP_CLASSIFICATION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_0_1_2_3"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_0_1_2_3&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_100_101_102_103"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_100_101_102_103&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_104_105_106_107"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_104_105_106_107&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_108_109_110_111"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_108_109_110_111&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_112_113_114_115"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_112_113_114_115&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_116_117_118_119"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_116_117_118_119&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_120_121_122_123"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_120_121_122_123&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_124_125_126_127"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_124_125_126_127&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_128_129_130_131"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_128_129_130_131&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_12_13_14_15"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_12_13_14_15&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_132_133_134_135"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_132_133_134_135&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_136_137_138_139"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_136_137_138_139&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_140_141_142_143"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_140_141_142_143&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_144_145_146_147"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_144_145_146_147&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_148_149_150_151"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_148_149_150_151&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_152_153_154_155"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_152_153_154_155&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_156_157_158_159"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_156_157_158_159&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_160_161_162_163"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_160_161_162_163&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_164_165_166_167"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_164_165_166_167&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_168_169_170_171"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_168_169_170_171&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_16_17_18_19"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_16_17_18_19&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_172_173_174_175"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_172_173_174_175&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_176_177_178_179"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_176_177_178_179&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_180_181_182_183"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_180_181_182_183&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_184_185_186_187"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_184_185_186_187&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_188_189_190_191"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_188_189_190_191&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_192_193_194_195"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_192_193_194_195&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_196_197_198_199"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_196_197_198_199&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_20_21_22_23"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_20_21_22_23&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_24_25_26_27"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_24_25_26_27&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_28_29_30_31"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_28_29_30_31&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_32_33_34_35"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_32_33_34_35&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_36_37_38_39"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_36_37_38_39&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_40_41_42_43"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_40_41_42_43&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_44_45_46_47"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_44_45_46_47&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_48_49_50_51"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_48_49_50_51&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_4_5_6_7"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_4_5_6_7&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_52_53_54_55"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_52_53_54_55&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_56_57_58_59"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_56_57_58_59&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_60_61_62_63"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_60_61_62_63&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_64_65_66_67"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_64_65_66_67&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_68_69_70_71"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_68_69_70_71&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_72_73_74_75"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_72_73_74_75&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_76_77_78_79"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_76_77_78_79&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_80_81_82_83"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_80_81_82_83&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_84_85_86_87"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_84_85_86_87&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_88_89_90_91"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_88_89_90_91&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_8_9_10_11"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_8_9_10_11&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_92_93_94_95"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_92_93_94_95&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_96_97_98_99"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_96_97_98_99&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DESCRIPTOR_COUNT"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DESCRIPTOR_COUNT&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DEVICE_DESCRIPTOR_OVERRIDE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DEVICE_DESCRIPTOR_OVERRIDE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DEVICE_IDENTIFIER_LENGTH"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DEVICE_IDENTIFIER_LENGTH&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_DEVICE_TID"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_DEVICE_TID&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_IS_SG3_COMPONENT_CONNECTED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_IS_SG3_COMPONENT_CONNECTED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;PLDM&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_OVERRIDE_CAPABLITIES"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_OVERRIDE_CAPABLITIES&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_OVERRIDE_COMP_CLASSIFICATION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_OVERRIDE_COMP_CLASSIFICATION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="PLDM" name="PLDM_UPGRADE_CAPABLITIES"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;PLDM&gt;
+  &lt;PLDM dnOrder=&quot;0&quot; id=&quot;PLDM_UPGRADE_CAPABLITIES&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/PLDM&gt;
+&lt;/PLDM&gt;
 </value>
       </entry>
       <entry>
@@ -539,50 +1092,6 @@
          <value>__ROOTVIEW</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="cct" name="CCT_ENABLE_COMPARE_0"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;cct&gt;
-  &lt;cct dnOrder=&quot;0&quot; id=&quot;CCT_ENABLE_COMPARE_0&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/cct&gt;
-&lt;/cct&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="cct" name="CCT_FRT_CLK_SRC_DIV"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;cct&gt;
-  &lt;cct dnOrder=&quot;0&quot; id=&quot;CCT_FRT_CLK_SRC_DIV&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/cct&gt;
-&lt;/cct&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="cct" name="CCT_INTERRUPT_TYPE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;cct&gt;
-  &lt;cct dnOrder=&quot;0&quot; id=&quot;CCT_INTERRUPT_TYPE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/cct&gt;
-&lt;/cct&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="cct" name="IRQ_ENUM_NAME"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;cct&gt;
-  &lt;cct dnOrder=&quot;0&quot; id=&quot;IRQ_ENUM_NAME&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;cct&quot; value=&quot;GIRQ18_IRQn&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/cct&gt;
-&lt;/cct&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="cmsis" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>__ROOTVIEW</value>
       </entry>
@@ -590,27 +1099,13 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;130&quot; canvasWidth=&quot;286&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;MCTP&quot; x=&quot;950&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;SPDM&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cct&quot; x=&quot;960&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;pwm0&quot; x=&quot;190&quot; y=&quot;140&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;qmspi0&quot; x=&quot;800&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;qmspi1&quot; x=&quot;30&quot; y=&quot;60&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;sg3_lib&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;smb0&quot; x=&quot;190&quot; y=&quot;60&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;smb1&quot; x=&quot;350&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;smb2&quot; x=&quot;790&quot; y=&quot;80&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;smb3&quot; x=&quot;510&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;smb4&quot; x=&quot;30&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;uart0&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;PLDM&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;sg3_lib&quot; x=&quot;140&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;232&quot; canvasWidth=&quot;1097&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -3287,116 +3782,6 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;ECIA_GIRQ_BLOCK_REG_VAL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1343232&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_ALT_NVIC_INT_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_ALT_NVIC_INT_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_PAD_MON_INTERRUPT_TYPE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_INTERRUPT_TYPE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_PAD_MON_VTR1_PD_INT_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR1_PD_INT_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_PAD_MON_VTR1_PU_INT_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR1_PU_INT_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_PAD_MON_VTR2_PD_INT_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR2_PD_INT_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_PAD_MON_VTR2_PU_INT_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_PAD_MON_VTR2_PU_INT_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_VTR1_CTRL"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_VTR1_CTRL&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_VTR1_PAD_MON_OVERRIDE_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_VTR1_PAD_MON_OVERRIDE_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_VTR2_CTRL"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_VTR2_CTRL&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="ERB_VTR2_PAD_MON_OVERRIDE_EN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;ERB_VTR2_PAD_MON_OVERRIDE_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -8404,33 +8789,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_ACTION"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_ACTION&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;Generate Interrupt&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_ENABLE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_ENABLE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_GRP_INTERRUPT_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_GRP_INTERRUPT_ENABLE&quot;&gt;
@@ -8519,104 +8877,12 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_JTAG_STALL"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_JTAG_STALL&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_TIMEOUT_PERIOD"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_TIMEOUT_PERIOD&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;500&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_TMR_INTERRUPT_TYPE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_TMR_INTERRUPT_TYPE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="WDT_TMR_NVIC_INTERRUPT_NAME"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
-  &lt;core dnOrder=&quot;0&quot; id=&quot;WDT_TMR_NVIC_INTERRUPT_NAME&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;WDT_GRP&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/core&gt;
-&lt;/core&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="dfp" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>__ROOTVIEW</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pwm0" name="#&amp;__MCC_Group_Parrent_id"/>
          <value>__ROOTVIEW</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pwm0" name="PWM_CLOCK_SELECT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;pwm0&gt;
-  &lt;pwm0 dnOrder=&quot;0&quot; id=&quot;PWM_CLOCK_SELECT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/pwm0&gt;
-&lt;/pwm0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pwm0" name="PWM_OFF_TIME_COUNTER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;pwm0&gt;
-  &lt;pwm0 dnOrder=&quot;0&quot; id=&quot;PWM_OFF_TIME_COUNTER&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6250&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/pwm0&gt;
-&lt;/pwm0&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="pwm0" name="PWM_ON_TIME_COUNTER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;pwm0&gt;
-  &lt;pwm0 dnOrder=&quot;0&quot; id=&quot;PWM_ON_TIME_COUNTER&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6250&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/pwm0&gt;
-&lt;/pwm0&gt;
-</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="qmspi0" name="#&amp;__MCC_Group_Parrent_id"/>
@@ -8819,6 +9085,17 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sg3_lib" name="SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sg3_lib&gt;
   &lt;sg3_lib dnOrder=&quot;0&quot; id=&quot;SOTERIA_LIB_IS_MCTP_COMPONENT_CONNECTED&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sg3_lib&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sg3_lib&gt;
+&lt;/sg3_lib&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sg3_lib" name="SOTERIA_LIB_IS_PLDM_COMPONENT_CONNECTED"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sg3_lib&gt;
+  &lt;sg3_lib dnOrder=&quot;0&quot; id=&quot;SOTERIA_LIB_IS_PLDM_COMPONENT_CONNECTED&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;sg3_lib&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
@@ -9562,66 +9839,98 @@
 </value>
       </entry>
    </tokenMap>
-   <generatedFileHashHistoryMap class="java.util.HashMap">
+   <generatedFileHashHistoryMap class="java.util.TreeMap">
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb3_master_slave_common.h</file>
-         <hash>c728945a5d4c04a6ead5ce0e15776e6de9fba4286bf3dc525d973011c8e9c33a</hash>
+         <file>..\src\common\debug\serial.c</file>
+         <hash>10f82a62766302e7c1945c77afff9161b45f15b273378e87aa156e48c1df3208</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_gcc.h</file>
-         <hash>3d4e265d0aa42f888385ccf073666e6ebb5ec9f834760b9da27c474e177f708d</hash>
+         <file>..\src\common\debug\trace.h</file>
+         <hash>136c0c13173805e0ef5229c465c41987ffad6819959ac85692a4be68a748986b</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb3_master_slave_common.c</file>
-         <hash>4f038039cd0c09d42e57a707ace07ee692025027f871d4e1cdb9ccfcb8782cbd</hash>
+         <file>..\src\common\include\FreeRTOS.h</file>
+         <hash>aaa06da7b0411b30180900dcba81cfd4fef5c9862c5cf3e3eb2bc883010013a9</hash>
       </entry>
       <entry>
-         <file>..\src\hal\interrupt\interrupt_api.h</file>
-         <hash>d47a98c12506d6c1925076bd51b91cb0f912347dca7a917bcaf8eaad8e20d162</hash>
+         <file>..\src\common\include\ahb_api_mpu.h</file>
+         <hash>fdac12b05374b7212a371899427cd2b7c684cfa708766d084437417387c0750b</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\tfdp.h</file>
-         <hash>7c229cc659f1dd0a3e635e0e57d4999dee48af010ae028a1248450dee7cb6573</hash>
+         <file>..\src\common\include\common.h</file>
+         <hash>944eac4d408ddef3025de9acaa25fd2cd97e7df46575426bc58e4a31e63b6d3c</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan02.h</file>
-         <hash>87e330f8e477f93de026d7b740fed970999d1760ef2c1386409abe172c172ff0</hash>
-      </entry>
-      <entry>
-         <file>..\src\kernel\app.h</file>
-         <hash>df1c8fa4147804d87784584f67c89e0bcb6787a3cfc9ce18a535f357bea22ff9</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct_common.h</file>
-         <hash>8590272a68bb0f4426a57ccee1342c99f7ddd62bd4db4d63cc9593dc780a3eda</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\qmspi.h</file>
-         <hash>70dcfc104d50c1277cb15f5ebe1a2f9978b05467d2568a9aa2ec3a501a5c29f0</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spt1.h</file>
-         <hash>296f59d1035a4ac976810bd53d5faafb9262f65645d5d5ece5ce08528c1e646c</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\interrupt\interrupt_api.c</file>
-         <hash>505e68ffa6faba560622ada2e629e3b7fb883524e1b8accf766515c146fa52d3</hash>
+         <file>..\src\common\include\pmci.h</file>
+         <hash>51953be159c867cb3f22252e2789ca4c007d28f65ead48cb9a00474d88968de5</hash>
       </entry>
       <entry>
          <file>..\src\common\include\rom_api_mpu.h</file>
          <hash>6c94b9221e50d582b2a06de869896efb2e51a7208fe4e1b3ed0b23e6b91ad270</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\smb.h</file>
-         <hash>a833f3fe04531ad4967534b51355fe9cbd6f350bc7090817bc996fb65564e65f</hash>
+         <file>..\src\common\include\secureboot_app.ld</file>
+         <hash>66e631546e3e37437da246bd3c6e0e7f133aab55c7fca022985b87a1e1b4b90a</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb0_slave.c</file>
-         <hash>ad3a90c43aebb343d69f81dc9a70d2786f4290d5b392b92c56f8a7bda7b4ddb3</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
+         <hash>728c11117788f168cca48e4bfa4f778f3b9a12c5a9f431d072d4fa1d8b1112a1</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\ec_reg_bank.h</file>
-         <hash>921af70012a5537b66bd4359513bd00717b39124fcf816fd27143c4da2d8043f</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device.h</file>
+         <hash>dee6c8aee1f1fe38340fc80d0ec4fb3a03c3837a69178fae520fb77317b06410</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device_cache.h</file>
+         <hash>e2914501b361bbc93a56d6915b1bf4fac00277e61f31fdee87a587bc15dea5b6</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device_vectors.h</file>
+         <hash>64d0518ba00cbb7fd62f13ce95c364677fdb4eea4781129d93a7177306260127</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\exceptions.c</file>
+         <hash>887ebb647a339393c5f6e5adf42edc62038fe31f8401b9c077a8808f6a101aa6</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
+         <hash>2cf2e238c91db539b5d239fe08002bec62a0d0752eeba0eb22094d288067d045</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.c</file>
+         <hash>a3e18b71ec118ad3f0d2ea3101cf0e25a6d612f9fda0fcf406f8834f90ba7999</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.h</file>
+         <hash>5e75c3e5ff05c2433390072eca236211fcd4f057f477d295d90dcebd5e72fd15</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_LIB\secureboot_LIB.a</file>
+         <hash>4849d87480d5948971ecf152bdc2252529e7a902aa047e19b2bc5f97f1cc2b93</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
+         <hash>abd6b7798bf94e684a49b140ca3c612c913693c5930d3b8a173d4cd31428b375</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp.h</file>
+         <hash>df405526af35315d2399e6db1790f928a3105637f388824f2462c2119e69224c</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.c</file>
+         <hash>4d45f31437b581404f297a196deaef24cceddbe3f56c19054b921de2e1acdb6e</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.h</file>
+         <hash>9eedef2ac79ce9b88e2b27d116ed590348c6e71b1c7bc4911419548a6b4c2383</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_common.h</file>
+         <hash>317e5a68deabac59a952771e747b8e166ddc7a1b122263d82a73d5d30d3bce6d</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_config.h</file>
+         <hash>d644ed7f01927fb91594a971348aaf7b17f9a3ca2011c30e3ee2f22cf9f6037a</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_control.c</file>
@@ -9632,236 +9941,216 @@
          <hash>db639395d2b9457185b732302dce0902ccabaaf02ccc8277e9a0258011fe81af</hash>
       </entry>
       <entry>
-         <file>..\src\oem\oem_task1\oem_task1.c</file>
-         <hash>f31a4571f51032d3e39a300daf6bf8aede9ebe158ae9eee6017fc92f38f3b469</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.c</file>
+         <hash>1f056364fb5465db18fb891eab10a41070b46f3acde83c4b9e79b514981c8c68</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb0_slave.h</file>
-         <hash>96fa159150b914474a11137f98cf6c9c6cfc14a06eb56e964f5c1c76fa95b646</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.h</file>
+         <hash>a83cf0b4b9235065255faf4a0883438497a6d21af12eb82584fd4d5575094b13</hash>
       </entry>
       <entry>
-         <file>..\src\oem\oem_task1\oem_task1.h</file>
-         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_task.c</file>
+         <hash>7104572f1d9478bd5d14a7d9a2cd78d621ccb36c361d0eeca388014d4a051529</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.c</file>
-         <hash>a2a4b20bd19f6fe111d2e9c5310619ccfef4cc026077ec05c07df7ea379732d0</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_task.h</file>
+         <hash>d8ad99140418431ebaf349f77a981112aee3f6953cccf14eaed825deb29956ac</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\cec1736_s0_2zw.h</file>
-         <hash>48026476ea9fe08c1ac0e7b14a2a424e1b85afda29f88e61f2e135a078e9e21d</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.c</file>
+         <hash>662055efbc9c4698ed71ad217b8864878fb20467ba712d06bc8243e37dcd457f</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.c</file>
-         <hash>81e4474d5cd156b1c5ca2003de9095497cfef47c7066dde5d6401e9a364b944d</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.h</file>
+         <hash>83ec4e2394cc8427b03036205419251c0e5c3c2a521accb4cfa74ae815efe864</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.h</file>
-         <hash>3ed3f52e16248881afc0020850f4a2e15bb93756d3dfe6cab88fe3dc7638f1ed</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct_common.h</file>
+         <hash>8590272a68bb0f4426a57ccee1342c99f7ddd62bd4db4d63cc9593dc780a3eda</hash>
       </entry>
       <entry>
-         <file>..\src\startup\startup.h</file>
-         <hash>ba15663dadd40ea0f1667e0c8f095871e9a6da072b48808dd0b8b6b2389b8997</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\dma\plib_dma.c</file>
+         <hash>267f5a17d38d83cc8f308bc6d1c1075f30371770c9b16db8b83836f627b64f2a</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
-         <hash>de1b5eb9ed566527b66dc06f4ecb6a43ab6800f7dac47e87c9cb42984dca41bb</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h</file>
-         <hash>d074534d7106cec83474b3b0a897bd2553e1a8895ecbd54f4f4fb25928066eee</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\uart\uart_api.h</file>
-         <hash>a705da4e12ddb085803f492ddf2029f9706e4f45c1b8c1cbd730eda3570f8caa</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm.h</file>
-         <hash>2f98451967750ce86f098cdd9abd23ad50f867649cf9fa9c8fc9042ed0101127</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\wdt.h</file>
-         <hash>2667dbfda86461dbd46054572e1a468ed1527b325d52d3418b015ae9adcb5e9c</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.h</file>
-         <hash>2c9362d756e7eb85a372cb915d4158c94dd3746b1e605d4f57a7d7439aa9a53b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\uart.h</file>
-         <hash>4c521b19bf50dd1df0d740f05f775a4142d066adb78088321e2433b8fe5bf6d3</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\uart\uart_api.c</file>
-         <hash>6315943aa9ae3221774c80a63dcbec49ea5011cc4979e270c9fba29e704a63dd</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\dma\plib_dma.h</file>
+         <hash>43909df3a5bbd92822dd99f3b5cf53593655725015c376133c9ab7e715691ae2</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.c</file>
          <hash>670141a9c754945286fa18cf6f92e348b2b35cd43ef730177ec2548de183ee40</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pcr.h</file>
-         <hash>78105183630fc265db00399eac79cd039afe06d782c130fcbca5c41674b8c922</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ec_reg_bank\plib_ec_reg_bank.h</file>
+         <hash>2c9362d756e7eb85a372cb915d4158c94dd3746b1e605d4f57a7d7439aa9a53b</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan09.h</file>
-         <hash>ac55c0c9f0a854adcb187b65be3467974e0051e2b44e336f1cfae743e27974a4</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
+         <hash>a8a74371432ab7f8b7042f71cddd0c8089fb6719563b7ada2c86b2b7020eac80</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.h</file>
-         <hash>190e1bd0408903165cfd7d653154ad1ec654db0068a178fab69323c1058ae17a</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\vtr_reg_bank.h</file>
-         <hash>2d47f9412b6d7ede9d4ff057f0390739553727b92b277a7af41e7df362793dcc</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h</file>
-         <hash>11b39b96ddc1125124762b3423a77b90dd40ea5b4582a3513830245046b24311</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\qmspi1.h</file>
-         <hash>443df03b0670b0685536a1d0a91e6daaa3630eb2944af2a75facabc7e1068c1b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan01.h</file>
-         <hash>68aeea78eb2c0e29b626c66382a7216967e84d442d290328a1488dd708479bc6</hash>
-      </entry>
-      <entry>
-         <file>..\src\startup\startup_CEC173x.S</file>
-         <hash>0b8b9ae80d8a908465995c2a5ce8f3f4421983cfea4b4cff4a0c2321eee3c646</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb1_master_slave_common.h</file>
-         <hash>4fd44330663b99841b646de596f5290a6444f096f83dd6be75fcbc5d00c904bb</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\gpio\plib_gpio.h</file>
-         <hash>de0f188990341817aee0ff15e6e237826cf76ed5e5a8660b22dc175e1beadde3</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb4.h</file>
-         <hash>ffbc55c3d469b99b257e85e1cdbd5a843767a638bba09abb26ae9192bca2e859</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.h</file>
+         <hash>119494e64f0b967845fa6ebcc09e1d6c8713d03b7eba396f027359800cdbc9ac</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\gpio\plib_gpio.c</file>
          <hash>c3279f133bcdf9bc92f13f6814c6285b566de0d3dbd9b6089a716cfdbb7e1a23</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb3_slave.c</file>
-         <hash>455531fc652901bf835d4fbd39d923b026e4025aa255631894e0e5553a4b65eb</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\timer32_1.h</file>
-         <hash>896770201ba600fabadebff79a2ca6de1ca2e0cfb7ffe1aac2c04170ba7412fc</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led0.h</file>
-         <hash>c36fdf8a7bfb11aaede2f1ffc658ceee3ac95933e8732756f509ec639640e893</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\htm.h</file>
-         <hash>dc1b734829b0f8d4b005731e2ae93007aa5dc937e8b1dd1fa0168c25cf02dbe3</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb1_master_slave_common.c</file>
-         <hash>7f590b5ab6a4b88816a65b4d32bf8724f6b1f79d338d20824ff0f474445df90e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb3_slave.h</file>
-         <hash>628ba1dccd6c19f63819439329de68dda96e473f5506747132d85e1c54e61a63</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.h</file>
-         <hash>7db70d58e89143c3087025bb4dff3c58f3663dfc1b32e66ec9fcd504ace88b97</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.c</file>
-         <hash>739b68c31f2c922910c815144fb67be824bf68faa5b45e46ed4c1d1d20ec38c4</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.c</file>
-         <hash>384fc31afe1dfd677cbc3ff92d228b199ff0616f76f1ef28fb1d9757d4e7f761</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\pcr.h</file>
-         <hash>98e8c65937e21b0d2cef7be422ca7142446bcd74cffbaa79ad55dadff92cdee5</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\toolchain_specifics.h</file>
-         <hash>c93f9d68b1623668727be21b4449250a7e4a5d7040776d6f6d604a7528ffc9eb</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.h</file>
-         <hash>8166c9a81b237043d01e3c06da45006fcb7e9da83eecc685a5346ce1babb097d</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb_slave_common.h</file>
-         <hash>c7d98d8fc7352c3682070c7b46f9fbd9c390c7fcec1a2f0a3b942ab49d6ace20</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\imspi.h</file>
-         <hash>ba9a824f3b93401aeb88b70329112f5c998385df644d510c8352fee3ddbb43f0</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\ec_reg_bank.h</file>
-         <hash>7a8b0e6d777d900d9508e86f3446f248242545443e7918a3fcfd1944d51f6339</hash>
-      </entry>
-      <entry>
-         <file>..\src\common\include\common.h</file>
-         <hash>944eac4d408ddef3025de9acaa25fd2cd97e7df46575426bc58e4a31e63b6d3c</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
-         <hash>3822a371ead8c8148cf0cfc51f3c6c7c9c2fd1371d7317bc6f268bb361380ea4</hash>
-      </entry>
-      <entry>
-         <file>..\src\data_iso\data_iso_checks_rom_api.h</file>
-         <hash>cc40d009beac342f7700aef82f3ed1ea125ecef96d3ada3b85b396d2e6615ac0</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\gpio\plib_gpio.h</file>
+         <hash>de0f188990341817aee0ff15e6e237826cf76ed5e5a8660b22dc175e1beadde3</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb0_master.c</file>
          <hash>47ce2a439cce88e9844ef41da811975304342b9ee01bc82be2d770950e3618ed</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\nvic\plib_nvic.c</file>
-         <hash>6e265ca4844a45d9fe42a7a20b26b3acd4b8a8debec9162bb56b7a8ad51aab84</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan02.h</file>
-         <hash>9fad9902ab1606a18a62242f147628b12edfdfdcc6fa620b2a90a0a98067c12b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\ecia.h</file>
-         <hash>b3076c39cae8bb0bc0dd7283cd2ffe3435e674ed280fd6bd3ea22d9a769fdaee</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
-         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\nvic\plib_nvic.h</file>
-         <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
-      </entry>
-      <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb0_master.h</file>
          <hash>b204dd0a4048cb9bf1f088d0d46da1c0a8d1cb8605a5ce5456f1f7ff2e1b1f2b</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\qmspi0.h</file>
-         <hash>e7babf37689c3bb018f4317c85a8c09e63e1e191f25aaef46a29a93ad822cf80</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb1_master.c</file>
+         <hash>177575e733c94acd0207af9aed17d2d35c40aefad7de62d0da19fb6965cabc35</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device_vectors.h</file>
-         <hash>64d0518ba00cbb7fd62f13ce95c364677fdb4eea4781129d93a7177306260127</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb1_master.h</file>
+         <hash>5f8462e1704067bf998359f3cf036f0dc690ee51b1adc66c5d69141517c3ccaf</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device.h</file>
-         <hash>dee6c8aee1f1fe38340fc80d0ec4fb3a03c3837a69178fae520fb77317b06410</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.c</file>
+         <hash>a2a4b20bd19f6fe111d2e9c5310619ccfef4cc026077ec05c07df7ea379732d0</hash>
       </entry>
       <entry>
-         <file>..\src\common\include\secureboot_app.ld</file>
-         <hash>66e631546e3e37437da246bd3c6e0e7f133aab55c7fca022985b87a1e1b4b90a</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb2_master.h</file>
+         <hash>3ed3f52e16248881afc0020850f4a2e15bb93756d3dfe6cab88fe3dc7638f1ed</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb3_master.c</file>
+         <hash>67206a3b50c70151c9cf98f4bbc928f1150ae0599a38832153b0230b5fd5e806</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb3_master.h</file>
+         <hash>e271cfe782ca5a16a00fead046d894afbfc55372d0976a65fdfdae3982fc94ca</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.c</file>
+         <hash>739b68c31f2c922910c815144fb67be824bf68faa5b45e46ed4c1d1d20ec38c4</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb4_master.h</file>
+         <hash>8166c9a81b237043d01e3c06da45006fcb7e9da83eecc685a5346ce1babb097d</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb_master_common.h</file>
+         <hash>7afad4c36b2c24a03a369813447acbe45ab100dea8d6da3ff77ee009844f2998</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smb_common.c</file>
+         <hash>217d40fd159304cdfee04b1dabfc46c99333c5fa4ac7419851188509806ca34d</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smb_common.h</file>
+         <hash>9e8a4b7a1064726cdd4f94c50285ea758b5404566c9487f605e4eb5b809609ca</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smbus_lowlevel_intf.c</file>
+         <hash>ec67b291c790ec4e038fbdd1063972781fd4891f1ee053d70b01d03c7f7b8ef9</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smbus_lowlevel_intf.h</file>
+         <hash>693ef4d8c86110dbf3b0682ea4625ccdd7c2c923264dd15172b29cede3f24a36</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb0_master_slave_common.c</file>
+         <hash>0a23773473ad452872403fde09c8a017a09b503b2cfe651cea49dbdd81f7bdfe</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb0_master_slave_common.h</file>
+         <hash>46ec0357ed1355f77311fc9b4dfc6813c3187b7b8603d19d28c3fac96f81bb40</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb1_master_slave_common.c</file>
+         <hash>7f590b5ab6a4b88816a65b4d32bf8724f6b1f79d338d20824ff0f474445df90e</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb1_master_slave_common.h</file>
+         <hash>4fd44330663b99841b646de596f5290a6444f096f83dd6be75fcbc5d00c904bb</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
+         <hash>f0d63b81cb2de46e20cb16d3fa501444ee22ff76c87235f70d19dac93fb070c7</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.h</file>
+         <hash>b577b15ecb683e0eff95839ec1de1623a497d4eda7ce741bedd6403db19b62dc</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb3_master_slave_common.c</file>
+         <hash>4f038039cd0c09d42e57a707ace07ee692025027f871d4e1cdb9ccfcb8782cbd</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb3_master_slave_common.h</file>
+         <hash>c728945a5d4c04a6ead5ce0e15776e6de9fba4286bf3dc525d973011c8e9c33a</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb4_master_slave_common.c</file>
+         <hash>de528fadeed22526fff83421169b539e7561a6a2a86955911a44c06d44a3b9f1</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb4_master_slave_common.h</file>
+         <hash>766a01236f1d8a49c0b16294414c4321e498bd21fa57088b9bfce7542c15c1a8</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb0_slave.c</file>
+         <hash>ad3a90c43aebb343d69f81dc9a70d2786f4290d5b392b92c56f8a7bda7b4ddb3</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb0_slave.h</file>
+         <hash>96fa159150b914474a11137f98cf6c9c6cfc14a06eb56e964f5c1c76fa95b646</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb1_slave.c</file>
+         <hash>9d189e51605b9af2c6edfcd0b735a6a1ea249ee0d3f793f634a0b9ede41fb983</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb1_slave.h</file>
+         <hash>39385d1ea77ccbcf699825f688470422ec1307197e9cadd985d97e52a88be107</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb2_slave.c</file>
+         <hash>ce42bfc7e74574bae4ebeaf0ad5db9f71e07ae39ea1704a08a96c8335b60b4c9</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb2_slave.h</file>
+         <hash>17f8584abd3b98ed08a0e3e581da083bb2c97c640ec93403e3773a306d2d6db9</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb3_slave.c</file>
+         <hash>455531fc652901bf835d4fbd39d923b026e4025aa255631894e0e5553a4b65eb</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb3_slave.h</file>
+         <hash>628ba1dccd6c19f63819439329de68dda96e473f5506747132d85e1c54e61a63</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb4_slave.c</file>
+         <hash>d7f9aa704388bc6ad0819dc4dcd6d3bed5c01f4538c17dc7c6d2ba330239ba0f</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb4_slave.h</file>
+         <hash>7485e6e76755e928a4fd4422a005d956b7706f41141c0575079f0c70873240aa</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb_slave_common.h</file>
+         <hash>c7d98d8fc7352c3682070c7b46f9fbd9c390c7fcec1a2f0a3b942ab49d6ace20</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\nvic\plib_nvic.c</file>
+         <hash>6e265ca4844a45d9fe42a7a20b26b3acd4b8a8debec9162bb56b7a8ad51aab84</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\nvic\plib_nvic.h</file>
+         <hash>81e813a093101d546799e00723cbf7245e2d18471fa51c8d130c5809cecca03e</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pcr\plib_pcr.c</file>
@@ -9872,508 +10161,128 @@
          <hash>6acc5666fa1478c6855d7724276eb7f707ac7b57c624cba3d47681975813b2d7</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\otp.h</file>
-         <hash>efa64b09a377fa8ee8993e06eaf4e43f9f68a493569397367502d82aaa7dcf43</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.c</file>
+         <hash>384fc31afe1dfd677cbc3ff92d228b199ff0616f76f1ef28fb1d9757d4e7f761</hash>
       </entry>
       <entry>
-         <file>..\src\common\include\pmci.h</file>
-         <hash>51953be159c867cb3f22252e2789ca4c007d28f65ead48cb9a00474d88968de5</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi_common.h</file>
-         <hash>8deafc019bdfedd3ce1d4a89b03205adfc010da4b6e773ce2e17560769b99101</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.h</file>
-         <hash>83ec4e2394cc8427b03036205419251c0e5c3c2a521accb4cfa74ae815efe864</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang_ltm.h</file>
-         <hash>8621969ea669a1b230ff2125a760ef66d575c48cb45e9e457f768909abcbda46</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\cct\plib_cct.c</file>
-         <hash>662055efbc9c4698ed71ad217b8864878fb20467ba712d06bc8243e37dcd457f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.h</file>
-         <hash>e24b4c703a8420e18bb03c9b9d5e1d7db1dbf275fe5ecb9aeb3e94e581694e46</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart_common.h</file>
-         <hash>09bacbcb0b6be07f8e880b6f3970073441788a474fa194cf5682f16b3e28c34c</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_task.c</file>
-         <hash>7104572f1d9478bd5d14a7d9a2cd78d621ccb36c361d0eeca388014d4a051529</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\qmspi\qmspi_api.c</file>
-         <hash>5426c1d03ab11a6b6d2c7f8b887edde1445be92494a1951cc4cf5ddb1a0ba470</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.c</file>
-         <hash>837accea01fc67d702cfd68c5f2a1a1d46da26963c9b1dc244bda0b49a4a7b69</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.c</file>
-         <hash>4d45f31437b581404f297a196deaef24cceddbe3f56c19054b921de2e1acdb6e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_task.h</file>
-         <hash>d8ad99140418431ebaf349f77a981112aee3f6953cccf14eaed825deb29956ac</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\qmspi\qmspi_api.h</file>
-         <hash>4884f9b7a324035a40cd55309749e395399862db0d074ec5dd1c733552b263fd</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_base.h</file>
-         <hash>9eedef2ac79ce9b88e2b27d116ed590348c6e71b1c7bc4911419548a6b4c2383</hash>
-      </entry>
-      <entry>
-         <file>..\src\common\debug\serial.c</file>
-         <hash>10f82a62766302e7c1945c77afff9161b45f15b273378e87aa156e48c1df3208</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\imspi.h</file>
-         <hash>8e9a832476fa56a4a1384f329d554cebae759469f27eb530838d3aed8f427bf5</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\rtos.h</file>
-         <hash>9b87c5db308fd2b897a4ba635f760eeee0014c138226c814259455de670cfcbb</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan03.h</file>
-         <hash>ad4ee0014b9aa1e6e187737aa1482ae5483e54122ced8be9a9ab45c873675b64</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_config.h</file>
-         <hash>d644ed7f01927fb91594a971348aaf7b17f9a3ca2011c30e3ee2f22cf9f6037a</hash>
-      </entry>
-      <entry>
-         <file>..\src\common\include\ahb_api_mpu.h</file>
-         <hash>fdac12b05374b7212a371899427cd2b7c684cfa708766d084437417387c0750b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan01.h</file>
-         <hash>0d822df8d8fd8b6bf2b3fbb5bdb82157f085a9e79db67f8f3e070ff407b454f4</hash>
-      </entry>
-      <entry>
-         <file>..\src\common\include\FreeRTOS.h</file>
-         <hash>aaa06da7b0411b30180900dcba81cfd4fef5c9862c5cf3e3eb2bc883010013a9</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\wdt.h</file>
-         <hash>b6e2aa14202dea7531e0a784841b5b000f0c051fdc6de31d456d48e8b35c67e9</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.h</file>
-         <hash>a83cf0b4b9235065255faf4a0883438497a6d21af12eb82584fd4d5575094b13</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_smbus.c</file>
-         <hash>1f056364fb5465db18fb891eab10a41070b46f3acde83c4b9e79b514981c8c68</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb3_master.h</file>
-         <hash>e271cfe782ca5a16a00fead046d894afbfc55372d0976a65fdfdae3982fc94ca</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\device_cache.h</file>
-         <hash>e2914501b361bbc93a56d6915b1bf4fac00277e61f31fdee87a587bc15dea5b6</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb3_master.c</file>
-         <hash>67206a3b50c70151c9cf98f4bbc928f1150ae0599a38832153b0230b5fd5e806</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\ecia.h</file>
-         <hash>7a18b329005695a42440097b11c8d8c8d73becfb7d3d0415f9bb5c4a6388aaba</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pwm.h</file>
-         <hash>92ad7dc3050475a134c5124211171eb714ef768014f3583bacc3563636540a63</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\uart0.h</file>
-         <hash>aefbc825f1025419d72e99daaabc2871f9520ecb610e0b40d57277f19c48de9c</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.h</file>
-         <hash>b577b15ecb683e0eff95839ec1de1623a497d4eda7ce741bedd6403db19b62dc</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb1_slave.h</file>
-         <hash>39385d1ea77ccbcf699825f688470422ec1307197e9cadd985d97e52a88be107</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_LIB\secureboot_LIB.a</file>
-         <hash>4849d87480d5948971ecf152bdc2252529e7a902aa047e19b2bc5f97f1cc2b93</hash>
-      </entry>
-      <entry>
-         <file>..\src\oem\oem_task2\oem_task2.h</file>
-         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\tfdp.h</file>
-         <hash>6d2ea36d4fe3d6ee907e5785ff854dbb6e90d22c2cecbbcc6a58b6a4ba69211a</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\library\secureboot_app_lib\secureboot_app_lib.a</file>
-         <hash>abd6b7798bf94e684a49b140ca3c612c913693c5930d3b8a173d4cd31428b375</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb2_master_slave_common.c</file>
-         <hash>f0d63b81cb2de46e20cb16d3fa501444ee22ff76c87235f70d19dac93fb070c7</hash>
-      </entry>
-      <entry>
-         <file>..\src\oem\oem_task2\oem_task2.c</file>
-         <hash>68abe08f05c4c3398ebe77f495989cdd58efd5c32de7ee96f8cc8ff3fbc092ea</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb1_slave.c</file>
-         <hash>9d189e51605b9af2c6edfcd0b735a6a1ea249ee0d3f793f634a0b9ede41fb983</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\htm1.h</file>
-         <hash>f2a99383807804d85cf2aef73564c603d9acbc7c91650877d3646e5225d6ce56</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
-         <hash>6cdb5b324f2fd1bb5b2f47298ba6e6777e735d7cad3bb8d942cd36e2c6e65328</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.c</file>
-         <hash>a8a74371432ab7f8b7042f71cddd0c8089fb6719563b7ada2c86b2b7020eac80</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\initialization.c</file>
-         <hash>2cf2e238c91db539b5d239fe08002bec62a0d0752eeba0eb22094d288067d045</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
-         <hash>2ce3911a8ddde745bf439de213807abb8701ef8916a1f97d92ed68810482fc2e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.h</file>
-         <hash>4a0782f3cf6a351a8f24d991a088c5d96425e303539c1625bf581b19af46a86a</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\ecia\plib_ecia.h</file>
-         <hash>119494e64f0b967845fa6ebcc09e1d6c8713d03b7eba396f027359800cdbc9ac</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.c</file>
-         <hash>4278fad6bbc0fb4ffee4827229f281e16b09cac1b4f2734677c94337edd50008</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan06.h</file>
-         <hash>601d49619205b47a10e70cb509f4c1d169303b48ed5086b0c3cfe7246c7f744d</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spi_mon0.h</file>
-         <hash>c837ee5e4a51c03d8466a83bc9f6fa8f4c7cf72ab4882ccd40ed119129452adc</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb4_master_slave_common.h</file>
-         <hash>766a01236f1d8a49c0b16294414c4321e498bd21fa57088b9bfce7542c15c1a8</hash>
-      </entry>
-      <entry>
-         <file>..\src\common\debug\trace.h</file>
-         <hash>136c0c13173805e0ef5229c465c41987ffad6819959ac85692a4be68a748986b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan00.h</file>
-         <hash>d6c7606d5eead8a28c738bc291dda6a651b32ae0816dcd0fd14b62f2d4e88ea7</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb4_master_slave_common.c</file>
-         <hash>de528fadeed22526fff83421169b539e7561a6a2a86955911a44c06d44a3b9f1</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\gcr.h</file>
-         <hash>52fe7f43c80347da7df15d951bd3817bba4f902a33e260af9baf4c92286a9aeb</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb4_slave.h</file>
-         <hash>7485e6e76755e928a4fd4422a005d956b7706f41141c0575079f0c70873240aa</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb1.h</file>
-         <hash>3e00efae5805dcce1294aadd3034813bb6750ed0a152df6969558be073baed9b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_main.h</file>
-         <hash>c98a2121024a003803285963859c741548bb1ab6ff65db12a84cd7d95b69da9d</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\spi_mon.h</file>
-         <hash>8bb0704ba35a437b648835713a13156e67c71f8934c1abf889ddce759eae1abd</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb4_slave.c</file>
-         <hash>d7f9aa704388bc6ad0819dc4dcd6d3bed5c01f4538c17dc7c6d2ba330239ba0f</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\exceptions.c</file>
-         <hash>887ebb647a339393c5f6e5adf42edc62038fe31f8401b9c077a8808f6a101aa6</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\pwm0.h</file>
-         <hash>9659ddbb573e3d350887637ef95d81d5f310a31bc2b95d6a2bd0af21f7f0c428</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\cct.h</file>
-         <hash>28233802f7dad68aa45a7fbf960612a0ad3080c6d9d5c5eedfcb5654676f80ae</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp_common.h</file>
-         <hash>317e5a68deabac59a952771e747b8e166ddc7a1b122263d82a73d5d30d3bce6d</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\gcr.h</file>
-         <hash>9136e2d6dd4e3fc8c5117f921a167a173d8720cc51ecae0f1af3fe45b95d592b</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm0.h</file>
+         <hash>7db70d58e89143c3087025bb4dff3c58f3663dfc1b32e66ec9fcd504ace88b97</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\pwm\plib_pwm_common.h</file>
          <hash>ae6f076e19568a03c5ba4a7c733d4c4c6fb860c4cbd2f6edc1ce87068a641997</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\env_mon.h</file>
-         <hash>1fa61ff2b59a5c0893f43a96b43dee663e8ca00a62054544b00ee2db7eb8cc2e</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.h</file>
-         <hash>0c100dcd29a18d8d4a5173d60f5c290ecf260619143c684482b864ec0d795e71</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan05.h</file>
-         <hash>a4df7730574d81598f1ea829a6395bd91d39f1df49c55e82921d095c119b62cc</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.c</file>
-         <hash>a10ad3d2014942c9ed7806632810f7bbf1ff6a163a2f883857224ccd2ab00991</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\spt.h</file>
-         <hash>42077dbaa9ee47db9dc0d21cba7914a7e5cf7df1c0f60842190a0d8b9d0b08b5</hash>
-      </entry>
-      <entry>
-         <file>..\src\platform\platform.h</file>
-         <hash>fd82e2003040b017b882068f9556423c38ac0745bd5f902f420a476aebb563b7</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.c</file>
-         <hash>a3e18b71ec118ad3f0d2ea3101cf0e25a6d612f9fda0fcf406f8834f90ba7999</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\rtos.h</file>
-         <hash>462e34fc98cb05ce4ea6ba906e6f870da6e5ed1ae4bdba719fb66d2dc96dd720</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_compiler.h</file>
-         <hash>869640702d811c4c63abb52206715c891a93fd03be954df5ad40d378355af3d6</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\cct.h</file>
-         <hash>9073b9f86be064e437db20f56a36f4b4daebae017789f1f41f1593ad4c597067</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\interrupts.h</file>
-         <hash>5e75c3e5ff05c2433390072eca236211fcd4f057f477d295d90dcebd5e72fd15</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart0.h</file>
-         <hash>fa0f375f610270ac8e8050d56753410607f4b729ea005186d89a508120f6dbe1</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb0.h</file>
-         <hash>9556cd9536b4299e7274d863b22942671428bef7d9e9c635e230d35a9ce5ae95</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart0.c</file>
-         <hash>8c0dd4c92176bb0dca1d3bf72c68a9eaa21761a83768813660ad02478172d1ac</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\gpio\gpio_api.h</file>
-         <hash>eb996efb66173d7557b65a7ebfbc4c1197cc20b9e8098f70f3a31a9ef5d499d4</hash>
-      </entry>
-      <entry>
-         <file>..\src\hal\gpio\gpio_api.c</file>
-         <hash>509842da1297f2749e07b800178a1e221f008a9f7ce77df869efdd2ccd4a9097</hash>
-      </entry>
-      <entry>
-         <file>..\src\main.c</file>
-         <hash>d3c233d419e6304bfacbafc18cc68c0f5c26e365f23b20ea40ccfac458f664c5</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_main.h</file>
-         <hash>38b320f730d1096a5f4713750b9d97f32fc0e742d73147f7166ed1ef02125393</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\vtr_reg_bank.h</file>
-         <hash>b3dd586567e2c646a1daeafb4b5bf6086287d7d2cbab93da8154eda419ee0d3b</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
-         <hash>d59a9e3ed4cf43a3c74a2e48f344d41be2b6363ef9394ea2c551052fe553a6af</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_config.h</file>
-         <hash>ddbe2d491b3f395ef9b3a13077a21a37cb5d63ee5b87ad3b9d20454c49824ecd</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\gpio.h</file>
-         <hash>1c3af5a2858a2d0113cf46ae609eccd6331899a2cb136975c96a1058d398c2d5</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi0.c</file>
+         <hash>630dc225ec4b5bf0e64c6dd6aeef7aa4c83c0a24a85cdb11a8f0cb76823560f7</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi0.h</file>
          <hash>6fff2a8d90263ad77b889e2abd5fa7acbd01ab8eeb6976f7d9b40636515df361</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan08.h</file>
-         <hash>b172ac448a7db3265beb983a092e2e27ad4916e50ef22caab270089ee31f4253</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.c</file>
+         <hash>a10ad3d2014942c9ed7806632810f7bbf1ff6a163a2f883857224ccd2ab00991</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\pio\cec1736_s0_2zw.h</file>
-         <hash>cb1a6545de583462c9a02df7eabed6fb95f57e0e130ad4505c7e4f8b720b1c8f</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi1.h</file>
+         <hash>0c100dcd29a18d8d4a5173d60f5c290ecf260619143c684482b864ec0d795e71</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi0.c</file>
-         <hash>630dc225ec4b5bf0e64c6dd6aeef7aa4c83c0a24a85cdb11a8f0cb76823560f7</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\qmspi\plib_qmspi_common.h</file>
+         <hash>8deafc019bdfedd3ce1d4a89b03205adfc010da4b6e773ce2e17560769b99101</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smbus_lowlevel_intf.c</file>
-         <hash>ec67b291c790ec4e038fbdd1063972781fd4891f1ee053d70b01d03c7f7b8ef9</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart0.c</file>
+         <hash>8c0dd4c92176bb0dca1d3bf72c68a9eaa21761a83768813660ad02478172d1ac</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\timer32.h</file>
-         <hash>32e6624eaee61c1bef769c9799e8f27d564c0dd887c1d3a70aec59569bcbc6b4</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart0.h</file>
+         <hash>fa0f375f610270ac8e8050d56753410607f4b729ea005186d89a508120f6dbe1</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smbus_lowlevel_intf.h</file>
-         <hash>693ef4d8c86110dbf3b0682ea4625ccdd7c2c923264dd15172b29cede3f24a36</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\uart\plib_uart_common.h</file>
+         <hash>09bacbcb0b6be07f8e880b6f3970073441788a474fa194cf5682f16b3e28c34c</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\otp.h</file>
-         <hash>61224f15814f21de61ef2a17ea5cab11bb5242a5d8f044c0f6360ec629cf8712</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.c</file>
+         <hash>4278fad6bbc0fb4ffee4827229f281e16b09cac1b4f2734677c94337edd50008</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan00.h</file>
-         <hash>f6c518624df6d23529e9b7afe2d4a97466952130ee7be52c008a1131ae3eda02</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\wdt\plib_wdt.h</file>
+         <hash>4a0782f3cf6a351a8f24d991a088c5d96425e303539c1625bf581b19af46a86a</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_iccarm.h</file>
-         <hash>f28119adbc81fb0e3c957c9aebe8fb423ad93634e76ead3caa2b0818d2e123ae</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm.h</file>
+         <hash>2f98451967750ce86f098cdd9abd23ad50f867649cf9fa9c8fc9042ed0101127</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\definitions.h</file>
-         <hash>728c11117788f168cca48e4bfa4f778f3b9a12c5a9f431d072d4fa1d8b1112a1</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.c</file>
+         <hash>837accea01fc67d702cfd68c5f2a1a1d46da26963c9b1dc244bda0b49a4a7b69</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
-         <hash>3ea208d3efa6af31e48518142c9c1332edf8319c0eeaf1a69160b201d4e7c367</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_common.h</file>
+         <hash>e24b4c703a8420e18bb03c9b9d5e1d7db1dbf275fe5ecb9aeb3e94e581694e46</hash>
       </entry>
       <entry>
-         <file>..\src\oem\oem_task3\oem_task3.h</file>
-         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_config.h</file>
+         <hash>ddbe2d491b3f395ef9b3a13077a21a37cb5d63ee5b87ad3b9d20454c49824ecd</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\timer32_0.h</file>
-         <hash>1064d776218df22f31cc072a9ecfcafaa88fc5c3ca3b4d99041b359a485d4802</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.c</file>
+         <hash>81e4474d5cd156b1c5ca2003de9095497cfef47c7066dde5d6401e9a364b944d</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb3.h</file>
-         <hash>1bac8068145751ae6f58d6709ee8fae67bd910b6926badc71c07473647ab36e4</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_pkt_prcs.h</file>
+         <hash>190e1bd0408903165cfd7d653154ad1ec654db0068a178fab69323c1058ae17a</hash>
       </entry>
       <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\led.h</file>
-         <hash>d85f75fba3f16850a99137f8b45d6f0222f691301301f7bc461c01b2cadeb975</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb2_slave.h</file>
-         <hash>17f8584abd3b98ed08a0e3e581da083bb2c97c640ec93403e3773a306d2d6db9</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb1_master.c</file>
-         <hash>177575e733c94acd0207af9aed17d2d35c40aefad7de62d0da19fb6965cabc35</hash>
-      </entry>
-      <entry>
-         <file>..\src\oem\oem_task3\oem_task3.c</file>
-         <hash>05e5600893336b26090b39768e4188d61a019c253d0132b5350d1e3a0a36fe9d</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb1_master.h</file>
-         <hash>5f8462e1704067bf998359f3cf036f0dc690ee51b1adc66c5d69141517c3ccaf</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\slave\plib_smb2_slave.c</file>
-         <hash>ce42bfc7e74574bae4ebeaf0ad5db9f71e07ae39ea1704a08a96c8335b60b4c9</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\master\plib_smb_master_common.h</file>
-         <hash>7afad4c36b2c24a03a369813447acbe45ab100dea8d6da3ff77ee009844f2998</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\htm0.h</file>
-         <hash>2427e59103783586db796ce3310d25ce89681a09deeb5b6098ad7a83a5b5acae</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb0_master_slave_common.h</file>
-         <hash>46ec0357ed1355f77311fc9b4dfc6813c3187b7b8603d19d28c3fac96f81bb40</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
-         <hash>afbe3c9cfa7fe56455cb0288eb3f51b16579eafbc660931cf64311438f8a35a3</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spi_mon1.h</file>
-         <hash>8437d2cd6f476925ad23f4945893b37e432b6a9455bc0085d07453761ca88170</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\dma\plib_dma.c</file>
-         <hash>267f5a17d38d83cc8f308bc6d1c1075f30371770c9b16db8b83836f627b64f2a</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_smb0_master_slave_common.c</file>
-         <hash>0a23773473ad452872403fde09c8a017a09b503b2cfe651cea49dbdd81f7bdfe</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\dma\plib_dma.h</file>
-         <hash>43909df3a5bbd92822dd99f3b5cf53593655725015c376133c9ab7e715691ae2</hash>
-      </entry>
-      <entry>
-         <file>..\src\platform\irqhandler.c</file>
-         <hash>1f2475f4bd2b7a5ce02452da723ff465b1ae04709a2d0d6b81127356553224de</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\mctp\mctp.h</file>
-         <hash>df405526af35315d2399e6db1790f928a3105637f388824f2462c2119e69224c</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\gpio.h</file>
-         <hash>5b4581730ed3d5d51746fd0cb107266629969d9dbf0fe3db1fb71175a6ffbc0a</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smb_common.h</file>
-         <hash>9e8a4b7a1064726cdd4f94c50285ea758b5404566c9487f605e4eb5b809609ca</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb2.h</file>
-         <hash>58677bcb21b477e2e82babaf909268df25347b06b89570933afd16293e2f3a57</hash>
-      </entry>
-      <entry>
-         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spt0.h</file>
-         <hash>de133899b3846781c17fe00c078330ef6a50f4f3b17adef1b530243bee10416b</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\peripheral\i2c\plib_i2c_smb_common.c</file>
-         <hash>217d40fd159304cdfee04b1dabfc46c99333c5fa4ac7419851188509806ca34d</hash>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_task.c</file>
+         <hash>d44684d35ea55563dba42095d61d413876fca26292fa24a9f84058afa3301024</hash>
       </entry>
       <entry>
          <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_task.h</file>
          <hash>6174104d10cd9549c8eeac21fca54750ad6e9570cee3405bce752d36dca05e7a</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\cec1736_s0_2zw_ev19k07a\toolchain_specifics.h</file>
+         <hash>c93f9d68b1623668727be21b4449250a7e4a5d7040776d6f6d604a7528ffc9eb</hash>
+      </entry>
+      <entry>
+         <file>..\src\data_iso\data_iso_checks_rom_api.h</file>
+         <hash>cc40d009beac342f7700aef82f3ed1ea125ecef96d3ada3b85b396d2e6615ac0</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\gpio\gpio_api.c</file>
+         <hash>509842da1297f2749e07b800178a1e221f008a9f7ce77df869efdd2ccd4a9097</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\gpio\gpio_api.h</file>
+         <hash>eb996efb66173d7557b65a7ebfbc4c1197cc20b9e8098f70f3a31a9ef5d499d4</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\interrupt\interrupt_api.c</file>
+         <hash>505e68ffa6faba560622ada2e629e3b7fb883524e1b8accf766515c146fa52d3</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\interrupt\interrupt_api.h</file>
+         <hash>d47a98c12506d6c1925076bd51b91cb0f912347dca7a917bcaf8eaad8e20d162</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\qmspi\qmspi_api.c</file>
+         <hash>5426c1d03ab11a6b6d2c7f8b887edde1445be92494a1951cc4cf5ddb1a0ba470</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\qmspi\qmspi_api.h</file>
+         <hash>4884f9b7a324035a40cd55309749e395399862db0d074ec5dd1c733552b263fd</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\uart\uart_api.c</file>
+         <hash>6315943aa9ae3221774c80a63dcbec49ea5011cc4979e270c9fba29e704a63dd</hash>
+      </entry>
+      <entry>
+         <file>..\src\hal\uart\uart_api.h</file>
+         <hash>a705da4e12ddb085803f492ddf2029f9706e4f45c1b8c1cbd730eda3570f8caa</hash>
       </entry>
       <entry>
          <file>..\src\hal\vtr_mon\vtr_mon_api.c</file>
@@ -10384,8 +10293,376 @@
          <hash>92274d0fac5d59e2af5370604371f58d8a5294569ee2bbc4a6cf08fc68f8a0b5</hash>
       </entry>
       <entry>
-         <file>..\src\config\cec1736_s0_2zw_ev19k07a\spdm\spdm_task.c</file>
-         <hash>d44684d35ea55563dba42095d61d413876fca26292fa24a9f84058afa3301024</hash>
+         <file>..\src\kernel\app.h</file>
+         <hash>df1c8fa4147804d87784584f67c89e0bcb6787a3cfc9ce18a535f357bea22ff9</hash>
+      </entry>
+      <entry>
+         <file>..\src\main.c</file>
+         <hash>d3c233d419e6304bfacbafc18cc68c0f5c26e365f23b20ea40ccfac458f664c5</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task1\oem_task1.c</file>
+         <hash>f31a4571f51032d3e39a300daf6bf8aede9ebe158ae9eee6017fc92f38f3b469</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task1\oem_task1.h</file>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task2\oem_task2.c</file>
+         <hash>68abe08f05c4c3398ebe77f495989cdd58efd5c32de7ee96f8cc8ff3fbc092ea</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task2\oem_task2.h</file>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task3\oem_task3.c</file>
+         <hash>05e5600893336b26090b39768e4188d61a019c253d0132b5350d1e3a0a36fe9d</hash>
+      </entry>
+      <entry>
+         <file>..\src\oem\oem_task3\oem_task3.h</file>
+         <hash>e562a0cd53ba9027f376f2838182c20abdb715fa36dfa70180c21e90284fe492</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\cec1736_s0_2zw.h</file>
+         <hash>48026476ea9fe08c1ac0e7b14a2a424e1b85afda29f88e61f2e135a078e9e21d</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\cct.h</file>
+         <hash>9073b9f86be064e437db20f56a36f4b4daebae017789f1f41f1593ad4c597067</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan00.h</file>
+         <hash>d6c7606d5eead8a28c738bc291dda6a651b32ae0816dcd0fd14b62f2d4e88ea7</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan01.h</file>
+         <hash>0d822df8d8fd8b6bf2b3fbb5bdb82157f085a9e79db67f8f3e070ff407b454f4</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_chan02.h</file>
+         <hash>9fad9902ab1606a18a62242f147628b12edfdfdcc6fa620b2a90a0a98067c12b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\dma_main.h</file>
+         <hash>38b320f730d1096a5f4713750b9d97f32fc0e742d73147f7166ed1ef02125393</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\ec_reg_bank.h</file>
+         <hash>921af70012a5537b66bd4359513bd00717b39124fcf816fd27143c4da2d8043f</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\ecia.h</file>
+         <hash>b3076c39cae8bb0bc0dd7283cd2ffe3435e674ed280fd6bd3ea22d9a769fdaee</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\env_mon.h</file>
+         <hash>1fa61ff2b59a5c0893f43a96b43dee663e8ca00a62054544b00ee2db7eb8cc2e</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\gcr.h</file>
+         <hash>52fe7f43c80347da7df15d951bd3817bba4f902a33e260af9baf4c92286a9aeb</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\gpio.h</file>
+         <hash>5b4581730ed3d5d51746fd0cb107266629969d9dbf0fe3db1fb71175a6ffbc0a</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\htm.h</file>
+         <hash>dc1b734829b0f8d4b005731e2ae93007aa5dc937e8b1dd1fa0168c25cf02dbe3</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\imspi.h</file>
+         <hash>8e9a832476fa56a4a1384f329d554cebae759469f27eb530838d3aed8f427bf5</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\led.h</file>
+         <hash>d85f75fba3f16850a99137f8b45d6f0222f691301301f7bc461c01b2cadeb975</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\otp.h</file>
+         <hash>61224f15814f21de61ef2a17ea5cab11bb5242a5d8f044c0f6360ec629cf8712</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pcr.h</file>
+         <hash>78105183630fc265db00399eac79cd039afe06d782c130fcbca5c41674b8c922</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\pwm.h</file>
+         <hash>92ad7dc3050475a134c5124211171eb714ef768014f3583bacc3563636540a63</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\qmspi.h</file>
+         <hash>70dcfc104d50c1277cb15f5ebe1a2f9978b05467d2568a9aa2ec3a501a5c29f0</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\rtos.h</file>
+         <hash>9b87c5db308fd2b897a4ba635f760eeee0014c138226c814259455de670cfcbb</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\smb.h</file>
+         <hash>a833f3fe04531ad4967534b51355fe9cbd6f350bc7090817bc996fb65564e65f</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\spi_mon.h</file>
+         <hash>8bb0704ba35a437b648835713a13156e67c71f8934c1abf889ddce759eae1abd</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\spt.h</file>
+         <hash>42077dbaa9ee47db9dc0d21cba7914a7e5cf7df1c0f60842190a0d8b9d0b08b5</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\tfdp.h</file>
+         <hash>7c229cc659f1dd0a3e635e0e57d4999dee48af010ae028a1248450dee7cb6573</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\timer32.h</file>
+         <hash>32e6624eaee61c1bef769c9799e8f27d564c0dd887c1d3a70aec59569bcbc6b4</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\uart.h</file>
+         <hash>4c521b19bf50dd1df0d740f05f775a4142d066adb78088321e2433b8fe5bf6d3</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\vtr_reg_bank.h</file>
+         <hash>2d47f9412b6d7ede9d4ff057f0390739553727b92b277a7af41e7df362793dcc</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\component\wdt.h</file>
+         <hash>b6e2aa14202dea7531e0a784841b5b000f0c051fdc6de31d456d48e8b35c67e9</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\cct.h</file>
+         <hash>28233802f7dad68aa45a7fbf960612a0ad3080c6d9d5c5eedfcb5654676f80ae</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan00.h</file>
+         <hash>f6c518624df6d23529e9b7afe2d4a97466952130ee7be52c008a1131ae3eda02</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan01.h</file>
+         <hash>68aeea78eb2c0e29b626c66382a7216967e84d442d290328a1488dd708479bc6</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan02.h</file>
+         <hash>87e330f8e477f93de026d7b740fed970999d1760ef2c1386409abe172c172ff0</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan03.h</file>
+         <hash>ad4ee0014b9aa1e6e187737aa1482ae5483e54122ced8be9a9ab45c873675b64</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan04.h</file>
+         <hash>3822a371ead8c8148cf0cfc51f3c6c7c9c2fd1371d7317bc6f268bb361380ea4</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan05.h</file>
+         <hash>a4df7730574d81598f1ea829a6395bd91d39f1df49c55e82921d095c119b62cc</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan06.h</file>
+         <hash>601d49619205b47a10e70cb509f4c1d169303b48ed5086b0c3cfe7246c7f744d</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan07.h</file>
+         <hash>afbe3c9cfa7fe56455cb0288eb3f51b16579eafbc660931cf64311438f8a35a3</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan08.h</file>
+         <hash>b172ac448a7db3265beb983a092e2e27ad4916e50ef22caab270089ee31f4253</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_chan09.h</file>
+         <hash>ac55c0c9f0a854adcb187b65be3467974e0051e2b44e336f1cfae743e27974a4</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\dma_main.h</file>
+         <hash>c98a2121024a003803285963859c741548bb1ab6ff65db12a84cd7d95b69da9d</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\ec_reg_bank.h</file>
+         <hash>7a8b0e6d777d900d9508e86f3446f248242545443e7918a3fcfd1944d51f6339</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\ecia.h</file>
+         <hash>7a18b329005695a42440097b11c8d8c8d73becfb7d3d0415f9bb5c4a6388aaba</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\env_mon.h</file>
+         <hash>2ce3911a8ddde745bf439de213807abb8701ef8916a1f97d92ed68810482fc2e</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\gcr.h</file>
+         <hash>9136e2d6dd4e3fc8c5117f921a167a173d8720cc51ecae0f1af3fe45b95d592b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\gpio.h</file>
+         <hash>1c3af5a2858a2d0113cf46ae609eccd6331899a2cb136975c96a1058d398c2d5</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\htm0.h</file>
+         <hash>2427e59103783586db796ce3310d25ce89681a09deeb5b6098ad7a83a5b5acae</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\htm1.h</file>
+         <hash>f2a99383807804d85cf2aef73564c603d9acbc7c91650877d3646e5225d6ce56</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\imspi.h</file>
+         <hash>ba9a824f3b93401aeb88b70329112f5c998385df644d510c8352fee3ddbb43f0</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led0.h</file>
+         <hash>c36fdf8a7bfb11aaede2f1ffc658ceee3ac95933e8732756f509ec639640e893</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\led1.h</file>
+         <hash>3ea208d3efa6af31e48518142c9c1332edf8319c0eeaf1a69160b201d4e7c367</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\otp.h</file>
+         <hash>efa64b09a377fa8ee8993e06eaf4e43f9f68a493569397367502d82aaa7dcf43</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\pcr.h</file>
+         <hash>98e8c65937e21b0d2cef7be422ca7142446bcd74cffbaa79ad55dadff92cdee5</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\pwm0.h</file>
+         <hash>9659ddbb573e3d350887637ef95d81d5f310a31bc2b95d6a2bd0af21f7f0c428</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\qmspi0.h</file>
+         <hash>e7babf37689c3bb018f4317c85a8c09e63e1e191f25aaef46a29a93ad822cf80</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\qmspi1.h</file>
+         <hash>443df03b0670b0685536a1d0a91e6daaa3630eb2944af2a75facabc7e1068c1b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\rtos.h</file>
+         <hash>462e34fc98cb05ce4ea6ba906e6f870da6e5ed1ae4bdba719fb66d2dc96dd720</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb0.h</file>
+         <hash>9556cd9536b4299e7274d863b22942671428bef7d9e9c635e230d35a9ce5ae95</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb1.h</file>
+         <hash>3e00efae5805dcce1294aadd3034813bb6750ed0a152df6969558be073baed9b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb2.h</file>
+         <hash>58677bcb21b477e2e82babaf909268df25347b06b89570933afd16293e2f3a57</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb3.h</file>
+         <hash>1bac8068145751ae6f58d6709ee8fae67bd910b6926badc71c07473647ab36e4</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\smb4.h</file>
+         <hash>ffbc55c3d469b99b257e85e1cdbd5a843767a638bba09abb26ae9192bca2e859</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spi_mon0.h</file>
+         <hash>c837ee5e4a51c03d8466a83bc9f6fa8f4c7cf72ab4882ccd40ed119129452adc</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spi_mon1.h</file>
+         <hash>8437d2cd6f476925ad23f4945893b37e432b6a9455bc0085d07453761ca88170</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spt0.h</file>
+         <hash>de133899b3846781c17fe00c078330ef6a50f4f3b17adef1b530243bee10416b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\spt1.h</file>
+         <hash>296f59d1035a4ac976810bd53d5faafb9262f65645d5d5ece5ce08528c1e646c</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\tfdp.h</file>
+         <hash>6d2ea36d4fe3d6ee907e5785ff854dbb6e90d22c2cecbbcc6a58b6a4ba69211a</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\timer32_0.h</file>
+         <hash>1064d776218df22f31cc072a9ecfcafaa88fc5c3ca3b4d99041b359a485d4802</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\timer32_1.h</file>
+         <hash>896770201ba600fabadebff79a2ca6de1ca2e0cfb7ffe1aac2c04170ba7412fc</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\uart0.h</file>
+         <hash>aefbc825f1025419d72e99daaabc2871f9520ecb610e0b40d57277f19c48de9c</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\vtr_reg_bank.h</file>
+         <hash>b3dd586567e2c646a1daeafb4b5bf6086287d7d2cbab93da8154eda419ee0d3b</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\instance\wdt.h</file>
+         <hash>2667dbfda86461dbd46054572e1a468ed1527b325d52d3418b015ae9adcb5e9c</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CEC1736_S0_2ZW_DFP\pio\cec1736_s0_2zw.h</file>
+         <hash>cb1a6545de583462c9a02df7eabed6fb95f57e0e130ad4505c7e4f8b720b1c8f</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
+         <hash>6cdb5b324f2fd1bb5b2f47298ba6e6777e735d7cad3bb8d942cd36e2c6e65328</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h</file>
+         <hash>d074534d7106cec83474b3b0a897bd2553e1a8895ecbd54f4f4fb25928066eee</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang.h</file>
+         <hash>11b39b96ddc1125124762b3423a77b90dd40ea5b4582a3513830245046b24311</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armclang_ltm.h</file>
+         <hash>8621969ea669a1b230ff2125a760ef66d575c48cb45e9e457f768909abcbda46</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_compiler.h</file>
+         <hash>869640702d811c4c63abb52206715c891a93fd03be954df5ad40d378355af3d6</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_gcc.h</file>
+         <hash>3d4e265d0aa42f888385ccf073666e6ebb5ec9f834760b9da27c474e177f708d</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_iccarm.h</file>
+         <hash>f28119adbc81fb0e3c957c9aebe8fb423ad93634e76ead3caa2b0818d2e123ae</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_version.h</file>
+         <hash>2de01ae2556a38eb82c389de23c701805ec63308cfbcf3f84cb12141589b0858</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\core_cm4.h</file>
+         <hash>d59a9e3ed4cf43a3c74a2e48f344d41be2b6363ef9394ea2c551052fe553a6af</hash>
+      </entry>
+      <entry>
+         <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
+         <hash>de1b5eb9ed566527b66dc06f4ecb6a43ab6800f7dac47e87c9cb42984dca41bb</hash>
+      </entry>
+      <entry>
+         <file>..\src\platform\irqhandler.c</file>
+         <hash>1f2475f4bd2b7a5ce02452da723ff465b1ae04709a2d0d6b81127356553224de</hash>
+      </entry>
+      <entry>
+         <file>..\src\platform\platform.h</file>
+         <hash>fd82e2003040b017b882068f9556423c38ac0745bd5f902f420a476aebb563b7</hash>
+      </entry>
+      <entry>
+         <file>..\src\startup\startup.h</file>
+         <hash>ba15663dadd40ea0f1667e0c8f095871e9a6da072b48808dd0b8b6b2389b8997</hash>
+      </entry>
+      <entry>
+         <file>..\src\startup\startup_CEC173x.S</file>
+         <hash>0b8b9ae80d8a908465995c2a5ce8f3f4421983cfea4b4cff4a0c2321eee3c646</hash>
       </entry>
    </generatedFileHashHistoryMap>
 </config>
