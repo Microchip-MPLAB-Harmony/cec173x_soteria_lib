@@ -3,6 +3,39 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## CEC173x_soteria_source Release v3.2.1
+    
+### New Features
+
+  - None
+
+### Bug fixes
+
+  - Fix SPIM MON IMD RESET Mode unable to detect 3b/4b mode change and causing false violation as side effect 
+  - Alignment in Linker script fixed
+  - Fix AP1_RESET always low in bypass mode
+
+### Improvements
+
+  - Moved isr vectors outside privilege function region
+  - Disabled unused FreeRTOS APIs
+  - Disabled few more unused FreeRTOS features
+
+### Known Issues
+
+  - None
+
+### Development Tools
+
+For CEC173x family of devices:
+
+  - [MPLAB® X IDE v6.05](https://www.microchip.com/mplab/mplab-x-ide)
+  - [MPLAB® XC32 C/C++ Compiler v4.21](https://www.microchip.com/mplab/compilers)
+
+### Notes
+
+  -  None
+  
 ## CEC173x_soteria_lib Release v3.2.0
 
 ### New Features
@@ -49,7 +82,7 @@ For CEC173x family of devices:
 
 ### Notes
 
--  None
+  -  None
 
 ## CEC173x_soteria_lib Release v3.1.0
 
