@@ -33,7 +33,7 @@ PLDM_BSS2_ATTR uint8_t pldm_request_firmware_update;
 PLDM_BSS2_ATTR MCTP_PKT_BUF *mctp_buf_tx1 = MCTP_NULL;
 PLDM_BSS2_ATTR uint32_t offset;
 PLDM_BSS2_ATTR uint32_t len;
-extern PLDM_BSS1_ATTR uint8_t get_mctp_pld[PLDM_MAX_PAYLOAD_BUFF_SIZE]__attribute__((aligned(8)));
+PLDM_BSS2_ATTR uint8_t get_mctp_pkt[PLDM_MAX_PAYLOAD_BUFF_SIZE]__attribute__((aligned(8)));
 PLDM_BSS1_ATTR uint32_t pldm_packet_size;
 PLDM_BSS2_ATTR bool received_1024b_for_flash_write;
 PLDM_BSS1_ATTR uint32_t offset_for_flash;
@@ -46,7 +46,7 @@ PLDM_BSS2_ATTR REQUEST_PASS_COMPONENT_TABLE request_pass_component_table;
 PLDM_BSS0_ATTR uint8_t buffer[1024];
 PLDM_BSS1_ATTR uint8_t pldm_pkt_seq_mctp;
 PLDM_BSS1_ATTR bool pldm_first_pkt;
-extern PLDM_BSS1_ATTR uint8_t curr_ec_id;
+extern PLDM_BSS1_ATTR uint8_t pldm_curr_ec_id;
 PLDM_BSS1_ATTR uint16_t total_length;
 PLDM_BSS1_ATTR uint16_t offset_for_data;
 
@@ -239,7 +239,8 @@ void pldm_pkt_handle_request_update(MCTP_PKT_BUF *pldm_buf_tx, PLDM_CONTEXT *pld
     MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
     pldm_msg_rx_buf = (MCTP_PKT_BUF *) &pldm_pktbuf_rx;
 
-    memcpy(&request_update, &(get_mctp_pld[0]), PLDM_REQUEST_UPDATE_DATA_LEN);
+    memcpy(&request_update, &(get_mctp_pkt[0]), PLDM_REQUEST_UPDATE_DATA_LEN);
+
     if (request_update.max_transfer_size < ONE_KB)
     {
         size_supported_by_UA = request_update.max_transfer_size;
@@ -298,9 +299,8 @@ void pldm_pkt_handle_pass_component_table(MCTP_PKT_BUF *pldm_buf_tx, PLDM_CONTEX
     MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
     pldm_msg_rx_buf = (MCTP_PKT_BUF *) &pldm_pktbuf_rx;
 
-    memcpy(&request_pass_component_table, &(get_mctp_pld[0]), sizeof(REQUEST_PASS_COMPONENT_TABLE));
+    memcpy(&request_pass_component_table, &(get_mctp_pkt[0]), sizeof(REQUEST_PASS_COMPONENT_TABLE));
     
-
     pldm_buf_tx->pkt.data[PLDM_HEADER_VERSION_PLDM_TYPE_POS] = PLDM_HDR_VERSION_PLDM_FW_UPDATE_TYPE;
     pldm_buf_tx->pkt.data[PLDM_HEADER_COMMAND_CODE_POS] = PLDM_PASS_COMPONENT_TABLE_REQ;
 
@@ -376,8 +376,8 @@ void pldm_pkt_handle_update_component(MCTP_PKT_BUF *pldm_buf_tx, PLDM_CONTEXT *p
     MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
     pldm_msg_rx_buf = (MCTP_PKT_BUF *) &pldm_pktbuf_rx;
     uint8_t image_id, ap, comp, ht_num, ht_id;
-    memcpy(&request_update_component, &(get_mctp_pld[0]), PLDM_UPDATE_COMP_REQUEST_SIZE);
     
+    memcpy(&request_update_component, &(get_mctp_pkt[0]), PLDM_UPDATE_COMP_REQUEST_SIZE);
 
     pldm_buf_tx->pkt.data[PLDM_HEADER_VERSION_PLDM_TYPE_POS] = PLDM_HDR_VERSION_PLDM_FW_UPDATE_TYPE;
     pldm_buf_tx->pkt.data[PLDM_HEADER_COMMAND_CODE_POS] = PLDM_UPDATE_COMPONENT_REQ;
@@ -551,13 +551,13 @@ void pldm_pkt_process_request_firmware_update_response(void)
     {
         if (received_1024b_for_flash_write == true)
         {
-            fn_ret =  pldm_write_firmware_data(request_update_component.comp_identifier, &get_mctp_pld[0], offset_for_flash);
+            fn_ret =  pldm_write_firmware_data(request_update_component.comp_identifier, &get_mctp_pkt[0], offset_for_flash);
             if(fn_ret)
             {
                 return;
             }
 
-            memset(get_mctp_pld, 0, size_supported_by_UA);
+            memset(get_mctp_pkt, 0, size_supported_by_UA);
             received_1024b_for_flash_write = false;
             offset_for_flash = offset_for_flash + size_supported_by_UA;
             number_of_1024b_requests = number_of_1024b_requests + 1;
@@ -724,8 +724,7 @@ void pldm_pkt_handle_activate_firmware(MCTP_PKT_BUF *pldm_buf_tx, PLDM_CONTEXT *
     MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
     pldm_msg_rx_buf = (MCTP_PKT_BUF *) &pldm_pktbuf_rx;
 
-    memcpy(&request_activate_firmware, &get_mctp_pld[0], PLDM_REQUEST_ACTIVATE_FIRMWARE_LEN);
-
+    memcpy(&request_activate_firmware, &get_mctp_pkt[0], PLDM_REQUEST_ACTIVATE_FIRMWARE_LEN);
 
     pldm_buf_tx->pkt.data[PLDM_HEADER_VERSION_PLDM_TYPE_POS] = PLDM_HDR_VERSION_PLDM_FW_UPDATE_TYPE;
     pldm_buf_tx->pkt.data[PLDM_HEADER_COMMAND_CODE_POS] = PLDM_ACTIVATE_FIRMWARE_REQ;
@@ -1490,7 +1489,7 @@ void pldm_pkt_populate_mctp_packet_for_resp(MCTP_PKT_BUF *pldm_buf_tx, MCTP_PKT_
     /* destination eid */
     mctp_buf->pkt.field.hdr.dst_eid   = pldmContext->pldm_host_eid;
     /* source eid = eid of self/EC */
-    mctp_buf->pkt.field.hdr.src_eid = curr_ec_id;
+    mctp_buf->pkt.field.hdr.src_eid = pldm_curr_ec_id;
     /* message tag */
     /* for req/response packet */
     if (req_bit)
@@ -1745,8 +1744,7 @@ void pldm_pkt_rcv_packet()
                     pldmContext->pldm_tx_state = PLDM_TX_IDLE;
                     pldmContext->pldm_current_request_length = 0;
                     memset(pldm_buf_tx, 0, MCTP_PKT_BUF_DATALEN);
-                    memset(get_mctp_pld, 0, PLDM_MAX_PAYLOAD_BUFF_SIZE);
-
+                    memset(get_mctp_pkt, 0, PLDM_MAX_PAYLOAD_BUFF_SIZE);
                 }
             }
         }
@@ -1795,8 +1793,7 @@ uint8_t pldm_pkt_fill_buffer(MCTP_PKT_BUF *pldm_msg_rx_buf, PLDM_CONTEXT *pldmCo
     //buffer the pldm payload to 1K input buffer from mctp input buffer
     for(i = 0; i < len; i++)
     {
-        get_mctp_pld[pkt_cnt + i] = pldm_msg_rx_buf->pkt.data[offset + i]; //Take only the pldm msg payload
-
+        get_mctp_pkt[pkt_cnt + i] = pldm_msg_rx_buf->pkt.data[offset + i]; //Take only the pldm msg payload
     }
 
     if(pldmContext->pldm_tx_state == PLDM_PACKETIZING)
@@ -1893,8 +1890,7 @@ void PLDMResp_timer_callback(TimerHandle_t pxTimer)
         return;
     }
     pkt_cnt = 0;
-    memset(get_mctp_pld, 0, PLDM_MAX_PAYLOAD_BUFF_SIZE);
-    
+    memset(get_mctp_pkt, 0, PLDM_MAX_PAYLOAD_BUFF_SIZE);
     if (PLDMResp_timer_started)
     {
         pldm_response_timeout_stop();

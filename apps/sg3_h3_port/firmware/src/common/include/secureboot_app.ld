@@ -48,7 +48,7 @@ smb_bss_size_                         = 2K;
 led_bss_size_                        = 2K;
 shared_bss_size_                     = 2K;
 spimon_bss1_size_                     = 1K;
-spdm_bss2_size_                     = 2K;
+spdm_bss2_size_                     = 4K;
 spimon_bss2_size_                   = 1K;
 i2c_bss1_size_                      = 4K;
 rpmc_header_data_size_              = 2K;
@@ -277,6 +277,16 @@ SECTIONS
     __etext = ALIGN (4);
 
     /*************** BSS sections start **************/        
+    .spdm_bss2 (0xFE000) :
+    {
+        . = ALIGN(4);
+        __bss_start__ = .;
+        spdm_bss2_start = .;
+        *(spdm_bss2*)
+        *(pldm_bss2*)
+        . = spdm_bss2_start + spdm_bss2_size_;
+        spdm_bss2_end = .;
+    } > rom
 
     .smb_bss0 (0x100000) :  
     {    
@@ -497,17 +507,16 @@ SECTIONS
         i2c_bss1_end = .;
     }>ram
 
-    .spdm_bss2 (i2c_bss1_end) (NOLOAD) :
+    .spimon_bss2 (i2c_bss1_end) (NOLOAD) :
     {
         . = ALIGN(4);
-        spdm_bss2_start = .;
-        *(spdm_bss2*)
-        *(pldm_bss2*)
-        . = spdm_bss2_start + spdm_bss2_size_;
-        spdm_bss2_end = .;    
-    }
+        spimon_bss2_start = .;
+        *(spimon_bss2*)
+        . = spimon_bss2_start + spimon_bss2_size_;
+        spimon_bss2_end = .;
+    } >ram
 
-    .privileged_bss3 (spdm_bss2_end) (NOLOAD) :
+    .privileged_bss3 (spimon_bss2_end) (NOLOAD) :
     {
         __privileged_bss3_start__ = .;
         *(privileged_bss3*)
@@ -515,18 +524,7 @@ SECTIONS
         __privileged_bss3_end__ = .;
     }>ram
     
-
-
-    .spimon_bss2 (__privileged_bss3_end__) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        spimon_bss2_start = .;
-        *(spimon_bss2*)
-        . = spimon_bss2_start + spimon_bss2_size_;
-        spimon_bss2_end = .;       
-    } >ram
-
-    .privileged_bss4 (spimon_bss2_end) (NOLOAD) :
+    .privileged_bss4 (__privileged_bss3_end__) (NOLOAD) :
     {
         __privileged_bss4_start__ = .;
         *(privileged_bss4*)
