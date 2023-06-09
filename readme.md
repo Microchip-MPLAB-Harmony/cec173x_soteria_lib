@@ -19,12 +19,12 @@ This content can also be downloaded using content manager by following these [in
 
 # Contents Summary
 
-| Folder     | Description                                                                    |
-| ---        | ---                                                                            |
-| apps       | Contains Soteria-G3 library application projects                               |
-| config     | Soteria G3 library module configuration scripts                                |
-| docs       | Soteria secureboot solution library help documentation                         |
-| libraries  | Contains Soteria secure-boot solution firmware library and dependent libraries |
+| Folder     | Description                                                                    								|
+| ---        | ---                                                                           								|
+| apps       | Contains Soteria-G3 library application projects            								                    |
+| config     | Soteria G3 library module configuration scripts                                								|
+| docs       | Soteria secureboot solution library help documentation - Refer for links to utilities and test images        |
+| libraries  | Contains Soteria secure-boot solution firmware library and dependent libraries 								|
 
 ## Code Examples
 
