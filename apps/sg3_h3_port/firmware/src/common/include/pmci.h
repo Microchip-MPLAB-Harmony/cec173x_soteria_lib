@@ -285,6 +285,11 @@ bool di_pldm_sb_apcfg_apcfg_update_info_get(uint8_t image_id,
         uint32_t* staged_addr, uint32_t* restore_addr);
 bool di_pldm_sb_apcfg_byte_match_info_get(uint16_t comp_iden, uint32_t *staged_addr, uint32_t *restore_addr, 
             uint32_t *tagx_addr, uint8_t *img_id);
+bool di_pldm_sb_apcfg_apfw_img_info_get(uint16_t comp_iden, uint32_t *staged_addr, uint32_t *restore_addr, 
+            uint32_t *tagx_addr, uint8_t *img_id);
+bool di_pldm_sb_apcfg_apfw_img_staged_addr_get(uint16_t comp_iden, uint32_t *staged_addr);
+uint8_t di_pldm_sb_get_number_of_apfw_images(void);
+
 uint8_t spdm_di_sb_core_i2c_ec_fw_update_start(uint32_t staged_addr, uint8_t FW_type, uint32_t restore_addr,
         uint32_t max_img_size,
         uint8_t ecfw_image_id, uint32_t tagx_addr, bool is_pldm, bool failure_recovery_cap, uint8_t ht_id);

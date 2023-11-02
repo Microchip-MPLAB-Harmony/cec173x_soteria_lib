@@ -21,7 +21,7 @@ PLDM_BSS1_ATTR uint32_t spi_address_flash_write;
 PLDM_BSS1_ATTR uint32_t update_comp_image_size;
 PLDM_BSS1_ATTR uint16_t tag0FWNum;
 PLDM_BSS1_ATTR uint16_t tag1FWNum;
-PLDM_BSS1_ATTR uint8_t spi_select_configured;
+PLDM_BSS1_ATTR UINT8 spi_select_configured;
 PLDM_BSS1_ATTR uint8_t FW_type;
 
 extern PLDM_BSS1_ATTR bool failure_recovery_cap;
@@ -36,6 +36,7 @@ extern BUILD_INFO_T const sb_build_info __attribute__((section("build_info")));
 extern void timer_delay_ms(uint32_t num_ms);
 
 PLDM_BSS1_ATTR uint32_t copy_data_offset;
+extern PLDM_BSS1_ATTR uint8_t pldm_flash_busy;
 
 /******************************************************************************/
 /** pldm_get_AP_custom_configs_from_apcfg();
@@ -176,6 +177,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
     uint16_t crisis_rec_version = PLDM_CRISIS_BA_VERSION;
     uint8_t no_of_byte_match_int_spi_support = 0U, supported_idx = 0U; //byte match int flash update
     uint32_t ascii_conv;
+    uint8_t no_of_apfw_images_supported = 0;
 
     if (sg3_state == SG3_POSTAUTH) { 
         no_of_HT_support_AP0C0 = di_pldm_sb_get_number_of_ht(0);
@@ -183,6 +185,8 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
         no_of_HT_support_AP1C0 = di_pldm_sb_get_number_of_ht(2);
         no_of_HT_support_AP1C1 = di_pldm_sb_get_number_of_ht(3);
         no_of_byte_match_int_spi_support = di_pldm_sb_get_number_of_byte_match_int();
+        no_of_apfw_images_supported = di_pldm_sb_get_number_of_apfw_images();
+
         SRAM_RLOG_API_tag0_buildnum_read((uint8_t*)&tag0FWNum);
         SRAM_RLOG_API_tag0_buildnum_read((uint8_t*)&tag1FWNum);
         if(efuse_read_data(TOO_CONTAINER_STATE, &container_state, 1)) {
@@ -196,7 +200,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
 
         buf_ptr->component_count = PLDM_NUMBER_OF_COMPONENTS_SUPPORTED + 
                             no_of_HT_support_AP0C0 + no_of_HT_support_AP0C1 + no_of_HT_support_AP1C0 + 
-                            no_of_HT_support_AP1C1 + no_of_ECFW_KHB + no_of_byte_match_int_spi_support;
+                            no_of_HT_support_AP1C1 + no_of_ECFW_KHB + no_of_byte_match_int_spi_support + no_of_apfw_images_supported;
         buf_ptr->active_comp_image_set_version_string_type = ASCII;
         buf_ptr->active_comp_image_set_version_string_length = ASCII_SIZE;
         buf_ptr->pending_comp_image_set_version_string_type = ASCII;
@@ -320,7 +324,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
         {
             if (i > SB_HASH_TABLE2 && di_pldm_sb_get_use_c1_ht_for_c0(AP_0))
             {
-                buf_ptr->comp_parameter[n].comp_identifier = PLDM_COMP_IDENTIFIER_HT0_AP0C0 + m;
+                buf_ptr->comp_parameter[n].comp_identifier = PLDM_COMP_IDENTIFIER_HT0_AP0C1 + m;
                 if(safe_add_8(m, 1U, &m) == 0U) // INT30-C, INT31-C
                 {
                 }
@@ -339,8 +343,6 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
             } else {
                 buf_ptr->comp_parameter[n].comp_classification = PLDM_DEFAULT_COMP_CLASSIFICATION;
             }
-
-            buf_ptr->comp_parameter[n].comp_identifier = PLDM_COMP_IDENTIFIER_HT0_AP0C0 + i;
             buf_ptr->comp_parameter[n].comp_classification_index = 0x00;
             buf_ptr->comp_parameter[n].active_comp_comparison_stamp = 0x00000000;
             buf_ptr->comp_parameter[n].active_comp_version_string_type = UTF16;
@@ -365,7 +367,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
                 // handle error
             }
         }
-
+        m= 0;
         for (j = 0; j < no_of_HT_support_AP0C1; j++)
         {
             if (pldm_apcfg_override_comp_classification()) {
@@ -547,6 +549,43 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
             memset(buf_ptr->comp_parameter[n].active_comp_release_date, 0, 8);
             buf_ptr->comp_parameter[n].pending_comp_comparison_stamp = 0x00000000;
             buf_ptr->comp_parameter[n].pending_comp_version_string_type = UTF16;
+            buf_ptr->comp_parameter[n].pending_comp_version_string_length = COMP_STRING_TYPE_SIZE;
+            memset(buf_ptr->comp_parameter[n].pending_comp_release_date, 0, 8);
+
+            buf_ptr->comp_parameter[n].comp_activation_methods = PLDM_COMP_ACTIVATION_SUPPORTED;
+
+            buf_ptr->comp_parameter[n].cap_during_update = 0x00000000;
+            memcpy(buf_ptr->comp_parameter[n].pending_comp_version_string, pending_comp_string, COMP_STRING_TYPE_SIZE);
+            if(safe_add_8(n, 1U, &n) == 0U) // INT30-C, INT31-C
+            {
+            }
+            else
+            {
+                // handle error
+            }
+        }
+        b = 0;
+        // AP_FW image  
+        for (b = 0; b < no_of_apfw_images_supported; b++) 
+        {
+            if (pldm_apcfg_override_comp_classification()) {
+                buf_ptr->comp_parameter[n].comp_classification = pldm_apcfg_component_classification();
+            } else {
+                buf_ptr->comp_parameter[n].comp_classification = PLDM_DEFAULT_COMP_CLASSIFICATION;
+            }
+
+            if (pldm_ap_cfg.apfw_image_details[b].is_present) {
+                buf_ptr->comp_parameter[n].comp_identifier = (PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE  | (pldm_ap_cfg.apfw_image_details[b].comp_img_id) |
+                                                                        (pldm_ap_cfg.apfw_image_details[b].comp_id << 4) | (pldm_ap_cfg.apfw_image_details[b].ap << 8));
+
+            }
+            buf_ptr->comp_parameter[n].comp_classification_index = 0x00;
+            buf_ptr->comp_parameter[n].active_comp_comparison_stamp = 0x00000000;
+            buf_ptr->comp_parameter[n].active_comp_version_string_type = ASCII;
+            buf_ptr->comp_parameter[n].active_comp_version_string_length = COMP_STRING_TYPE_SIZE;
+            memset(buf_ptr->comp_parameter[n].active_comp_release_date, 0, 8);
+            buf_ptr->comp_parameter[n].pending_comp_comparison_stamp = 0x00000000;
+            buf_ptr->comp_parameter[n].pending_comp_version_string_type = ASCII;
             buf_ptr->comp_parameter[n].pending_comp_version_string_length = COMP_STRING_TYPE_SIZE;
             memset(buf_ptr->comp_parameter[n].pending_comp_release_date, 0, 8);
 
@@ -757,10 +796,21 @@ void pldm_init_peripheral_for_update(uint16_t component_id)
         staged_address = APKHB_address;
     } else if (component_id == PLDM_COMP_IDENTIFIER_APFW_0) {
         staged_address = APFW_address;
+    } else if ((request_update_component.comp_identifier & PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE) ==
+                    PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE)
+    {
+        di_pldm_sb_apcfg_apfw_img_staged_addr_get(request_update_component.comp_identifier, &staged_address);
+    } else if ((request_update_component.comp_identifier & PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE) ==
+            PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE)
+    {
+        di_pldm_sb_apcfg_byte_match_staged_addr_get(request_update_component.comp_identifier, &staged_address);
     }
-
+    
     spi_select = staged_address & SPI_SELECT_MASK;
     spi_select_configured |= (uint8_t)((1u << (sb_spi_port_get(spi_select)))&UINT8_MAX);
+
+    pldm_flash_busy = true;
+
     spdm_di_sb_i2c_ec_fw_port_prepare(host_functionality_reduced, spi_select, spi_select, spi_select);
     spdm_di_i2c_spi_init(spi_select, spi_select, spi_select);
 
@@ -888,6 +938,17 @@ uint8_t pldm_write_firmware_data(uint16_t component_id, uint8_t *buff_ptr, uint3
         PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE)
     {
         if (di_pldm_sb_apcfg_byte_match_staged_addr_get(component_id, &staged_address)) {
+            // continue
+        } else {
+            // invalid case
+            return 1;
+        }
+    }
+
+    if ((request_update_component.comp_identifier & PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE) ==
+        PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE)
+    {
+        if (di_pldm_sb_apcfg_apfw_img_staged_addr_get(request_update_component.comp_identifier, &staged_address)) {
             // continue
         } else {
             // invalid case
@@ -1067,7 +1128,7 @@ void pldm_start_firmware_apply()
 *******************************************************************************/
 uint8_t pldm_cancel_update(uint16_t component_id, uint8_t cancel_update_flag)
 {
-    uint8_t ret_Val;
+    uint8_t ret_Val = 1;
     if(FALSE == cancel_update_flag)
     {
         // cancel update component
@@ -1075,10 +1136,12 @@ uint8_t pldm_cancel_update(uint16_t component_id, uint8_t cancel_update_flag)
     }
     else
     {
-        // canlcel update
+        // cancel update
         ret_Val = di_sb_core_request_switch_mode(FW_type);
     }
-  return ret_Val;
+    
+    pldm_flash_busy = false;
+    return ret_Val;
 }
 
 /******************************************************************************/
@@ -1319,7 +1382,7 @@ void pldm_start_update(uint16_t comp_identifier)
     uint32_t tagx_address = 0x00;
     uint32_t staged_address = 0x00;
     uint32_t restore_address = 0x00;
-    uint8_t image_id = 0x00;
+    uint8_t image_id = ECFW_IMG_INVALID;
     uint32_t image_size = 0x00;
     uint8_t tagx_spi_select = 0x00;
     uint8_t staged_spi_select = 0x00;
@@ -1379,6 +1442,20 @@ void pldm_start_update(uint16_t comp_identifier)
         ht_id = sb_get_hash_table_id_apx_compx(ap, comp, ht_num);
     }
 
+    if ((comp_identifier & PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE) ==
+        PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE)
+    {
+        FW_type = PLDM_FW_BYTE_MATCH_INT_SPI;
+        if (di_pldm_sb_apcfg_byte_match_info_get(comp_identifier, &staged_address, 
+                                                &restore_address, &tagx_address, &img_id)) {
+            ht_id = img_id;
+            // continue
+        } else {
+            // invalid case
+            return;
+        }
+    }
+
     if (FW_type == PLDM_FW_TYPE_EC_FW || FW_type == PLDM_FW_TYPE_ECFWKHB_TOO || 
         FW_type == PLDM_FW_TYPE_ECFW0_KHB || FW_type == PLDM_FW_TYPE_ECFW1_KHB)
     {
@@ -1404,11 +1481,11 @@ void pldm_start_update(uint16_t comp_identifier)
         //trace3(PLDM_TRACE, SPDM_TSK, 2, "PFA:%x,%x,%x", staged_address, restore_address, tagx_address);
     }
 
-    if ((comp_identifier & PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE) ==
-        PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE)
+    if ((request_update_component.comp_identifier & PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE) ==
+        PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE)
     {
-        FW_type = PLDM_FW_BYTE_MATCH_INT_SPI;
-        if (di_pldm_sb_apcfg_byte_match_info_get(comp_identifier, &staged_address, 
+        FW_type = PLDM_FW_APFW_IMG;
+        if (di_pldm_sb_apcfg_apfw_img_info_get(request_update_component.comp_identifier, &staged_address, 
                                                 &restore_address, &tagx_address, &img_id)) {
             ht_id = img_id;
             // continue
