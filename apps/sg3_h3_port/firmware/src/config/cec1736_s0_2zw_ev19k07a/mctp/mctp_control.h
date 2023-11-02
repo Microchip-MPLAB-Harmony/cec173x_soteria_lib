@@ -231,8 +231,17 @@ void mctp_ec_control_pkt_handler(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf
 extern void mctp_fill_error_packet(uint8_t error_type, MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
 extern void mctp_fill_packet_header(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
 extern void mctp_fill_control_msg_header(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
-extern uint8_t mctp_packet_routing(I2C_BUFFER_INFO *buffer_info);
+extern uint8_t mctp_packet_routing(MCTP_BUFFER_INFO *buffer_info);
 extern void mctp_clean_up_buffer_states(void);
+uint8_t packetize_data(MCTP_BUFFER_INFO *buffer_info, MCTP_PKT_BUF *rx_buf);
+uint8_t mctp_copy_rxpkt_for_ec(MCTP_BUFFER_INFO *buffer_info);
+uint8_t mctp_copy_rx_for_spdm_for_ec(MCTP_BUFFER_INFO *buffer_info);
+/**********************************************************************************************/
+/** This is called when packet received over smbus is targeted for EC and message type is PLDM.
+* @param *buffer_info Pointer to BUFFER_INFO structure of smbus layer
+* @return void
+***********************************************************************************************/
+uint8_t mctp_copy_rx_for_pldm_for_ec(MCTP_BUFFER_INFO *buffer_info);
 
 extern MCTP_BSS_ATTR MCTP_ROUTING_TABLE mctp_rt;
 

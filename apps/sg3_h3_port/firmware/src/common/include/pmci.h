@@ -23,16 +23,17 @@
 #include "../../config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
 #include "FreeRTOS.h"
 
-// FreeRTOS configs
-#define config_CEC_AHB_PROTECTION_ENABLE 1
-#define config_CEC_DATA_ISOLATION_CHECKS 1
 #define SMB_DI_EVENT_RESPONSE         (1u << 22)
 #define MCTP_DI_EVENT_REQUEST         (1u << 23)
 #define MCTP_DI_EVENT_RESPONSE        (1u << 22)
 #define SB_CORE_DI_EVENT_RESPONSE	  (1 << 20u)
 #define SB_CORE_DI_EVENT_APPLY_RESPONSE (1 << 19u)
 #define tskIDLE_PRIORITY    ( ( UBaseType_t ) 0U )
+#define SPT_DI_EVENT_RESPONSE           (1u << 17)
 #define configMAX_PRIORITIES (8)
+#define SPT_DI_EVENT_REQUEST            (1u << 23)
+#define MCTP_DI_PACKET_DONE            (1u << 20)
+
 typedef uint8_t * DI_QUEUEITEM_SMB;
 
 // GPIO configs
@@ -57,6 +58,7 @@ typedef uint8_t * DI_QUEUEITEM_SMB;
 // APP ids
 #define DI_APP_ID_MCTP 4
 #define DI_APP_ID_SPDM 5
+#define DI_APP_ID_SPT  17
 
 /* Max number of MCTP applications */
 #define DI_MAX_MCTP_APPS		2
@@ -84,10 +86,17 @@ typedef enum
 
 #define DI_CHECK_FAIL      1
 #define RLOG_LOAD_FROM_TAG0             (0x08000000u)
-#define ECFW_IMG_TAG0 0
-#define ECFW_IMG_TAG1 1
 #define SILICON_VER_A0 0x55
 #define SRAM_MBOX_HW_CONFIG_SIZE                      (0x04)
+
+typedef enum
+{
+    ECFW_IMG_TAG0,
+    ECFW_IMG_TAG1,
+    ECFW_IMG_APCFG0,
+    ECFW_IMG_APCFG1,
+    ECFW_IMG_INVALID
+} EC_FW_IMAGE_ID;
 
 // SMB configs
 // Channel enums
@@ -135,110 +144,6 @@ typedef struct SMB_MAPP_CBK_NEW_TX_
     uint8_t pecEnable;        /**< PEC Enable/Disable Flag */
 }SMB_MAPP_CBK_NEW_TX;
 
-// PLDM Context
-/******************************************************************************/
-/**  PLDM Context Information
-*******************************************************************************/
-typedef struct PLDM_CONTEXT
-{
-    uint8_t pldm_state_info; // added this to track PLDM packets (if tracking with spdm_state_info, if spdm packet comes in between
-    // pldm packets, the current state would go into toss)
-
-    uint8_t pldm_tx_state;
-
-    uint8_t pldm_host_eid;
-
-    uint8_t pldm_ec_eid;
-
-    uint8_t pldm_ec_slv_addr;
-
-    uint8_t pldm_host_slv_addr;
-
-    uint8_t pldm_instance_id;
-
-    uint8_t pldm_current_response_cmd;
-
-    uint8_t pldm_current_state;
-
-    uint8_t pldm_previous_state;  // maintaining this for sending previous state in GetStatus command
-
-    uint8_t pldm_next_state;
-
-    uint8_t pldm_verify_state;
-
-    uint8_t pldm_apply_state;
-
-    uint8_t pldm_status_reason_code;
-
-    uint8_t current_pkt_sequence; // PLDM; used to find for packet loss and retry
-
-    uint8_t expected_pkt_sequence;
-
-    uint16_t pldm_current_request_length;
-    
-    /* PLDM timeout response Timer Handle*/
-    TimerHandle_t xPLDMRespTimer;
-
-    /* PLDM timeout response Timer buffer*/
-    StaticTimer_t PLDMResp_TimerBuffer __attribute__((aligned(8)));
-
-}__attribute__((packed)) PLDM_CONTEXT;
-
-/******************************************************************************/
-/**  SPDM Context Information
-*******************************************************************************/
-typedef struct SPDM_CONTEXT
-{
-    uint8_t spdm_state_info;
-
-    uint8_t current_resp_cmd;
-
-    uint8_t challenge_success_flag;
-
-    uint8_t host_eid;
-
-    uint8_t ec_eid;
-
-    uint8_t ec_slv_addr;
-
-    uint8_t host_slv_addr;
-
-    /* Event group handle */
-    EventGroupHandle_t xSPDMEventGroupHandle;
-
-    /* Event group buffer*/
-    StaticEventGroup_t xSPDMCreatedEventGroup;
-
-    uint8_t no_of_chains_avail;
-
-    uint8_t previous_state;
-
-    uint8_t get_requests_state;
-
-    uint8_t requested_slot[8];
-
-    uint8_t sha_digest[48];
-
-    uint8_t request_or_response;
-
-    uint16_t current_request_length;
-
-    uint16_t previous_request_length;
-
-    uint16_t total_request_bytes;
-
-    uint16_t cert_offset_to_read[8];
-
-    uint16_t cert_bytes_to_sent_curr[8];
-
-    uint16_t cert_bytes_pending_to_sent[8];
-
-    uint16_t cert_bytes_requested[8];
-
-    PLDM_CONTEXT pldm_context __attribute__((aligned(8)));
-
-} __attribute__((packed)) SPDM_CONTEXT;
-
 typedef struct byte_match_details {
         bool is_present;
         uint8_t ap;
@@ -264,15 +169,14 @@ typedef struct byte_match_details {
 uint8_t efuse_read_data(uint16_t byte_index, uint8_t* efuse_buffer, uint16_t length);
 
 // SMB function calls
-uint16_t tx_time_get(void);
 uint8_t smb_protocol_execute(const uint8_t channel, uint8_t *buffer_ptr, const uint8_t smb_protocol,
                              const uint8_t writeCount,
                              const uint8_t pecEnable, void *smb_queue_item, const uint8_t readChainedFlag, const uint8_t writeChainedFlag);
-uint8_t smb_register_slave(const uint8_t channel, I2C_SLAVE_FUNC_PTR slaveFuncPtr);
+uint8_t smb_register_slave(const uint8_t channel, MCTP_SLAVE_FUNC_PTR slaveFuncPtr);
 void smbus_configure_and_enable(uint8_t channel, uint16_t own_address, uint8_t speed, uint8_t port, uint8_t configFlag);
 uint8_t di_request_smb_channel_busystatus(uint8_t channel_num);
-extern uint16_t smb_get_current_timestamp(void);
-#define tx_time_get()   smb_get_current_timestamp()
+extern UINT16 smb_get_current_timestamp(void);
+
 uint8_t mctp_di_smb_configure_and_enable(uint8_t channel, uint16_t own_address, uint8_t speed, uint8_t port,
         uint8_t configFlag);
 uint8_t mctp_di_smb_protocol_execute(const uint8_t channel, uint8_t *buffer_ptr, const uint8_t smb_protocol,
@@ -306,6 +210,9 @@ uintptr_t spdm_bss2_base(void);
 size_t spdm_bss2_size(void);
 uint32_t spdm_data_mpu_attr(void);
 
+uintptr_t spt_bss_base(void);
+size_t spt_bss_size(void);
+uint32_t spt_data_mpu_attr(void);
 
 // SPDM function calls
 void spdm_di_init(void *di_init_context);
@@ -334,6 +241,55 @@ uint8_t di_spdm_spi_send_read_request(uint32_t spi_addr,
                                       uint32_t data_len,
                                       SPI_FLASH_SELECT spi_select,
                                       bool buffer_fill_flag);
+void spdm_di_sb_i2c_ec_fw_port_prepare(bool APx_reset, uint8_t spi_select_1, uint8_t spi_select_2,
+                                       uint8_t spi_select_3);
+uint8_t spdm_di_i2c_spi_init(uint8_t x, uint8_t y, uint8_t z);
+bool di_pldm_sb_apcfg_byte_match_staged_addr_get(uint16_t comp_iden, uint32_t *staged_addr);
+uint8_t spdm_di_sb_spi_sector_erase(uint32_t spi_addr, uint8_t spi_select);
+uint8_t spdm_di_sb_spi_write(uint32_t spi_addr, uint8_t spi_select, uint8_t* mem_addr, uint32_t data_len);
+
 uint8_t GET_SILICON_VER();
 uint8_t SRAM_MBOX_API_devAK_cert_read(uint16_t start_offset, uint8_t *buffer, uint8_t cert_num, uint16_t num_of_bytes);
+void sb_parser_get_spi_info(uint32_t *spi_address, uint8_t *spi_select);
+
+uint8_t mctp_di_spt_transmit_request(const uint8_t channel, uint8_t *buffer_ptr,
+                                     const uint8_t writecount,
+                                     const uint8_t pecEnable);
+void mctp_di_get_spt_response(void);
+uint8_t di_request_spt_channel_busystatus(uint8_t channel_num);
+uint8_t check_for_i2c_flash_busy_bit(void);
+uint8_t pldm_di_update_crisis_update_state(uint8_t status);
+
+void spt_di_init(void *di_init_context);
+void spt_di_get_next_request(void);
+uint8_t mctp_di_spt_configure_and_enable(uint8_t channel, uint8_t io_mode, 
+                    uint8_t spt_wait_time, uint8_t tar_time);
+uint8_t di_sb_apcfg_config_data_request(void);
+bool di_sb_apcfg_pldm_override_device_desc(void);
+uint8_t di_pldm_sb_get_number_of_ht(uint8_t id);
+uint8_t di_pldm_sb_get_number_of_byte_match_int(void);
+bool di_pldm_sb_apcfg_ecfw_staged_add_get(uint8_t image_id, uint32_t *staged_addr);
+bool di_pldm_sb_apcfg_apcfg_staged_add_get(uint8_t image_id, uint32_t *staged_addr);
+uint32_t di_pldm_sb_apcfg_ht_staged_add_get(uint8_t ap, uint8_t comp, uint8_t ht_num);
+uint16_t di_pldm_sb_apcfg_apcfg_version(bool apcfg_id);
+void di_pldm_sb_get_ht_version(uint16_t *dest);
+uint8_t di_pldm_sb_get_use_c1_ht_for_c0(uint8_t ap);
+uint8_t di_sb_core_request_switch_mode_verify_response();
+uint8_t di_sb_core_request_switch_mode(uint8_t FW_type);
+uint8_t di_sb_core_restore_configs(uint8_t spi_select, bool host_functionality_reduced);
+uint8_t spdm_di_mctp_done_wait(EventBits_t bits_to_wait);
+void spdm_di_core_done_set(void);
+uint32_t di_pldm_sb_apcfg_apcfg_base_address_get(uint8_t apcfg_id);
+bool di_pldm_sb_apcfg_ecfw_update_info_get(uint8_t image_id, uint32_t* staged_addr, uint32_t* restore_addr);
+bool di_pldm_sb_apcfg_apcfg_update_info_get(uint8_t image_id, 
+        uint32_t* staged_addr, uint32_t* restore_addr);
+bool di_pldm_sb_apcfg_byte_match_info_get(uint16_t comp_iden, uint32_t *staged_addr, uint32_t *restore_addr, 
+            uint32_t *tagx_addr, uint8_t *img_id);
+uint8_t spdm_di_sb_core_i2c_ec_fw_update_start(uint32_t staged_addr, uint8_t FW_type, uint32_t restore_addr,
+        uint32_t max_img_size,
+        uint8_t ecfw_image_id, uint32_t tagx_addr, bool is_pldm, bool failure_recovery_cap, uint8_t ht_id);
+
+void *di_spt_context_get(void);
+void spt_di_tx_callback(DI_QUEUEITEM_SPT *spt_queue_item);
+
 #endif /* INCLUDE_PMCI_H_ */

@@ -1,22 +1,22 @@
 /*****************************************************************************
-* Copyright (c) 2022 Microchip Technology Inc.
-* You may use this software and any derivatives exclusively with
-* Microchip products.
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
-* NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
-* INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
-* AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
-* PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
-* TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
-* CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
-* FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-* MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
-* OF THESE TERMS.
-*****************************************************************************/
+ * Copyright (c) 2022 Microchip Technology Inc. and its subsidiaries.
+ * You may use this software and any derivatives exclusively with
+ * Microchip products.
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".
+ * NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
+ * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
+ * AND FITNESS FOR A PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP
+ * PRODUCTS, COMBINATION WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.
+ * TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL
+ * CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF
+ * FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE
+ * OF THESE TERMS.
+ *****************************************************************************/
 
 #include "mctp.h"
 #include "../mctp/mctp_control.h"
@@ -24,6 +24,8 @@
 #include "spdm_common.h"
 
 #define MAX_SHA384_BUF_SIZE                            384 // 48 bytes * 8 chains
+
+#define NO_OF_APFW_MSR_SUPPORTED 30 // 2 apcfg + 12 HT + 16 APFW images
 
 /** spdm transmit state machine status */
 enum SPDM_TX_STATES
@@ -62,7 +64,6 @@ typedef struct CERT_SLOT
     uint8_t chain_no; //to store which chain is present in current slot
     CERT_CHAIN chain;//head ptr val for the chain
 	uint8_t is_cert_chain_valid; //Check if cert chain pointed by the slot is valid
-
 } __attribute__((packed)) CERT_SLOT;
 
 enum MSR_INDICES
@@ -70,7 +71,8 @@ enum MSR_INDICES
     INDEX1 = 1,
     INDEX2 = 2,
     INDEX3 = 3,
-    INDEX4 = 4
+    INDEX4 = 4,
+    INDEX5 = 5
 };
 
 enum CHLNGE_RESPONSE_TX_STATES
@@ -117,6 +119,22 @@ typedef struct MEASUREMENT_BLOCK
     MEASUREMENT_FRMT msr_frmt;//msr_format
 
 } __attribute__((packed)) MEASUREMENT_BLOCK;
+
+typedef struct MEASUREMENT_MANIFEST
+{
+    uint16_t image_descriptor;
+    uint8_t dmtf_msr_val[SPDM_SHA384_LEN];
+}__attribute__((packed)) MEASUREMENT_MANIFEST;
+
+typedef struct MEASUREMENT_BLOCK_MANIFEST
+{
+    uint8_t index;
+    uint8_t msr_specific;
+    uint16_t msr_size;
+    uint8_t dmtf_msr_val_type;
+    uint16_t dmtf_msr_val_size;
+    MEASUREMENT_MANIFEST msr_manifest[NO_OF_APFW_MSR_SUPPORTED];
+}__attribute__((packed)) MEASUREMENT_BLOCK_MANIFEST;
 
 /*Expected Size for Response Control Packets*/
 #define SPDM_GET_VER_RESP  7
@@ -223,6 +241,7 @@ typedef struct MEASUREMENT_BLOCK
 #define SPDM_ERROR_MJR_VRS_MISMATCH  0x41
 #define SPDM_ERROR_RESYNCH           0x43
 #define SPDM_ERROR_UNSPECIFIED       0x05
+#define SPDM_ERROR_BUSY              0x03
 
 #define SPDM_RESP_IF_RDY_RQ          0xFF
 
@@ -271,7 +290,7 @@ enum BYTE_OFFSETS
 #define TPM_ALG_ECDSA_ECC_NIST_P384 0x80
 #define MAX_NUM_BYTES_PLD           64u
 
-#define MCTP_BYTE_CNT_OFFSET                           2u
+
 #define NO_OF_MCTP_HDR_BYTES_FRM_BYTE_CNT_OFFSET       6
 #define MAX_SLOTS                                      8
 #define MAX_CERT_PER_CHAIN                             8
@@ -298,8 +317,13 @@ enum BYTE_OFFSETS
 #define TEST_INPUT_DATA_SZ                             25
 
 #define START_INDEX                                    0x01
-#define NO_OF_MSR_INDICES                              0x04
+#define NO_OF_MSR_INDICES                              0x04U
+#define NO_OF_MSR_MANIFEST                             0x01U
+#define TOTAL_NO_OF_MSR_INDICES                        (NO_OF_MSR_MANIFEST + NO_OF_MSR_INDICES)
+
 #define SIZE_OF_ONE_MSR_BLOCK                          55u
+
+#define SIZE_OF_AP_MSR_BLOCK_FORMAT                    1507u
 
 #define DMTF_FRMT                                      0x01
 
@@ -320,6 +344,8 @@ enum BYTE_OFFSETS
 #define HW_CONFIG_SEL_DGST_RAW                         0x02 //digest; 7th bit 0 is for digest format
 
 #define FW_CONFIG_SEL_DGST_RAW                         0x03 //digest; 7th bit 0 is for digest format
+
+#define AP_CONFIG_SELCT_DGST_RAM                       0x04 //digest
 
 #define MAX_PKT_SIZE                                   74
 
@@ -350,6 +376,8 @@ enum BYTE_OFFSETS
 #define ROOT_START_OFFSET                              52U // Root certificate start offset in chain
 #define ROOT_HASH_END_OFFSET                           51U // Root hash end offset in chain
 #define SLOT_NUM_CHAIN_LENGTH_BYTES                     6U // account for slot number reserved portion length chain length in cert response
+
+#define DMTF_MSR_VAL_SIZE 2U
 
 /******************************************************************************/
 /** Structure holding the version entry table fields
@@ -631,3 +659,18 @@ void fill_cert_buffer();
  *                   2U (INVALID_SIGNATURE_FLAGS)
  *******************************************************************************/
 uint8_t signature_type();
+
+/******************************************************************************/
+/** function to store signature type
+ * @param void
+ * @return void
+ *******************************************************************************/
+void spdm_pkt_store_signature_type(void);
+
+/******************************************************************************/
+/** function to update APFW data stored in MSR after reauth is done and calculate
+ * concatanate hash
+ * @param spdmContext - SPDM module context
+ * @return void
+ *******************************************************************************/
+void spdm_update_ap_msr_data(SPDM_CONTEXT *spdmContext);

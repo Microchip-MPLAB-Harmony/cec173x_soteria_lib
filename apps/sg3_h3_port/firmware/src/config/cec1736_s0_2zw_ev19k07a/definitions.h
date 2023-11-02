@@ -75,6 +75,8 @@
 #include "peripheral/i2c/master/plib_smb1_master.h"
 #include "peripheral/i2c/slave/plib_smb1_slave.h"
 #include "peripheral/uart/plib_uart0.h"
+#include "peripheral/spt/plib_spt0.h"
+#include "peripheral/spt/plib_spt1.h"
 #include "peripheral/cct/plib_cct.h"
 
 // DOM-IGNORE-BEGIN
@@ -84,6 +86,12 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+/* Device Information */
+#define DEVICE_NAME			 "CEC1736_S0_2ZW"
+#define DEVICE_ARCH			 "CORTEX-M4"
+#define DEVICE_FAMILY		 "CEC173X"
+#define DEVICE_SERIES		 "CEC"
 
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 96000000

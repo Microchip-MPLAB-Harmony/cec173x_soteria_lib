@@ -32,8 +32,8 @@ extern void GPIO127_ISR(void);
 extern void GPIO140_ISR(void);
 extern void GPIO201_ISR(void);
 extern void WDT_ISR(void);
-extern void VTR_MON_VTR1_ISR(void);
-extern void VTR_MON_VTR2_ISR(void);
+extern void sb_vtr1_pad_mon_isr(void);
+extern void sb_vtr2_pad_mon_isr(void);
 extern void qmspi_isr(uint8_t channel);
 extern void smb_isr(void);
 extern void smb_dma_isr(void);
@@ -136,12 +136,12 @@ static void vtr_mon_isr_callback(uintptr_t context)
 {
     if(VTR1 == context)
     {
-        VTR_MON_VTR1_ISR();
+        sb_vtr1_pad_mon_isr();
     }
 
     if(VTR2 == context)
     {
-        VTR_MON_VTR2_ISR();
+        sb_vtr2_pad_mon_isr();
     }
 }
 
@@ -238,6 +238,19 @@ void I2CSMB_GRP_InterruptHandler ( void )
 void DMA_GRP_InterruptHandler (void)
 {
     smb_dma_isr();
+}
+
+/******************************************************************************/
+/**  spt_register_isr_handlers
+ *
+ *  @return None
+ *
+ *  @details spt_register_isr_handlers is used to register SPT handlers
+ *  with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
+void spt_register_isr_handlers(void)
+{
+    SPT1_CallbackRegister(spt_isr, SPT1);
 }
 
 /**   @}

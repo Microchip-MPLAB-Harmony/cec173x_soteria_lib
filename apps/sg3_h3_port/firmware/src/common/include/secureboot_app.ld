@@ -8,12 +8,13 @@
  */
 MEMORY
 {
-    rom (rx)  : ORIGIN = 0x000C8000, LENGTH = 224K              
-    ram (rwx) : ORIGIN = 0x00100000, LENGTH = 152K
+    rom (rx)  : ORIGIN = 0x000C8000, LENGTH = 204K
+    ram (rwx) : ORIGIN = 0x000FB000, LENGTH = 172K
     LOG_MBX (rw): ORIGIN = 0x126600, LENGTH =  6000
 }
 
 /* Library configurations - Note required with XC32 v4.10 */
+/*GROUP(libgcc.a libc.a libm.a libnosys.a)*/
 GROUP(secureboot_app_lib.a secureboot_LIB.a)
 
 /* Variables used by FreeRTOS-MPU.
@@ -30,7 +31,8 @@ __privileged_data0_region_size__        = 4K;
 __privileged_data1_region_size__        = 8K;
 __privileged_data2_region_size__        = 8K;
 __privileged_data3_region_size__        = 2K;
-__privileged_data4_region_size__        = 1K;
+__privileged_data4_region_size__        = 2K;
+__privileged_data5_region_size__        = 1K;
 flash_copy_bss_size_                     = 8K;
 spdm_bss0_size_                         = 8K;
 spdm_bss1_size_                         = 8K;
@@ -44,17 +46,19 @@ sb_core_bss2_size_                     = 4K;
 mctp_bss_size_                         = 4K;
 monitor_bss_size_                    = 4K;
 qmspi_bss_size_                        = 4K;
+spt_bss_size_                          = 4K;
 smb_bss_size_                         = 2K;
 led_bss_size_                        = 2K;
 shared_bss_size_                     = 2K;
 spimon_bss1_size_                     = 1K;
-spdm_bss2_size_                     = 4K;
+spdm_bss2_size_                     = 8K;
 spimon_bss2_size_                   = 1K;
 i2c_bss1_size_                      = 4K;
 rpmc_header_data_size_              = 2K;
 BR_scratch_reg_0                    = 0x4000FD80;
-rpmc_header_start_addr                = 0x000FF000;
-build_info_start_addr                = 0x000FF800;
+build_info_start_addr                = 0x000FA000;
+rpmc_header_start_addr                = 0x000FA800;
+
 
 __FLASH_segment_start__ = ORIGIN( rom );
 __FLASH_segment_end__ = __FLASH_segment_start__ + LENGTH( rom );
@@ -277,24 +281,14 @@ SECTIONS
     __etext = ALIGN (4);
 
     /*************** BSS sections start **************/        
-    .spdm_bss2 (0xFE000) :
-    {
-        . = ALIGN(4);
-        __bss_start__ = .;
-        spdm_bss2_start = .;
-        *(spdm_bss2*)
-        *(pldm_bss2*)
-        . = spdm_bss2_start + spdm_bss2_size_;
-        spdm_bss2_end = .;
-    } > rom
 
-    .smb_bss0 (0x100000) :  
+
+    .smb_bss0 (0xFB000) :
     {    
         . = ALIGN(4);
         __bss_start__ = .;
         smb_bss0_start = .;
         *(smb_bss0*)
-
         . = smb_bss0_start + smb_bss0_size_;
         smb_bss0_end = .;
         
@@ -355,7 +349,9 @@ SECTIONS
         __privileged_data_end__ = __privileged_bss2_end__;
     }>ram
 
-    .led_bss (__privileged_data_end__) (NOLOAD) :
+
+
+    .led_bss (__privileged_bss2_end__) (NOLOAD) :
     {
         . = ALIGN(4);
         led_bss_start = .;
@@ -368,14 +364,36 @@ SECTIONS
     {
         . = ALIGN(4);
         monitor_bss_start = .;
+        *(monitor_buf)
         *(monitor_bss*)
         . = monitor_bss_start + monitor_bss_size_;
         monitor_bss_end = .;
     } >ram
 
-    .flash_copy_bss (monitor_bss_end) (NOLOAD) :
+
+    .qmspi_bss (monitor_bss_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        qmspi_bss_start = .;
+        *(qmspi_bss*)
+        . = qmspi_bss_start + qmspi_bss_size_;
+        qmspi_bss_end = .;
+    } >ram
+
+    .spdm_bss2 (qmspi_bss_end) :
+    {
+        . = ALIGN(4);
+        spdm_bss2_start = .;
+        *(spdm_bss2*)
+        *(pldm_bss2*)
+        . = spdm_bss2_start + spdm_bss2_size_;
+        spdm_bss2_end = .;
+    } > ram
+
+    .flash_copy_bss (spdm_bss2_end) (NOLOAD) :
     {
         flash_copy_bss_start = .;
+        *(flash_copy_buf)
         *(flash_copy_bss*)
         . = flash_copy_bss_start + flash_copy_bss_size_;
         flash_copy_bss_end = .;
@@ -385,8 +403,6 @@ SECTIONS
     {
         . = ALIGN(4);
         spdm_bss0_start = .;
-        *(spdm_stack_buf*)
-        *(spdm_buf*)
         *(spdm_bss0*)
         *(pldm_bss0*)
         . = spdm_bss0_start + spdm_bss0_size_;
@@ -413,7 +429,18 @@ SECTIONS
 
     } >ram
 
-    .sb_core_bss0 (crypto_bss0_end) (NOLOAD) :
+
+    .i2c_bss (crypto_bss0_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        i2c_bss_start = .;
+        *(i2c_buf)
+        *(i2c_bss0*)
+        . = i2c_bss_start + i2c_bss_size_;
+        i2c_bss_end = .;
+    } >ram
+
+    .sb_core_bss0 (i2c_bss_end) (NOLOAD) :
     {
         . = ALIGN(4);
         sb_core_bss0_start = .;
@@ -422,44 +449,8 @@ SECTIONS
         sb_core_bss0_end = .;
     } >ram
 
-    .i2c_bss (sb_core_bss0_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        i2c_bss_start = .;
-        *(i2c_bss0*)
-        . = i2c_bss_start + i2c_bss_size_;
-        i2c_bss_end = .;
-    } >ram
 
-    .qmspi_bss (i2c_bss_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        qmspi_bss_start = .;
-        *(qmspi_bss*)
-        . = qmspi_bss_start + qmspi_bss_size_;
-        qmspi_bss_end = .;
-    } >ram
-
-    .sb_core_bss2 (qmspi_bss_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        sb_core_bss2_start = .;
-        *(sb_core_buf*)
-        *(sb_core_bss2*)
-        . = sb_core_bss2_start + sb_core_bss2_size_;
-        sb_core_bss2_end = .;
-    } >ram
-
-    .sb_core_bss1 (sb_core_bss2_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        sb_core_bss1_start = .;
-        *(sb_core_bss1*)
-        . = sb_core_bss1_start + sb_core_bss1_size_;
-        sb_core_bss1_end = .;
-    } >ram
-
-    .spimon_bss0 (sb_core_bss1_end) (NOLOAD) :
+    .spimon_bss0 (sb_core_bss0_end) (NOLOAD) :
     {
         . = ALIGN(4);
         spimon_bss0_start = .;
@@ -467,9 +458,18 @@ SECTIONS
         . = spimon_bss0_start + spimon_bss0_size_;
         spimon_bss0_end = .;
     } >ram
+    
+    .sb_core_bss2 (spimon_bss0_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        sb_core_bss2_start = .;
+        *(sb_core_bss2_buf)
+        *(sb_core_bss2*)
+        . = sb_core_bss2_start + sb_core_bss2_size_;
+        sb_core_bss2_end = .;
+    } >ram
 
-
-    .mctp_bss (spimon_bss0_end) (NOLOAD) :
+    .mctp_bss (sb_core_bss2_end) (NOLOAD) :
     {
         . = ALIGN(4);
         mctp_bss_start = .;
@@ -478,7 +478,40 @@ SECTIONS
         mctp_bss_end = .;
     } >ram
 
-    .smb_bss (mctp_bss_end) (NOLOAD) :
+
+
+    .sb_core_bss1 (mctp_bss_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        sb_core_bss1_start = .;
+        *(sb_core_bss1*)
+        . = sb_core_bss1_start + sb_core_bss1_size_;
+        sb_core_bss1_end = .;
+    } >ram
+
+
+
+    .i2c_bss1 (sb_core_bss1_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        i2c_bss1_start = .;
+        *(i2c_bss1*)
+        . = i2c_bss1_start + i2c_bss1_size_;
+        i2c_bss1_end = .;
+    }>ram
+
+
+    .spt_bss (i2c_bss1_end) (NOLOAD) :
+    {
+        . = ALIGN(4);
+        spt_bss_start = .;
+        *(spt_bss*)
+        . = spt_bss_start + spt_bss_size_; 
+        spt_bss_end = .;
+    } >ram
+
+
+    .smb_bss (spt_bss_end) (NOLOAD) :
     {    
         . = ALIGN(4);
         smb_bss_start = .;
@@ -498,16 +531,7 @@ SECTIONS
         crypto_bss1_end = .;
     } >ram
 
-    .i2c_bss1 (crypto_bss1_end) (NOLOAD) :
-    {
-        . = ALIGN(4);
-        i2c_bss1_start = .;
-        *(i2c_bss1*)
-        . = i2c_bss1_start + i2c_bss1_size_;
-        i2c_bss1_end = .;
-    }>ram
-
-    .spimon_bss2 (i2c_bss1_end) (NOLOAD) :
+    .spimon_bss2 (crypto_bss1_end) (NOLOAD) :
     {
         . = ALIGN(4);
         spimon_bss2_start = .;
@@ -523,7 +547,8 @@ SECTIONS
         . = __privileged_bss3_start__ + __privileged_data3_region_size__;
         __privileged_bss3_end__ = .;
     }>ram
-    
+
+
     .privileged_bss4 (__privileged_bss3_end__) (NOLOAD) :
     {
         __privileged_bss4_start__ = .;
@@ -532,12 +557,24 @@ SECTIONS
         __privileged_bss4_end__ = .;
     }>ram
 
-    .bss (__privileged_bss4_end__) (NOLOAD) :
+    .privileged_bss5 (__privileged_bss4_end__) (NOLOAD) :
+    {
+        __privileged_bss5_start__ = .;
+        *(privileged_bss5*)
+        . = __privileged_bss5_start__ + __privileged_data5_region_size__; 
+        __privileged_bss5_end__ = .;
+    }>ram
+
+    .bss (__privileged_bss5_end__) (NOLOAD) :
     {
         . = ALIGN(4);
+        *(spdm_task_stack)
+        *(core_stack)
+        *(smb_stack)
+        *(oem_stack*)
         *(.bss*)
         *(COMMON)
-        . = ALIGN(4);
+        . = ALIGN(64);
         __bss_end__ = .;
     } >ram
     /*************** BSS sections end **************/
@@ -596,10 +633,6 @@ SECTIONS
     __StackTop = ORIGIN(ram) + LENGTH(ram);
     __StackLimit = __StackTop - SIZEOF(.stack);
 
-    /* The xc32 linker requires this symbol to be PROVIDEd when the
-       stack is allocated by the linker script. */
-    PROVIDE(_stack = ABSOLUTE(__StackTop)); 
-
     .rpmc_header (rpmc_header_start_addr):
     {
       rpmc_header_data_start = .;
@@ -610,7 +643,7 @@ SECTIONS
 
     .build_info (build_info_start_addr) :
     {
-      *(build_info*)
+      KEEP(*(build_info*))
     } >rom
     
 }

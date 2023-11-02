@@ -168,7 +168,7 @@ extern void pldm_init_peripheral_for_update(uint16_t component_id);
  * Usage notes:
  * -----------------------
  * This function is called by the PLDM module when the firmware data is
- * received from the host. UA requests host to get the firmware image in
+ * received from the host. FD requests host to get the firmware image in
  * 1KB chunck size. 
  * The user is expected to process the firmware data stored in buff ptr.
  * User should return success to continue the PLDM update process.
@@ -271,7 +271,7 @@ extern void pldm_start_firmware_update(uint16_t component_id);
  * -----------------------
  * PLDM module calls this function after verify complete 
  * is received. 
- * User is expected to initiate apply update process is complete
+ * User is expected to apply stage
  * 
  * -----------------------
  * Example:
@@ -329,7 +329,7 @@ extern uint8_t pldm_cancel_update(uint16_t component_id, uint8_t cancel_update_f
  * Usage notes:
  * -----------------------
  * User is expected to store any global variables or states used during 
- * update process
+ * update process and restore device to non update mode
  * ############################################################################
 *******************************************************************************/
 extern void  pldm_restore_configs(uint16_t component_id, uint8_t host_funct_reduced);

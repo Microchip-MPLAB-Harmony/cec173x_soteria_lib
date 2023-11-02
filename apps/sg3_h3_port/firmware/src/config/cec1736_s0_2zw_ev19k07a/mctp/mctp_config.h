@@ -31,9 +31,13 @@ extern "C" {
 #define MCTP_EC_EID                            0x94U
 #define MCTP_HOST_EID                          0x95U
 #define MCTP_TASK_PRIORITY                     3U
+
 #define MCTP_I2C_PORT                          6U
 #define MCTP_I2C_CHANNEL                       3U
 #define MCTP_I2C_CLK_FREQ                      I2C_BUS_SPEED_400KHZ
+#define MCTP_SPI_CHANNEL                       1U
+
+
 
 #ifdef __cplusplus
 }

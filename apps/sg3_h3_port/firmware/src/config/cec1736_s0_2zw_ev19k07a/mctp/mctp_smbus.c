@@ -30,15 +30,12 @@
 #include "mctp_config.h"
 #include "../common/include/common.h"
 
-MCTP_BSS_ATTR static uint8_t get_packet_len = 0x00;
-MCTP_BSS_ATTR static uint16_t smb_rx_index = 0x00;
 extern MCTP_BSS_ATTR uint8_t mctp_tx_state;
 extern MCTP_BSS_ATTR MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
 
 extern MCTP_BSS_ATTR uint8_t mctp_wait_smbus_callback;
 extern MCTP_BSS_ATTR uint8_t is_pldm_request_firmware_update;
-extern MCTP_BSS_ATTR uint8_t
-store_msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
+extern MCTP_BSS_ATTR uint8_t msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
 
 /******************************************************************************/
 /** Initializes mctp-smbus interface. It calls smb_slave _register for
@@ -54,8 +51,8 @@ uint8_t mctp_smbus_init(void)
     ret_val = (uint8_t)MCTP_FALSE;
 
     /* register with smbus */
-    status_init = mctp_i2c_rx_register(MCTP_I2C_CHANNEL,
-                                     (I2C_SLAVE_FUNC_PTR )mctp_receive_smbus);
+    status_init = smb_register_slave(MCTP_I2C_CHANNEL,
+                                     (MCTP_SLAVE_FUNC_PTR )mctp_receive_smbus);
 
     /* smbus slave registration successful */
     if(status_init == (uint8_t)I2C_SLAVE_APP_STATUS_OK)
@@ -69,17 +66,19 @@ uint8_t mctp_smbus_init(void)
 
 /******************************************************************************/
 /** This is called when packet is received over smbus.
-* @param *buffer_info Pointer to I2C_BUFFER_INFO structure of smbus layer
+* @param *buffer_info Pointer to MCTP_BUFFER_INFO structure of smbus layer
 * @param slaveTransmitFlag Slave Transmit Flag
 * @return I2C_STATUS_BUFFER_DONE / I2C_STATUS_BUFFER_ERROR to smbus layer
 *******************************************************************************/
-uint8_t mctp_receive_smbus(I2C_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFlag)
+#define SMB_DEBUG   1
+uint8_t mctp_receive_smbus(MCTP_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFlag)
 {
     uint8_t pkt_valid;
 
     uint8_t pkt_len;
     MCTP_PKT_BUF *pkt_buf;
-    MCTP_PKT_BUF *spdm_msg_rx_buf = NULL, *pldm_msg_rx_buf = NULL;
+    MCTP_PKT_BUF *spdm_msg_rx_buf = NULL;
+    MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
     pkt_buf = (MCTP_PKT_BUF *)((void *)&buffer_info->buffer_ptr[0]);
 
     /* if PEC not valid, drop packet */
@@ -93,6 +92,7 @@ uint8_t mctp_receive_smbus(I2C_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFl
     {
         return (uint8_t)I2C_STATUS_BUFFER_ERROR;
     }
+
     /* check if MCTP packet */
     if ((pkt_buf->pkt.field.hdr.cmd_code != MCTP_SMBUS_HDR_CMD_CODE) ||
             (pkt_buf->pkt.field.hdr.rw_dst != 0U) ||
@@ -119,8 +119,6 @@ uint8_t mctp_receive_smbus(I2C_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFl
         return (uint8_t)I2C_STATUS_BUFFER_DONE;
     }
 
-    get_packet_len = (buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS]) + 3U;
-
     /* check validation of received packet */
     pkt_valid = mctp_packet_validation(buffer_info->buffer_ptr);
 
@@ -130,23 +128,17 @@ uint8_t mctp_receive_smbus(I2C_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFl
         /* call mctp packet routing function */
         if(0U != mctp_packet_routing(buffer_info))
         {
-            mctp_base_packetizing_val_set(false);
-            smb_rx_index = 0;
-            mctp_clean_up_buffer_states();
             return (uint8_t)I2C_STATUS_BUFFER_ERROR;
         }
     }
     else
     {
-        mctp_base_packetizing_val_set(false);
         spdm_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF3];
         memset(spdm_msg_rx_buf, 0, MCTP_PKT_BUF_DATALEN);
         spdm_msg_rx_buf->buf_full = (uint8_t)MCTP_EMPTY;
         pldm_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF4];
         memset(pldm_msg_rx_buf, 0, MCTP_PKT_BUF_DATALEN);
         pldm_msg_rx_buf->buf_full = MCTP_EMPTY;
-        smb_rx_index = 0;
-        mctp_clean_up_buffer_states();
         return (uint8_t)I2C_STATUS_BUFFER_ERROR;
     }
 
@@ -155,224 +147,6 @@ uint8_t mctp_receive_smbus(I2C_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFl
 
 } /* End mctp_receive_smbus() */
 
-/******************************************************************************/
-/** This is called when packet received over smbus and the packet is 
-* meant for SPDM or PLDM modules
-* @param rx_packet_len - length of the received packet
-* @param buffer_info - pointer to store the packetized data
-* @param rx_buf - pointer to the received data
-* @return void
-*******************************************************************************/
-uint8_t packetize_data(uint8_t rx_packet_len, I2C_BUFFER_INFO *buffer_info, MCTP_PKT_BUF *rx_buf)
-{
-    uint8_t i;
-    uint8_t ret_val = MCTP_SUCCESS;
-    uint16_t packet_len = 0;
-
-    for(i = 0; i < rx_packet_len; i++)
-    {
-        rx_buf->pkt.data[i] = buffer_info->buffer_ptr[i];
-    }
-
-    packet_len = rx_packet_len;
-
-    smb_rx_index = smb_rx_index + packet_len;
-
-    if (smb_rx_index > INPUT_BUF_MAX_BYTES)//if no of bytes received cross max input buffer size of 1023
-    {
-        smb_rx_index = 0;
-        mctp_base_packetizing_val_set(false);
-        ret_val = MCTP_FAILURE;
-    }
-    else if((buffer_info->buffer_ptr[MCTP_PKT_TO_MSGTAG_POS]& MCTP_EOM_REF_MSK) == MCTP_EOM_REF)
-    {
-        smb_rx_index = 0;
-        mctp_base_packetizing_val_set(false);
-    }
-    else
-    {
-        /* Invalid */;
-    }
-    return ret_val;
-}
-
-/**********************************************************************************************/
-/** This is called when packet received over smbus is targeted for EC and message type is PLDM.
-* @param *buffer_info Pointer to BUFFER_INFO structure of smbus layer
-* @return void
-***********************************************************************************************/
-uint8_t mctp_copy_rx_for_pldm_for_ec(I2C_BUFFER_INFO *buffer_info)
-{
-    uint8_t i;
-    uint8_t msg_type;
-    uint8_t ret_val = MCTP_SUCCESS;
-    MCTP_PKT_BUF *pldm_msg_rx_buf = NULL;
-    uint8_t is_packetizing = 0x00;
-    is_packetizing = mctp_base_packetizing_val_get();
-
-    // trace0(MCTP_TRACE, MCTP, 0, "mplen");
-
-    msg_type = mctp_self.message_type;
-
-    pldm_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF4];
-
-    if (msg_type == MCTP_IC_MSGTYPE_PLDM)
-    {
-        if(MCTP_EMPTY == pldm_msg_rx_buf->buf_full)
-        {
-            if(is_packetizing)
-            {
-                ret_val = packetize_data(get_packet_len, buffer_info, pldm_msg_rx_buf);
-                if(ret_val == MCTP_SUCCESS)
-                {
-                    is_packetizing = mctp_base_packetizing_val_get();
-                    if(is_packetizing == false)
-                    {
-                        pldm_msg_rx_buf->rx_smbus_timestamp = buffer_info->TimeStamp;
-                    }
-                }
-                else
-                {
-                    ret_val = MCTP_FAILURE;
-                    return ret_val;
-                }
-            }
-            else
-            {
-                // trace0(MCTP_TRACE, MCTP, 0, "mplbf");
-                /* copy packet from smbus buffer to pldm ec rcv buffer */
-                for(i = 0; i < buffer_info->DataLen; i++)
-                {
-                    pldm_msg_rx_buf->pkt.data[i] = buffer_info->buffer_ptr[i];
-                }
-                /* store smbus layer timestamp i.e. time when packet was
-                 * received by smbus */
-                pldm_msg_rx_buf->rx_smbus_timestamp = buffer_info->TimeStamp;
-            }
-
-            /* mark ec rx buffer pending for further processing */
-            pldm_msg_rx_buf->buf_full = MCTP_RX_PENDING;
-            mctp_di_send_slave_response_packet((uint8_t*)pldm_msg_rx_buf, sizeof(MCTP_PKT_BUF), true);
-            pldm_msg_rx_buf->buf_full = MCTP_EMPTY;
-        }
-    }
-
-    // trace0(MCTP_TRACE, MCTP, 3, "mpled");
-    return ret_val;
-} /* End mctp_copy_rx_for_pldm_for_ec */
-
-/******************************************************************************/
-/** This is called when packet received over smbus is targeted for EC and message type is for spdm.
-* @param *buffer_info Pointer to BUFFER_INFO structure of smbus layer
-* @return void
-*******************************************************************************/
-uint8_t mctp_copy_rx_for_spdm_for_ec(I2C_BUFFER_INFO *buffer_info)
-{
-    uint8_t i;
-    uint8_t ret_val = MCTP_SUCCESS;
-    uint8_t pkt_type;
-    uint8_t msg_type;
-    MCTP_CONTEXT *mctpContext = NULL;
-    mctpContext = mctp_ctxt_get();
-    if(NULL == mctpContext)
-    {
-        return MCTP_FAILURE;
-    }
-    MCTP_PKT_BUF *spdm_msg_rx_buf = NULL;
-    uint8_t is_packetizing = 0x00;
-    is_packetizing = mctp_base_packetizing_val_get();
-    msg_type = mctp_self.message_type;
-    spdm_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF3];
-
-    if (msg_type == MCTP_IC_MSGTYPE_SPDM)
-    {
-        if((uint8_t)MCTP_EMPTY == spdm_msg_rx_buf->buf_full)
-        {
-            if(is_packetizing)
-            {
-                ret_val = packetize_data(get_packet_len, buffer_info, spdm_msg_rx_buf);
-                if(ret_val == MCTP_SUCCESS)
-                {
-                    is_packetizing = mctp_base_packetizing_val_get();
-                    if(is_packetizing == false)
-                    {
-                        spdm_msg_rx_buf->rx_smbus_timestamp = buffer_info->TimeStamp;
-                    }
-                }
-                else
-                {
-                    ret_val = MCTP_FAILURE;
-                    return ret_val;
-                }
-            }
-            else
-            {
-                //not for packetized data
-                for(i = 0; i < get_packet_len ; i++)
-                {
-                    spdm_msg_rx_buf->pkt.data[i] = buffer_info->buffer_ptr[i];
-                }
-                spdm_msg_rx_buf->rx_smbus_timestamp = buffer_info->TimeStamp;
-            }
-            spdm_msg_rx_buf->buf_full = (uint8_t)MCTP_RX_PENDING;
-
-            mctpContext->check_spdm_cmd = spdm_msg_rx_buf->pkt.data[SPDM_HEADER_COMMAND_POS];
-
-            mctp_di_send_slave_response_packet((uint8_t*)spdm_msg_rx_buf, sizeof(MCTP_PKT_BUF), false);
-            spdm_msg_rx_buf->buf_full = MCTP_EMPTY;
-        }
-    }
-    return ret_val;
-}
-
-/******************************************************************************/
-/** This is called when packet received over smbus is targeted for EC.
-* @param *buffer_info Pointer to I2C_BUFFER_INFO structure of smbus layer
-* @return void
-*******************************************************************************/
-uint8_t mctp_copy_rxpkt_for_ec(I2C_BUFFER_INFO *buffer_info)
-{
-    uint8_t i;
-    uint8_t pkt_type;
-    uint8_t msg_type;
-    uint8_t ret_val = MCTP_SUCCESS;
-    MCTP_PKT_BUF *mctp_msg_rx_buf = NULL;
-
-    msg_type = mctp_self.message_type;
-
-    /* get mctp packet type, request or response or other */
-    pkt_type = mctp_get_packet_type(buffer_info->buffer_ptr);
-
-    mctp_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF1];
-
-    /* if rx pkt is request pkt */
-    if(MCTP_REQ_PKT == pkt_type)
-    {
-
-        if (msg_type == MCTP_IC_MSGTYPE_CONTROL)
-            /* if mctp ec rx request buffer available */
-        {
-            if((uint8_t)MCTP_EMPTY == mctp_msg_rx_buf->buf_full)
-            {
-                /* copy packet from smbus buffer to spdm ec rcv buffer */
-                for(i = 0; i < buffer_info->DataLen; i++)
-                {
-                    mctp_msg_rx_buf->pkt.data[i] = buffer_info->buffer_ptr[i];
-                }
-
-                /* store smbus layer timestamp i.e. time when packet was
-                 * received by smbus */
-                mctp_msg_rx_buf->rx_smbus_timestamp = buffer_info->TimeStamp;
-
-                /* mark ec rx buffer pending for further processing */
-                mctp_msg_rx_buf->buf_full = (uint8_t)MCTP_RX_PENDING;
-                SET_MCTP_EVENT_TASK(mctp);
-            }
-        }
-    }
-
-    return ret_val;
-} /* End mctp_copy_rxpkt_for_ec */
 
 /******************************************************************************/
 /** This is called when MCTP packet is to be transmitted over smbus.
@@ -389,22 +163,14 @@ void mctp_transmit_smbus(MCTP_PKT_BUF *tx_buf)
     }
 
     status_tx = mctp_i2c_tx(MCTP_I2C_CHANNEL,
-                            (uint8_t *)&tx_buf->pkt,
-                            SMB_PROTO_WRITE_BLOCK,
+                (uint8_t *)&tx_buf->pkt,
+                SMB_PROTO_WRITE_BLOCK,
                             tx_buf->pkt.data[MCTP_PKT_BYTE_CNT_POS] + 3U,
                             (uint8_t)true,
                             (I2C_MASTER_FUNC_PTR) mctp_smbmaster_done,
                             (uint8_t)false,
                             (uint8_t)false);
 
-    if(0U != status_tx)
-    {
-        /* MCTP Xmit ERROR */
-    }
-    else
-    {
-        /* MCTP Xmit OK */
-    }
 } /* End mctp_transmit_smbus() */
 
 /******************************************************************************/
@@ -422,12 +188,19 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
     MCTP_PKT_BUF *tx_buf;
     uint8_t ret_val;
     uint8_t spdm_pend = 0x00;
-    uint8_t pldm_pend = 0x00;
+	uint8_t pldm_pend = 0x00;
+    MCTP_TX_CXT *mctp_tx_ctxt = NULL;
 
     /* get current TX buffer pointer */
     tx_buf = (MCTP_PKT_BUF *)((void *) buffer_ptr);
 
-    if(store_msg_type_tx == MCTP_IC_MSGTYPE_SPDM)
+    mctp_tx_ctxt = mctp_msg_tx_ctxt_lookup(tx_buf->pkt.field.hdr.src_eid,tx_buf->pkt.field.hdr.dst_eid,
+                                tx_buf->pkt.field.hdr.msg_tag);
+    if (mctp_tx_ctxt != NULL) {
+        msg_type_tx = mctp_tx_ctxt->message_type;
+    }
+    
+    if(msg_type_tx == MCTP_IC_MSGTYPE_SPDM)
     {
         if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
         {
@@ -438,7 +211,7 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
             spdm_pend = false;
         }
     }
-    else if (store_msg_type_tx == MCTP_IC_MSGTYPE_PLDM)
+    else if (msg_type_tx == MCTP_IC_MSGTYPE_PLDM)
     {
         if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
         {
@@ -449,7 +222,6 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
             pldm_pend = false;
         }
     }
-
     /* based on status code, schedule re-transmission of packet or
     * drop the packet / mark buffer available */
     switch (status)
@@ -557,6 +329,10 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
 
     } /* end of switch */
 
+    //trace1(0, MCTP, 0, "mctp_smbmaster_done: mctp_tx_state = %04Xh", mctp_tx_state);
+    //trace1(0, MCTP, 0, "mctp_smbmaster_done: ret_val = %04Xh", ret_val);
+    //trace0(0, MCTP, 0, "mctp_smbmaster_done: End");
+
     if(spdm_pend)//if eom is not 1 for the spdm messaging, trigger spdm for further transmission over mctp
     {
         trigger_spdm_event();
@@ -571,7 +347,6 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
     {
         trigger_pldm_res_event();
     }
-
     return ret_val;
 
 }  /* End mctp_smbmaster_done */
@@ -607,8 +382,7 @@ void mctp_smbdone_drop(MCTP_PKT_BUF *pkt_buf)
     pkt_buf->smbus_acquire_retry_count = 0;
     pkt_buf->request_tx_retry_count = 0;
     pkt_buf->request_per_tx_timeout_count = 0;
-    pkt_buf->rx_smbus_timestamp = 0;
-    mctp_clean_up_buffer_states();
+    pkt_buf->rx_timestamp = 0;
 } /* End mctp_smbdone_drop */
 
 /******************************************************************************/
@@ -618,7 +392,7 @@ void mctp_smbdone_drop(MCTP_PKT_BUF *pkt_buf)
 * @param *tx_buf Pointer to TX packet buffer
 * @return void
 *******************************************************************************/
-void mctp_txpktready_init(MCTP_PKT_BUF *tx_buf)
+void mctp_smbus_txpktready_init(MCTP_PKT_BUF *tx_buf)
 {
     /* configure/initialize tx packet buffer parameters */
     tx_buf->smbus_nack_retry_count = 0;
@@ -642,20 +416,18 @@ void mctp_txpktready_init(MCTP_PKT_BUF *tx_buf)
 } /* End mctp_txpktready_init */
 
 /******************************************************************************/
-/** This is called by smbus module whenever SMBUS address is updated.
-* @param smb_address - Bus address
-* @return mctp_port - I2C controller port 
+/** This is called by smbus module whenever MEC1324 SMBUS address is updated.
 *******************************************************************************/
-void mctp_smbaddress_update(uint8_t smb_address, uint8_t mctp_port)
+void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port)
 {
     uint8_t smbus_config;
 
-    mctp_rt.ep.ec.field.smb_address     = smb_address;
+    mctp_rt.ep.ec.field.smb_address     = (uint8_t)(smb_address& UINT8_MAX);;
     mctp_cfg.smbus_enable = 1;
 
     smbus_config = (mctp_cfg.smbus_fairness << 2 | mctp_cfg.smbus_enable);
 
-    mctp_i2c_configure_and_enable(MCTP_I2C_CHANNEL, 
+    mctp_di_smb_configure_and_enable(MCTP_I2C_CHANNEL, 
                                     smb_address, 
                                     mctp_cfg.smbus_speed, 
                                     mctp_port, 
@@ -717,10 +489,10 @@ uint8_t mctp_otp_get_crisis_mode_smb_port(void)
  *                     else error status
 ******************************************************************************/
 uint8_t mctp_i2c_rx_register(const uint8_t channel, 
-                            I2C_SLAVE_FUNC_PTR slaveFuncPtr)
+                            MCTP_SLAVE_FUNC_PTR slaveFuncPtr)
 {
     return smb_register_slave(channel, 
-                                (I2C_SLAVE_FUNC_PTR)slaveFuncPtr);
+                                (MCTP_SLAVE_FUNC_PTR)slaveFuncPtr);
 }
 
 

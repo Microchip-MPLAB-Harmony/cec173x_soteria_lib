@@ -21,8 +21,8 @@
 #ifndef SPDM_COMMON_H
 #define SPDM_COMMON_H
 
-#include "../mctp/mctp_base.h"
-#include "../mctp/mctp.h"
+#include "mctp_base.h"
+#include "mctp.h"
 #include "spdm_config.h"
 
 #ifdef __cplusplus
@@ -32,9 +32,8 @@ extern "C" {
 #define SPDM_BSS0_ATTR                                     __attribute__((section("spdm_bss0")))
 #define SPDM_BSS1_ATTR                                     __attribute__((section("spdm_bss1")))
 #define SPDM_BSS2_ATTR                                     __attribute__((section("spdm_bss2")))
-#define SPDM_STACK_ATTR 					               __attribute__((section("spdm_stack_buf")))
-#define SPDM_BUF_ATTR 			     		               __attribute__((section("spdm_buf")))
-
+#define SPDM_STACK_ATTR                                    __attribute__((section("spdm_task_stack")))
+    
 #define PVT_KEY_CODE_LENGTH               (96U)
 #define SPDM_SHA384_LEN                   (48U)
 #define CURVE_384_SZ                      (48U)
@@ -45,7 +44,6 @@ extern "C" {
 /* Attestation certificate Maximum*/
 #define MAXIMUM_CERTIFICATE                64U
 
-#define STATUS_OK 0U
 
 typedef union
 {

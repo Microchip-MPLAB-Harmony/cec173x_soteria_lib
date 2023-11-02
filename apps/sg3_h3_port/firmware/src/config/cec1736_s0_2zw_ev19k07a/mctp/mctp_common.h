@@ -63,8 +63,20 @@ extern "C" {
 #define SMB_PROTO_READ_BLOCK                              ((I2C_OPER_REPEAT << 6) + 0x3FU)
 #define SMB_PROTO_BLOCK_WRITE_BLOCK_READ_PROCESS_CALL     ((I2C_OPER_REPEAT << 6) + 0x3FU)
 
+#define INPUT_BUF_MAX_BYTES    1224U
+
 #define is_add_safe(sum, aug_or_add)                     ((sum) < (aug_or_add) ? 0 : 1) // Coverity INT30-C Postcondition Test
 #define is_sub_safe(ui_a, ui_b)                          ((ui_a) < (ui_b) ? 0 : 1) // Coverity INT30-C Precondition Test
+
+#define SET_MCTP_EVENT_TASK(mctp)   SET_MCTP_EVENT_FLAG()
+
+void SET_SPDM_EVENT_FLAG(void);
+#define SET_EVENT_SPDM_TASK(spdm)   SET_SPDM_EVENT_FLAG()
+void SET_PLDM_RESP_EVENT_FLAG(void);
+#define SET_EVENT_PLDM_TASK_RESP(pldm)   SET_PLDM_RESP_EVENT_FLAG()
+
+void SET_PLDM_EVENT_FLAG(void);
+#define SET_EVENT_PLDM_TASK(pldm)   SET_PLDM_EVENT_FLAG()
 
 /* Provide C++ Compatibility */
 #ifdef __cplusplus

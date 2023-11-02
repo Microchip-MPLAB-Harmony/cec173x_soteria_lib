@@ -48,5 +48,7 @@ uint32_t AHB_API_interrupt_device_ecia_result_get_ISR(const uint32_t dev_iroute)
 uint8_t AHB_API_interrupt_device_ecia_enable_clear_ISR(const uint32_t dev_iroute);
 uint8_t AHB_API_interrupt_device_ecia_enable_set_ISR(const uint32_t dev_iroute);
 uint8_t AHB_API_interrupt_device_ecia_source_clear_ISR(const uint32_t dev_iroute);
+uint8_t SRAM_RLOG_API_tag0_buildnum_read(uint8_t *buffer);
+uint8_t SRAM_MBOX_API_read_container_crisis_interface_en(uint8_t *buffer);
 
 #endif /* INCLUDE_AHB_API_MPU_H_ */

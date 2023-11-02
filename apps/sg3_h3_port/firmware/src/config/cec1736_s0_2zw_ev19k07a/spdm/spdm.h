@@ -471,7 +471,11 @@ extern uint8_t spdm_crypto_ops_gen_random_no(uint8_t *buff, uint8_t bytes);
  * }
  * ############################################################################
 *******************************************************************************/
-int spdm_app_task_create(void *pvParams, void *pTaskPrivRegValues);
+#ifdef config_CEC_AHB_PROTECTION_ENABLE
+int spdm_app_task_create(void *pvParams, CEC_AHB_PRIV_REGS_VALUES *pTaskPrivRegValues);
+#else
+int spdm_app_task_create(void *pvParams);
+#endif
 
 /******************************************************************************/
 /** spdmContext

@@ -26,20 +26,22 @@
 #include "../pldm/pldm_pkt_prcs.h"
 
 /* MPU */
+/* MPU */
 static void spdm_main(void *pvParameters);
 static StaticTask_t spdm_tcb;
 
 extern SPDM_BSS1_ATTR DI_CONTEXT_SPDM *spdm_di_context;
-SPDM_STACK_ATTR static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ALIGN;
-SPDM_BSS2_ATTR TaskHandle_t spdm_handle = NULL;
-SPDM_BSS2_ATTR SPDM_CONTEXT *spdmContext = NULL;
-PLDM_BSS2_ATTR PLDM_CONTEXT *pldmContext = NULL;
+static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ATTR SPDM_STACK_ALIGN;
+SPDM_BSS2_ATTR static TaskHandle_t spdm_handle;
+SPDM_BSS2_ATTR SPDM_CONTEXT *spdmContext;
+PLDM_BSS2_ATTR PLDM_CONTEXT *pldmContext;
+extern SPDM_BSS1_ATTR uint8_t spdm_flash_busy;
 
 union
 {
     uint32_t w[SPDM_TASK_BUF_SIZE / 4];
     uint8_t  b[SPDM_TASK_BUF_SIZE];
-} spdm_task_buf SPDM_BUF_ATTR SPDM_TASK_BUF_ALIGN;
+} spdm_task_buf SPDM_BSS0_ATTR SPDM_TASK_BUF_ALIGN;
 
 #define SPDM_TASK_BUF_ADDR &spdm_task_buf.w[0]
 /*
@@ -88,8 +90,7 @@ int spdm_app_task_create(void *pvParams, CEC_AHB_PRIV_REGS_VALUES *pTaskPrivRegV
 int spdm_app_task_create(void *pvParams)
 #endif
 {
-    // SPDM task create - MPU
-//    trace0(SPDM_TRACE, SPDM_TSK, 0, "STkCr");
+    //trace1(0, SPDM_TSK, 0, "[%s]: SPDM task create - MPU", __FUNCTION__);
     BaseType_t frc = pdFAIL;
     uintptr_t spdm_bss0_addr = spdm_bss0_base();
     size_t spdm_bss0_sz = spdm_bss0_size();
@@ -159,8 +160,7 @@ int spdm_app_task_create(void *pvParams)
     di_context = (DI_CONTEXT_SPDM*)pvParams;
     spdmContext->xSPDMEventGroupHandle = di_context->spdm_request.evt_grp_handle;
 
-    // SPDM tsk create - Done
-//    trace0(SPDM_TRACE, SPDM_TSK, 1, "STkDn");
+    //trace1(0, SPDM_TSK, 0, "[%s]: SPDM tsk create - Done", __FUNCTION__);
 
     return 0;
 }
@@ -198,16 +198,15 @@ static void spdm_main(void* pvParameters)
     {
         return;
     }
-
+    pldmContext = pldm_ctxt_get();
+    
     if (NULL == spdm_di_context)
     {
-        // spdm_main:DI setup err
-//        trace0(SPDM_TRACE, SPDM_TSK, 0, "SpmDe");
+        //trace1(0, SPDM_TSK, 0, "[%s]:DI setup err", __FUNCTION__);
         return;
     }
 
     pldm_init_flags();
-    pldmContext = pldm_ctxt_get();
     pldmContext->xPLDMRespTimer =
         xTimerCreateStatic("PLDMResp_timer", // Text name for the task.  Helps debugging only.  Not used by FreeRTOS.
                            pdMS_TO_TICKS(FD_T1), // The period of the timer in ticks.
@@ -216,24 +215,25 @@ static void spdm_main(void* pvParameters)
                            PLDMResp_timer_callback, // The function to execute when the timer expires.
                            &pldmContext->PLDMResp_TimerBuffer); // The buffer that will hold the software timer structure.
 
-
     spdmContext->spdm_state_info = SPDM_IDLE;
-    // spdm_main: SPDM tsk main proc
-//    trace0(SPDM_TRACE, SPDM_TSK, 0, "Spmtp");
-
+    //trace1(0, SPDM_TSK, 0, "[%s]: SPDM tsk main proc", __FUNCTION__);
     while(1)
     {
-        // spdm_main: Loop
-        // tracex("SpmLp");
+        //trace0(0, SPDM_TSK, 0, "spdm_main: Loop");
         uxBits = xEventGroupWaitBits(spdmContext->xSPDMEventGroupHandle,
                                      (SPDM_EVENT_BIT | PLDM_EVENT_BIT | MCTP_DI_EVENT_RESPONSE | SB_CORE_DI_EVENT_RESPONSE | SPDM_POST_AUTH_DONE_BIT |
-                                      SPDM_I2C_EVENT_BIT | SB_CORE_DI_EVENT_APPLY_RESPONSE | PLDM_RESP_EVENT_BIT),
+                                      SPDM_I2C_EVENT_BIT | SB_CORE_DI_EVENT_APPLY_RESPONSE | PLDM_RESP_EVENT_BIT |
+                                      SPDM_REAUTH_DONE_BIT),
                                      pdTRUE,
                                      pdFALSE,
                                      portMAX_DELAY );
         if (SPDM_POST_AUTH_DONE_BIT == (uxBits & SPDM_POST_AUTH_DONE_BIT))
         {
             spdm_init_task(spdmContext);
+        }
+        if (SPDM_REAUTH_DONE_BIT == (uxBits & SPDM_REAUTH_DONE_BIT))
+        {
+            spdm_update_ap_msr_data(spdmContext);
         }
         if (SPDM_I2C_EVENT_BIT == (uxBits & SPDM_I2C_EVENT_BIT))
         {
@@ -258,7 +258,10 @@ static void spdm_main(void* pvParameters)
                 spdm_pkt_copy_cert_data_to_buf(spdmContext);
                 break;
             case SPDM_CALC_HASH_CHAIN:
+                spdm_flash_busy = true;
                 spdm_pkt_store_hash_of_chain(spdmContext);
+                spdm_pkt_store_signature_type();
+                spdm_flash_busy = false;
                 pldm_pkt_get_config_from_apcfg(pldmContext);
                 break;
             case SPDM_CMD_PROCESS_MODE:
@@ -278,15 +281,14 @@ static void spdm_main(void* pvParameters)
         }
         if (PLDM_EVENT_BIT == (uxBits & PLDM_EVENT_BIT))
         {
-            // PLDM:bit set step into event task for recv and trans
-//            trace0(SPDM_TRACE, SPDM_TSK, 0, "Splbs");
+            //trace0(0, SPDM_TSK, 0, "PLDM:bit set step into event task for recv and trans");
             switch(pldmContext->pldm_state_info)
             {
             case PLDM_IDLE:
                 // do nothing
                 break;
             case PLDM_CMD_GET_AP_CFG:
-                //pldm_pkt_get_config_from_apcfg(spdmContext);
+                //pldm_pkt_get_config_from_apcfg(pldmContext);
                 break;
             case PLDM_CMD_PROCESS_MODE:
                 pldm1_event_task();
@@ -318,8 +320,7 @@ void SET_SPDM_EVENT_FLAG(void)
     {
         return;
     }
-    // SET_SPDM_EVENT_FLAG:set SPDM event
-//    trace0(SPDM_TRACE, SPDM_TSK, 0, "Sefse");
+    //trace1(0, SPDM_TSK, 0, "[%s]: set SPDM event", __FUNCTION__);
     xEventGroupSetBits( spdmContext->xSPDMEventGroupHandle, SPDM_EVENT_BIT );
 }
 
@@ -331,17 +332,15 @@ void SET_SPDM_EVENT_FLAG(void)
 **********************************************************************/
 void SET_PLDM_EVENT_FLAG(void)
 {
-    spdmContext = spdm_ctxt_get();
-    if (NULL == spdmContext)
+    pldmContext = pldm_ctxt_get();
+    if (NULL == pldmContext)
     {
         return;
     }
-    pldmContext = pldm_ctxt_get();
     pldmContext->pldm_state_info = PLDM_CMD_PROCESS_MODE;
     //spdmContext->pldm_tx_state = PLDM_TX_IDLE;
-    // PLDM:set event
-//    trace0(PLDM_TRACE, SPDM_TSK, 0, "PlSev");
-    xEventGroupSetBits( spdmContext->xSPDMEventGroupHandle, PLDM_EVENT_BIT);
+    //trace0(0, SPDM_TSK, 0, "PLDM:set event");
+    xEventGroupSetBits( spdm_ctxt_get()->xSPDMEventGroupHandle, PLDM_EVENT_BIT);
 }
 
 /****************************************************************/
@@ -369,7 +368,6 @@ int spdm_task_create(void *pvParams)
 
     return 0;
 }
-
 /******************************************************************************/
 /** pldm_response_timeout_start
 * Start the software PLDMResponse timer
@@ -385,8 +383,7 @@ void pldm_response_timeout_start(void)
         {
             if (xTimerStart(pldmContext->xPLDMRespTimer, 0) != pdPASS)
             {
-                // Err:PLDMResp tmr could not set to active state
-//                trace0(PLDM_TRACE, SPDM_TSK, 1, "PlRtn");
+                //trace0(1, SPDM_TSK, 1, "Err:PLDMResp tmr could not set to active state");
                 return;
             }
         }
@@ -408,8 +405,7 @@ void pldm_response_timeout_stop(void)
         {
             if (xTimerStop(pldmContext->xPLDMRespTimer, 0) != pdPASS)
             {
-                // Err:PLDMResp timer stop fail
-//                trace0(PLDM_TRACE, SPDM_TSK, 1, "PlTsF");
+                //trace0(1, SB_MONITOR, 1, "Err:PLDMResp timer stop fail");
                 return;
             }
         }

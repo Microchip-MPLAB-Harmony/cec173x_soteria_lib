@@ -67,6 +67,7 @@ extern "C" {
 
 #define PLDM_COMP_IDENTIFIER_APFW_0 0x2000
 
+#define PLDM_COMP_IDENTIFIER_AP_FW_SPI_BASE 0x2000
 #define PLDM_COMP_IDENTIFIER_BYTE_MATCH_INT_SPI_BASE 0x5000
 
 #define INVALID_ECFWKHB_IDENTIFIER(x) ((x != PLDM_COMP_IDENTIFIER_KHB_TAG0) && \
@@ -85,24 +86,6 @@ extern "C" {
                                        (x != PLDM_COMP_IDENTIFIER_HT0_AP1C1) && \
                                        (x != PLDM_COMP_IDENTIFIER_HT1_AP1C1) && \
                                        (x != PLDM_COMP_IDENTIFIER_HT2_AP1C1))
-
-/** Components */
-enum COMPONENTS
-{
-    COMPONENT_0 = 0,
-    COMPONENT_1,
-    COMPONENT_MAX
-};
-
-/** AP's */
-enum APx
-{
-    AP_0 = 0,
-    AP_1,
-    AP_MAX
-};
-
-#define NO_OF_BYTE_MATCH_SUPPORT_IN_INT_FLASH 2
 
 #ifdef __cplusplus
 }

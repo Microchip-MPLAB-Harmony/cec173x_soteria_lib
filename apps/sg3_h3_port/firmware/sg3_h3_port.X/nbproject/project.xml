@@ -10,6 +10,8 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/pldm</sourceRootElem>
+                <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/wdt</sourceRootElem>
+                <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/spt</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

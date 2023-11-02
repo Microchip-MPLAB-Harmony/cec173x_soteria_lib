@@ -428,6 +428,28 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskHeaderFile.setOverwrite(True)
     mctpSmbusTaskHeaderFile.setType("HEADER")
     mctpSmbusTaskHeaderFile.setMarkup(False)
+    
+    if (isPldmComponentConnected.getValue() == True):
+        #Add pldm/pldm_app.h
+        mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)
+        mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)
+        mctpSmbusTaskHeaderFile.setSourcePath("/libraries/cec173x_sg3/src/pldm/pldm_app.h")
+        mctpSmbusTaskHeaderFile.setDestPath("../../pldm")
+        mctpSmbusTaskHeaderFile.setOutputName("pldm_app.h")
+        mctpSmbusTaskHeaderFile.setProjectPath("pldm/")
+        mctpSmbusTaskHeaderFile.setOverwrite(True)
+        mctpSmbusTaskHeaderFile.setType("HEADER")
+        mctpSmbusTaskHeaderFile.setMarkup(False)
+        
+        #Add pldm/pldm_app.c
+        mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
+        mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/pldm/pldm_app.c")
+        mctpSmbusTaskSourceFile.setDestPath("../../pldm")
+        mctpSmbusTaskSourceFile.setOutputName("pldm_app.c")
+        mctpSmbusTaskSourceFile.setProjectPath("pldm/")
+        mctpSmbusTaskSourceFile.setOverwrite(True)
+        mctpSmbusTaskSourceFile.setType("SOURCE")
+        mctpSmbusTaskSourceFile.setMarkup(False)
 
     #Add startup/startup.h
     mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)

@@ -18,25 +18,6 @@
 * OF THESE TERMS.
 *****************************************************************************/
 
-/** @file pldm_pkt_prcs.h
- *  MEC1324 Peripheral common header file
- */
-/** @defgroup MEC1324 Peripherals
- */
-
-/*******************************************************************************
- *  MCHP version control information (Perforce):
- *
- *  FILE:     $ $
- *  REVISION: $Revision: #19 $
- *  DATETIME: $DateTime: 2023/02/02 13:26:58 $
- *  AUTHOR:   $Author: i53517 $
- *
- *  Revision history (latest first):
- *      # 1: Initial revision for the MCTP porting
- ***********************************************************************************
-*/
-
 #ifndef PLDM_PKT_PRCS_H
 #define PLDM_PKT_PRCS_H
 
@@ -176,6 +157,7 @@ enum PLDM_STATES
 #define PLDM_FW_TYPE_ECFW0_KHB 0x4 // non TOO TAG0 KHB
 #define PLDM_FW_TYPE_ECFW1_KHB 0x5 // non TOO TAG1 KHB
 #define PLDM_FW_BYTE_MATCH_INT_SPI 0x6
+#define PLDM_FW_APFW_IMG 0x7
 
 // OTP offset for query device identifiers
 #define DEVICE_PART_NUMBER_OFFSET 56
@@ -183,7 +165,7 @@ enum PLDM_STATES
 
 #define MAX_NUM_BYTES_PKT           64u
 
-#define PLDM_DEFAULT_CAP_DURING_UPDATE 0x00000024
+#define PLDM_DEFAULT_CAP_DURING_UPDATE 0x00000014
 #define PLDM_NUMBER_OF_COMPONENTS_SUPPORTED 4  // EC_FW Tag 0 & 1; AP_CFG 0 & 1
 
 #define PLDM_COMP_UPDATE_FAILURE_RECOVERY_CAP (1 << 0)
@@ -200,20 +182,43 @@ enum PLDM_STATES
 #define PLDM_QUERY_DEVICE_DES1_VAL 0x1055
 
 #define PLDM_QUERY_DEVICE_DES2_TYPE 0xFFFF
-#define PLDM_QUERY_DEVICE_DES2_LEN 0x000C
+#define PLDM_QUERY_DEVICE_DES2_TITLE_LEN 0x09
+#define PLDM_QUERY_DEVICE_DES2_LEN 0x0017
 
-#define PLDM_QUERY_DEVICE_DES_TOTAL_LEN 0x00000016
+#define PLDM_QUERY_DEVICE_DES_TOTAL_LEN 0x00000021 // size excluding completion code, desc len, count
 #define PLDM_QUERY_DEVICE_DES_COUNT 0x02
+#define HEX_TO_ASCII_SIZE 4
 
 #define PLDM_REQUEST_UPDATE_DATA_LEN sizeof(REQUEST_REQUEST_UPDATE)
 #define PLDM_REQUEST_ACTIVATE_FIRMWARE_LEN sizeof(REQUEST_ACTIVATE_FIRMWARE)
 
 #define PLDM_EOM 0x40
 
+#define MAX_BUFFER_LEN_FW_PARAMETERS 1800u
+
 // Byte match int spi update masking
 #define BYTE_MATCH_INT_SPI_IMGID_MSK 0x000F
 #define BYTE_MATCH_INT_SPI_COMP_MSK 0x00F0
 #define BYTE_MATCH_INT_SPI_AP_MSK 0x0F00
+
+typedef struct ap_image_details {
+        bool is_present;
+        uint8_t ap;
+        uint8_t comp_id;
+        uint8_t comp_img_id;
+        uint32_t staged_address;
+        uint32_t restore_address;
+        uint32_t spi_addr;
+        uint8_t image_id;
+} AP_IMAGE_DETAILS;
+
+// apfw img update masking
+#define APFW_IMG_IMGID_MSK 0x000F
+#define APFW_IMG_COMP_MSK 0x00F0
+#define APFW_IMG_AP_MSK 0x0F00
+
+#define PLDM_APFW_CRISIS_ATTEMPTED 1
+#define PLDM_APFW_CRISIS_SUCCESS 2
 
 typedef struct PLDM_AP_CFG
 {
@@ -295,6 +300,8 @@ typedef struct PLDM_AP_CFG
     uint8_t use_c1_ht_for_c0[AP_MAX];
 
     BYTE_MATCH_DETAILS byte_match_details[NO_OF_BYTE_MATCH_SUPPORT_IN_INT_FLASH];
+
+    AP_IMAGE_DETAILS apfw_image_details[NO_OF_APFW_SUPPORT_IN_EXT];
 
 } PLDM_AP_CFG;
 
@@ -802,5 +809,13 @@ bool get_pldm_override_device_desc();
 * @return overrite - true, false
 *******************************************************************************/
 void pldm_get_AP_custom_configs_from_apcfg();
+
+/******************************************************************************/
+/** convert16BitHexToAscii();
+* convert Hex value to ASCII
+* @param uint16_t Hex value to be converted
+* @return uint8_t * pointer to ASCII data
+*******************************************************************************/
+void convert16BitHexToAscii(uint16_t hex_value, uint32_t * ascii_conv); 
 
 #endif

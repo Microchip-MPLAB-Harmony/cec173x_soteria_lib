@@ -26,18 +26,30 @@ typedef unsigned long    UBaseType_t;
 typedef unsigned long    UBaseType_t;
 typedef long             BaseType_t;
 #define config_CEC_AHB_PROTECTION_ENABLE 1
+#define config_CEC_DATA_ISOLATION_CHECKS 1
 #define portUSING_MPU_WRAPPERS 1
 #define configSUPPORT_STATIC_ALLOCATION 1
+#define configSUPPORT_DYNAMIC_ALLOCATION 0
+#define INCLUDE_xTimerPendFunctionCall 1
+#define configUSE_APPLICATION_TASK_TAG 1
+
+/* Macros used for basic data corruption checks. */
+#ifndef configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES
+    #define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES    0
+#endif
+
 typedef void (* TaskFunction_t)( void * );
 #define configSTACK_DEPTH_TYPE    uint16_t
 typedef unsigned long    UBaseType_t;
 #define portSTACK_TYPE    uint32_t
 typedef portSTACK_TYPE   StackType_t;
+typedef BaseType_t (* TaskHookFunction_t)( void * );
 /* Max number of MCTP applications */
 #define DI_MAX_MCTP_APPS		2
 // SPDM configs
 #define SPDM_MAX_QMSPI_PORTS	2		// PLDM uses both ports depending on the APx
 #define SPDM_CRYPTO_BLOCKS_ACCESS	2	// SPDM needs access to both Block1 and Block2 crypto assets
+#define DI_MAX_SPT_APP  1
 
 #define portTOTAL_NUM_REGIONS 8
 
@@ -74,7 +86,7 @@ typedef struct MPU_SETTINGS
     CEC_AHB_PRIV_REGS_VALUES  cecAHBprivRegValues;
 #endif    
 } xMPU_SETTINGS;
-#define configMAX_TASK_NAME_LEN    16
+#define configMAX_TASK_NAME_LEN    10
 struct xSTATIC_LIST_ITEM
 {
     #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
@@ -180,6 +192,50 @@ extern void vAssertCalled(unsigned long ulLine, const char *const pcFileName);
 #define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE
 #define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE
 #define configLIST_VOLATILE
+
+#define portNVIC_INT_CTRL_REG     ( *( ( volatile uint32_t * ) 0xe000ed04 ) )
+#define portNVIC_PENDSVSET_BIT    ( 1UL << 28UL )
+#define portEND_SWITCHING_ISR( xSwitchRequired )    if( xSwitchRequired ) portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT
+
+/* See the comments above the struct xSTATIC_LIST_ITEM definition. */
+struct xSTATIC_MINI_LIST_ITEM
+{
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+        TickType_t xDummy1;
+    #endif
+    TickType_t xDummy2;
+    void * pvDummy3[ 2 ];
+};
+typedef struct xSTATIC_MINI_LIST_ITEM StaticMiniListItem_t;
+
+/* See the comments above the struct xSTATIC_LIST_ITEM definition. */
+typedef struct xSTATIC_LIST
+{
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+        TickType_t xDummy1;
+    #endif
+    UBaseType_t uxDummy2;
+    void * pvDummy3;
+    StaticMiniListItem_t xDummy4;
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+        TickType_t xDummy5;
+    #endif
+} StaticList_t;
+
+typedef struct xSTATIC_EVENT_GROUP
+{
+    TickType_t xDummy1;
+    StaticList_t xDummy2;
+
+    #if ( configUSE_TRACE_FACILITY == 1 )
+        UBaseType_t uxDummy3;
+    #endif
+
+    #if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+        uint8_t ucDummy4;
+    #endif
+} StaticEventGroup_t;
+
 struct xLIST_ITEM
 {
     listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE               /*< Set to a known value if configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
@@ -305,17 +361,73 @@ struct tskTaskControlBlock;     /* The old naming convention is used to prevent 
 typedef struct tskTaskControlBlock * TaskHandle_t;
 
 void di_checks_register_task(TaskHandle_t app_task_handle, uint8_t app_id);
-BaseType_t xTaskCreateRestrictedStatic( const TaskParameters_t * const pxTaskDefinition,
-                                            TaskHandle_t * pxCreatedTask );
+
 
 typedef uint32_t   * QueueHandle_t;
 typedef QueueHandle_t SemaphoreHandle_t;
 typedef TickType_t               EventBits_t;
+
+    #define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE
+    #define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE
+    #define listFIRST_LIST_INTEGRITY_CHECK_VALUE
+    #define listSECOND_LIST_INTEGRITY_CHECK_VALUE
+    #define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem )
+    #define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem )
+    #define listSET_LIST_INTEGRITY_CHECK_1_VALUE( pxList )
+    #define listSET_LIST_INTEGRITY_CHECK_2_VALUE( pxList )
+    #define listTEST_LIST_ITEM_INTEGRITY( pxItem )
+    #define listTEST_LIST_INTEGRITY( pxList )
+
+struct xMINI_LIST_ITEM
+{
+    listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE     /*< Set to a known value if configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
+    configLIST_VOLATILE TickType_t xItemValue;
+    struct xLIST_ITEM * configLIST_VOLATILE pxNext;
+    struct xLIST_ITEM * configLIST_VOLATILE pxPrevious;
+};
+typedef struct xMINI_LIST_ITEM MiniListItem_t;
+
+/*
+ * Definition of the type of queue used by the scheduler.
+ */
+typedef struct xLIST
+{
+    listFIRST_LIST_INTEGRITY_CHECK_VALUE          /*< Set to a known value if configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
+    volatile UBaseType_t uxNumberOfItems;
+    ListItem_t * configLIST_VOLATILE pxIndex;     /*< Used to walk through the list.  Points to the last item returned by a call to listGET_OWNER_OF_NEXT_ENTRY (). */
+    MiniListItem_t xListEnd;                      /*< List item that contains the maximum possible item value meaning it is always at the end of the list and is therefore used as a marker. */
+    listSECOND_LIST_INTEGRITY_CHECK_VALUE         /*< Set to a known value if configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
+} List_t;
+
+typedef struct EventGroupDef_t
+{
+    EventBits_t uxEventBits;
+    List_t xTasksWaitingForBits; /*< List of tasks waiting for a bit to be set. */
+
+    #if ( configUSE_TRACE_FACILITY == 1 )
+        UBaseType_t uxEventGroupNumber;
+    #endif
+
+    #if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+        uint8_t ucStaticallyAllocated; /*< Set to pdTRUE if the event group is statically allocated to ensure no attempt is made to free the memory. */
+    #endif
+} EventGroup_t;
+
+struct EventGroupDef_t;
+typedef struct EventGroupDef_t   * EventGroupHandle_t;
+
 #define STR_VALUE(arg)    #arg
 #define FUNCTION_NAME(name)   STR_VALUE(name)
 #define PRIV_FUNC(x)    privileged_functions_##x
 #define PRIV_FUNC_NAME(x)   FUNCTION_NAME(PRIV_FUNC(x))
 #define PRIVILEGED_FUNCTION     __attribute__( ( section( PRIV_FUNC_NAME(__LINE__) ) ) )
+BaseType_t xTaskCreateRestrictedStatic( const TaskParameters_t * const pxTaskDefinition,
+                                            TaskHandle_t * pxCreatedTask ) PRIVILEGED_FUNCTION;
+
+BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup,
+           const EventBits_t uxBitsToSet,
+           BaseType_t * pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
+
 BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue,
                               const void * const pvItemToQueue,
                               TickType_t xTicksToWait,
@@ -326,8 +438,7 @@ BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue,
 
 
  #define portMAX_DELAY              ( TickType_t ) 0xffffffffUL
-typedef uint32_t * EventGroupHandle_t;
-typedef long             BaseType_t;
+
 EventBits_t MPU_xEventGroupSetBits( EventGroupHandle_t xEventGroup,
                                 const EventBits_t uxBitsToSet );
 #define xEventGroupSetBits MPU_xEventGroupSetBits
@@ -337,6 +448,7 @@ EventBits_t MPU_xEventGroupWaitBits( EventGroupHandle_t xEventGroup,
                                  const BaseType_t xWaitForAllBits,
                                  TickType_t xTicksToWait );
 #define xEventGroupWaitBits MPU_xEventGroupWaitBits
+
 TimerHandle_t MPU_xTimerCreateStatic( const char * const pcTimerName,
                                       const TickType_t xTimerPeriodInTicks,
                                       const UBaseType_t uxAutoReload,
@@ -355,6 +467,7 @@ extern TickType_t MPU_xTaskGetTickCount( void ) PRIVILEGED_FUNCTION;
 #define tmrCOMMAND_START                        ( ( BaseType_t ) 1 )
 #define xTimerStart( xTimer, xTicksToWait ) \
     xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( MPU_xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
+#define xTaskGetTickCount                      MPU_xTaskGetTickCount
 #define tmrCOMMAND_STOP                         ( ( BaseType_t ) 3 )
 #define xTimerStop( xTimer, xTicksToWait ) \
     xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP, 0U, NULL, ( xTicksToWait ) )
@@ -371,6 +484,25 @@ typedef struct ST_DI_QUEUE_EVENT
     QueueHandle_t event_queue_handle;
 
 } DI_QUEUE_EVENT;
+
+/******************************************************************************/
+/**  Data Isolation Queue Item - Generic union to handle all types
+*******************************************************************************/
+typedef struct ST_DI_QUEUEITEM_HEADER
+{
+    /** Request / Response Opcode */
+    uint8_t opcode;
+
+    /** Request or Response */
+    uint8_t type;
+
+    /** ID of the application posting to the queue */
+    uint8_t app_id;
+
+    /** Flag to indicate if Queue item is currently in use */
+    bool in_use_flag;
+
+} DI_QUEUEITEM_HEADER;
 
 typedef struct ST_DI_CONTEXT_MCTP_MASTER
 {
@@ -391,11 +523,21 @@ typedef struct ST_DI_CONTEXT_MCTP
     /** SMB Request Message Queue and event group handle */
     DI_QUEUE_EVENT smb_request;
 
+    // SPT Request INFO
+    /** SPT Request Message Queue and event group handle */
+    DI_QUEUE_EVENT spt_request;
+
     /** Semaphore for MCTP smb channel */
     SemaphoreHandle_t mutex_smb_handle;
 
-    /** Slave TX Message Queue handle */
-    QueueHandle_t slave_tx_msg_queue_handle;
+    /** Semaphore for MCTP spt channel */
+    SemaphoreHandle_t mutex_spt_handle;
+
+    /** SMB Slave TX Message Queue handle */
+    QueueHandle_t slave_tx_smb_msg_queue_handle;
+
+    /** SPT TX Message Queue handle */
+    QueueHandle_t spt_tx_msg_queue_handle;
 
     /** MCTP Message Queue and event group handle */
     DI_QUEUE_EVENT mctp_request;
@@ -462,5 +604,164 @@ typedef struct ST_DI_CONTEXT_SPDM
     DI_QUEUE_EVENT i2c_request; // Send request to i2c
 
 } DI_CONTEXT_SPDM;
+
+#define SPT_MSGQUEUE_TX_BUFFER_SIZE     80
+#define SPT_MSGQUEUE_RX_BUFFER_SIZE     80
+
+typedef struct ST_DI_CONTEXT_SPT
+{
+    /** Request Message Queue and event group handle */
+    DI_QUEUE_EVENT spt_request;
+
+    /** SPT TX Message Queue handle */
+    QueueHandle_t spt_tx_msg_queue_handle;
+
+    /** Semaphores for each channel */
+    SemaphoreHandle_t mutex_handle[DI_MAX_SPT_APP];
+
+    // APPS INFO
+    DI_QUEUE_EVENT app_info[DI_MAX_SPT_APP];
+
+} DI_CONTEXT_SPT;
+
+/******************************************************************************/
+/**  SPT Master Request Specific Info
+*******************************************************************************/
+typedef struct ST_DI_REQUEST_SPT_INIT
+{
+    /** SPT Channel for Init */
+    uint8_t channel;
+
+    /** SPT IO Mode */
+    uint16_t io_mode;
+
+    /** TAR Time*/
+    uint8_t tar_time;
+
+    /** Wait time */
+    uint8_t wait_time;
+
+    /** Use this flag to control enable/disable of SPT  */
+    uint8_t enable_flag;
+
+    uint8_t pec_enable;
+
+} DI_REQUEST_SPT_INIT;
+
+typedef struct ST_DI_REQUEST_SPT_TX_STATUS
+{
+    /* The busy status of channel value mentioned in this */
+    /* variable will be returned in the reponse message */
+    uint8_t channel_num;
+
+} DI_REQUEST_SPT_TX_STATUS;
+
+
+/******************************************************************************/
+/**  SPT TX Request Specific Info
+*******************************************************************************/
+typedef struct ST_DI_REQUEST_SPT_TX
+{
+    /** SPT Channel for the request */
+    uint8_t channel;
+
+    /** Number of bytes to transmit */
+    uint8_t writecount;
+
+    /** Flag to enable/disable PEC */
+    uint8_t pecEnable;
+
+    uint32_t _reserved1;
+
+    /** TX Data */
+    uint8_t buffer[SPT_MSGQUEUE_TX_BUFFER_SIZE];
+
+} DI_REQUEST_SPT_TX;
+
+/******************************************************************************/
+/**  SPT Master Response Specific Info
+*******************************************************************************/
+typedef struct ST_DI_RESPONSE_SPT_TX
+{
+    /** SPT Channel for the response */
+    uint8_t channel;
+
+    /** Status of the response */
+    uint8_t status;
+
+    uint16_t _reserved1;
+
+    uint32_t _reserved2;
+
+    /** Master Rx Data */
+    uint8_t buffer[SPT_MSGQUEUE_TX_BUFFER_SIZE];
+
+} DI_RESPONSE_SPT_TX;
+
+typedef struct ST_DI_RESPONSE_SPT_STATUS
+{
+    uint8_t channel_num;
+    /* Each bit corresponds to the busy status of the channel */
+    /* BIT0 - CHAN0 busy status, BIT1 - CHAN1 busy status*/
+    uint8_t channel_busy_status;
+
+} DI_RESPONSE_SPT_STATUS;
+
+/******************************************************************************/
+/**  SMB SLAVE Response Specific Info
+*******************************************************************************/
+typedef struct ST_DI_RESPONSE_SPT_RX
+{
+    /** SMB Channel for the response */
+    uint8_t channel;
+
+    /** Data Length of packet received */
+    uint8_t  dataLen;
+
+    /** PEC valid/invalid flag */
+    uint8_t  pecFlag;
+
+    /** Timestamp of received packet */
+    uint16_t timestamp;
+
+    uint8_t _reserved1;
+
+    /** Slave Rx Data */
+    uint8_t buffer[SPT_MSGQUEUE_RX_BUFFER_SIZE];
+
+} DI_RESPONSE_SPT_RX;
+
+/******************************************************************************/
+/**  Data Isolation Queue Item - SMB union to handle all SMB messages
+*******************************************************************************/
+typedef struct ST_DI_QUEUEITEM_SPT
+{
+    DI_QUEUEITEM_HEADER header_info;
+
+    union
+    {
+        /** SPT Init specific queue item */
+        DI_REQUEST_SPT_INIT req_spt_init;
+
+        /** SPT status request specific queue item */
+        DI_REQUEST_SPT_TX_STATUS req_spt_status;
+
+        /** SPT TX Request specific queue item */
+        DI_REQUEST_SPT_TX req_spt_tx;
+
+        /** SPT TX Response specific queue item */
+        DI_RESPONSE_SPT_TX res_spt_tx;
+
+        /** SPT status  response specific queue item */
+        DI_RESPONSE_SPT_STATUS res_spt_status;
+
+        /** SPT RX Response specific queue item */
+        DI_RESPONSE_SPT_RX res_spt_rx;
+
+    } item_details;
+
+} DI_QUEUEITEM_SPT;
+
+#define DI_QUEUEITEM_SPT_SIZE        (sizeof(DI_QUEUEITEM_SPT))
 
 #endif

@@ -25,6 +25,7 @@ typedef uint32_t (*FP_RU32_V)(void);
 
 #define MCHP_EXTRA_IN_DESCS 0
 #define NUM_PK_INST 1 /* MCHP */
+#define MCHP_OK 0
 
 /** A cryptomaster DMA descriptor */
 struct mchpdesc

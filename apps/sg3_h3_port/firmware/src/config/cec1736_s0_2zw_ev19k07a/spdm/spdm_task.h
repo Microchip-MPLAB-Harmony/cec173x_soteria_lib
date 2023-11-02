@@ -25,7 +25,6 @@
 #include <stdint.h>
 #include "spdm_common.h"
 #include "mctp_config.h"
-#include "common.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,7 +34,7 @@ extern "C" {
 #define SPDM_PRIORITY ((tskIDLE_PRIORITY + configSPDM_PRIORITY) % configMAX_PRIORITIES)
 
 /* Stack size must be a power of 2 if the task is restricted */
-#define SPDM_STACK_SIZE 1024U       // 2 * configMINIMAL_STACK_SIZE (120)
+#define SPDM_STACK_SIZE 2048       // 2 * configMINIMAL_STACK_SIZE (120)
 #define SPDM_STACK_WORD_SIZE ((SPDM_STACK_SIZE) / 4U)
 
 #define SPDM_STACK_ALIGN __attribute__ ((aligned(SPDM_STACK_SIZE)))
@@ -49,6 +48,7 @@ extern "C" {
 #define PLDM_EVENT_BIT                  (1 << 3u)
 #define SPDM_I2C_EVENT_BIT              (1 << 4u)
 #define PLDM_RESP_EVENT_BIT             (1 << 5u)
+#define SPDM_REAUTH_DONE_BIT            (1 << 6u)
 
 #ifdef config_CEC_AHB_PROTECTION_ENABLE
 int spdm_task_create(void *pvParams, CEC_AHB_PRIV_REGS_VALUES *pTaskPrivRegValues);
@@ -77,6 +77,115 @@ enum SPDM_TASK_MODES
     PLDM_CMD_GET_AP_CFG
 };
 
+
+typedef struct PLDM_CONTEXT
+{
+    uint8_t pldm_state_info; // added this to track PLDM packets (if tracking with spdm_state_info, if spdm packet comes in between
+    // pldm packets, the current state would go into toss)
+
+    uint8_t pldm_tx_state;
+
+    uint8_t pldm_host_eid;
+
+    uint8_t pldm_ec_eid;
+
+    uint8_t pldm_ec_slv_addr;
+
+    uint8_t pldm_host_slv_addr;
+
+    uint8_t pldm_message_tag;
+
+    uint8_t pldm_instance_id;
+
+    uint8_t pldm_current_response_cmd;
+
+    uint8_t pldm_current_state;
+
+    uint8_t pldm_previous_state;  // maintaining this for sending previous state in GetStatus command
+
+    uint8_t pldm_next_state;
+
+    uint8_t pldm_verify_state;
+
+    uint8_t pldm_apply_state;
+
+    uint8_t pldm_status_reason_code;
+
+    uint8_t current_pkt_sequence; // PLDM; used to find for packet loss and retry
+
+    uint8_t expected_pkt_sequence;
+
+    uint16_t pldm_current_request_length;
+    
+    uint8_t pldm_cmd_code;
+    
+    /* PLDM timeout response Timer Handle*/
+    TimerHandle_t xPLDMRespTimer;
+
+    /* PLDM timeout response Timer buffer*/
+    StaticTimer_t PLDMResp_TimerBuffer __attribute__((aligned(8)));
+
+}__attribute__((packed)) PLDM_CONTEXT;
+
+/******************************************************************************/
+/**  SPDM Context Information
+*******************************************************************************/
+typedef struct SPDM_CONTEXT
+{
+    uint8_t spdm_state_info;
+
+    uint8_t current_resp_cmd;
+
+    uint8_t challenge_success_flag;
+
+    uint8_t host_eid;
+
+    uint8_t ec_eid;
+
+    uint8_t ec_slv_addr;
+
+    uint8_t host_slv_addr;
+
+    uint8_t message_tag;
+
+    uint8_t spdm_cmd_code;
+
+    /* Event group handle */
+    EventGroupHandle_t xSPDMEventGroupHandle;
+
+    /* Event group buffer*/
+    StaticEventGroup_t xSPDMCreatedEventGroup;
+
+    uint8_t no_of_chains_avail;
+
+    uint8_t previous_state;
+
+    uint8_t get_requests_state;
+
+    uint8_t requested_slot[8];
+
+    uint8_t sha_digest[48];
+
+    uint8_t request_or_response;
+
+    uint16_t current_request_length;
+
+    uint16_t previous_request_length;
+
+    uint16_t total_request_bytes;
+
+    uint16_t cert_offset_to_read[8];
+
+    uint16_t cert_bytes_to_sent_curr[8];
+
+    uint16_t cert_bytes_pending_to_sent[8];
+
+    uint16_t cert_bytes_requested[8];
+
+    PLDM_CONTEXT pldm_context __attribute__((aligned(8)));
+
+} __attribute__((packed)) SPDM_CONTEXT;
+
 void spdm_init_task(SPDM_CONTEXT *spdmContext);
 void spdm_pkt_initialize_cert_params_to_default(SPDM_CONTEXT *spdmContext);
 void spdm_pkt_get_cert_from_apcfg(SPDM_CONTEXT *spdmContext);
@@ -84,7 +193,6 @@ void spdm_pkt_copy_cert_data_to_buf(SPDM_CONTEXT *spdmContext);
 void spdm_pkt_store_hash_of_chain(SPDM_CONTEXT *spdmContext);
 SPDM_CONTEXT* spdm_ctxt_get(void);
 PLDM_CONTEXT* pldm_ctxt_get(void);
-
 /******************************************************************************/
 /** This function will periodically request for the status of post authentication
 * completion from sb_core task (trigger period = 500ms)

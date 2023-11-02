@@ -34,6 +34,9 @@ extern "C" {
 #define DEBUG_UART_NUMBER 0
 #define DEBUG_UART_BAUD BAUD_115200
 
+typedef unsigned char           UINT8;
+typedef unsigned short          UINT16;
+typedef unsigned long           UINT32;
 /* macro for defining MMCR register */
 /* add MMCRARRAY() & EXTERNMMCRARRAY() */
 /* General Constants */
@@ -78,6 +81,7 @@ void gpio_register_isr_handlers(void);
 void qmspi_register_isr_handlers(void);
 void wdt_register_isr_handler(void);
 void vtr_mon_register_isr_handlers(void);
+void spt_register_isr_handlers(void);
 
 #ifdef __cplusplus
 }

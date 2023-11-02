@@ -48,10 +48,10 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-
 #include "device_vectors.h"
 #include "interrupts.h"
 #include "definitions.h"
+
 
 
 // *****************************************************************************
@@ -78,7 +78,7 @@ void __attribute__((optimize("-O1"),section(".text.Dummy_Handler"),long_call, no
 }
 
 /* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated 66 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
+/* MISRA C-2012 Rule 8.6 deviated 65 times.  Deviation record ID -  H3_MISRAC_2012_R_8_6_DR_1 */
 /* Device vectors list dummy definition*/
 extern void SVCall_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
 extern void PendSV_Handler             ( void ) __attribute__((weak, alias("Dummy_Handler")));
@@ -195,20 +195,14 @@ static void GIRQ14_Handler( void )
 {
     DMA_CH00_GRP_InterruptHandler();
     DMA_CH01_GRP_InterruptHandler();
-    DMA_CH02_GRP_InterruptHandler();
     DMA_CH03_GRP_InterruptHandler();
-    DMA_CH04_GRP_InterruptHandler();
-    DMA_CH05_GRP_InterruptHandler();
-    DMA_CH06_GRP_InterruptHandler();
-    DMA_CH07_GRP_InterruptHandler();
-    DMA_CH08_GRP_InterruptHandler();
-    DMA_CH09_GRP_InterruptHandler();
 }
 
 static void GIRQ18_Handler( void )
 {
     QMSPI0_GRP_InterruptHandler();
     QMSPI1_GRP_InterruptHandler();
+    SPT1_GRP_InterruptHandler();
 }
 
 static void GIRQ20_Handler( void )

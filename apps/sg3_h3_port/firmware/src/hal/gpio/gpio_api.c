@@ -300,12 +300,12 @@ uint8_t gpio_sample_pin_state(GPIO_PIN pin_id, uint32_t num_50us_samples)
     uint32_t nsamples = 0u;
     uint8_t pin_cnt = 0u;
     uint8_t pin_state = 0x00;
-    pin_state = gpio_input_get(pin_id);
+    pin_state = AHB_API_gpio_input_get(pin_id);
     
     while (nsamples < num_50us_samples)
     {
         timer_delay_us(TIMER_CNT_50US); //check this 50 actually provide 50 micro second
-        pin1 = gpio_input_get(pin_id);
+        pin1 = AHB_API_gpio_input_get(pin_id);
         if (pin1 == pin_state){
             pin_cnt++;
         } 

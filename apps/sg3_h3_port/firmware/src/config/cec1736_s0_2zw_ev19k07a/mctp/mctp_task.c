@@ -24,6 +24,7 @@
 #include "mctp_common.h"
 #include "mctp_task.h"
 #include "mctp_smbus.h"
+#include "mctp_spt.h"
 #include "mctp_config.h"
 #include "../../../common/include/common.h"
 #include "../../../common/include/FreeRTOS.h"
@@ -31,12 +32,13 @@
 /* MPU */
 extern MCTP_BSS_ATTR DI_CONTEXT_MCTP *mctp_di_context;
 static void mctp_main(void *pvParameters);
-MCTP_BSS_ATTR StaticTask_t mctp_task1_tcb;
-MCTP_BSS_ATTR uint32_t mctp_task1_stack[MCTP_TASK1_STACK_WORD_SIZE] MCTP_TASK1_STACK_ALIGN;
-MCTP_BSS_ATTR TaskHandle_t mctp_task1_handle = NULL;
-MCTP_BSS_ATTR MCTP_CONTEXT *mctpContext = NULL;
+MCTP_BSS_ATTR static StaticTask_t mctp_task1_tcb;
+MCTP_BSS_ATTR static uint32_t mctp_task1_stack[MCTP_TASK1_STACK_WORD_SIZE] MCTP_TASK1_STACK_ALIGN;
+MCTP_BSS_ATTR static TaskHandle_t mctp_task1_handle = NULL;
+MCTP_BSS_ATTR static MCTP_CONTEXT *mctpContext = NULL;
 MCTP_BSS_ATTR uint8_t is_attest_port_enabled; // Initialize attestation Port only once
-union
+
+static union
 {
     uint32_t w[MCTP_TASK1_BUF_SIZE / 4];
     uint8_t  b[MCTP_TASK1_BUF_SIZE];
@@ -73,6 +75,10 @@ static const TaskParameters_t mctp_task1_def =
     .pxTaskBuffer = &mctp_task1_tcb
 };
 
+TaskHandle_t mctp_task1_get_handle(void)
+{
+    return mctp_task1_handle;
+}
 
 /****************************************************************/
 /** mctp_task_create()
@@ -86,7 +92,7 @@ int mctp_app_task_create(void *pvParams, CEC_AHB_PRIV_REGS_VALUES *pTaskPrivRegV
 int mctp_app_task_create(void *pvParams)
 #endif
 {
-    // trace0(0, MCTP_TSK, 0, "mctp_tsk_create MPU");
+    //trace0(0, MCTP_TSK, 0, "mctp_tsk_create MPU");
     BaseType_t frc = pdFAIL;
     uintptr_t mctp_bss_addr = mctp_bss_base();
     size_t mctp_bsssz = mctp_bss_size();
@@ -112,21 +118,21 @@ int mctp_app_task_create(void *pvParams)
     td.pCecPrivRegValues = pTaskPrivRegValues;
 #endif
 
-   configASSERT(IS_PWR2(mctp_bsssz) != 0);
-   configASSERT((mctp_bss_addr & (mctp_bsssz - 1U)) == 0U);
+    configASSERT(IS_PWR2(mctp_bsssz) != 0);
+    configASSERT((mctp_bss_addr & (mctp_bsssz - 1U)) == 0U);
 
-   td.xRegions[0].pvBaseAddress = (void *)mctp_bss_addr;
-   td.xRegions[0].ulLengthInBytes = mctp_bsssz;
-   td.xRegions[0].ulParameters = mctp_data_mpu_attr();
+    td.xRegions[0].pvBaseAddress = (void *)mctp_bss_addr;
+    td.xRegions[0].ulLengthInBytes = mctp_bsssz;
+    td.xRegions[0].ulParameters = mctp_data_mpu_attr();
 
 
     frc = xTaskCreateRestrictedStatic(&td, &mctp_task1_handle);
 
 
-   if (frc != pdPASS)
-   {
-       return -1;
-   }
+    if (frc != pdPASS)
+    {
+        return -1;
+    }
 
 #if config_CEC_DATA_ISOLATION_CHECKS == 1
     di_checks_register_task(mctp_task1_handle, DI_APP_ID_MCTP);
@@ -137,16 +143,18 @@ int mctp_app_task_create(void *pvParams)
 //    mctpContext->xmctp_EventGroupHandle = xEventGroupCreateStatic(&mctpContext->xmctp_CreatedEventGroup);
     di_context = (DI_CONTEXT_MCTP*)pvParams;
     mctpContext->xmctp_EventGroupHandle = di_context->mctp_request.evt_grp_handle;
-    
+
+    //trace0(0, MCTP_TSK, 0, "mctp_tsk_create: Done");
+
     return 0;
 }
 
-/****************************************************************/
+/******************************************************************************/
 /** mctp_ctxt_get()
 * Get the MCTP Context
 * @param void
 * @return MCTP_context
-*****************************************************************/
+*******************************************************************************/
 MCTP_CONTEXT* mctp_ctxt_get(void)
 {
     MCTP_CONTEXT* ret_mctp_ctxt;
@@ -157,13 +165,13 @@ MCTP_CONTEXT* mctp_ctxt_get(void)
     return ret_mctp_ctxt;
 }
 
-/****************************************************************/
+/******************************************************************************/
 /** mctp_main()
 * main process of MCTP task
 * @param  pvParameters - Pointer that will be used as the parameter for the task
 * being created.
 * @return none
-*****************************************************************/
+********************************************************************************/
 static void mctp_main(void* pvParameters)
 {
     EventBits_t uxBits;
@@ -179,7 +187,7 @@ static void mctp_main(void* pvParameters)
 
     if(NULL == mctp_di_context)
     {
-        // trace1(0, MCTP_TSK, 0, "[%s]:DI setup err", __FUNCTION__);
+        //trace1(0, MCTP_TSK, 0, "[%s]:DI setup err", __FUNCTION__);
         return;
     }
 
@@ -188,7 +196,6 @@ static void mctp_main(void* pvParameters)
     /* since a task has to be registered and the value of pxCurrentTCB */
     /* should point to the current task before data isolation cross checking */
     /* can be performed */
-  
     for(i=0; i<DI_MAX_MCTP_APPS; i++)
     {
         xSemaphoreGive(mctp_di_context->mctp_master_context.mutex_handles[i]); /*make semaphore available for aquisition*/
@@ -200,7 +207,8 @@ static void mctp_main(void* pvParameters)
     while(true)
     {
         uxBits = xEventGroupWaitBits((mctpContext->xmctp_EventGroupHandle),
-                                     (MCTP_EVENT_BIT | MCTP_I2C_ENABLE_BIT | MCTP_DI_EVENT_REQUEST | SMB_DI_EVENT_RESPONSE),
+                                     (MCTP_EVENT_BIT | MCTP_I2C_ENABLE_BIT | MCTP_DI_EVENT_REQUEST |
+                                      MCTP_SPT_CTRL_BIT | SMB_DI_EVENT_RESPONSE | SPT_DI_EVENT_RESPONSE),
                                      pdTRUE,
                                      pdFALSE,
                                      portMAX_DELAY);
@@ -216,6 +224,12 @@ static void mctp_main(void* pvParameters)
             mctp_i2c_enable();
         }
 
+        if(MCTP_SPT_CTRL_BIT == (uxBits & MCTP_SPT_CTRL_BIT))
+        {
+            mctp_update_spt_params(mctpContext);
+            mctp_spt_enable();
+        }
+
         if(MCTP_EVENT_BIT == (uxBits & MCTP_EVENT_BIT))
         {
             mctp_event_task();
@@ -225,11 +239,16 @@ static void mctp_main(void* pvParameters)
         {
             mctp_di_get_smb_response();
         }
+
+        if(SPT_DI_EVENT_RESPONSE == (uxBits & SPT_DI_EVENT_RESPONSE))
+        {
+            mctp_di_get_spt_response();
+        }
     }
 }
 
 /****************************************************************/
-/** SET_MCTP_EVENT_FLAG
+/** SET_MCTP_EVENT_FLAG()
 * Set event flag to trigger MCTP task to process
 * @param  none
 * @return none
@@ -244,7 +263,7 @@ void SET_MCTP_EVENT_FLAG(void)
     (void)xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_EVENT_BIT );
 }
 
-void mctp_i2c_update(uint8_t slv_addr, uint8_t freq, uint8_t eid)
+void mctp_i2c_update(uint16_t slv_addr, uint8_t freq, uint8_t eid)
 {
     mctpContext = mctp_ctxt_get();
     if(NULL == mctpContext)
@@ -256,6 +275,20 @@ void mctp_i2c_update(uint8_t slv_addr, uint8_t freq, uint8_t eid)
     mctpContext->i2c_slave_addr = slv_addr;
 }
 
+void mctp_spt_update(uint8_t channel, uint8_t io_mode, uint8_t spt_wait_time,
+        uint8_t tar_time, uint8_t enable)
+{
+    mctpContext = mctp_ctxt_get();
+    if(NULL == mctpContext)
+    {
+        return;
+    }
+    mctpContext->spt_enable = enable;
+    mctpContext->spt_io_mode = io_mode;
+    mctpContext->spt_wait_time = spt_wait_time;
+    mctpContext->spt_channel = channel;
+    mctpContext->spt_tar_time = tar_time;
+}
 void mctp_i2c_enable()
 {
     uint8_t smb_status = 0x00;
@@ -320,13 +353,7 @@ void mctp_i2c_enable()
 
 }
 
-/****************************************************************/
-/** sb_mctp_enable
-* Enable MCTP module
-* @param void
-* @return void
-*****************************************************************/
-void sb_mctp_enable(void)
+void sb_mctp_i2c_enable()
 {
     mctpContext = mctp_ctxt_get();
     if(NULL == mctpContext)
@@ -334,6 +361,16 @@ void sb_mctp_enable(void)
         return;
     }
     xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_I2C_ENABLE_BIT );
+}
+
+void sb_mctp_spt_enable()
+{
+    mctpContext = mctp_ctxt_get();
+    if(NULL == mctpContext)
+    {
+        return;
+    }
+    xEventGroupSetBits( mctpContext->xmctp_EventGroupHandle, MCTP_SPT_CTRL_BIT);
 }
 
 /****************************************************************/
@@ -354,9 +391,10 @@ int mctp_task_create(void *pvParams)
     di_ctxt = di_mctp_context_get();
 
 #ifdef config_CEC_AHB_PROTECTION_ENABLE
-   return_val = mctp_app_task_create(di_ctxt, pTaskPrivRegValues);
+    return_val = mctp_app_task_create(di_ctxt, pTaskPrivRegValues);
 #else
     return_val = mctp_app_task_create(di_ctxt);
 #endif
+
     return return_val;
 }

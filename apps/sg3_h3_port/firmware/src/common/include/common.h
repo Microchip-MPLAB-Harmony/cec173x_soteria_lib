@@ -47,10 +47,30 @@
 
 #include "../data_iso/data_iso_checks_rom_api.h"
 #include "config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
+#include "spt/spt_drv.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/** AP's */
+enum APx
+{
+    AP_0 = 0,
+    AP_1,
+    AP_MAX
+};
+
+/** Components */
+enum COMPONENTS
+{
+    COMPONENT_0 = 0,
+    COMPONENT_1,
+    COMPONENT_MAX
+};
+
+#define NO_OF_BYTE_MATCH_SUPPORT_IN_INT_FLASH 2
+#define NO_OF_APFW_SUPPORT_IN_EXT 16
 
 #ifdef __cplusplus
 }
