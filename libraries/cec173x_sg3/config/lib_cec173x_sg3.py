@@ -279,16 +279,6 @@ def instantiateComponent(sg3LibComponent):
     mctpSmbusTaskHeaderFile.setType("HEADER")
     mctpSmbusTaskHeaderFile.setMarkup(False)
 
-    #Add hal/qmspi/qmspi_api.c
-    mctpSmbusTaskSourceFile = sg3LibComponent.createFileSymbol(None, None)
-    mctpSmbusTaskSourceFile.setSourcePath("/libraries/cec173x_sg3/src/hal/qmspi/qmspi_api.c")
-    mctpSmbusTaskSourceFile.setDestPath("../../hal/qmspi")
-    mctpSmbusTaskSourceFile.setOutputName("qmspi_api.c")
-    mctpSmbusTaskSourceFile.setProjectPath("hal/qmspi/")
-    mctpSmbusTaskSourceFile.setOverwrite(True)
-    mctpSmbusTaskSourceFile.setType("SOURCE")
-    mctpSmbusTaskSourceFile.setMarkup(False)
-
     #Add hal/qmspi/qmspi_api.h
     mctpSmbusTaskHeaderFile = sg3LibComponent.createFileSymbol(None, None)
     mctpSmbusTaskHeaderFile.setSourcePath("/libraries/cec173x_sg3/src/hal/qmspi/qmspi_api.h")

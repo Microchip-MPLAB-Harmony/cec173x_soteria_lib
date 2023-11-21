@@ -397,9 +397,6 @@
         <logicalFolder name="interrupt" displayName="interrupt" projectFiles="true">
           <itemPath>../src/hal/interrupt/interrupt_api.c</itemPath>
         </logicalFolder>
-        <logicalFolder name="qmspi" displayName="qmspi" projectFiles="true">
-          <itemPath>../src/hal/qmspi/qmspi_api.c</itemPath>
-        </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>../src/hal/uart/uart_api.c</itemPath>
         </logicalFolder>
@@ -463,8 +460,8 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_app_lib/secureboot_app_lib.a</linkerLibFileItem>
             <linkerLibFileItem>../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_LIB/secureboot_LIB.a</linkerLibFileItem>
+            <linkerLibFileItem>../src/config/cec1736_s0_2zw_ev19k07a/library/secureboot_app_lib/secureboot_app_lib.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
