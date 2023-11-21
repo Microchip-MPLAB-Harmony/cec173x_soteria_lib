@@ -105,17 +105,14 @@ ENTRY(Reset_Handler)
 
 SECTIONS
 {
-    .isr_vector :
+    /* The startup code and FreeRTOS kernel code are placed into privileged ROM */
+    .privileged_functions :
     {
         . = ALIGN(4);
         KEEP(*(.vectors))
         KEEP(*(.vectors*))
         KEEP(*(.isr_vector))
         __isr_vector_size__ = .;
-    }
-    /* The startup code and FreeRTOS kernel code are placed into privileged ROM */
-    .privileged_functions :
-    {
         . = ALIGN(4);
         KEEP(*(.startup))
         . = ALIGN(4);
