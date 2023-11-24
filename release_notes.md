@@ -3,7 +3,7 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
-## CEC173x_soteria_source Release v3.3.0
+## CEC173x_soteria_lib Release v3.3.0
     
 ### New Features
 
@@ -72,7 +72,7 @@ For CEC173x family of devices:
 
   - None
 
-## CEC173x_soteria_source Release v3.2.1
+## CEC173x_soteria_lib Release v3.2.1
     
 ### New Features
 
