@@ -3,6 +3,75 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## CEC173x_soteria_source Release v3.3.0
+    
+### New Features
+
+  - Added support for Serial Peripheral Target interface
+  - PLDM APFW update
+  - SPDM Validation of Root CA certificate
+
+### Bug fixes
+
+  - Fix PLDM crisis recovery update when APCFG not valid
+  - Fix QueryDeviceIdentifiers descriptor data
+  - Fix GetFirmwareParameters active version string
+  - Fix SMBus channels and DMA values
+  - Bug Fix w.r.t PLDM Hash table updates
+  - EC_STS LED Bypass mode fix
+  - Fix QSPI configuration for QUAD Mode
+  - Byte match INT SPI interrupt for AP0 and AP1
+  - Add ISR Permission for GPIO handshake
+  - SMBUS own address bug fix
+  - EC STS LED in executing non fatal event
+  - Fix EC_STS LED executing recovery sequence
+  - CSRT value not applied in postauth
+  - PLDM int spi uboot update
+  - Fix Uboot timeout taking longer than programmed timeout
+  - Coverity Security fixes
+  - Coverity CERT L3, L2 and L1 fixes
+  - EC FW masked protection for 32kb sector
+  - Mcopy cmd-runtime permission disabled, assert APxreset pin
+  - Revocation sequence should not work after crisis recovery
+  - Moved interrupt vector table into privileged function region to prevent unprivileged access
+  - Fcopy task permission typo
+  - Fix sb_di_i2c_update_flash_iso_flags not set for i2c event
+  - Fixed per component qmspi clear
+  - PLDM crisis fix
+  - Fix AP0 RST DET reauth not happening when feature option1 bit6 and 7 set
+  - Fix apba_descriptor 0 or 1 invalid - system in fatal state
+  - Enhanced bypass mode flag - not configured properly
+  - RPMC header address change reflect in I2C task
+
+### Improvements
+
+  - LTO feature enabled to get more code space
+  - MCTP design to support interleaved messages
+  - PLDM Stack changes
+  - Added check to enable quad mode for macronix part
+  - GET_MEASUREMENTS command now includes AP tables/image digest
+  - Log can now capture issues to reflect cause of failure
+  - I2C register B4h - need to store the PLDM I2C crisis status
+  - Updated xc32 to v4.35
+  - Improvement to disable LTO 
+  - Bring in more RAM space new features
+
+### Known Issues
+
+  - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
+  - Running in TRACE3 causes memfault exception
+
+### Development Tools
+
+For CEC173x family of devices:
+
+  - [MPLAB® X IDE v6.05](https://www.microchip.com/mplab/mplab-x-ide)
+  - [MPLAB® XC32 C/C++ Compiler v4.35](https://www.microchip.com/mplab/compilers)
+
+### Notes
+
+  - None
+
 ## CEC173x_soteria_source Release v3.2.1
     
 ### New Features

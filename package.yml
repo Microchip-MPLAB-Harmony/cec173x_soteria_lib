@@ -4,15 +4,15 @@ package:
   type: "application"
   status: "production"
   required: true
-  version: "3.2.1"
+  version: "3.3.0"
 
   dependencies:
     - name: "csp"
       type: "package"
-      version: "3.16.0"
+      version: "3.18.0"
     - name: "dev_packs"
       type: "package"
-      version: "3.16.0"
+      version: "3.18.0"
     - name: "pmci"
       type: "package"
-      version: "3.0.0"
+      version: "3.1.0"
