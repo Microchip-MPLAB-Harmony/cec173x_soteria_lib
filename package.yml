@@ -3,8 +3,8 @@ package:
   name: "cec173x_soteria_lib"
   type: "application"
   status: "production"
-  required: true
-  version: "3.3.0"
+  required: false
+  version: "v3.3.0"
 
   dependencies:
     - name: "csp"
