@@ -2,7 +2,6 @@
 <Package name="cec173x_soteria_lib">
     <Dependencies>
         <Dependency name="csp" version="v3.18.0"/>
-        <Dependency name="dev_packs" version="v3.18.0"/>
         <Dependency name="pmci" version="v3.1.0"/>
 </Dependencies>
 </Package>
