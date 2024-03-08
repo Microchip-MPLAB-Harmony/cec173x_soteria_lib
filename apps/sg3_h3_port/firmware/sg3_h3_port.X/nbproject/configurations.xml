@@ -273,6 +273,12 @@
         <itemPath>../src/startup/startup.h</itemPath>
       </logicalFolder>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>sg3_h3_port.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -283,11 +289,6 @@
           <itemPath>../src/common/include/secureboot_app.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
-    </logicalFolder>
-    <logicalFolder name="ScriptFiles"
-                   displayName="Script Files"
-                   projectFiles="true">
-      <itemPath>autoload.py</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -425,12 +426,6 @@
         <itemPath>../src/startup/startup_CEC173x.S</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>sg3_h3_port.mc3</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
