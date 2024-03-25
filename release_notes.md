@@ -7,11 +7,7 @@
 
 ### New Features
 
-  - 0E01:
-
-    - None
-
-  - 0E02:
+  - 0E01 and 0E02:
 
     - None
 
@@ -38,17 +34,13 @@
 
 ### Improvements
 
-  - 0E01:
-
-    - None
-
-  - 0E02:
+  - 0E01 and 0E02:
 
     - None
 
 ### Known Issues
 
-  - 0E01 & 0E02:
+  - 0E01 and 0E02:
 
     - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
     - Running in TRACE3 causes memfault exception
