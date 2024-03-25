@@ -9,49 +9,49 @@
 
   - 0E01:
 
-	- None
+    - None
 
   - 0E02:
 
-	- None
+    - None
 
 ### Bug fixes
 
   - 0E01:
 
-	- EC FW masked protection for 32kb sector
-	- Mcopy cmd-runtime permission disabled, assert APxreset pin
-	- Revocation sequence should not work after crisis recovery
-	- Moved interrupt vector table into privileged function region to prevent unprivileged access
-	- Fcopy task permission typo
-	- Fix sb_di_i2c_update_flash_iso_flags not set for i2c event
-	- Fixed per component qmspi clear
-	- PLDM crisis fix
-	- Fix AP0 RST DET reauth not happening when feature option1 bit6 and 7 set
-	- Fix apba_descriptor 0 or 1 invalid - system in fatal state
-	- Enhanced bypass mode flag - not configured properly
-	- RPMC header address change reflect in I2C task
+    - EC FW masked protection for 32kb sector
+    - Mcopy cmd-runtime permission disabled, assert APxreset pin
+    - Revocation sequence should not work after crisis recovery
+    - Moved interrupt vector table into privileged function region to prevent unprivileged access
+    - Fcopy task permission typo
+    - Fix sb_di_i2c_update_flash_iso_flags not set for i2c event
+    - Fixed per component qmspi clear
+    - PLDM crisis fix
+    - Fix AP0 RST DET reauth not happening when feature option1 bit6 and 7 set
+    - Fix apba_descriptor 0 or 1 invalid - system in fatal state
+    - Enhanced bypass mode flag - not configured properly
+    - RPMC header address change reflect in I2C task
 
-  - E02:
+  - 0E02:
 
-	- Bug fix in TOO to accept EOTP values iff EOTP is enabled, else accept values from OTP
+    - Bug fix in TOO to accept EOTP values iff EOTP is enabled, else accept values from OTP
 
 ### Improvements
 
   - 0E01:
 
-	- None
+    - None
 
   - 0E02:
 
-	- None
+    - None
 
 ### Known Issues
 
   - 0E01 & 0E02:
 
-	- MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
-	- Running in TRACE3 causes memfault exception
+    - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
+    - Running in TRACE3 causes memfault exception
 
 ### Development Tools
 
