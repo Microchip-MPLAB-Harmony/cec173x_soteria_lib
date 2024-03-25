@@ -4,57 +4,55 @@
 # Microchip MPLAB® Harmony 3 Release Notes
 
 ## CEC173x_soteria_lib Release v3.3.1
-    
+
 ### New Features
 
-E01:
+  - 0E01:
 
-  - None
-E02:
+	- None
 
-  - None
+  - 0E02:
+
+	- None
 
 ### Bug fixes
 
-E01:
+  - 0E01:
 
-  - EC FW masked protection for 32kb sector
-  - Mcopy cmd-runtime permission disabled, assert APxreset pin
-  - Revocation sequence should not work after crisis recovery
-  - Moved interrupt vector table into privileged function region to prevent unprivileged access
-  - Fcopy task permission typo
-  - Fix sb_di_i2c_update_flash_iso_flags not set for i2c event
-  - Fixed per component qmspi clear
-  - PLDM crisis fix
-  - Fix AP0 RST DET reauth not happening when feature option1 bit6 and 7 set
-  - Fix apba_descriptor 0 or 1 invalid - system in fatal state
-  - Enhanced bypass mode flag - not configured properly
-  - RPMC header address change reflect in I2C task
-  
-E02:
+	- EC FW masked protection for 32kb sector
+	- Mcopy cmd-runtime permission disabled, assert APxreset pin
+	- Revocation sequence should not work after crisis recovery
+	- Moved interrupt vector table into privileged function region to prevent unprivileged access
+	- Fcopy task permission typo
+	- Fix sb_di_i2c_update_flash_iso_flags not set for i2c event
+	- Fixed per component qmspi clear
+	- PLDM crisis fix
+	- Fix AP0 RST DET reauth not happening when feature option1 bit6 and 7 set
+	- Fix apba_descriptor 0 or 1 invalid - system in fatal state
+	- Enhanced bypass mode flag - not configured properly
+	- RPMC header address change reflect in I2C task
 
-  - Bug fix in TOO to accept EOTP values iff EOTP is enabled, else accept values from OTP
-  
+  - E02:
+
+	- Bug fix in TOO to accept EOTP values iff EOTP is enabled, else accept values from OTP
+
 ### Improvements
 
-E01:
+  - 0E01:
 
-  - None
-E02:
+	- None
 
-  - None
+  - 0E02:
+
+	- None
 
 ### Known Issues
-E01:
 
-  - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
-  - Running in TRACE3 causes memfault exception
-  
-E02:
+  - 0E01 & 0E02:
 
-  - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
-  - Running in TRACE3 causes memfault exception
-  
+	- MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
+	- Running in TRACE3 causes memfault exception
+
 ### Development Tools
 
 For CEC173x family of devices:
@@ -67,7 +65,7 @@ For CEC173x family of devices:
   - None
 
 ## CEC173x_soteria_lib Release v3.3.0
-    
+
 ### New Features
 
   - Added support for Serial Peripheral Target interface
@@ -136,7 +134,7 @@ For CEC173x family of devices:
   - None
 
 ## CEC173x_soteria_lib Release v3.2.1
-    
+
 ### New Features
 
   - None
@@ -167,7 +165,7 @@ For CEC173x family of devices:
 ### Notes
 
   -  None
-  
+
 ## CEC173x_soteria_lib Release v3.2.0
 
 ### New Features
