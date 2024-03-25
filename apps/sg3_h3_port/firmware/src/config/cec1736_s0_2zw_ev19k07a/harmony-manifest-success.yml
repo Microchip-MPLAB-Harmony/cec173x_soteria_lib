@@ -16,5 +16,5 @@ modules:
     - {name: "csp", version: "v3.18.0"}
     - {name: "dev_packs", version: "v3.18.0"}
     - {name: "pmci", version: "v3.1.0"}
-    - {name: "cec173x_soteria_lib", version: "v3.3.0"}
+    - {name: "cec173x_soteria_lib", version: "v3.3.1"}
 
