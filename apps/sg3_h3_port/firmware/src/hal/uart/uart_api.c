@@ -172,17 +172,18 @@ void uart_transmit( uint8_t uart_id, uint8_t data )
  */
 uint8_t uart_receive( uint8_t uart_id )
 {
+    uint8_t c = 0;
     if ( uart_id_is_valid(uart_id) )
     {
         switch ( uart_id )
-        {
-            case UART0_ID:
-                while(false == UART0_ReceiverIsReady());
-                return UART0_ReadByte();
-                break;
-            default:
-                break;
-        }
+  {
+   case UART0_ID:
+    while(false == UART0_ReceiverIsReady());
+    c = (uint8_t)((UART0_ReadByte())&UINT8_MAX);
+    break;
+   default:
+    break;
+  }
     }
-    return 0;
+    return c;
 }

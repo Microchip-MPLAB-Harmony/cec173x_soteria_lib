@@ -41,34 +41,34 @@ void mctp_handle_ec_rx_request_pkt(void);
 extern MCTP_BSS_ATTR uint8_t smb_channel_busy_status;
 extern MCTP_BSS_ATTR uint8_t spt_channel_busy_status;
 
-MCTP_BSS_ATTR MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
+MCTP_BSS_ATTR_8ALIGNED MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
 
 /* mctp tx state machine variables */
-MCTP_BSS_ATTR uint8_t mctp_tx_state;
-MCTP_BSS_ATTR uint8_t mctp_txbuf_index;
-MCTP_BSS_ATTR uint8_t mctp_wait_smbus_callback;
-MCTP_BSS_ATTR uint8_t mctp_wait_spt_callback;
+MCTP_BSS1_ATTR uint8_t mctp_tx_state;
+MCTP_BSS1_ATTR uint8_t mctp_txbuf_index;
+MCTP_BSS1_ATTR uint8_t mctp_wait_smbus_callback;
+MCTP_BSS1_ATTR uint8_t mctp_wait_spt_callback;
 
-MCTP_BSS_ATTR uint8_t active_pkt_msg_type_rx; // pldm or spdm or mctp
-MCTP_BSS_ATTR uint8_t msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
-MCTP_BSS_ATTR static uint8_t out_of_seq_detected;
+MCTP_BSS1_ATTR uint8_t active_pkt_msg_type_rx; // pldm or spdm or mctp
+MCTP_BSS1_ATTR uint8_t msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
+MCTP_BSS1_ATTR static uint8_t out_of_seq_detected;
 
-/* extern variables */
-MCTP_BSS_ATTR struct MCTP_CFG_PARA mctp_cfg;
-MCTP_BSS_ATTR struct MCTP_IDENTITY mctp_rx[MCTP_MSG_CONTEXT]; //currently supporting SPDM and PLDM application
-MCTP_BSS_ATTR struct MCTP_TX_CXT mctp_tx[2];
-MCTP_BSS_ATTR static uint8_t cmd_field;
+/* exter1n variables */
+MCTP_BSS1_ATTR struct MCTP_CFG_PARA mctp_cfg;
+MCTP_BSS1_ATTR struct MCTP_IDENTITY mctp_rx[MCTP_MSG_CONTEXT] __attribute__((aligned(8))); //currently supporting SPDM and PLDM application
+MCTP_BSS1_ATTR struct MCTP_TX_CXT mctp_tx[2] __attribute__((aligned(8)));
+MCTP_BSS1_ATTR static uint8_t cmd_field;
 
-MCTP_BSS_ATTR static uint8_t transmit_buf[sizeof(MCTP_BUFDATA)]__attribute__ ((aligned(8)));
+MCTP_BSS_ATTR_8ALIGNED static uint8_t transmit_buf[sizeof(MCTP_BUFDATA)]__attribute__ ((aligned(8)));
 
-MCTP_BSS_ATTR static uint32_t start_time;
+MCTP_BSS1_ATTR static uint32_t start_time;
 
 /******************************************************************************/
 /** UPDATES packetizing variable to check if input data spans more than one mctp packet
-* @param NULL
-* @return true/false
+* @param uint8_t - Type of message
+* @return uint8_t - packetizing value
 *******************************************************************************/
-bool mctp_base_packetizing_val_get(uint8_t msg_type)
+uint8_t mctp_base_packetizing_val_get(uint8_t msg_type)
 {
     uint8_t i =0;
     for (i =0; i < 2; i++)
@@ -83,10 +83,11 @@ bool mctp_base_packetizing_val_get(uint8_t msg_type)
 
 /******************************************************************************/
 /** UPDATES packetizing variable to check if input data spans more than one mctp packet
-* @param NULL
-* @return true/false
+* @param uint8_t - Type of message
+* @param uint8_t - packetizing value to be updated - 0 or 1
+* @return void
 *******************************************************************************/
-void mctp_base_packetizing_val_set(uint8_t msg_type, bool value)
+void mctp_base_packetizing_val_set(uint8_t msg_type, uint8_t value)
 {
     uint8_t i =0;
     for (i =0; i < 2; i++)
@@ -388,7 +389,7 @@ void mctp_event_tx_handler(void)
                            mctp_tx_ctxt->in_active_state = false;
                         }
                     }
-                    if(msg_type_tx == MCTP_MSGTYPE_SPDM)
+                    if((msg_type_tx == MCTP_MSGTYPE_SPDM) || (msg_type_tx ==  MCTP_MSGTYPE_SECURED_MSG))
                     {
                         (void)memcpy(&transmit_buf[0], (uint8_t *)&tx_buf->pkt.data[MCTP_PKT_DST_ADDR_POS], (uint32_t)(hdr_struct_size - 1U));
                         (void)memcpy(&transmit_buf[hdr_struct_size-1], (uint8_t *)&tx_buf->pkt.data[MCTP_PKT_RQ_D_POS],
@@ -449,7 +450,7 @@ void mctp_event_tx_handler(void)
                     /* change state to transmit it's data over smbus */
                     mctp_tx_state = (uint8_t)MCTP_TX_WAIT_SMBUS_CHAN_STAT_GET;
 
-                    start_time = (uint32_t)(tx_time_get());
+                    start_time = tx_time_get();
                     // interval = 0; // Coverity security Fixes, variable unused
                     /*Process the non empty buffer*/
                     /*This break comes out of "for" loop*/
@@ -565,17 +566,17 @@ void mctp_event_tx_handler(void)
         {
             interval = mctp_timer_difference(start_time);
 
-            uint32_t tout;
+            uint32_t time_out = 0;
             if(tx_buf->pkt.field.hdr.cmd_code == MCTP_SMBUS_HDR_CMD_CODE)
             {
-                tout = MCTP_SMBUS_AQ_TIMEOUT;
+                time_out = MCTP_SMBUS_AQ_TIMEOUT;
             }
             else if(tx_buf->pkt.field.hdr.cmd_code == MCTP_SPT_HDR_CMD_CODE)
             {
-                tout = MCTP_SPT_AQ_TIMEOUT;
+                time_out = MCTP_SPT_AQ_TIMEOUT;
             }
 
-            if(interval >= tout)//135000 = 135ms
+            if(interval >= time_out)//135000 = 135ms
             {
                 /* update buffer parameters and configure events */
                 if(tx_buf->pkt.field.hdr.cmd_code == MCTP_SMBUS_HDR_CMD_CODE)
@@ -717,7 +718,7 @@ uint8_t mctp_packet_validation(uint8_t *pkt_buf)
     MCTP_IDENTITY *mctp_ctx = NULL;
 
     //Check this checking
-    if (!((pkt_buf[MCTP_PKT_BYTE_CNT_POS] >= MCTP_BYTECNT_MIN) &&
+    if (!((pkt_buf[MCTP_PKT_BYTE_CNT_POS] >= MCTP_BYTECNT_MIN_INCLUDING_MSG_TYPE) &&
             (pkt_buf[MCTP_PKT_BYTE_CNT_POS] <= MCTP_BYTECNT_MAX)))
     {
         return (uint8_t)MCTP_FALSE;
@@ -736,7 +737,8 @@ uint8_t mctp_packet_validation(uint8_t *pkt_buf)
             return (uint8_t)MCTP_FALSE;
         }
         if (MCTP_OTHER_PKT == mctp_get_packet_type(pkt_buf)
-                && (pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SPDM) /* Check not required for SPDM */
+                && ((pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SPDM) &&
+                    (pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SECURED_MESSAGE))/* Check not required for SPDM and Secured Message*/
                 )
         {
             return (uint8_t)MCTP_FALSE;
@@ -756,7 +758,8 @@ uint8_t mctp_packet_validation(uint8_t *pkt_buf)
         if( (pkt_buf[MCTP_PKT_TO_MSGTAG_POS] & MCTP_SOM_REF_MSK) == MCTP_SOM_REF ) // IF SOM ==1
         {
             if (MCTP_OTHER_PKT == mctp_get_packet_type(pkt_buf)
-                    && (pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SPDM) /* Check not required for SPDM */
+                    && ((pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SPDM) &&
+                    (pkt_buf[MCTP_PKT_IC_MSGTYPE_POS] != MCTP_IC_MSGTYPE_SECURED_MESSAGE)) /* Check not required for SPDM and Secured Message*/
                     )
             {
                 return (uint8_t)MCTP_FALSE;
@@ -811,11 +814,10 @@ uint8_t mctp_packet_validation(uint8_t *pkt_buf)
                        ((pkt_buf[MCTP_PKT_TO_MSGTAG_POS] & MCTP_MSG_PKSEQ_REF_MASK) >> MCTP_MSG_PKSEQ_SHIFT);
             }
         }
-        // mctp_base_packetizing_val_set(true);
     }
     else
     {
-        // mctp_base_packetizing_val_set(false);
+
         return (uint8_t)MCTP_FALSE;
     }
 
@@ -972,11 +974,11 @@ uint8_t mctp_tx_timeout(MCTP_PKT_BUF *tx_buf)
     {
         max_tick_count = (uint16_t)((MCTP_TIMEOUT_MS * configTICK_RATE_HZ)/1000UL); //max 100 ms timeout
     }
-    if (msg_type_tx == MCTP_MSGTYPE_SPDM)// SPDM Message
+    if (msg_type_tx == MCTP_MSGTYPE_SPDM)// SPDM Message 
     {
         max_tick_count = (uint16_t)((SPDM_TIMEOUT_MS * configTICK_RATE_HZ)/1000UL); //max 135 ms timeout
     }
-    else if (msg_type_tx == MCTP_MSGTYPE_PLDM)
+    else if ((msg_type_tx == MCTP_MSGTYPE_PLDM) || (msg_type_tx == MCTP_MSGTYPE_SECURED_MSG))
     {
         return MCTP_FALSE;
     }
@@ -1002,7 +1004,7 @@ uint32_t mctp_timer_difference(uint32_t start_time_val)
     uint32_t interval;
 
     /* get current time interval */
-    interval = (uint32_t)(tx_time_get());
+    interval = tx_time_get();
 
     if(interval >= start_time_val)
     {
@@ -1048,7 +1050,7 @@ uint8_t mctp_get_packet_type(uint8_t *buffer_ptr)
 
 } /* End mctp_get_packet_type */
 
-uint16_t tx_time_get()
+uint32_t tx_time_get()
 {
-    return (uint16_t) (xTaskGetTickCount() / 10);
+    return (xTaskGetTickCount() / 10u);
 }

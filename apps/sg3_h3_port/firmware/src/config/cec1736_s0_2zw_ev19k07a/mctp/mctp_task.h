@@ -47,6 +47,7 @@ extern "C" {
 #define MCTP_I2C_ENABLE_BIT         (1U << 0)
 #define MCTP_SMB_RESPONSE_BIT       (2U << 1)
 #define MCTP_SPT_CTRL_BIT           (1U << 3)
+#define MCTP_I2C_DISABLE_BIT        (1U << 4)
 #define MCTP_WAIT_FOR_SPDM_DONE     (1U << 18)
 #define MCTP_WAIT_FOR_PLDM_DONE     (1U << 19)
 
@@ -80,6 +81,12 @@ int mctp_task_create(void *pvParams);
 #endif
 
 void mctp_i2c_enable();
+/****************************************************************/
+/** Disable I2C attestation port
+* @param  none
+* @return none
+**********************************************************************/
+void mctp_i2c_disable(void);
 #ifdef __cplusplus
 }
 #endif

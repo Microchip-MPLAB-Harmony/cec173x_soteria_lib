@@ -25,8 +25,14 @@
 #include <stddef.h>
 #include "spt_common.h"
 
-#define SPT_RX_BUF_SIZE    80
-#define SPT_TX_BUF_SIZE    80
+#define SPT_RX_BUF_SIZE             80U
+#define SPT_TX_BUF_SIZE             80U
+
+/* No. of clock cycles required to xfer 1 byte */
+#define SINGLE_CYCLES_PER_BYTE      8U
+#define QUAD_CYCLES_PER_BYTE        2U
+
+#define FINAL_STATUS_NUM_BYTES      2U
 
 enum SPT_INSTANCE
 {
@@ -76,19 +82,19 @@ typedef union HOST2EC_MBX_SPT_STATUS_UNION
     
 }HOST2EC_MBX_SPT_STATUS;
 
-typedef union EC2HOST_MBX_SPT_STATUS_UNION
+typedef union SPT_STATUS_EC2HOST_MBX_UNION
 {
-    struct EC2HOST_MBX_SPT_STATUS_BITS_STRUCT
+    struct SPT_STATUS_BITS_EC2HOST_MBX_STRUCT
     {
         uint32_t ec_rd_done : 1;
         uint32_t ec_wr_done : 1;
         uint32_t ec_err     : 1;
         uint32_t ec_rsvd    : 29;
-    }EC2HOST_MBX_SPT_STATUS_BITS;
+    }SPT_STATUS_BITS_EC2HOST_MBX;
     
     uint32_t ec2host_mbx_sts;
     
-}EC2HOST_MBX_SPT_STATUS;
+}SPT_STATUS_EC2HOST_MBX;
 
 typedef union SPT_STATUS_REG_UNION
 {
@@ -206,7 +212,7 @@ typedef struct SPT_DRV_CONTEXT_STRUCT {
     SPT_IO_CFG spt_io_cfg;
     SPT_MEM_CFG spt_mem_cfg;  
     HOST2EC_MBX_SPT_STATUS host_mbx;
-    EC2HOST_MBX_SPT_STATUS ec_mbx;
+    SPT_STATUS_EC2HOST_MBX ec_mbx;
     SPT_SPT_STATUS_REG spt_sts_reg;
     SPT_STATE_HANDLE spt_stat_handler;
     SPT_APP_INFO appl_info;

@@ -99,6 +99,39 @@ void mctp_spt_txpktready_init(MCTP_PKT_BUF *tx_buf);
 *******************************************************************************/
 extern void mctp_spt_enable();
 
+/******************************************************************************/
+/** This is called when packet received over spt and the packet is 
+* meant for SPDM or PLDM modules
+* @param rx_packet_len - length of the received packet
+* @param buffer_info - pointer to store the packetized data
+* @param rx_buf - pointer to the received data
+* @return void
+*******************************************************************************/
+uint8_t packetize_data_spt(uint8_t rx_packet_len, MCTP_BUFFER_INFO *buffer_info, MCTP_PKT_BUF *rx_buf);
+
+/******************************************************************************/
+/** This is called when packet received over spt is targeted for EC.
+* @param *buffer_info Pointer to MCTP_BUFFER_INFO structure of spt layer
+* @return void
+*******************************************************************************/
+uint8_t mctp_spt_copy_rxpkt_for_ec(MCTP_BUFFER_INFO *buffer_info);
+
+/******************************************************************************/
+/** This is called when packet received over spt is targeted for EC and 
+* message type is for spdm.
+* @param *buffer_info Pointer to BUFFER_INFO structure of spt layer
+* @return void
+*******************************************************************************/
+uint8_t mctp_spt_copy_rx_for_spdm_for_ec(MCTP_BUFFER_INFO *buffer_info);
+
+/******************************************************************************/
+/** This is called when packet received over smbus is targeted for 
+* EC and message type is PLDM.
+* @param *buffer_info Pointer to MCTP_BUFFER_INFO structure of smbus layer
+* @return void
+*******************************************************************************/
+uint8_t mctp_spt_copy_rx_for_pldm_for_ec(MCTP_BUFFER_INFO *buffer_info);
+
 #ifdef __cplusplus
 }
 #endif

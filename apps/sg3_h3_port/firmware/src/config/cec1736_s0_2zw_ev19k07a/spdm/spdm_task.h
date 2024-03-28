@@ -34,20 +34,21 @@ extern "C" {
 #define SPDM_PRIORITY ((tskIDLE_PRIORITY + configSPDM_PRIORITY) % configMAX_PRIORITIES)
 
 /* Stack size must be a power of 2 if the task is restricted */
-#define SPDM_STACK_SIZE 2048       // 2 * configMINIMAL_STACK_SIZE (120)
+#define SPDM_STACK_SIZE 2048u /* (2U * configMINIMAL_STACK_SIZE (120U)) */
 #define SPDM_STACK_WORD_SIZE ((SPDM_STACK_SIZE) / 4U)
 
 #define SPDM_STACK_ALIGN __attribute__ ((aligned(SPDM_STACK_SIZE)))
 
-#define SPDM_TASK_BUF_SIZE 512U
+#define SPDM_TASK_BUF_SIZE 1024U
 #define SPDM_TASK_BUF_MPU_ATTR 0U
 
 #define SPDM_EVENT_BIT                  (1 << 0u)
 #define SPDM_GET_FROM_APCFG_EVENT_BIT   (1 << 1u)
-#define SPDM_POST_AUTH_DONE_BIT         (1 << 2u)
+#define SPDM_INIT_START_BIT             (1 << 2u)
 #define PLDM_EVENT_BIT                  (1 << 3u)
 #define SPDM_I2C_EVENT_BIT              (1 << 4u)
 #define PLDM_RESP_EVENT_BIT             (1 << 5u)
+#define SPDM_RESP_EVENT_BIT             (1 << 7u)
 #define SPDM_REAUTH_DONE_BIT            (1 << 6u)
 
 #ifdef config_CEC_AHB_PROTECTION_ENABLE
@@ -127,6 +128,66 @@ typedef struct PLDM_CONTEXT
 
 }__attribute__((packed)) PLDM_CONTEXT;
 
+#define MAX_HASH_SIZE SPDM_SHA384_LEN
+#define MAX_AEAD_KEY_SIZE 32
+#define MAX_AEAD_IV_SIZE 12
+#define MAX_AEAD_TAG_SIZE 16 // MAC size
+#define MAX_DHE_KEY_SIZE 48
+
+typedef struct SECURE_SESSION_MASTER_SECRET {
+    uint8_t dhe_secret[MAX_DHE_KEY_SIZE];
+    uint8_t handshake_secret[MAX_HASH_SIZE];
+    uint8_t master_secret[MAX_HASH_SIZE];
+} SECURE_SESSION_MASTER_SECRET;
+
+typedef struct SECURE_SESSION_HANDSHAKE_SECRET {
+    uint64_t request_handshake_sequence_number;
+    uint64_t response_handshake_sequence_number;
+    uint8_t request_handshake_secret[MAX_HASH_SIZE];
+    uint8_t response_handshake_secret[MAX_HASH_SIZE];
+    uint8_t request_finished_key[MAX_HASH_SIZE];
+    uint8_t response_finished_key[MAX_HASH_SIZE];
+    uint8_t request_handshake_encryption_key[MAX_AEAD_KEY_SIZE];
+    uint8_t request_handshake_salt[MAX_AEAD_IV_SIZE];
+    uint8_t response_handshake_encryption_key[MAX_AEAD_KEY_SIZE];
+    uint8_t response_handshake_salt[MAX_AEAD_IV_SIZE];
+} SECURE_SESSION_HANDSHAKE_SECRET;
+
+typedef struct SECURE_SESSION_APPLICATION_SECRET {
+    uint64_t request_data_sequence_number;
+    uint64_t response_data_sequence_number;
+    uint8_t request_data_secret[MAX_HASH_SIZE];
+    uint8_t response_data_secret[MAX_HASH_SIZE];
+    uint8_t request_data_encryption_key[MAX_AEAD_KEY_SIZE];
+    uint8_t request_data_salt[MAX_AEAD_IV_SIZE];
+    uint8_t response_data_encryption_key[MAX_AEAD_KEY_SIZE];
+    uint8_t response_data_salt[MAX_AEAD_IV_SIZE];
+} SECURE_SESSION_APPLICATION_SECRET;
+
+typedef enum {
+    /* Before send KEY_EXCHANGE/PSK_EXCHANGE or after END_SESSION */
+    SPDM_SESSION_STATE_NOT_STARTED,
+
+    /* After send KEY_EXCHANGE, before send FINISH */
+    SPDM_SESSION_STATE_HANDSHAKING,
+
+    /* After send FINISH, before END_SESSION */
+    SPDM_SESSION_STATE_ESTABLISHED,
+
+    /* MAX */
+    SPDM_SESSION_STATE_MAX
+} SPDM_SESSION_STATE;
+
+typedef struct SECURE_SESSION_INFO {
+    SECURE_SESSION_MASTER_SECRET secure_session_master_secret;
+
+    SECURE_SESSION_HANDSHAKE_SECRET secure_session_handshake_secret;
+
+    SECURE_SESSION_APPLICATION_SECRET secure_session_application_secret;
+
+    SPDM_SESSION_STATE session_state;
+} SECURE_SESSION_INFO;
+
 /******************************************************************************/
 /**  SPDM Context Information
 *******************************************************************************/
@@ -135,8 +196,6 @@ typedef struct SPDM_CONTEXT
     uint8_t spdm_state_info;
 
     uint8_t current_resp_cmd;
-
-    uint8_t challenge_success_flag;
 
     uint8_t host_eid;
 
@@ -162,12 +221,16 @@ typedef struct SPDM_CONTEXT
 
     uint8_t get_requests_state;
 
+    uint8_t secure_session_get_requests_state;
+
+    uint8_t hmac_state;
+
     uint8_t requested_slot[8];
 
     uint8_t sha_digest[48];
 
-    uint8_t request_or_response;
 
+    uint8_t request_or_response;
     uint16_t current_request_length;
 
     uint16_t previous_request_length;
@@ -183,6 +246,16 @@ typedef struct SPDM_CONTEXT
     uint16_t cert_bytes_requested[8];
 
     PLDM_CONTEXT pldm_context __attribute__((aligned(8)));
+
+    uint8_t request_id;
+
+    SECURE_SESSION_INFO secure_session_info;
+    
+    /* SPDM SS heartbeat Timer Handle*/
+    TimerHandle_t xSPDMHBTimer;
+
+    /* SPDM SS heartbeat Timer buffer*/
+    StaticTimer_t SPDMHB_TimerBuffer __attribute__((aligned(8)));
 
 } __attribute__((packed)) SPDM_CONTEXT;
 
@@ -216,6 +289,22 @@ void pldm_response_timeout_start(void);
 * @return void
 *******************************************************************************/
 void pldm_response_timeout_stop(void);
+
+/******************************************************************************/
+/** spdm_hb_response_timeout_start
+* Start the software SPDMHB timer
+* @param void
+* @return void
+*******************************************************************************/
+void spdm_hb_response_timeout_start(void);
+
+/******************************************************************************/
+/** spdm_hb_response_timeout_stop
+* Stop the software SPDMHB timer
+* @param void
+* @return void
+*******************************************************************************/
+void spdm_hb_response_timeout_stop(void);
 
 #ifdef __cplusplus
 }

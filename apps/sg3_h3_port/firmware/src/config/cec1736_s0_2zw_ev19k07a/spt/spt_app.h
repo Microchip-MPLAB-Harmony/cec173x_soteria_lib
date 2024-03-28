@@ -42,7 +42,7 @@ void spt_channel_disable(uint8_t channel);
 
 uint8_t spt_tx(uint8_t channel, uint8_t* buff_ptr, uint16_t writecount, uint8_t pecEnable, TX_FUNC_PTR func_ptr);
 
-uint8_t spt_tx_done_callback(uint8_t channel, uint8_t status, TX_FUNC_PTR func_ptr, uint8_t* app_buff);
+extern void spt_tx_done_callback(uint8_t channel, uint8_t status, TX_FUNC_PTR func_ptr, uint8_t* app_buff);
 
 void spt_raise_interrrupt_event();
 

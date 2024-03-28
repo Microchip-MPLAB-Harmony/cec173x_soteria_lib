@@ -26,14 +26,13 @@
 #include "../pldm/pldm_pkt_prcs.h"
 
 /* MPU */
-/* MPU */
 static void spdm_main(void *pvParameters);
 static StaticTask_t spdm_tcb;
 
 extern SPDM_BSS1_ATTR DI_CONTEXT_SPDM *spdm_di_context;
-static uint32_t spdm_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ATTR SPDM_STACK_ALIGN;
+static uint32_t spdm_task_stack[SPDM_STACK_WORD_SIZE] SPDM_STACK_ATTR SPDM_STACK_ALIGN;
 SPDM_BSS2_ATTR static TaskHandle_t spdm_handle;
-SPDM_BSS2_ATTR SPDM_CONTEXT *spdmContext;
+SPDM_BSS0_ATTR SPDM_CONTEXT *spdmContext;
 PLDM_BSS2_ATTR PLDM_CONTEXT *pldmContext;
 extern SPDM_BSS1_ATTR uint8_t spdm_flash_busy;
 
@@ -41,7 +40,7 @@ union
 {
     uint32_t w[SPDM_TASK_BUF_SIZE / 4];
     uint8_t  b[SPDM_TASK_BUF_SIZE];
-} spdm_task_buf SPDM_BSS0_ATTR SPDM_TASK_BUF_ALIGN;
+} spdm_task_buf SPDM_BSS0_ATTR_1024ALIGNED SPDM_TASK_BUF_ALIGN;
 
 #define SPDM_TASK_BUF_ADDR &spdm_task_buf.w[0]
 /*
@@ -101,46 +100,20 @@ int spdm_app_task_create(void *pvParams)
 
     DI_CONTEXT_SPDM *di_context;
 
-    if ((spdm_bss0_addr == 0U) || (spdm_bss1_addr == 0U))
-    {
-        return -1;
-    }
+    /* Check if MPU base addresses are valid */
+    configASSERT(spdm_bss0_addr);
+    configASSERT(spdm_bss1_addr);
+    configASSERT(spdm_bss2_addr);
+
+    /* Check if context size is greater than maximum buffer size for the task */
+    configASSERT(SPDM_TASK_BUF_SIZE > sizeof(SPDM_CONTEXT));
 
     TaskParameters_t td = spdm_def;
-
-    td.pvTaskCode = spdm_main;
-    td.usStackDepth = SPDM_STACK_WORD_SIZE,
-    td.pvParameters = pvParams;
-#if (config_CEC_DATA_ISOLATION_CHECKS == 1)
-    td.uxPriority = SPDM_PRIORITY;
-#else
-    td.uxPriority = (SPDM_PRIORITY | portPRIVILEGE_BIT);
-#endif
-    td.puxStackBuffer = spdm_stack;
-#ifdef config_CEC_AHB_PROTECTION_ENABLE
-    td.pCecPrivRegValues = pTaskPrivRegValues;
-#endif
-
-    configASSERT(IS_PWR2(spdm_bss0_sz) != 0);
-    configASSERT((spdm_bss0_addr & (spdm_bss0_sz - 1U)) == 0U);
-
-    td.xRegions[0].pvBaseAddress = (void *)spdm_bss0_addr;
-    td.xRegions[0].ulLengthInBytes = spdm_bss0_sz;
-    td.xRegions[0].ulParameters = spdm_data_mpu_attr();
-
-    configASSERT(IS_PWR2(spdm_bss1_sz) != 0);
-    configASSERT((spdm_bss1_addr & (spdm_bss1_sz - 1U)) == 0U);
-
-    td.xRegions[1].pvBaseAddress = (void *)spdm_bss1_addr;
-    td.xRegions[1].ulLengthInBytes = spdm_bss1_sz;
-    td.xRegions[1].ulParameters = spdm_data_mpu_attr();
-
-    configASSERT(IS_PWR2(spdm_bss2_sz) != 0);
-    configASSERT((spdm_bss2_addr & (spdm_bss2_sz - 1U)) == 0U);
-
-    td.xRegions[2].pvBaseAddress = (void *)spdm_bss2_addr;
-    td.xRegions[2].ulLengthInBytes = spdm_bss2_sz;
-    td.xRegions[2].ulParameters = spdm_data_mpu_attr();
+    config_task_parameters(&td, spdm_main, SPDM_STACK_WORD_SIZE, pvParams,
+                           SPDM_PRIORITY, spdm_task_stack, pTaskPrivRegValues);
+    config_task_memory_regions(&td, 0, spdm_bss0_addr, spdm_bss0_sz, spdm_data_mpu_attr());
+    config_task_memory_regions(&td, 1, spdm_bss1_addr, spdm_bss1_sz, spdm_data_mpu_attr());
+    config_task_memory_regions(&td, 2, spdm_bss2_addr, spdm_bss2_sz, spdm_data_mpu_attr());
 
     frc = xTaskCreateRestrictedStatic(&td, &spdm_handle);
 
@@ -190,7 +163,6 @@ SPDM_CONTEXT* spdm_ctxt_get(void)
 static void spdm_main(void* pvParameters)
 {
     EventBits_t uxBits;
-
     spdm_di_init(pvParameters);
 
     spdmContext = spdm_ctxt_get();
@@ -215,19 +187,27 @@ static void spdm_main(void* pvParameters)
                            PLDMResp_timer_callback, // The function to execute when the timer expires.
                            &pldmContext->PLDMResp_TimerBuffer); // The buffer that will hold the software timer structure.
 
+    spdmContext->xSPDMHBTimer =
+        xTimerCreateStatic("SPDMHB_timer", // Text name for the task.  Helps debugging only.  Not used by FreeRTOS.
+                           pdMS_TO_TICKS(HB_TIMEOUT_IN_MS), // The period of the timer in ticks.
+                           pdTRUE, // This is an auto-reload timer.
+                           NULL, // A variable incremented by the software timer's callback function.
+                           SPDMHB_timer_callback, // The function to execute when the timer expires.
+                           &spdmContext->SPDMHB_TimerBuffer); // The buffer that will hold the software timer structure.
+
     spdmContext->spdm_state_info = SPDM_IDLE;
     //trace1(0, SPDM_TSK, 0, "[%s]: SPDM tsk main proc", __FUNCTION__);
     while(1)
     {
         //trace0(0, SPDM_TSK, 0, "spdm_main: Loop");
         uxBits = xEventGroupWaitBits(spdmContext->xSPDMEventGroupHandle,
-                                     (SPDM_EVENT_BIT | PLDM_EVENT_BIT | MCTP_DI_EVENT_RESPONSE | SB_CORE_DI_EVENT_RESPONSE | SPDM_POST_AUTH_DONE_BIT |
-                                      SPDM_I2C_EVENT_BIT | SB_CORE_DI_EVENT_APPLY_RESPONSE | PLDM_RESP_EVENT_BIT |
+                                     (SPDM_EVENT_BIT | PLDM_EVENT_BIT | MCTP_DI_EVENT_RESPONSE | SB_CORE_DI_EVENT_RESPONSE | SPDM_INIT_START_BIT |
+                                      SPDM_I2C_EVENT_BIT | SB_CORE_DI_EVENT_APPLY_RESPONSE | PLDM_RESP_EVENT_BIT | SPDM_RESP_EVENT_BIT |
                                       SPDM_REAUTH_DONE_BIT),
                                      pdTRUE,
                                      pdFALSE,
                                      portMAX_DELAY );
-        if (SPDM_POST_AUTH_DONE_BIT == (uxBits & SPDM_POST_AUTH_DONE_BIT))
+        if (SPDM_INIT_START_BIT == (uxBits & SPDM_INIT_START_BIT))
         {
             spdm_init_task(spdmContext);
         }
@@ -303,6 +283,11 @@ static void spdm_main(void* pvParameters)
         if (PLDM_RESP_EVENT_BIT == (uxBits & PLDM_RESP_EVENT_BIT))
         {
             pldm_pkt_tx_packet();
+        }
+
+        if (SPDM_RESP_EVENT_BIT == (uxBits & SPDM_RESP_EVENT_BIT))
+        {
+            spdm_pkt_tx_packet();
         }
     }
 }
@@ -405,7 +390,51 @@ void pldm_response_timeout_stop(void)
         {
             if (xTimerStop(pldmContext->xPLDMRespTimer, 0) != pdPASS)
             {
-                //trace0(1, SB_MONITOR, 1, "Err:PLDMResp timer stop fail");
+              //  trace0(1, SB_MONITOR, 1, "Err:PLDMResp timer stop fail");
+                return;
+            }
+        }
+    }
+}
+
+/******************************************************************************/
+/** spdm_hb_response_timeout_start
+* Start the software SPDMHB timer
+* @param void
+* @return void
+*******************************************************************************/
+void spdm_hb_response_timeout_start(void)
+{
+    spdmContext = spdm_ctxt_get();
+    if (NULL != spdmContext)
+    {
+        if (NULL != spdmContext->xSPDMHBTimer)
+        {
+            if (xTimerStart(spdmContext->xSPDMHBTimer, 0) != pdPASS)
+            {
+               // trace0(1, SPDM_TSK, 1, "SHRTSR");
+                return;
+            }
+        }
+    }
+}
+
+/******************************************************************************/
+/** spdm_hb_response_timeout_stop
+* Stop the software SPDMHB timer
+* @param void
+* @return void
+*******************************************************************************/
+void spdm_hb_response_timeout_stop(void)
+{
+    spdmContext = spdm_ctxt_get();
+    if (NULL != spdmContext)
+    {
+        if (NULL != spdmContext->xSPDMHBTimer)
+        {
+            if (xTimerStop(spdmContext->xSPDMHBTimer, 0) != pdPASS)
+            {
+               // trace0(1, SPDM_TSK, 1, "SHRTSO");
                 return;
             }
         }

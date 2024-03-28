@@ -30,13 +30,33 @@ extern "C" {
 #endif
 
 #define SPDM_BSS0_ATTR                                     __attribute__((section("spdm_bss0")))
+#define SPDM_BSS0_ATTR_1024ALIGNED                           __attribute__((section("spdm_bss0_1024aligned")))
+#define SPDM_BSS0_ATTR_8ALIGNED                             __attribute__((section("spdm_bss0_8aligned")))
 #define SPDM_BSS1_ATTR                                     __attribute__((section("spdm_bss1")))
+#define SPDM_BSS1_ATTR_8ALIGNED                             __attribute__((section("spdm_bss1_8aligned")))
+#define SPDM_BSS1_ATTR_4ALIGNED                             __attribute__((section("spdm_bss1_4aligned")))
 #define SPDM_BSS2_ATTR                                     __attribute__((section("spdm_bss2")))
-#define SPDM_STACK_ATTR                                    __attribute__((section("spdm_task_stack")))
-    
+/*src to lib*/
+#define SPDM_STACK_ATTR                         __attribute__((section("spdm_stack")))
+#define SPDM_BSS2_ATTR_8ALIGNED                 __attribute__((section("spdm_bss2_8aligned")))
+#define SPT_STACK_ATTR                          __attribute__((section("spt_stack")))
+#define SPT_BSS_ATTR_256ALIGN                   __attribute__((section("spt_bss_attr_256align")))
+#define SHA384_LEN_BYTES                   (48U)
+#define SB_KEY_HASH_SIZE_MAX                   (48U)
+#define SHA_MODE_384    (4u)
+/* --------------- AP_CFG Authentication Information ---------------- */
+
+/* AP_CFG region authentication algo - see enum SB_PARSER_AUTH_ALGO*/
+#define APCFG_AUTH_TYPE    SB_AUTHALGO_ECDSA_P384
+
+/* Hash Table authentication algo - see enum SB_PARSER_AUTH_ALGO*/
+#define HASH_TABLE_AUTH_TYPE            SB_AUTHALGO_ECDSA_P384
+/*end*/
 #define PVT_KEY_CODE_LENGTH               (96U)
+#define PUB_KEY_CODE_LENGTH               (96U)
 #define SPDM_SHA384_LEN                   (48U)
 #define CURVE_384_SZ                      (48U)
+#define DHE_SECRET_SIZE                   (96U)
 
 /* Attestation - Hasd Pointer for Chain */
 #define MAXIMUM_HEAD_PTR_CHAIN             8U
@@ -77,6 +97,16 @@ typedef struct CFG_CERT
 * @return uint8_t  - 0 success
 *******************************************************************************/
 uint8_t safe_subraction_16(uint16_t minuend, uint16_t subtrahend, uint16_t * rslt);
+
+/******************************************************************************/
+/** safe_subraction_8
+* Process safe subtraction of two variables of uint8
+* @param uint8_t  - operand 1
+* @param uint8_t  - operand 2
+* @param uint8_t* - resultant pointer
+* @return uint8_t  - 0 success
+*******************************************************************************/
+uint8_t safe_subraction_8(uint8_t minuend, uint8_t subtrahend, uint8_t * rslt);
 
 #ifdef __cplusplus
 }

@@ -32,7 +32,14 @@ typedef long             BaseType_t;
 #define configSUPPORT_DYNAMIC_ALLOCATION 0
 #define INCLUDE_xTimerPendFunctionCall 1
 #define configUSE_APPLICATION_TASK_TAG 1
-
+#ifndef configENABLE_BACKWARD_COMPATIBILITY
+    #define configENABLE_BACKWARD_COMPATIBILITY    1
+#endif
+#define configTICK_RATE_HZ (200)
+#define portTICK_PERIOD_MS    ( ( TickType_t ) 1000 / configTICK_RATE_HZ )
+#if configENABLE_BACKWARD_COMPATIBILITY == 1
+    #define portTICK_RATE_MS              portTICK_PERIOD_MS
+#endif
 /* Macros used for basic data corruption checks. */
 #ifndef configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES
     #define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES    0
@@ -423,11 +430,24 @@ typedef struct EventGroupDef_t   * EventGroupHandle_t;
 #define PRIVILEGED_FUNCTION     __attribute__( ( section( PRIV_FUNC_NAME(__LINE__) ) ) )
 BaseType_t xTaskCreateRestrictedStatic( const TaskParameters_t * const pxTaskDefinition,
                                             TaskHandle_t * pxCreatedTask ) PRIVILEGED_FUNCTION;
-
-BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup,
-           const EventBits_t uxBitsToSet,
-           BaseType_t * pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
-
+extern void MPU_vTaskDelay( const TickType_t xTicksToDelay );
+#define vTaskDelay                             MPU_vTaskDelay
+// BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup,
+//            const EventBits_t uxBitsToSet,
+//            BaseType_t * pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
+/* For internal use only. */
+typedef void (* PendedFunction_t)( void *,
+                                   uint32_t );
+BaseType_t xTimerPendFunctionCallFromISR( PendedFunction_t xFunctionToPend,
+                                          void * pvParameter1,
+                                          uint32_t ulParameter2,
+                                          BaseType_t * pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
+void vEventGroupSetBitsCallback( void * pvEventGroup,
+                                 const uint32_t ulBitsToSet ) PRIVILEGED_FUNCTION;
+void vEventGroupClearBitsCallback( void * pvEventGroup,
+                                   const uint32_t ulBitsToClear ) PRIVILEGED_FUNCTION;
+#define xEventGroupSetBitsFromISR( xEventGroup, uxBitsToSet, pxHigherPriorityTaskWoken ) \
+xTimerPendFunctionCallFromISR( vEventGroupSetBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToSet, pxHigherPriorityTaskWoken )
 BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue,
                               const void * const pvItemToQueue,
                               TickType_t xTicksToWait,
@@ -442,7 +462,7 @@ BaseType_t MPU_xQueueGenericSend( QueueHandle_t xQueue,
 EventBits_t MPU_xEventGroupSetBits( EventGroupHandle_t xEventGroup,
                                 const EventBits_t uxBitsToSet );
 #define xEventGroupSetBits MPU_xEventGroupSetBits
-EventBits_t MPU_xEventGroupWaitBits( EventGroupHandle_t xEventGroup,
+extern EventBits_t MPU_xEventGroupWaitBits( EventGroupHandle_t xEventGroup,
                                  const EventBits_t uxBitsToWaitFor,
                                  const BaseType_t xClearOnExit,
                                  const BaseType_t xWaitForAllBits,

@@ -54,12 +54,15 @@ extern "C" {
 #define MCTP_BYTECNT_MIN            5U
 #define MCTP_BYTECNT_MAX           69U
 
+#define MCTP_BYTECNT_MIN_INCLUDING_MSG_TYPE 6U
+
 #define MCTP_SMBUS_HDR_CMD_CODE  0x0FU
 #define MCTP_SPT_HDR_CMD_CODE    0x0EU
 
 #define MCTP_MSGTYPE_CONTROL        0U
 #define MCTP_MSGTYPE_PLDM           1U
 #define MCTP_MSGTYPE_SPDM           5U
+#define MCTP_MSGTYPE_SECURED_MSG    6U
 
 #define MCTP_SPDM_CMD_GET_CERT      0x82U
 
@@ -111,6 +114,7 @@ extern "C" {
 #define MCTP_IC_MSGTYPE_LHUP_RESP   0x01U
 #define MCTP_IC_MSGTYPE_LHUP_DGRM   0x02U
 #define MCTP_IC_MSGTYPE_SPDM        0x05U
+#define MCTP_IC_MSGTYPE_SECURED_MESSAGE 0x06U
 #define MCTP_IC_MSGTYPE_PLDM        0X01U
 #define MCTP_IC_MSGTYPE_UNKNWN      0xFFU
 #define SPDM_TIMEOUT_MS             135U //135 ms
@@ -148,6 +152,18 @@ extern "C" {
 #define SPDM_HEADER_VERSION_POS     9U
 #define SPDM_HEADER_COMMAND_POS     10U
 #define SPDM_HEADER_DATA_POS        11U
+
+/*SPDM secured message header bit pos*/
+#define SPDM_SM_HEADER_SESSION_ID_POS           0U
+#define SPDM_SM_HEADER_SEQ_NUM_POS              4U
+#define SPDM_SM_HEADER_LENGTH_POS               6U
+#define SPDM_SM_ENCRYPTED_DATA_POS              8U // starting from application data length
+
+/*SPDM secured message header size*/
+#define SPDM_SM_HEADER_SESSION_ID_SIZE           4U
+#define SPDM_SM_HEADER_SEQ_NUM_SIZE              2U
+#define SPDM_SM_HEADER_LENGTH_SIZE               2U
+
 /* PLDM header bit position */
 #define PLDM_PAYLOAD_START_MUTLIPLE_PKT_POS 8U
 #define PLDM_HEADER_VERSION_PLDM_TYPE_POS   10U
@@ -160,6 +176,8 @@ extern "C" {
 #define PLDM_TYPE5_AND_HEADER_VERSION       0x05U
 
 #define MCTP_MSG_CONTEXT 2 //currently supporting SPDM and PLDM application
+
+#define MULTIPLE_PKT_MAX_SIZE               1024U
 
 /* Status codes for application callback from MCTP */
 enum STATUS_TO_APP
@@ -475,8 +493,8 @@ typedef struct MCTP_CONTEXT
 /* function declarations */
 void mctp_init_task(void);
 void mctp_event_task(void);
-extern bool mctp_base_packetizing_val_get(uint8_t msg_type);
-extern void mctp_base_packetizing_val_set(uint8_t msg_type, bool value);
+extern uint8_t mctp_base_packetizing_val_get(uint8_t msg_type);
+extern void mctp_base_packetizing_val_set(uint8_t msg_type, uint8_t value);
 uint8_t mctp_packet_validation(uint8_t *pkt_buf);
 uint8_t mctp_get_packet_type(uint8_t *buffer_ptr);
 uint32_t mctp_timer_difference(uint32_t start_time_val);
@@ -505,7 +523,7 @@ extern MCTP_BSS_ATTR uint8_t is_pldm_request_firmware_update;
 
 MCTP_CONTEXT* mctp_ctxt_get(void);
 
-uint16_t tx_time_get();
+uint32_t tx_time_get();
 
 /******************************************************************************/
 /** MCTP message context create

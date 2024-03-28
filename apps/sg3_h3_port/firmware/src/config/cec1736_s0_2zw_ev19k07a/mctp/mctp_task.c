@@ -32,17 +32,17 @@
 /* MPU */
 extern MCTP_BSS_ATTR DI_CONTEXT_MCTP *mctp_di_context;
 static void mctp_main(void *pvParameters);
-MCTP_BSS_ATTR static StaticTask_t mctp_task1_tcb;
-MCTP_BSS_ATTR static uint32_t mctp_task1_stack[MCTP_TASK1_STACK_WORD_SIZE] MCTP_TASK1_STACK_ALIGN;
-MCTP_BSS_ATTR static TaskHandle_t mctp_task1_handle = NULL;
-MCTP_BSS_ATTR static MCTP_CONTEXT *mctpContext = NULL;
-MCTP_BSS_ATTR uint8_t is_attest_port_enabled; // Initialize attestation Port only once
+MCTP_BSS1_ATTR static StaticTask_t mctp_task1_tcb;
+static uint32_t mctp_task1_stack[MCTP_TASK1_STACK_WORD_SIZE] MCTP_STACK_ATTR MCTP_TASK1_STACK_ALIGN;
+MCTP_BSS1_ATTR static TaskHandle_t mctp_task1_handle = NULL;
+MCTP_BSS1_ATTR static MCTP_CONTEXT *mctpContext = NULL;
+MCTP_BSS1_ATTR uint8_t is_attest_port_enabled; // Initialize attestation Port only once
 
 static union
 {
     uint32_t w[MCTP_TASK1_BUF_SIZE / 4];
     uint8_t  b[MCTP_TASK1_BUF_SIZE];
-} mctp_task1_buf MCTP_BSS_ATTR MCTP_TASK1_BUF_ALIGN;
+} mctp_task1_buf MCTP_BSS_ATTR_512ALIGNED MCTP_TASK1_BUF_ALIGN;
 
 #define MCTP_TASK1_BUF_ADDR &mctp_task1_buf.w[0]
 
@@ -94,37 +94,24 @@ int mctp_app_task_create(void *pvParams)
 {
     //trace0(0, MCTP_TSK, 0, "mctp_tsk_create MPU");
     BaseType_t frc = pdFAIL;
-    uintptr_t mctp_bss_addr = mctp_bss_base();
-    size_t mctp_bsssz = mctp_bss_size();
+    uintptr_t mctp_bss0_addr = mctp_bss0_base();
+    size_t mctp_bss0sz = mctp_bss0_size();
+    uintptr_t mctp_bss1_addr = mctp_bss1_base();
+    size_t mctp_bss1sz = mctp_bss1_size();
     DI_CONTEXT_MCTP *di_context;
 
-    if (mctp_bss_addr == 0U)
-    {
-        return -1;
-    }
+    /* Check if MPU base addresses are valid */
+    configASSERT(mctp_bss0_addr);
+    configASSERT(mctp_bss1_addr);
+
+    /* Check if context size is greater than maximum buffer size for the task */
+    configASSERT(MCTP_TASK1_BUF_SIZE > sizeof(MCTP_CONTEXT));
 
     TaskParameters_t td = mctp_task1_def;
-
-    td.pvTaskCode = mctp_main;
-    td.usStackDepth = MCTP_TASK1_STACK_WORD_SIZE,
-    td.pvParameters = pvParams;
-#if (config_CEC_DATA_ISOLATION_CHECKS == 1)
-    td.uxPriority = MCTP_TASK1_PRIORITY;
-#else
-    td.uxPriority = (MCTP_TASK1_PRIORITY | portPRIVILEGE_BIT);
-#endif
-    td.puxStackBuffer = mctp_task1_stack;
-#ifdef config_CEC_AHB_PROTECTION_ENABLE
-    td.pCecPrivRegValues = pTaskPrivRegValues;
-#endif
-
-    configASSERT(IS_PWR2(mctp_bsssz) != 0);
-    configASSERT((mctp_bss_addr & (mctp_bsssz - 1U)) == 0U);
-
-    td.xRegions[0].pvBaseAddress = (void *)mctp_bss_addr;
-    td.xRegions[0].ulLengthInBytes = mctp_bsssz;
-    td.xRegions[0].ulParameters = mctp_data_mpu_attr();
-
+    config_task_parameters(&td, mctp_main, MCTP_TASK1_STACK_WORD_SIZE, pvParams,
+                           MCTP_TASK1_PRIORITY, mctp_task1_stack, pTaskPrivRegValues);
+    config_task_memory_regions(&td, 0, mctp_bss0_addr, mctp_bss0sz, mctp_data_mpu_attr());
+    config_task_memory_regions(&td, 1, mctp_bss1_addr, mctp_bss1sz, mctp_data_mpu_attr());
 
     frc = xTaskCreateRestrictedStatic(&td, &mctp_task1_handle);
 
@@ -176,7 +163,6 @@ static void mctp_main(void* pvParameters)
 {
     EventBits_t uxBits;
     uint8_t i=0;
-
     mctp_di_init(pvParameters);
     mctpContext = mctp_ctxt_get();
 
@@ -207,7 +193,7 @@ static void mctp_main(void* pvParameters)
     while(true)
     {
         uxBits = xEventGroupWaitBits((mctpContext->xmctp_EventGroupHandle),
-                                     (MCTP_EVENT_BIT | MCTP_I2C_ENABLE_BIT | MCTP_DI_EVENT_REQUEST |
+                                     (MCTP_EVENT_BIT | MCTP_I2C_ENABLE_BIT | MCTP_DI_EVENT_REQUEST | MCTP_I2C_DISABLE_BIT |
                                       MCTP_SPT_CTRL_BIT | SMB_DI_EVENT_RESPONSE | SPT_DI_EVENT_RESPONSE),
                                      pdTRUE,
                                      pdFALSE,
@@ -222,6 +208,11 @@ static void mctp_main(void* pvParameters)
         {
             mctp_update_i2c_params(mctpContext);
             mctp_i2c_enable();
+        }
+
+        if(MCTP_I2C_DISABLE_BIT == (uxBits & MCTP_I2C_DISABLE_BIT))
+        {
+            mctp_i2c_disable();
         }
 
         if(MCTP_SPT_CTRL_BIT == (uxBits & MCTP_SPT_CTRL_BIT))
@@ -291,10 +282,10 @@ void mctp_spt_update(uint8_t channel, uint8_t io_mode, uint8_t spt_wait_time,
 }
 void mctp_i2c_enable()
 {
-    uint8_t smb_status = 0x00;
-    uint16_t smb_address = 0x00;
-    uint8_t attestation_port_sel = 0x00;
-    uint8_t valid_port = true;
+    UINT8 smb_status = 0x00;
+    UINT16 smb_address = 0x00;
+    UINT8 attestation_port_sel = 0x00;
+    UINT8 valid_port = true;
     mctpContext = mctp_ctxt_get();
     if((NULL == mctpContext) || (is_attest_port_enabled == 1U)) // Initialize attestation Port only once
     {
@@ -339,7 +330,6 @@ void mctp_i2c_enable()
         valid_port = false;
         break;
     }
-
     if(valid_port)
     {
         /* initialization specific to smbus */
@@ -347,10 +337,31 @@ void mctp_i2c_enable()
         // smb_status = mctp_smbus_init();
 
         smb_address = mctpContext->i2c_slave_addr;
-        mctp_smbaddress_update(smb_address, attestation_port_sel);
+        mctp_smbaddress_update(smb_address, attestation_port_sel, 1);
         is_attest_port_enabled = 1U;
     }
+}
 
+/****************************************************************/
+/** Disable I2C attestation port
+* @param  none
+* @return none
+**********************************************************************/
+void mctp_i2c_disable(void)
+{
+    UINT16 smb_address = 0x00;
+    UINT8 attestation_port_sel = 0x00;
+    mctpContext = mctp_ctxt_get();
+
+    if(NULL == mctpContext || (is_attest_port_enabled == 0U))
+    {
+        return;
+    }
+
+    smb_address = mctpContext->i2c_slave_addr;
+    attestation_port_sel = mctp_otp_get_crisis_mode_smb_port();
+    mctp_smbaddress_update(smb_address, attestation_port_sel, 0);
+    is_attest_port_enabled = 0;
 }
 
 void sb_mctp_i2c_enable()

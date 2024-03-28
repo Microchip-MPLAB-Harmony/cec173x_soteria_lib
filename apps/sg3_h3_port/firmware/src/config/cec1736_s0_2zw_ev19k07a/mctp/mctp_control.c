@@ -27,6 +27,7 @@
 #include "mctp_control.h"
 #include "mctp_config.h"
 #include "trace.h"
+#include "app.h"
 
 /* function declarations */
 void mctp_handle_set_endpoint_id_cmd(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
@@ -36,7 +37,7 @@ void mctp_handle_get_msg_type_support_cmd(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx
 void mctp_handle_get_vndr_msg_type_support_cmd(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
 void mctp_handle_unsupported_cmd(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
 extern MCTP_BSS_ATTR uint8_t active_pkt_msg_type_rx;
-MCTP_BSS_ATTR MCTP_ROUTING_TABLE mctp_rt;
+MCTP_BSS1_ATTR MCTP_ROUTING_TABLE mctp_rt;
 
 /******************************************************************************/
 /** This mctp bridging function routes the packet to destination endpoint
@@ -47,15 +48,13 @@ MCTP_BSS_ATTR MCTP_ROUTING_TABLE mctp_rt;
 uint8_t mctp_packet_routing(MCTP_BUFFER_INFO *buffer_info)
 {
     uint8_t ret_value;
-
-    ret_value = MCTP_SUCCESS ;
-
     switch(active_pkt_msg_type_rx)
     {
     case MCTP_IC_MSGTYPE_CONTROL:
         ret_value = mctp_copy_rxpkt_for_ec(buffer_info);
         break;
     case MCTP_IC_MSGTYPE_SPDM:
+    case MCTP_IC_MSGTYPE_SECURED_MESSAGE:
         ret_value = mctp_copy_rx_for_spdm_for_ec(buffer_info);
         break;
     case MCTP_IC_MSGTYPE_PLDM:
@@ -319,6 +318,28 @@ void mctp_handle_get_mctp_version_cmd(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_res
 
             break;
 
+        case MCTP_SECURED_MSG:
+            /* fill mctp header */
+            mctp_fill_packet_header(rx_buf, tx_resp_buf);
+
+            /* fill control message header */
+            mctp_fill_control_msg_header(rx_buf, tx_resp_buf);
+
+            /* fill the payload/message data */
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS]   = MCTP_CODE_SUCCESS;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+1] = MCTP_VER_NUM_ENTRY_COUNT_SECURED_MSG;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+2] = MCTP_VER_NUM_MAJOR_SECURED_MSG1;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+3] = MCTP_VER_NUM_MINOR_SECURED_MSG1;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+4] = MCTP_VER_NUM_UPDATE_SECURED_MSG1;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+5] = MCTP_VER_NUM_ALPHA_SECURED_MSG1;
+
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+6] = MCTP_VER_NUM_MAJOR_SECURED_MSG2;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+7] = MCTP_VER_NUM_MINOR_SECURED_MSG2;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+8] = MCTP_VER_NUM_UPDATE_SECURED_MSG2;
+            tx_resp_buf->pkt.data[MCTP_CNTL_TXPKT_CMPLCODE_POS+9] = MCTP_VER_NUM_ALPHA_SECURED_MSG2; 
+
+            break;          
+
         default:
             /* send the reply packet with error code: message type not supported */
             mctp_fill_error_packet(MCTP_CODE_ERROR_INVALID_DATA, rx_buf, tx_resp_buf);
@@ -558,8 +579,11 @@ uint8_t packetize_data(MCTP_BUFFER_INFO *buffer_info, MCTP_PKT_BUF *rx_buf)
     MCTP_IDENTITY *mctp_ctx = NULL;
     mctp_ctx = mctp_msg_ctxt_lookup(buffer_info->buffer_ptr);
 
-    rx_packet_len = (uint8_t)(((buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS]) + 3U)&UINT8_MAX);
-
+    if (safe_add_8((buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS]), 3U, &rx_packet_len))
+    {
+        ret_val = MCTP_FAILURE;
+        return ret_val;
+    }
     if (mctp_ctx == NULL)
     {
         ret_val = MCTP_FAILURE;
@@ -573,17 +597,21 @@ uint8_t packetize_data(MCTP_BUFFER_INFO *buffer_info, MCTP_PKT_BUF *rx_buf)
         rx_buf->pkt.data[i] = buffer_info->buffer_ptr[i];
     }
 
-    mctp_ctx->buf_index = (uint8_t)((mctp_ctx->buf_index + mctp_ctx->buf_size)&UINT8_MAX);
+    if (safe_add_16(mctp_ctx->buf_index, mctp_ctx->buf_size, &mctp_ctx->buf_index))
+    {
+        ret_val = MCTP_FAILURE;
+        return ret_val;
+    }
 
     if (mctp_ctx->buf_index > INPUT_BUF_MAX_BYTES)//if no of bytes received cross max input buffer size of 1023
     {
         mctp_ctx->buf_index = 0;
-        mctp_base_packetizing_val_set(mctp_ctx->message_type, false);
+        mctp_base_packetizing_val_set(mctp_ctx->message_type, FALSE);
         ret_val = MCTP_FAILURE;
     }
     else if((buffer_info->buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) == MCTP_EOM_REF)
     {
-        mctp_base_packetizing_val_set(mctp_ctx->message_type, false);
+        mctp_base_packetizing_val_set(mctp_ctx->message_type, FALSE);
         mctp_ctx->buf_index = 0;
     }
     else
@@ -619,7 +647,7 @@ uint8_t mctp_copy_rx_for_pldm_for_ec(MCTP_BUFFER_INFO *buffer_info)
                 if(ret_val == MCTP_SUCCESS)
                 {
                     is_packetizing = mctp_base_packetizing_val_get(MCTP_IC_MSGTYPE_PLDM);
-                    if(is_packetizing == false)
+                    if(FALSE == is_packetizing)
                     {
                         pldm_msg_rx_buf->rx_timestamp = buffer_info->TimeStamp;
                     }
@@ -673,11 +701,16 @@ uint8_t mctp_copy_rx_for_spdm_for_ec(MCTP_BUFFER_INFO *buffer_info)
         return MCTP_FAILURE;
     }
     MCTP_PKT_BUF *spdm_msg_rx_buf = NULL;
-    bool is_packetizing;
-    is_packetizing = mctp_base_packetizing_val_get(MCTP_IC_MSGTYPE_SPDM);
+    uint8_t is_packetizing;
+
+    is_packetizing = mctp_base_packetizing_val_get(active_pkt_msg_type_rx);
+
     spdm_msg_rx_buf = (MCTP_PKT_BUF *) &mctp_pktbuf[MCTP_BUF3];
-    get_packet_len = (uint8_t)(((buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS]) + 3U) & UINT8_MAX);
     
+    if (safe_add_8((buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS]), 3U, &get_packet_len))
+    {
+        return MCTP_FAILURE;
+    }
     {
         if((uint8_t)MCTP_EMPTY == spdm_msg_rx_buf->buf_full)
         {
@@ -686,8 +719,8 @@ uint8_t mctp_copy_rx_for_spdm_for_ec(MCTP_BUFFER_INFO *buffer_info)
                 ret_val = packetize_data(buffer_info, spdm_msg_rx_buf);
                 if(ret_val == MCTP_SUCCESS)
                 {
-                    is_packetizing = mctp_base_packetizing_val_get(MCTP_IC_MSGTYPE_SPDM);
-                    if(is_packetizing == false)
+                    is_packetizing = mctp_base_packetizing_val_get(active_pkt_msg_type_rx);
+                    if(FALSE == is_packetizing)
                     {
                         spdm_msg_rx_buf->rx_timestamp = buffer_info->TimeStamp;
                     }

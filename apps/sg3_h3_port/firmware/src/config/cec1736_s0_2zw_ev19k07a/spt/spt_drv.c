@@ -24,6 +24,7 @@
 #include "definitions.h"
 #include "spt_app.h"
 #include "crc8.h"
+#include "platform.h"
 
 SPT_BSS_ATTR SPT_DRV_CONTEXT* spt_drv_ctxt[2]={NULL,NULL};
 
@@ -241,7 +242,7 @@ void spt_read_event_handler()
                         break;
                     case SPT_READ_DONE_STATE:
                         // Set EC Read Done in mailbox register 
-                        spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_rd_done = 1;
+                        spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_rd_done = 1;
                         if(spt_drv_ctxt->host_mbx.
                                 HOST2EC_MBX_SPT_STATUS_BITS.host_wr_done)
                         {
@@ -272,7 +273,7 @@ void spt_read_event_handler()
                         }
                         break;
                     case SPT_READ_COMPLETE_STATE:
-                        spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_rd_done = 0;
+                        spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_rd_done = 0;
                         if(SPT0 == channel)
                         {
                             SPT0_ECToHostMBXWrite(spt_drv_ctxt->ec_mbx.ec2host_mbx_sts);
@@ -285,7 +286,7 @@ void spt_read_event_handler()
                         spt_event_trigger();
                         break;
                     case SPT_READ_ENTER_ERROR_STATE:
-                        spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_err =1;
+                        spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_err =1;
                         if(SPT0 == channel)
                         {
                             SPT0_ECToHostMBXWrite(spt_drv_ctxt->ec_mbx.ec2host_mbx_sts);
@@ -301,9 +302,9 @@ void spt_read_event_handler()
                         if(spt_drv_ctxt->host_mbx.HOST2EC_MBX_SPT_STATUS_BITS.host_err)
                         {
 
-                            if(spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_rd_done)
+                            if(spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_rd_done)
                             {
-                                spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_rd_done = 0;
+                                spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_rd_done = 0;
                             }
 
                             spt_drv_ctxt->spt_stat_handler.read_state = SPT_READ_EXIT_ERROR_STATE;
@@ -312,7 +313,7 @@ void spt_read_event_handler()
                         break;
                     case SPT_READ_EXIT_ERROR_STATE:
                         spt_drv_ctxt->host_mbx.HOST2EC_MBX_SPT_STATUS_BITS.host_err = 0;
-                        spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_err =0;
+                        spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_err =0;
                         if(SPT0 == channel)
                         {
                             SPT0_ECToHostMBXWrite(spt_drv_ctxt->ec_mbx.ec2host_mbx_sts);
@@ -348,7 +349,7 @@ void spt_write_event_handler()
                 switch(spt_drv_ctxt->spt_stat_handler.write_state)
                 {
                     case SPT_WRITE_IDLE_STATE:
-                        if(spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_wr_done)
+                        if(spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_wr_done)
                         {
                             spt_drv_ctxt->spt_stat_handler.write_state = SPT_WRITE_DONE_STATE;
                             if(SPT0 == channel)
@@ -369,7 +370,7 @@ void spt_write_event_handler()
                         {
                             spt_drv_ctxt->spt_stat_handler.write_state = SPT_WAIT_WRITE_COMPLETE_STATE;
                             spt_drv_ctxt->host_mbx.HOST2EC_MBX_SPT_STATUS_BITS.host_rd_done = 0;
-                            spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_wr_done = 0;
+                            spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_wr_done = 0;
 
                             if(SPT0 == channel)
                             {
@@ -458,7 +459,7 @@ uint8_t spt_check_tx_status(uint8_t channel)
     {
         retval = spt_drv_ctxt->spt_stat_handler.write_state;
         if((retval == SPT_WRITE_IDLE_STATE) && 
-                !(spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_wr_done))
+                !(spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_wr_done))
         {
             // Available
             retval = 1;
@@ -487,9 +488,17 @@ uint8_t spt_handle_received_data(uint8_t channel)
             break;
         }
         
-        SPT_BUFFER_INFO app_buff;
+        SPT_BUFFER_INFO app_buff = {0};
         app_buff.DataLen = spt_drv_ctxt->spt_mem_cfg.read_count;
         app_buff.RxCount = spt_drv_ctxt->spt_mem_cfg.read_count;
+        if (spt_drv_ctxt->spt_io_cfg.tar_time < PRECISION_GENERIC(1U)) // Coverity INT34-C
+        {
+            if(SPT_IO_QUAD == spt_drv_ctxt->spt_io_cfg.io_mode) {
+                app_buff.DataLen = app_buff.RxCount - (((BIT_n_MASK(spt_drv_ctxt->spt_io_cfg.tar_time) / QUAD_CYCLES_PER_BYTE) + (spt_drv_ctxt->spt_io_cfg.wait_time)) + FINAL_STATUS_NUM_BYTES);
+            } else {
+                app_buff.DataLen = app_buff.RxCount - (((BIT_n_MASK(spt_drv_ctxt->spt_io_cfg.tar_time) / SINGLE_CYCLES_PER_BYTE) + (spt_drv_ctxt->spt_io_cfg.wait_time)) + FINAL_STATUS_NUM_BYTES);
+            }
+        }
         app_buff.TimeStamp= spt_get_current_timestamp();
         app_buff.buffer_ptr = spt_drv_ctxt->spt_mem_cfg.rx_buf_ptr;
         app_buff.channel = channel;
@@ -596,7 +605,7 @@ uint8_t spt_write(uint8_t channel, uint8_t* buff_ptr, uint16_t writecount, uint8
             spt_drv_ctxt->spt_mem_cfg.tx_buf_ptr[writecount] = calculated_crc;
             ++writecount;
         }
-        spt_drv_ctxt->ec_mbx.EC2HOST_MBX_SPT_STATUS_BITS.ec_wr_done = 1;
+        spt_drv_ctxt->ec_mbx.SPT_STATUS_BITS_EC2HOST_MBX.ec_wr_done = 1;
         spt_drv_ctxt->appl_info.applTxFuncPtr = func_ptr;
         spt_drv_ctxt->appl_info.app_tx_buff = buff_ptr;
         

@@ -7,11 +7,16 @@
             <creation-uuid>06b8d8ec-19ff-424d-bb15-641ca218d6c4</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <asminc-extensions/>
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/pldm</sourceRootElem>
                 <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/wdt</sourceRootElem>
                 <sourceRootElem>../src/config/cec1736_s0_2zw_ev19k07a/peripheral/spt</sourceRootElem>
+                <sourceRootElem>../src/oem</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

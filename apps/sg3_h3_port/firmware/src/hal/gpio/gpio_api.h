@@ -26,6 +26,11 @@
  extern "C" {
 #endif
 
+// scaled for 3.06 MHz (3MHz + 2%) operation
+#define TIMER_CNT_50US          (153UL)
+// 1 millisecond sample 50 micro second x 20  = 1 millisecond
+#define SAMPLE_1MS              (20UL)
+
 /* ------------------------------------------------------------------------------ */
 /*  API Function - Function to set gpio property                                  */
 /* ------------------------------------------------------------------------------ */
@@ -38,7 +43,7 @@
  * @return uint8_t 1(success), 0(fail).
  */
 uint8_t gpio_property_set( GPIO_PIN pin, GPIO_PROPERTY gpio_prop, const uint32_t new_prop_val );
-     
+
 /* ------------------------------------------------------------------------------ */
 /*  API Function - Function to initialize gpio pin                                */
 /* ------------------------------------------------------------------------------ */
@@ -125,7 +130,7 @@ void gpio_init_default_output_high( GPIO_PIN pin);
 /**
  * gpio_sample_pin_state - This function shall read the gpio state at 50 microsecond
  * interval for 1millisecond time and return the value. If the sample value meet the pin
- * state for 3 count then return the state. otherwise sample the pin till the 
+ * state for 3 count then return the state. otherwise sample the pin till the
  * num_50us_samples times and return the value.
  * @param GPIO_PIN pin_id gpio pin number
  * @param uint32_t num_50us_samples number of samples to be taken

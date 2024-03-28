@@ -74,7 +74,7 @@ extern "C" {
  * spdm_tx_buf to populate the response packet
  * ############################################################################
 *******************************************************************************/
-extern MCTP_BSS_ATTR MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
+extern MCTP_BSS_ATTR_8ALIGNED MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
 
 /******************************************************************************/
 /** struct I2C_MAPP_CBK_NEW_TX

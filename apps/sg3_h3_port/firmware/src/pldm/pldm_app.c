@@ -29,7 +29,7 @@ extern PLDM_BSS1_ATTR bool retry_update_comp_cap;
 extern PLDM_BSS2_ATTR bool host_functionality_reduced;
 extern PLDM_BSS1_ATTR REQUEST_REQUEST_UPDATE request_update;
 extern PLDM_BSS1_ATTR PLDM_AP_CFG pldm_ap_cfg;
-extern PLDM_BSS2_ATTR REQUEST_UPDATE_COMPONENT request_update_component;
+extern PLDM_BSS2_ATTR_8ALIGNED REQUEST_UPDATE_COMPONENT request_update_component __attribute__((aligned(8)));
 extern PLDM_BSS1_ATTR uint32_t size_supported_by_UA;
 extern BUILD_INFO_T const sb_build_info __attribute__((section("build_info")));
 
@@ -90,10 +90,12 @@ bool get_pldm_override_device_desc()
 *******************************************************************************/
 void pldm_get_staged_address_for_crisis_recovery(uint16_t comp_identifier)
 {
-    uint8_t buffer[32];
-        sb_parser_get_spi_info(&staged_address, &spi_select);  
-        spdm_di_qmspi_clr_port_init_status(spi_select);
-        spdm_di_init_flash_component((SPI_FLASH_SELECT)spi_select);
+    uint8_t buffer[32] = {0};
+
+    sb_parser_get_spi_info(&staged_address, &spi_select);  
+    spdm_di_qmspi_clr_port_init_status(spi_select);
+    spdm_di_init_flash_component((SPI_FLASH_SELECT)spi_select);
+
     if (comp_identifier == PLDM_COMP_IDENTIFIER_AP_BA_PTR0) {
         sb_parser_get_spi_info(&staged_address, &spi_select);        
         if (di_spdm_spi_send_read_request(staged_address, buffer, 8, (SPI_FLASH_SELECT)spi_select, true)) {
@@ -177,7 +179,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
     uint16_t ht_version[SB_HASH_TABLE_ID_MAX] = {0};
     uint16_t crisis_rec_version = PLDM_CRISIS_BA_VERSION;
     uint8_t no_of_byte_match_int_spi_support = 0U, supported_idx = 0U; //byte match int flash update
-    uint32_t ascii_conv;
+    uint32_t ascii_conv = 0;
     uint8_t no_of_apfw_images_supported = 0;
 
     if (sg3_state == SG3_POSTAUTH) { 
@@ -744,7 +746,7 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
 *******************************************************************************/
 void pldm_init_peripheral_for_update(uint16_t component_id)
 {
-    uint8_t image_id = ECFW_IMG_INVALID;
+    uint8_t image_id = SB_ECFW_IMG_INVALID;
     uint8_t ap = 0;
     uint8_t comp = 0;
     uint8_t ht_num = 0;
@@ -765,21 +767,21 @@ void pldm_init_peripheral_for_update(uint16_t component_id)
     } else {
         if ((component_id == PLDM_COMP_IDENTIFIER_TAG0) || 
             (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG0)) {
-            image_id = ECFW_IMG_TAG0;
+            image_id = SB_ECFW_IMG_TAG0;
             memcpy(&pending_comp_string_ECFW0[0], &request_update_component.comp_version_string[0], COMP_STRING_TYPE_SIZE);
         } else if ((component_id == PLDM_COMP_IDENTIFIER_TAG1) || 
             (component_id == PLDM_COMP_IDENTIFIER_KHB1_TAG1) || 
             (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG1)) {
-            image_id = ECFW_IMG_TAG1;
+            image_id = SB_ECFW_IMG_TAG1;
             memcpy(&pending_comp_string_ECFW1[0], &request_update_component.comp_version_string[0], COMP_STRING_TYPE_SIZE);
         }
         else if (component_id == PLDM_COMP_IDENTIFIER_APCFG0)
         {
-            image_id = ECFW_IMG_APCFG0;
+            image_id = SB_ECFW_IMG_APCFG0;
         }
         else if (component_id == PLDM_COMP_IDENTIFIER_APCFG1)
         {
-            image_id = ECFW_IMG_APCFG1;
+            image_id = SB_ECFW_IMG_APCFG1;
         }
 
         if (component_id == PLDM_COMP_IDENTIFIER_TAG0 || 
@@ -907,26 +909,26 @@ uint8_t pldm_write_firmware_data(uint16_t component_id, uint8_t *buff_ptr, uint3
         if ((component_id == PLDM_COMP_IDENTIFIER_TAG0) ||
                     (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG0))
         {
-            image_id = ECFW_IMG_TAG0;
+            image_id = SB_ECFW_IMG_TAG0;
         } else if ((component_id == PLDM_COMP_IDENTIFIER_TAG1) ||
             (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG1) || 
             (component_id == PLDM_COMP_IDENTIFIER_KHB1_TAG1))
         {
-            image_id = ECFW_IMG_TAG1;
+            image_id = SB_ECFW_IMG_TAG1;
         }
         else if (component_id == PLDM_COMP_IDENTIFIER_APCFG0)
         {
-            image_id = ECFW_IMG_APCFG0;
+            image_id = SB_ECFW_IMG_APCFG0;
         }
         else if (component_id == PLDM_COMP_IDENTIFIER_APCFG1)
         {
-            image_id = ECFW_IMG_APCFG1;
+            image_id = SB_ECFW_IMG_APCFG1;
         }
 
-        if (image_id == ECFW_IMG_TAG0 || image_id == ECFW_IMG_TAG1)
+        if (image_id == SB_ECFW_IMG_TAG0 || image_id == SB_ECFW_IMG_TAG1)
         {
             di_pldm_sb_apcfg_ecfw_staged_add_get(image_id, &staged_address);
-        } else if (image_id == ECFW_IMG_APCFG0 || image_id == ECFW_IMG_APCFG1) {
+        } else if (image_id == SB_ECFW_IMG_APCFG0 || image_id == SB_ECFW_IMG_APCFG1) {
             di_pldm_sb_apcfg_apcfg_staged_add_get(image_id, &staged_address);
         }
 
@@ -1164,9 +1166,9 @@ uint8_t pldm_cancel_update(uint16_t component_id, uint8_t cancel_update_flag)
  * update process
  * ############################################################################
 *******************************************************************************/
-void  pldm_restore_configs(uint16_t component_id, uint8_t host_funct_reduced)
+void  pldm_restore_configs(uint16_t component_id, uint8_t host_funct_reduced, uint8_t resp_command)
 {
-    di_sb_core_restore_configs(spi_select_configured, host_funct_reduced);
+    di_sb_core_restore_configs(spi_select_configured, host_funct_reduced, resp_command);
     spi_select_configured = 0x00;
 }
 
@@ -1385,7 +1387,7 @@ void pldm_start_update(uint16_t comp_identifier)
     uint32_t tagx_address = 0x00;
     uint32_t staged_address = 0x00;
     uint32_t restore_address = 0x00;
-    uint8_t image_id = ECFW_IMG_INVALID;
+    uint8_t image_id = SB_ECFW_IMG_INVALID;
     uint32_t image_size = 0x00;
     uint8_t tagx_spi_select = 0x00;
     uint8_t staged_spi_select = 0x00;
@@ -1400,25 +1402,25 @@ void pldm_start_update(uint16_t comp_identifier)
     if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG0) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB_TAG0)) 
     {
-        image_id = ECFW_IMG_TAG0;
+        image_id = SB_ECFW_IMG_TAG0;
     } else if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG1) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB_TAG1) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB1_TAG1)) 
     {
-        image_id = ECFW_IMG_TAG1;
+        image_id = SB_ECFW_IMG_TAG1;
     }
     else if (comp_identifier == PLDM_COMP_IDENTIFIER_APCFG0)
     {
-        image_id = ECFW_IMG_APCFG0;
+        image_id = SB_ECFW_IMG_APCFG0;
         apcfg_id = 0;
     }
     else if (comp_identifier == PLDM_COMP_IDENTIFIER_APCFG1)
     {
-        image_id = ECFW_IMG_APCFG1;
+        image_id = SB_ECFW_IMG_APCFG1;
         apcfg_id = 1;
     }
 
-    if (image_id == ECFW_IMG_TAG0 || image_id == ECFW_IMG_TAG1)
+    if (image_id == SB_ECFW_IMG_TAG0 || image_id == SB_ECFW_IMG_TAG1)
     {
         spdm_di_sb_ecfw_tagx_addr_get(&tagx_address, image_id);
         if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG0) || (comp_identifier == PLDM_COMP_IDENTIFIER_TAG1))
@@ -1432,7 +1434,7 @@ void pldm_start_update(uint16_t comp_identifier)
             FW_type = PLDM_FW_TYPE_ECFW1_KHB;
         }
     }
-    else if (image_id == ECFW_IMG_APCFG0 || image_id == ECFW_IMG_APCFG1)
+    else if (image_id == SB_ECFW_IMG_APCFG0 || image_id == SB_ECFW_IMG_APCFG1)
     {
         tagx_address = di_pldm_sb_apcfg_apcfg_base_address_get(apcfg_id);
         FW_type = PLDM_FW_TYPE_AP_CFG;

@@ -704,28 +704,28 @@ void pldm_get_firmware_param_resp_feilds(GET_FIRMWARE_PARAMETERS_RES_FIELDS *buf
 *******************************************************************************/
 void pldm_init_peripheral_for_update(uint16_t component_id)
 {
-    uint8_t image_id = ECFW_IMG_INVALID;
+    uint8_t image_id = SB_ECFW_IMG_INVALID;
     uint8_t ap = 0;
     uint8_t comp = 0;
     uint8_t ht_num = 0;
     uint8_t ht_id = 0;
     if ((component_id == PLDM_COMP_IDENTIFIER_TAG0) || 
         (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG0)) {
-        image_id = ECFW_IMG_TAG0;
+        image_id = SB_ECFW_IMG_TAG0;
         memcpy(&pending_comp_string_ECFW0[0], &request_update_component.comp_version_string[0], COMP_STRING_TYPE_SIZE);
     } else if ((component_id == PLDM_COMP_IDENTIFIER_TAG1) || 
         (component_id == PLDM_COMP_IDENTIFIER_KHB1_TAG1) || 
         (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG1)) {
-        image_id = ECFW_IMG_TAG1;
+        image_id = SB_ECFW_IMG_TAG1;
         memcpy(&pending_comp_string_ECFW1[0], &request_update_component.comp_version_string[0], COMP_STRING_TYPE_SIZE);
     }
     else if (component_id == PLDM_COMP_IDENTIFIER_APCFG0)
     {
-        image_id = ECFW_IMG_APCFG0;
+        image_id = SB_ECFW_IMG_APCFG0;
     }
     else if (component_id == PLDM_COMP_IDENTIFIER_APCFG1)
     {
-        image_id = ECFW_IMG_APCFG1;
+        image_id = SB_ECFW_IMG_APCFG1;
     }
 
     if (component_id == PLDM_COMP_IDENTIFIER_TAG0 || 
@@ -838,26 +838,26 @@ uint8_t pldm_write_firmware_data(uint16_t component_id, uint8_t *buff_ptr, uint3
     if ((component_id == PLDM_COMP_IDENTIFIER_TAG0) ||
                 (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG0))
     {
-        image_id = ECFW_IMG_TAG0;
+        image_id = SB_ECFW_IMG_TAG0;
     } else if ((component_id == PLDM_COMP_IDENTIFIER_TAG1) ||
         (component_id == PLDM_COMP_IDENTIFIER_KHB_TAG1) || 
         (component_id == PLDM_COMP_IDENTIFIER_KHB1_TAG1))
     {
-        image_id = ECFW_IMG_TAG1;
+        image_id = SB_ECFW_IMG_TAG1;
     }
     else if (component_id == PLDM_COMP_IDENTIFIER_APCFG0)
     {
-        image_id = ECFW_IMG_APCFG0;
+        image_id = SB_ECFW_IMG_APCFG0;
     }
     else if (component_id == PLDM_COMP_IDENTIFIER_APCFG1)
     {
-        image_id = ECFW_IMG_APCFG1;
+        image_id = SB_ECFW_IMG_APCFG1;
     }
 
-    if (image_id == ECFW_IMG_TAG0 || image_id == ECFW_IMG_TAG1)
+    if (image_id == SB_ECFW_IMG_TAG0 || image_id == SB_ECFW_IMG_TAG1)
     {
         di_pldm_sb_apcfg_ecfw_staged_add_get(image_id, &staged_address);
-    } else if (image_id == ECFW_IMG_APCFG0 || image_id == ECFW_IMG_APCFG1) {
+    } else if (image_id == SB_ECFW_IMG_APCFG0 || image_id == SB_ECFW_IMG_APCFG1) {
         if (sg3_state == SG3_POSTAUTH) {
             di_pldm_sb_apcfg_apcfg_staged_add_get(image_id, &staged_address);
         } else {
@@ -1334,25 +1334,25 @@ void pldm_start_update(uint16_t comp_identifier)
     if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG0) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB_TAG0)) 
     {
-        image_id = ECFW_IMG_TAG0;
+        image_id = SB_ECFW_IMG_TAG0;
     } else if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG1) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB_TAG1) ||
         (comp_identifier == PLDM_COMP_IDENTIFIER_KHB1_TAG1)) 
     {
-        image_id = ECFW_IMG_TAG1;
+        image_id = SB_ECFW_IMG_TAG1;
     }
     else if (comp_identifier == PLDM_COMP_IDENTIFIER_APCFG0)
     {
-        image_id = ECFW_IMG_APCFG0;
+        image_id = SB_ECFW_IMG_APCFG0;
         apcfg_id = 0;
     }
     else if (comp_identifier == PLDM_COMP_IDENTIFIER_APCFG1)
     {
-        image_id = ECFW_IMG_APCFG1;
+        image_id = SB_ECFW_IMG_APCFG1;
         apcfg_id = 1;
     }
 
-    if (image_id == ECFW_IMG_TAG0 || image_id == ECFW_IMG_TAG1)
+    if (image_id == SB_ECFW_IMG_TAG0 || image_id == SB_ECFW_IMG_TAG1)
     {
         spdm_di_sb_ecfw_tagx_addr_get(&tagx_address, image_id);
         if ((comp_identifier == PLDM_COMP_IDENTIFIER_TAG0) || (comp_identifier == PLDM_COMP_IDENTIFIER_TAG1))
@@ -1366,7 +1366,7 @@ void pldm_start_update(uint16_t comp_identifier)
             FW_type = PLDM_FW_TYPE_ECFW1_KHB;
         }
     }
-    else if (image_id == ECFW_IMG_APCFG0 || image_id == ECFW_IMG_APCFG1)
+    else if (image_id == SB_ECFW_IMG_APCFG0 || image_id == SB_ECFW_IMG_APCFG1)
     {
         tagx_address = di_pldm_sb_apcfg_apcfg_base_address_get(apcfg_id);
         FW_type = PLDM_FW_TYPE_AP_CFG;

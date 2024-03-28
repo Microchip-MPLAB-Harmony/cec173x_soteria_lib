@@ -23,11 +23,13 @@
 #include "spt_task.h"
 #include "spt_app.h"
 #include "pmci.h"
+#include "../spdm/spdm_common.h"
+#include "app.h"
 
 /* MPU */
 static void spt_main(void *pvParameters);
 SPT_BSS_ATTR static StaticTask_t spt_task1_tcb;
-SPT_BSS_ATTR static uint32_t spt_task1_stack[SPT_TASK1_STACK_WORD_SIZE] SPT_TASK1_STACK_ALIGN;
+static uint32_t spt_task1_stack[SPT_TASK1_STACK_WORD_SIZE] SPT_STACK_ATTR SPT_TASK1_STACK_ALIGN;
 SPT_BSS_ATTR static TaskHandle_t spt_task1_handle = NULL;
 SPT_BSS_ATTR static SPT_CONTEXT *sptContext = NULL;
 extern SPT_BSS_ATTR DI_CONTEXT_SPT *spt_di_context;
@@ -36,7 +38,7 @@ static union
 {
     uint32_t w[SPT_TASK1_BUF_SIZE / 4];
     uint8_t  b[SPT_TASK1_BUF_SIZE];
-} spt_task1_buf SPT_BSS_ATTR SPT_TASK1_BUF_ALIGN;
+} spt_task1_buf SPT_BSS_ATTR_256ALIGN SPT_TASK1_BUF_ALIGN;
 
 #define SPT_TASK1_BUF_ADDR &spt_task1_buf.w[0]
 
@@ -104,28 +106,15 @@ int spt_app_task_create(void *pvParams)
         return -1;
     }
 
+    /* Check if MPU base addresses are valid */
+    configASSERT(spt_bss_addr);
+    /* Check if context size is greater than maximum buffer size for the task */
+    configASSERT(SPT_TASK1_BUF_SIZE > sizeof(SPT_CONTEXT));
+
     TaskParameters_t td = spt_task1_def;
-
-    td.pvTaskCode = spt_main;
-    td.usStackDepth = SPT_TASK1_STACK_WORD_SIZE,
-    td.pvParameters = pvParams;
-#if (config_CEC_DATA_ISOLATION_CHECKS == 1)
-    td.uxPriority = SPT_TASK1_PRIORITY;
-#else
-    td.uxPriority = (SPT_TASK1_PRIORITY | portPRIVILEGE_BIT);
-#endif
-    td.puxStackBuffer = spt_task1_stack;
-#ifdef config_CEC_AHB_PROTECTION_ENABLE
-    td.pCecPrivRegValues = pTaskPrivRegValues;
-#endif
-
-    configASSERT(IS_PWR2(spt_bsssz) != 0);
-    configASSERT((spt_bss_addr & (spt_bsssz - 1U)) == 0U);
-
-    td.xRegions[0].pvBaseAddress = (void *)spt_bss_addr;
-    td.xRegions[0].ulLengthInBytes = spt_bsssz;
-    td.xRegions[0].ulParameters = spt_data_mpu_attr();
-
+    config_task_parameters(&td, spt_main, SPT_TASK1_STACK_WORD_SIZE, pvParams,
+                           SPT_TASK1_PRIORITY, spt_task1_stack, pTaskPrivRegValues);
+    config_task_memory_regions(&td, 0, spt_bss_addr, spt_bsssz, spt_data_mpu_attr());
 
     frc = xTaskCreateRestrictedStatic(&td, &spt_task1_handle);
 
@@ -143,7 +132,7 @@ int spt_app_task_create(void *pvParams)
     sptContext = spt_ctxt_get();
     di_context = (DI_CONTEXT_SPT*)pvParams;
     sptContext->xspt_EventGroupHandle = di_context->spt_request.evt_grp_handle;
-
+;
     ////trace0(0, MCTP_TSK, 0, "spt_tsk_create: Done");
 
     return 0;
@@ -194,8 +183,7 @@ SPT_CONTEXT_PER_CHANNEL* spt_channel_ctxt_get(uint8_t channel)
 static void spt_main(void* pvParameters)
 {
     EventBits_t uxBits;
-
-    spt_di_init(pvParameters);    
+    spt_di_init(pvParameters);
     sptContext = spt_ctxt_get();
 
     if(NULL == sptContext)
@@ -220,7 +208,7 @@ static void spt_main(void* pvParameters)
     }
 #endif
 
-    while(true)
+    while(1)
     {
         uxBits = xEventGroupWaitBits(sptContext->xspt_EventGroupHandle,
                                      (SPT_ISR_EVENT_BIT | SPT_EVENT_BIT |
@@ -277,7 +265,6 @@ int spt_task_create(void *pvParams)
 {
     void *di_ctxt;
     int return_val =0u;
-
     di_ctxt = di_spt_context_get();
 
 #ifdef config_CEC_AHB_PROTECTION_ENABLE

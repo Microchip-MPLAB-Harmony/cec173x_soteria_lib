@@ -34,8 +34,11 @@ extern "C" {
 #endif
 
 #define PLDM_BSS0_ATTR                                     __attribute__((section("pldm_bss0")))
+#define PLDM_BSS0_ATTR_8ALIGNED                                     __attribute__((section("pldm_bss0_8aligned")))
 #define PLDM_BSS1_ATTR                                     __attribute__((section("pldm_bss1")))
+#define PLDM_BSS1_ATTR_8ALIGNED                                     __attribute__((section("pldm_bss1_8aligned")))
 #define PLDM_BSS2_ATTR                                     __attribute__((section("pldm_bss2")))
+#define PLDM_BSS2_ATTR_8ALIGNED                                     __attribute__((section("pldm_bss2_8aligned")))
 
 #define PLDM_COMP_IDENTIFIER_TAG0 0x1020
 #define PLDM_COMP_IDENTIFIER_TAG1 0x1021

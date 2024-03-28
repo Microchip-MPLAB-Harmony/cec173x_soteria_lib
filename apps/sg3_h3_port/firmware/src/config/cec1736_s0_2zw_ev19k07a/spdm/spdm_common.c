@@ -40,3 +40,25 @@ uint8_t safe_subraction_16(uint16_t minuend, uint16_t subtrahend, uint16_t * rsl
     }
     return retVal;
 }
+
+/******************************************************************************/
+/** safe_subraction_8
+* Process safe subtraction of two variables of uint8
+* @param uint8_t  - operand 1
+* @param uint8_t  - operand 2
+* @param uint8_t* - resultant pointer
+* @return uint8_t  - 0 success
+*******************************************************************************/
+uint8_t safe_subraction_8(uint8_t minuend, uint8_t subtrahend, uint8_t * rslt)
+{
+    uint8_t retVal = 1;
+    if (minuend >= subtrahend)
+    {
+        if(rslt != NULL)
+        {
+            *rslt = minuend - subtrahend;
+        } // else ignore the result since it is not required.
+        retVal = 0u;
+    }
+    return retVal;
+}

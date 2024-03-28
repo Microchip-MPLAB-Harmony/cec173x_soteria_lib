@@ -220,10 +220,28 @@ typedef union MCTP_ROUTING_TABLE
 #define MCTP_VER_NUM_UPDATE                0xFF
 #define MCTP_VER_NUM_ALPHA                 0x00
 
+/* secured message type mctp get version*/
+#define MCTP_SECURED_MSG                              0x06
+#define MCTP_VER_NUM_ENTRY_COUNT_SECURED_MSG          0x02
+/* version string 1*/
+#define MCTP_VER_NUM_MAJOR_SECURED_MSG1                 0xF1
+#define MCTP_VER_NUM_MINOR_SECURED_MSG1                 0xF0
+#define MCTP_VER_NUM_UPDATE_SECURED_MSG1                0xFF
+#define MCTP_VER_NUM_ALPHA_SECURED_MSG1                 0x00
+
+/* version string 2*/
+#define MCTP_VER_NUM_MAJOR_SECURED_MSG2                 0xF1
+#define MCTP_VER_NUM_MINOR_SECURED_MSG2                 0xF1
+#define MCTP_VER_NUM_UPDATE_SECURED_MSG2                0xF1
+#define MCTP_VER_NUM_ALPHA_SECURED_MSG2                 0x00
+
 /* get msg type support specific */
 #define MCTP_MSG_TYPE_COUNT                0x01
 #define MCTP_MSG_TYPE_NUMLIST              0x01
 #define MCTP_MSG_TYPE_VENDR                VNDR_LAHO_VERSION
+
+// secure session
+#define SPDM_MCTP_SEQUENCE_NUMBER_COUNT     2
 
 /* function declarations */
 void mctp_ec_control_pkt_handler(MCTP_PKT_BUF *rx_buf, MCTP_PKT_BUF *tx_resp_buf);
@@ -241,9 +259,9 @@ uint8_t mctp_copy_rx_for_spdm_for_ec(MCTP_BUFFER_INFO *buffer_info);
 * @param *buffer_info Pointer to BUFFER_INFO structure of smbus layer
 * @return void
 ***********************************************************************************************/
-uint8_t mctp_copy_rx_for_pldm_for_ec(MCTP_BUFFER_INFO *buffer_info);
+UINT8 mctp_copy_rx_for_pldm_for_ec(MCTP_BUFFER_INFO *buffer_info);
 
-extern MCTP_BSS_ATTR MCTP_ROUTING_TABLE mctp_rt;
+extern MCTP_BSS1_ATTR MCTP_ROUTING_TABLE mctp_rt;
 
 #ifdef __cplusplus
 }

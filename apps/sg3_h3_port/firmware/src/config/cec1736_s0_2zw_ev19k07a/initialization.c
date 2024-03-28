@@ -143,8 +143,10 @@ PWM0_Initialize();
     
 	UART0_Initialize();
 
-    SPT1_Initialize();
-    
+SPT1_Initialize();
+
+SPT0_Initialize();
+
 CCT_Initialize();
 
 

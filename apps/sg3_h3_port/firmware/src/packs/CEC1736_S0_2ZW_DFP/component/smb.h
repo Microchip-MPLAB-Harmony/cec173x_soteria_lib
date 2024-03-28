@@ -639,6 +639,5 @@ typedef struct
   __IO  uint8_t                        SMB_SHDW_DATA;      /**< Offset: 0x7C (R/W  8) This is the I2C Shadow Data Register */
 } smb_registers_t;
 
-
 #endif /* !(defined(__ASSEMBLER__) || defined(__IAR_SYSTEMS_ASM__)) */
 #endif /* _CEC_SMB_COMPONENT_H_ */

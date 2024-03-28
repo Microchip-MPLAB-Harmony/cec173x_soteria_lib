@@ -31,28 +31,28 @@ extern "C" {
 //
 // Logical bit map representation of each ports
 //
-#define GPIO_BANK0_BITMAP (0x7FFFFFFFul) /* 0000 - 0037 */
-#define GPIO_BANK1_BITMAP (0x7FFFFFFFul) /* 0040 - 0077 */
-#define GPIO_BANK2_BITMAP (0x7FFFFFFFul) /* 0100 - 0137 */
-#define GPIO_BANK3_BITMAP (0x7FFFFFFFul) /* 0140 - 0177 */
-#define GPIO_BANK4_BITMAP (0x7FFFFFFFul) /* 0200 - 0237 */
-#define GPIO_BANK5_BITMAP (0x00FFFFFFul) /* 0240 - 0277 */
+#define GPIO_BANK0_BITMAP (0x7FFFFFFFUL) /* 0000 - 0037 */
+#define GPIO_BANK1_BITMAP (0x7FFFFFFFUL) /* 0040 - 0077 */
+#define GPIO_BANK2_BITMAP (0x7FFFFFFFUL) /* 0100 - 0137 */
+#define GPIO_BANK3_BITMAP (0x7FFFFFFFUL) /* 0140 - 0177 */
+#define GPIO_BANK4_BITMAP (0x7FFFFFFFUL) /* 0200 - 0237 */
+#define GPIO_BANK5_BITMAP (0x00FFFFFFUL) /* 0240 - 0277 */
 
 //
 // Logical bit map representation of each ports
 //
-#define GPIO_BANK0_BITMAP (0x7FFFFFFFul) /* 0000 - 0037 */
-#define GPIO_BANK1_BITMAP (0x7FFFFFFFul) /* 0040 - 0077 */
-#define GPIO_BANK2_BITMAP (0x7FFFFFFFul) /* 0100 - 0137 */
-#define GPIO_BANK3_BITMAP (0x7FFFFFFFul) /* 0140 - 0177 */
-#define GPIO_BANK4_BITMAP (0x7FFFFFFFul) /* 0200 - 0237 */
-#define GPIO_BANK5_BITMAP (0x00FFFFFFul) /* 0240 - 0277 */
+#define GPIO_BANK0_BITMAP (0x7FFFFFFFUL) /* 0000 - 0037 */
+#define GPIO_BANK1_BITMAP (0x7FFFFFFFUL) /* 0040 - 0077 */
+#define GPIO_BANK2_BITMAP (0x7FFFFFFFUL) /* 0100 - 0137 */
+#define GPIO_BANK3_BITMAP (0x7FFFFFFFUL) /* 0140 - 0177 */
+#define GPIO_BANK4_BITMAP (0x7FFFFFFFUL) /* 0200 - 0237 */
+#define GPIO_BANK5_BITMAP (0x00FFFFFFUL) /* 0240 - 0277 */
 
 // scaled for 3.06 MHz (3MHz + 2%) operation
-#define TIMER_CNT_50US          (153ul)
+#define TIMER_CNT_50US          (153UL)
 // 1 millisecond sample 50 micro second x 20  = 1 millisecond
-#define SAMPLE_1MS              (20ul)
-#define MAX_PIN                    (GPIO_PIN_GPIO253 + 1)
+#define SAMPLE_1MS              (20UL)
+#define MAX_PIN     (GPIO_PIN_GPIO253 + 1)
 
 extern void timer_delay_us(uint32_t num_us);
 static uint8_t gpio_is_valid( GPIO_PIN pin );
@@ -115,22 +115,22 @@ uint8_t gpio_init( GPIO_PIN pin, GPIO_INP_READ new_val, GPIO_FUNCTION new_mux, G
     uint8_t ret_init_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-        gpio_property_set(pin, GPIO_PROP_INP_EN_DIS, new_val);
-        gpio_property_set(pin, GPIO_PROP_MUX_SEL, new_mux);
-        gpio_property_set(pin, GPIO_PROP_POLARITY, new_pol);
-        gpio_property_set(pin, GPIO_PROP_DIR, new_dir);
-        gpio_property_set(pin, GPIO_PROP_OBUFF_TYPE, new_obuf);
-        gpio_property_set(pin, GPIO_PROP_INT_DET, new_idet);
-        gpio_property_set(pin, GPIO_PROP_PWR_GATE, new_pwrg);
-        gpio_property_set(pin, GPIO_PROP_PU_PD, new_pud);
-        
+  gpio_property_set(pin, GPIO_PROP_INP_EN_DIS, (uint32_t)new_val);
+  gpio_property_set(pin, GPIO_PROP_MUX_SEL, (uint32_t)new_mux);
+  gpio_property_set(pin, GPIO_PROP_POLARITY,(uint32_t)new_pol);
+  gpio_property_set(pin, GPIO_PROP_DIR, (uint32_t)new_dir);
+  gpio_property_set(pin, GPIO_PROP_OBUFF_TYPE, (uint32_t)new_obuf);
+  gpio_property_set(pin, GPIO_PROP_INT_DET, (uint32_t)new_idet);
+  gpio_property_set(pin, GPIO_PROP_PWR_GATE, (uint32_t)new_pwrg);
+  gpio_property_set(pin, GPIO_PROP_PU_PD, (uint32_t)new_pud);
+
         ret_init_sts = 0u;
     }
     else
     {
         ret_init_sts = 1u;
     }
-    
+
     return ret_init_sts;
 }
 
@@ -149,28 +149,28 @@ uint8_t gpio_init( GPIO_PIN pin, GPIO_INP_READ new_val, GPIO_FUNCTION new_mux, G
 
 uint8_t gpio_output_set( GPIO_PIN pin, GPIO_ALT_OUT out_src, const uint32_t gpio_state )
 {
-    uint8_t ret_op_set_sts = 0ul;
+    uint8_t ret_op_set_sts = 0UL;
 
     if ( gpio_is_valid(pin) )
     {
 //        p_gpio_output_write_enable( pin, out_src );
-        GPIO_PinGroupOutputConfig( pin, out_src );
+  GPIO_PinGroupOutputConfig( pin, out_src );
 
         if ( out_src )
         {
-            if(gpio_state) {
-                GPIO_GroupPinSet(pin);
-            } else {
-                GPIO_GroupPinClear(pin);
-            }
+   if(gpio_state) {
+    GPIO_GroupPinSet(pin);
+   } else {
+    GPIO_GroupPinClear(pin);
+   }
         }
         else
         {
-            if(gpio_state) {
-                GPIO_PinSet(pin);
-            } else {
-                GPIO_PinClear(pin);
-            }
+   if(gpio_state) {
+    GPIO_PinSet(pin);
+   } else {
+    GPIO_PinClear(pin);
+   }
         }
 
         ret_op_set_sts = 0u;
@@ -196,7 +196,8 @@ uint8_t gpio_input_get( GPIO_PIN pin )
     uint8_t ret_ip_get_sts = 0xFFu;
     if ( gpio_is_valid(pin) )
     {
-        ret_ip_get_sts = GPIO_PinRead( pin );
+        bool val = GPIO_PinRead( pin );
+        ret_ip_get_sts = (val == true) ? 1U : 0U;;
     }
     else
     {
@@ -221,7 +222,7 @@ uint8_t gpio_slewRate_set( GPIO_PIN pin, GPIO_SLEW_RATE new_slew )
     uint8_t ret_slw_set_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-        GPIO_PinSlewRateConfig(pin, new_slew);
+  GPIO_PinSlewRateConfig(pin, new_slew);
 
         ret_slw_set_sts = 0u;
     }
@@ -249,8 +250,8 @@ uint8_t gpio_drvStr_set( GPIO_PIN pin, GPIO_DRV drv_str )
     uint8_t ret_drvstr_set_sts = 0u;
     if ( gpio_is_valid(pin) )
     {
-        GPIO_DrvStrConfig(pin, drv_str);
-        
+  GPIO_DrvStrConfig(pin, drv_str);
+
         ret_drvstr_set_sts = 0u;
     }
     else
@@ -288,7 +289,7 @@ void gpio_init_default_output_high( GPIO_PIN pin)
 /**
  * gpio_sample_pin_state - This function shall read the gpio state at 50 microsecond
  * interval for 1millisecond time and return the value. If the sample value meet the pin
- * state for 3 count then return the state. otherwise sample the pin till the 
+ * state for 3 count then return the state. otherwise sample the pin till the
  * num_50us_samples times and return the value.
  * @param GPIO_PIN pin_id gpio pin number
  * @param uint32_t num_50us_samples number of samples to be taken
@@ -301,25 +302,25 @@ uint8_t gpio_sample_pin_state(GPIO_PIN pin_id, uint32_t num_50us_samples)
     uint8_t pin_cnt = 0u;
     uint8_t pin_state = 0x00;
     pin_state = AHB_API_gpio_input_get(pin_id);
-    
+
     while (nsamples < num_50us_samples)
     {
         timer_delay_us(TIMER_CNT_50US); //check this 50 actually provide 50 micro second
         pin1 = AHB_API_gpio_input_get(pin_id);
         if (pin1 == pin_state){
             pin_cnt++;
-        } 
+        }
         else{
             pin_cnt = 0u;
         }
-        
+
         if (pin_cnt > 3){
             break;
         }
-        
+
         nsamples++;
     }
-    
+
     return pin1;
 }
 
@@ -340,7 +341,7 @@ static uint8_t gpio_is_valid( GPIO_PIN pin )
     {
         gp_bank = (uint16_t)pin >> 5;
 
-        if ( valid_ctrl_masks[gp_bank] & (1 << (pin & 0x001Fu)) )
+        if ( valid_ctrl_masks[gp_bank] & (BIT_n_MASK(pin & 0x001Fu)))
         {
             ret_valid_sts = 1u;
         }

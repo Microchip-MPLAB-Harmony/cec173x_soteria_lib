@@ -30,12 +30,12 @@
 #include "mctp_config.h"
 #include "../common/include/common.h"
 
-extern MCTP_BSS_ATTR uint8_t mctp_tx_state;
-extern MCTP_BSS_ATTR MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
+extern MCTP_BSS_ATTR UINT8 mctp_tx_state;
+extern MCTP_BSS_ATTR_8ALIGNED MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
 
-extern MCTP_BSS_ATTR uint8_t mctp_wait_smbus_callback;
-extern MCTP_BSS_ATTR uint8_t is_pldm_request_firmware_update;
-extern MCTP_BSS_ATTR uint8_t msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
+extern MCTP_BSS_ATTR UINT8 mctp_wait_smbus_callback;
+extern MCTP_BSS_ATTR UINT8 is_pldm_request_firmware_update;
+extern MCTP_BSS_ATTR UINT8 msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
 
 /******************************************************************************/
 /** Initializes mctp-smbus interface. It calls smb_slave _register for
@@ -52,7 +52,7 @@ uint8_t mctp_smbus_init(void)
 
     /* register with smbus */
     status_init = smb_register_slave(MCTP_I2C_CHANNEL,
-                                     (MCTP_SLAVE_FUNC_PTR )mctp_receive_smbus);
+                                     (SLAVE_FUNC_PTR )mctp_receive_smbus);
 
     /* smbus slave registration successful */
     if(status_init == (uint8_t)I2C_SLAVE_APP_STATUS_OK)
@@ -74,7 +74,6 @@ uint8_t mctp_smbus_init(void)
 uint8_t mctp_receive_smbus(MCTP_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFlag)
 {
     uint8_t pkt_valid;
-
     uint8_t pkt_len;
     MCTP_PKT_BUF *pkt_buf;
     MCTP_PKT_BUF *spdm_msg_rx_buf = NULL;
@@ -97,7 +96,7 @@ uint8_t mctp_receive_smbus(MCTP_BUFFER_INFO *buffer_info, uint8_t slaveTransmitF
     if ((pkt_buf->pkt.field.hdr.cmd_code != MCTP_SMBUS_HDR_CMD_CODE) ||
             (pkt_buf->pkt.field.hdr.rw_dst != 0U) ||
             (pkt_buf->pkt.field.hdr.ipmi_src != 1U) ||
-            (pkt_buf->pkt.field.hdr.byte_cnt < MCTP_BYTECNT_MIN) ||
+            (pkt_buf->pkt.field.hdr.byte_cnt < MCTP_BYTECNT_MIN_INCLUDING_MSG_TYPE) ||
             (buffer_info->DataLen < MCTP_PACKET_MIN))
     {
         return (uint8_t)I2C_STATUS_BUFFER_ERROR;
@@ -162,14 +161,11 @@ void mctp_transmit_smbus(MCTP_PKT_BUF *tx_buf)
         return;
     }
 
-    status_tx = mctp_i2c_tx(MCTP_I2C_CHANNEL,
-                (uint8_t *)&tx_buf->pkt,
-                SMB_PROTO_WRITE_BLOCK,
-                            tx_buf->pkt.data[MCTP_PKT_BYTE_CNT_POS] + 3U,
-                            (uint8_t)true,
-                            (I2C_MASTER_FUNC_PTR) mctp_smbmaster_done,
-                            (uint8_t)false,
-                            (uint8_t)false);
+    status_tx = mctp_di_smb_protocol_execute(MCTP_SMBUS_CHANNEL,
+                (UINT8 *)&tx_buf->pkt,
+                SMB_WRITE_BLOCK,
+                tx_buf->pkt.data[MCTP_PKT_BYTE_CNT_POS] + 3,
+                TRUE);
 
 } /* End mctp_transmit_smbus() */
 
@@ -190,7 +186,6 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
     uint8_t spdm_pend = 0x00;
 	uint8_t pldm_pend = 0x00;
     MCTP_TX_CXT *mctp_tx_ctxt = NULL;
-
     /* get current TX buffer pointer */
     tx_buf = (MCTP_PKT_BUF *)((void *) buffer_ptr);
 
@@ -200,7 +195,7 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
         msg_type_tx = mctp_tx_ctxt->message_type;
     }
     
-    if(msg_type_tx == MCTP_IC_MSGTYPE_SPDM)
+    if((msg_type_tx == MCTP_IC_MSGTYPE_SPDM) || (msg_type_tx == MCTP_IC_MSGTYPE_SECURED_MESSAGE))
     {
         if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
         {
@@ -335,7 +330,7 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
 
     if(spdm_pend)//if eom is not 1 for the spdm messaging, trigger spdm for further transmission over mctp
     {
-        trigger_spdm_event();
+        trigger_spdm_res_event();
     }
 
     if (is_pldm_request_firmware_update)
@@ -418,12 +413,12 @@ void mctp_smbus_txpktready_init(MCTP_PKT_BUF *tx_buf)
 /******************************************************************************/
 /** This is called by smbus module whenever MEC1324 SMBUS address is updated.
 *******************************************************************************/
-void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port)
+void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port, uint8_t enable_flag)
 {
     uint8_t smbus_config;
 
     mctp_rt.ep.ec.field.smb_address     = (uint8_t)(smb_address& UINT8_MAX);;
-    mctp_cfg.smbus_enable = 1;
+    mctp_cfg.smbus_enable = enable_flag;
 
     smbus_config = (mctp_cfg.smbus_fairness << 2 | mctp_cfg.smbus_enable);
 
@@ -431,7 +426,8 @@ void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port)
                                     smb_address, 
                                     mctp_cfg.smbus_speed, 
                                     mctp_port, 
-                                    smbus_config);
+                                    smbus_config,
+                                    mctp_cfg.smbus_enable);
 
 } /* End mctp_smbaddress_update */
 
@@ -479,81 +475,3 @@ uint8_t mctp_otp_get_crisis_mode_smb_port(void)
 
     return i2c_port;
 }
-
-/******************************************************************************/
-/** mctp_i2c_rx_register
- * This function registers a I2C slave application
- * @channel the channel on which the slave is registered
- * @param slaveFuncPtr The application function to call on receiving a packet
- * @return             I2C_SLAVE_APP_STATUS_OK on successful registration,
- *                     else error status
-******************************************************************************/
-uint8_t mctp_i2c_rx_register(const uint8_t channel, 
-                            MCTP_SLAVE_FUNC_PTR slaveFuncPtr)
-{
-    return smb_register_slave(channel, 
-                                (MCTP_SLAVE_FUNC_PTR)slaveFuncPtr);
-}
-
-
-/******************************************************************************/
-/** mctp_i2c_tx
- * Initiates I2C master operation
- * @param channel          i2c channel
- * @param buffer_ptr       Buffer for the smbus transaction
- * @param smb_protocol     smbus protocol byte
- * @param pecEnable        Flag to enable/disable PEC
- * @param WriteCount       Number of bytes to transmit
- * @param di_master_req    Data Isolation structure
- * @param readChainedFlag  flag to indicate if read needs to be done
- *                         using dma chaining
- * @param writeChainedFlag flag to indicate if write needs to be done
- *                         using dma chaining
- * @return                 MASTER_OK on success, MASTER_ERROR if i2c is
- *                         not ready for master mode operation
- * @note
-******************************************************************************/
-uint8_t mctp_i2c_tx(const uint8_t channel, 
-                    uint8_t *buffer_ptr, 
-                    const uint8_t smb_protocol, 
-                    const uint8_t writeCount, 
-                    const uint8_t pecEnable, 
-                    I2C_MASTER_FUNC_PTR func_ptr, 
-                    const uint8_t readChainedFlag,
-                    const uint8_t writeChainedFlag)
-{
-	return mctp_di_smb_protocol_execute(channel,
-                                buffer_ptr,
-                                smb_protocol,
-                                writeCount,
-                                pecEnable);
-}
-
-/******************************************************************************/
-/** mctp_i2c_configure_and_enable
- * This function can be used to start and enable the i2c controller
- * @param channel     channel (I2C controller number)
- * @param own_address 7-bit smb address
- * @param speed       speed
- * @param port        I2C port (I2C port number inside the I2C controller)
- * @param configFlag  |      BIT0      |      BIT1      |      BIT2      |    BIT3 - BIT7 |
- *                    | i2c module     |     Unused     | MCTP fairness  |      Unused    |
- *                    | enable/disable |                |protocol enable |                |
- * @return            None
- * @note
-******************************************************************************/
-void mctp_i2c_configure_and_enable(uint8_t channel, 
-                                   uint16_t own_address, 
-                                   uint8_t speed, 
-                                   uint8_t port, 
-                                   uint8_t configFlag)
-{
-    mctp_di_smb_configure_and_enable(channel, 
-                                own_address, 
-                                speed, 
-                                port, 
-                                configFlag);
-}
-/**   @}
- */
-

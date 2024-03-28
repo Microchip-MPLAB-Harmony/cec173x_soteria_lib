@@ -54,9 +54,9 @@ void interrupt_device_enable(uint32_t dev_iroute, uint8_t is_aggregated)
     IRQn_Type nvic_num;
 
     if (is_aggregated == 1) {
-        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_IA_NVIC_ID_BITPOS)) & 0xFFul);
+        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_IA_NVIC_ID_BITPOS)) & UINT8_MAX);
     } else {
-        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & 0xFFul);
+        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & UINT8_MAX);
     }
 
     nvic_isave = __get_PRIMASK(); // Coverity DCL37-C Identifier should not start with is or to
@@ -84,11 +84,11 @@ void interrupt_device_disable(uint32_t dev_iroute, uint8_t is_aggregated)
     nvic_isave = __get_PRIMASK(); // Coverity DCL37-C Identifier should not start with is or to
     NVIC_INT_Disable();
 
-    if (is_aggregated == 1)
-        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_IA_NVIC_ID_BITPOS)) & 0xFFul);
-    else
-        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & 0xFFul);
-
+    if (is_aggregated == 1){
+        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_IA_NVIC_ID_BITPOS)) & UINT8_MAX);
+    } else {
+        nvic_num = (IRQn_Type)((dev_iroute >> (ECIA_NVIC_ID_BITPOS)) & UINT8_MAX);
+    }
     NVIC_DisableIRQ(nvic_num);
     ECIA_GIRQSourceDisable((ECIA_INT_SOURCE)dev_iroute);
     __DSB();
@@ -125,7 +125,7 @@ uint32_t interrupt_device_ecia_result_get(const uint32_t dev_iroute)
     ia_bit_pos = (uint8_t)(dev_iroute >> (ECIA_GIRQ_BIT_BITPOS)) & 0x1Fu;
 
     retVal = ECIA_GIRQResultGet((ECIA_INT_SOURCE)dev_iroute);
-    
+
     return retVal;
 }
 
@@ -156,7 +156,7 @@ void interrupt_device_ecia_enable_set(const uint32_t dev_iroute)
     girq_num = (uint8_t)(dev_iroute >> (ECIA_GIRQ_ID_BITPOS)) & 0x1Fu;
     ia_bit_pos = (uint8_t)(dev_iroute >> (ECIA_GIRQ_BIT_BITPOS)) & 0x1Fu;
 
-     ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
+    ECIA_GIRQSourceEnable((ECIA_INT_SOURCE)dev_iroute);
 }
 
 /**
@@ -193,17 +193,17 @@ void mchp_privileged_ecia_init(uint32_t direct_bitmap, uint8_t dflt_priority)
 
     /* disconnect all GIRQ aggregated block outputs from NVIC */
     ECIA_GIRQBlockDisableAll();
-    
+
     /* clear all ECIA GIRQ individual enables and status(source) bits */
     ECIA_GIRQSourceDisableAll();
-    
+
     ECIA_GIRQSourceClearAll();
 
     /* clear all NVIC enables and pending status */
     nvic_enpend_clr();
-    
+
     /* Set priority*/
-    
+
     nvic_priorities_set(dflt_priority);
 
     /* mask out GIRQ's that cannot do direct */
@@ -218,18 +218,18 @@ void mchp_privileged_ecia_init(uint32_t direct_bitmap, uint8_t dflt_priority)
             ECIA_GIRQBlockEnable((ECIA_GIRQ_BLOCK_NUM)i);
         }
     }
-   
+
     enable_nvic_bitmap(aggr_bitmap, 0U);
 
     /* enable any direct connections? */
     if (direct_bitmap) {
         /* Disconnect aggregated GIRQ output for direct mapped */
-        for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
-        {
-            if(direct_bitmap & (0x01 << i)) {
-                ECIA_GIRQBlockDisable((ECIA_GIRQ_BLOCK_NUM)i);
-            }
+    for(i=ECIA_GIRQ_BLOCK_NUM8; i<ECIA_GIRQ_BLOCK_NUM_MAX; i++)
+    {
+        if(direct_bitmap & (0x01 << i)) {
+            ECIA_GIRQBlockDisable((ECIA_GIRQ_BLOCK_NUM)i);
         }
+    }
         EC_REG_BANK_REGS->EC_REG_BANK_INTR_CTRL |= BIT_0_MASK;
         enable_nvic_bitmap(direct_bitmap, 1U);
     }
@@ -287,15 +287,15 @@ static inline void nvic_enable_extirq(uint32_t nvic_input_num)
 /** Set NVIC external priorities to specified priority (0 - 7)
  * @param zero-based 3-bit priority value: 0=highest, 7=lowest.
  * @note NVIC highest priority is the value 0, lowest is all 1's.
- * Each external interrupt has an 8-bit register and the priority 
- * is left justified in the registers. MECxxx implements 8 priority 
+ * Each external interrupt has an 8-bit register and the priority
+ * is left justified in the registers. MECxxx implements 8 priority
  * levels or bits [7:5] in the register. Lowest priority = 0xE0
  */
 static void nvic_priorities_set(uint8_t new_pri)
 {
     uint16_t i;
-    
-    for ( i = 0ul; i < MAX_IRQn; i++ ) {
+
+    for ( i = 0UL; i < MAX_IRQn; i++ ) {
         NVIC_SetPriority((IRQn_Type)i, new_pri);
     }
 }
@@ -307,13 +307,13 @@ static void nvic_enpend_clr(void)
 
     // Clear NVIC enables & pending status
     m = (uint32_t)(MAX_IRQn) >> 5;
-    if ( (uint32_t)(MAX_IRQn) & 0x1Ful ) { m++; }
-        
-    for ( i = 0ul; i < m ; i++ ) 
+    if ( (uint32_t)(MAX_IRQn) & 0x1FUL ) { m++; }
+
+    for ( i = 0UL; i < m ; i++ )
     {
-        NVIC->ICER[i] = 0xfffffffful;
-        NVIC->ICPR[i] = 0xfffffffful;
-    }    
+        NVIC->ICER[i] = UINT32_MAX;
+        NVIC->ICPR[i] = UINT32_MAX;
+    }
 }
 
 /* ------------------------------------------------------------------------------- */

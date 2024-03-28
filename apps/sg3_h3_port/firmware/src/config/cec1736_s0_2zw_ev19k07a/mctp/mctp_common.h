@@ -63,6 +63,21 @@ extern "C" {
 #define SMB_PROTO_READ_BLOCK                              ((I2C_OPER_REPEAT << 6) + 0x3FU)
 #define SMB_PROTO_BLOCK_WRITE_BLOCK_READ_PROCESS_CALL     ((I2C_OPER_REPEAT << 6) + 0x3FU)
 
+#define MCTP_BSS0_ATTR                          __attribute__((section("mctp_bss0")))
+#define MCTP_BSS_ATTR_8ALIGNED                  __attribute__((section("mctp_bss_8aligned")))
+#define MCTP_BSS_ATTR_128ALIGNED                __attribute__((section("mctp_bss_128aligned")))
+#define MCTP_BSS_ATTR_512ALIGNED                __attribute__((section("mctp_bss_512aligned")))
+#define MCTP_BSS1_ATTR                          __attribute__((section("mctp_bss1")))
+#define MCTP_STACK_ATTR                         __attribute__((section("mctp_stack")))
+
+uintptr_t mctp_bss0_base(void);
+size_t mctp_bss0_size(void);
+uintptr_t mctp_bss1_base(void);
+size_t mctp_bss1_size(void);
+uint32_t mctp_data_mpu_attr(void);
+
+extern void trigger_spdm_res_event(void);
+
 #define INPUT_BUF_MAX_BYTES    1224U
 
 #define is_add_safe(sum, aug_or_add)                     ((sum) < (aug_or_add) ? 0 : 1) // Coverity INT30-C Postcondition Test

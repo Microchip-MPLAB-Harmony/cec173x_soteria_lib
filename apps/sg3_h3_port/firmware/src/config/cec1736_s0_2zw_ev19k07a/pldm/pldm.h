@@ -332,7 +332,7 @@ extern uint8_t pldm_cancel_update(uint16_t component_id, uint8_t cancel_update_f
  * update process and restore device to non update mode
  * ############################################################################
 *******************************************************************************/
-extern void  pldm_restore_configs(uint16_t component_id, uint8_t host_funct_reduced);
+extern void  pldm_restore_configs(uint16_t component_id, uint8_t host_funct_reduced, uint8_t resp_command);
 
 /******************************************************************************/
 /** pldm_reset_firmware_update_flags

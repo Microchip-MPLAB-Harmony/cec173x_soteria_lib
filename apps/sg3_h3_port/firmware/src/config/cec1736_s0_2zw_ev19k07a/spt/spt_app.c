@@ -22,11 +22,10 @@
 #include "FreeRTOS.h"
 #include "spt/spt_task.h"
 #include "pmci.h"
-
-extern SPT_BSS_ATTR DI_QUEUEITEM_SPT* spt_tx_resp_queueitem;
+#include "spt_common.h"
 
 uint16_t spt_get_current_timestamp(void) {
-    return (uint16_t) (xTaskGetTickCount() / 10);
+    return ((xTaskGetTickCount() / 10u)&UINT16_MAX);
  
 }
 
@@ -41,20 +40,12 @@ void spt_event_handle(EventBits_t uxBits)
 
 uint8_t spt_tx(uint8_t channel, uint8_t* buff_ptr, uint16_t writecount, uint8_t pecEnable, TX_FUNC_PTR func_ptr)
 {
-    spt_write(channel, buff_ptr, writecount, pecEnable, func_ptr);
-}
+    uint8_t retval;
 
-uint8_t spt_tx_done_callback(uint8_t channel, uint8_t status, TX_FUNC_PTR func_ptr, uint8_t* app_buff)
-{
-    if(NULL != spt_tx_resp_queueitem)
-    {
-        spt_tx_resp_queueitem->item_details.res_spt_tx.channel = channel;
-        spt_tx_resp_queueitem->item_details.res_spt_tx.status = status;
-        spt_di_tx_callback(spt_tx_resp_queueitem);
-    }
-    
-}
+    retval = spt_write(channel, buff_ptr, writecount, pecEnable, func_ptr);
 
+    return retval;
+}
 
 void spt_raise_interrrupt_event()
 {

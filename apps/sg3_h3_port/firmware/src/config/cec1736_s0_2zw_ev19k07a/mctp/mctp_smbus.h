@@ -57,7 +57,7 @@ uint8_t mctp_smbmaster_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr
 void mctp_smbdone_handler(MCTP_PKT_BUF *tx_buf);
 void mctp_smbdone_drop(MCTP_PKT_BUF *pkt_buf);
 void mctp_smbus_txpktready_init(MCTP_PKT_BUF *tx_buf);
-extern void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port);
+extern void mctp_smbaddress_update(uint16_t smb_address, uint8_t mctp_port, uint8_t enable_flag);
 
 /******************************************************************************/
 /** mctp_otp_get_crisis_mode_smb_port();

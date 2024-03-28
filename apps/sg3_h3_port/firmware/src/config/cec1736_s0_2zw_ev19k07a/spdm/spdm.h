@@ -34,6 +34,19 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+    
+#define HASH_STATE_SZ (128 + 128)
+#define HASH_BUF_SZ 128U    
+typedef struct HASH_CTX_DATA
+{
+    struct mchphash h_ctx;
+    struct mchphashstate h_state;
+    uint32_t statebuf[HASH_STATE_SZ / 4];
+    bool resume;
+    uint32_t bufsz;
+    uint32_t buflen;
+    uint32_t buf[HASH_BUF_SZ / 4];
+} HASH_CTX_DATA;
 
 /******************************************************************************/
 /** get_cert2_base_address
@@ -188,7 +201,7 @@ extern uint8_t spdm_read_certificate(uint32_t address,
  * generation spdm_crypto_ops_gen_signature().
  * ############################################################################
 *******************************************************************************/
-extern SPDM_BSS1_ATTR uint8_t pvt_key[PVT_KEY_CODE_LENGTH];
+extern SPDM_BSS1_ATTR_4ALIGNED uint8_t pvt_key[PVT_KEY_CODE_LENGTH];
 
 /******************************************************************************/
 /** hash_of_req_buffer
@@ -202,7 +215,7 @@ extern SPDM_BSS1_ATTR uint8_t pvt_key[PVT_KEY_CODE_LENGTH];
  * Note: SPDM module supports only hash of data for signature generation.
  * ############################################################################
 *******************************************************************************/
-extern SPDM_BSS0_ATTR uint8_t hash_of_req_buffer[SPDM_SHA384_LEN];
+extern SPDM_BSS1_ATTR_8ALIGNED uint8_t hash_of_req_buffer[SPDM_SHA384_LEN] __attribute__((aligned(8)));;
 
 /******************************************************************************/
 /** ecdsa_signature
@@ -216,7 +229,7 @@ extern SPDM_BSS0_ATTR uint8_t hash_of_req_buffer[SPDM_SHA384_LEN];
  * measurement response messages.
  * ############################################################################
 *******************************************************************************/
-extern SPDM_BSS1_ATTR ecdsa_signature_t ecdsa_signature __attribute__((aligned(8)));
+extern SPDM_BSS0_ATTR_8ALIGNED ecdsa_signature_t ecdsa_signature __attribute__((aligned(8)));
 
 /******************************************************************************/
 /** random_no
@@ -229,7 +242,7 @@ extern SPDM_BSS1_ATTR ecdsa_signature_t ecdsa_signature __attribute__((aligned(8
  * if design demands it.
  * ############################################################################
 *******************************************************************************/
-extern SPDM_BSS0_ATTR uint8_t random_no[CURVE_384_SZ];
+extern SPDM_BSS1_ATTR_8ALIGNED uint8_t random_no[CURVE_384_SZ]  __attribute__((aligned(8)));
 
 /******************************************************************************/
 /** spdm_crypto_ops_gen_signature
@@ -399,7 +412,9 @@ extern uint8_t spdm_crypto_ops_calc_hash(uint8_t *buff_ptr, uint32_t length,
 *******************************************************************************/
 extern uint8_t spdm_crypto_ops_run_time_hashing(uint8_t *buff_ptr,
                                                 uint32_t length,
-                                                SPDM_CONTEXT *spdmContext);
+                                                SPDM_CONTEXT *spdmContext,
+                                                HASH_CTX_DATA *ctx_ptr1, 
+                                                uint8_t state);
 
 /******************************************************************************/
 /** spdm_crypto_ops_gen_random_no

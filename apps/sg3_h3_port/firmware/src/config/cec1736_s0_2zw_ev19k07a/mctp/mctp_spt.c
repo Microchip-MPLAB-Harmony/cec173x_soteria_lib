@@ -29,11 +29,11 @@
 #include "mctp_config.h"
 #include "pmci.h"
 
-extern MCTP_BSS_ATTR uint8_t mctp_tx_state;
-extern MCTP_BSS_ATTR MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
-extern MCTP_BSS_ATTR uint8_t mctp_wait_spt_callback;
-extern MCTP_BSS_ATTR uint8_t is_pldm_request_firmware_update;
-extern MCTP_BSS_ATTR uint8_t msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
+extern MCTP_BSS_ATTR UINT8 mctp_tx_state;
+extern MCTP_BSS_ATTR_8ALIGNED MCTP_PKT_BUF mctp_pktbuf[MCTP_PKT_BUF_NUM]__attribute__ ((aligned(8)));
+extern MCTP_BSS_ATTR UINT8 mctp_wait_spt_callback;
+extern MCTP_BSS_ATTR UINT8 is_pldm_request_firmware_update;
+extern MCTP_BSS_ATTR UINT8 msg_type_tx; // pldm or spdm or mctp - when transmitting multiple/single pkt through smbus
 
 /******************************************************************************/
 /** Initializes mctp-spt interface. It calls spt_slave _register for
@@ -99,9 +99,9 @@ uint8_t mctp_receive_spt(MCTP_BUFFER_INFO *buffer_info, uint8_t slaveTransmitFla
         return (uint8_t)SPT_STATUS_BUFFER_ERROR;
     }
 
-    pkt_len = ( buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS] + \
+    pkt_len = ((buffer_info->buffer_ptr[MCTP_PKT_BYTE_CNT_POS] + \
                 MCTP_BYTECNT_OFFSET + \
-                MCTP_PEC_BYTE );
+                MCTP_PEC_BYTE )&UINT8_MAX);
 
     if(buffer_info->DataLen != pkt_len)
     {
@@ -152,7 +152,7 @@ void mctp_transmit_spt(MCTP_PKT_BUF *tx_buf)
 
     status_tx = mctp_di_spt_transmit_request(mctp_cfg.spt_channel,
                             (uint8_t *)&tx_buf->pkt,
-                            tx_buf->pkt.data[MCTP_PKT_BYTE_CNT_POS] + 3U,
+                            ((tx_buf->pkt.data[MCTP_PKT_BYTE_CNT_POS] + 3U)&UINT8_MAX),
                             (uint8_t)true);
 
     if(0U != status_tx)
@@ -191,7 +191,7 @@ uint8_t mctp_spt_tx_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr, S
         msg_type_tx = mctp_tx_ctxt->message_type;
     }
     
-    if(msg_type_tx == MCTP_IC_MSGTYPE_SPDM)
+    if((msg_type_tx == MCTP_IC_MSGTYPE_SPDM) || (msg_type_tx == MCTP_IC_MSGTYPE_SECURED_MESSAGE))
     {
         if((buffer_ptr[MCTP_PKT_TO_MSGTAG_POS] & MCTP_EOM_REF_MSK) != MCTP_EOM_REF)
         {
@@ -260,7 +260,7 @@ uint8_t mctp_spt_tx_done(uint8_t channel, uint8_t status, uint8_t *buffer_ptr, S
 
     if(spdm_pend)//if eom is not 1 for the spdm messaging, trigger spdm for further transmission over mctp
     {
-        trigger_spdm_event();
+        trigger_spdm_res_event();
     }
     if (is_pldm_request_firmware_update)
     {

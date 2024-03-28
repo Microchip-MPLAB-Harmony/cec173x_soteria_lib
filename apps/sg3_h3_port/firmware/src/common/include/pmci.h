@@ -22,6 +22,7 @@
 
 #include "../../config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
 #include "FreeRTOS.h"
+#include "common.h"
 
 #define SMB_DI_EVENT_RESPONSE         (1u << 22)
 #define MCTP_DI_EVENT_REQUEST         (1u << 23)
@@ -58,7 +59,8 @@ typedef uint8_t * DI_QUEUEITEM_SMB;
 // APP ids
 #define DI_APP_ID_MCTP 4
 #define DI_APP_ID_SPDM 5
-#define DI_APP_ID_SPT  17
+#define DI_APP_ID_SPT  15
+#define DI_APP_ID_OEM 10
 
 /* Max number of MCTP applications */
 #define DI_MAX_MCTP_APPS		2
@@ -69,6 +71,20 @@ typedef uint8_t * DI_QUEUEITEM_SMB;
 #define FD_T1 120000 // FD_T1 timeout 120000ms for Req fw data responses
 
 // SPDM related configs
+/** SB Public Key Algo */
+enum SB_AUTH_ALGO
+{
+    SB_AUTHALGO_ECDSA_P256,
+    SB_AUTHALGO_ECDSA_P384,
+    SB_AUTHALGO_UNDEFINED1,
+    SB_AUTHALGO_UNDEFINED2,
+    SB_AUTHALGO_RSA_PKCS_1_5,
+};
+typedef enum
+{
+    AES_GCM_ENCRYPT,
+    AES_GCM_DECRYPT,
+} aes_gcm_enum;
 /** SPI Flash to Use to read the image */
 typedef enum
 {
@@ -91,11 +107,11 @@ typedef enum
 
 typedef enum
 {
-    ECFW_IMG_TAG0,
-    ECFW_IMG_TAG1,
-    ECFW_IMG_APCFG0,
-    ECFW_IMG_APCFG1,
-    ECFW_IMG_INVALID
+    SB_ECFW_IMG_TAG0,
+    SB_ECFW_IMG_TAG1,
+    SB_ECFW_IMG_APCFG0,
+    SB_ECFW_IMG_APCFG1,
+    SB_ECFW_IMG_INVALID
 } EC_FW_IMAGE_ID;
 
 // SMB configs
@@ -154,6 +170,55 @@ typedef struct byte_match_details {
         uint32_t spi_addr;
         uint8_t image_id;
 } BYTE_MATCH_DETAILS;
+#define I2C_NOP    0
+#define I2C_WRITE  1
+#define I2C_READ   2
+#define I2C_REPEAT 3
+
+#define SMB_I2C_WRITE                               ((I2C_WRITE  << 6) + 0x00)
+#define SMB_I2C_READ                                ((I2C_READ   << 6) + 0x00)
+#define SMB_I2C_COMBINED                            ((I2C_REPEAT << 6) + 0x00)
+
+#define SMB_QUICK_COMMAND                           ((I2C_WRITE  << 6) + 0x00)
+#define SMB_SEND_BYTE                               ((I2C_WRITE  << 6) + 0x00)
+#define SMB_RECEIVE_BYTE                            ((I2C_READ   << 6) + 0x01)
+#define SMB_WRITE_BYTE                              ((I2C_WRITE  << 6) + 0x00)
+#define SMB_WRITE_WORD                              ((I2C_WRITE  << 6) + 0x00)
+
+#define SMB_READ_BYTE                               ((I2C_REPEAT << 6) + 0x01)
+#define SMB_READ_WORD                               ((I2C_REPEAT << 6) + 0x02)
+#define SMB_PROCESS_CALL                            ((I2C_REPEAT << 6) + 0x02)
+#define SMB_WRITE_BLOCK                             ((I2C_WRITE  << 6) + 0x00)
+#define SMB_READ_BLOCK                              ((I2C_REPEAT << 6) + 0x3F)
+#define SMB_BLOCK_WRITE_BLOCK_READ_PROCESS_CALL     ((I2C_REPEAT << 6) + 0x3F)
+/******************************************************************************/
+/** struct BUFFER_INFO \n
+ * This structure is used to store information of a slave receive buffer
+ * XmitCount is used along with slaveXmitDoneFlag for chaining slave transmit data
+*******************************************************************************/
+typedef struct BUFFER_INFO
+{
+    UINT8 *     buffer_ptr;     /**< Pointer to buffer memory */
+    UINT16      TimeStamp;      /**< Packet received timestamp */
+    UINT8       DataLen;        /**< Data Length of packet received */
+    UINT8       XmitCount;       /**< Number of times slave has transmitted using this buffer for this transaction */
+    UINT8       RxCount;       /**< Number of times slave has received using this buffer for this transaction */
+    UINT8        pecFlag;        /**< PEC valid/invalid flag */
+    UINT8        slaveXmitDoneFlag;   /**< Flag indicating if xmit is completed by slave application */
+    UINT8       channel;        /**< Channel on which this packet is received */
+    BOOL        sdoneFlag;      /**< Flag to indicate if SDONE occured for this buffer */
+    BOOL        repeatWriteFlag; /**< Flag to indicate if transaction involved a repeated write */
+} BUFFER_INFO;
+
+/******************************************************************************/
+/** Slave application function pointer \n
+ * The first argument is pointer to BUFFER_INFO structure which will contain
+ * details of the packet received. The second parameter is flag to indicate
+ * slave transmit phase. In case of slave transmit phase, the application
+ * should provide the data to be transmitted in the same buffer and indicate
+ * whether PEC should be enabled for transmit phase.
+*******************************************************************************/
+typedef UINT8 (*SLAVE_FUNC_PTR)(BUFFER_INFO *, UINT8);
 
 // Efuse address
 #define ATTESTATION_PORT_EFUSE_START_ADDR              367
@@ -172,13 +237,13 @@ uint8_t efuse_read_data(uint16_t byte_index, uint8_t* efuse_buffer, uint16_t len
 uint8_t smb_protocol_execute(const uint8_t channel, uint8_t *buffer_ptr, const uint8_t smb_protocol,
                              const uint8_t writeCount,
                              const uint8_t pecEnable, void *smb_queue_item, const uint8_t readChainedFlag, const uint8_t writeChainedFlag);
-uint8_t smb_register_slave(const uint8_t channel, MCTP_SLAVE_FUNC_PTR slaveFuncPtr);
+extern uint8_t smb_register_slave(const uint8_t channel, SLAVE_FUNC_PTR slaveFuncPtr);
 void smbus_configure_and_enable(uint8_t channel, uint16_t own_address, uint8_t speed, uint8_t port, uint8_t configFlag);
 uint8_t di_request_smb_channel_busystatus(uint8_t channel_num);
 extern UINT16 smb_get_current_timestamp(void);
 
 uint8_t mctp_di_smb_configure_and_enable(uint8_t channel, uint16_t own_address, uint8_t speed, uint8_t port,
-        uint8_t configFlag);
+        uint8_t configFlag, uint8_t i2c_enable);
 uint8_t mctp_di_smb_protocol_execute(const uint8_t channel, uint8_t *buffer_ptr, const uint8_t smb_protocol,
                                      const uint8_t writecount,
                                      const uint8_t pecEnable);
@@ -193,7 +258,7 @@ typedef uint8_t (*MASTER_FUNC_PTR)(uint8_t, uint8_t, uint8_t *, SMB_MAPP_CBK_NEW
 void mctp_di_get_next_request(void);
 void mctp_i2c_enable();
 void mctp_di_get_smb_response(void);
-void trigger_spdm_event(void);
+extern void trigger_spdm_event(void);
 void trigger_pldm_event(void);
 void trigger_pldm_res_event(void);
 
@@ -276,7 +341,7 @@ void di_pldm_sb_get_ht_version(uint16_t *dest);
 uint8_t di_pldm_sb_get_use_c1_ht_for_c0(uint8_t ap);
 uint8_t di_sb_core_request_switch_mode_verify_response();
 uint8_t di_sb_core_request_switch_mode(uint8_t FW_type);
-uint8_t di_sb_core_restore_configs(uint8_t spi_select, bool host_functionality_reduced);
+uint8_t di_sb_core_restore_configs(uint8_t spi_select, bool host_functionality_reduced, uint8_t resp_command);
 uint8_t spdm_di_mctp_done_wait(EventBits_t bits_to_wait);
 void spdm_di_core_done_set(void);
 uint32_t di_pldm_sb_apcfg_apcfg_base_address_get(uint8_t apcfg_id);
@@ -295,6 +360,5 @@ uint8_t spdm_di_sb_core_i2c_ec_fw_update_start(uint32_t staged_addr, uint8_t FW_
         uint8_t ecfw_image_id, uint32_t tagx_addr, bool is_pldm, bool failure_recovery_cap, uint8_t ht_id);
 
 void *di_spt_context_get(void);
-void spt_di_tx_callback(DI_QUEUEITEM_SPT *spt_queue_item);
-
+//extern void spt_di_tx_callback(DI_QUEUEITEM_SPT *spt_queue_item); 
 #endif /* INCLUDE_PMCI_H_ */

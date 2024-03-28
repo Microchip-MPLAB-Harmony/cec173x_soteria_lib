@@ -67,6 +67,17 @@ typedef uint8_t * DI_QUEUEITEM_SMB;
 #define FD_T1 120000 // FD_T1 timeout 120000ms for Req fw data responses
 
 // SPDM related configs
+
+/** SB Public Key Algo */
+enum SB_AUTH_ALGO
+{
+    SB_AUTHALGO_ECDSA_P256,
+    SB_AUTHALGO_ECDSA_P384,
+    SB_AUTHALGO_UNDEFINED1,
+    SB_AUTHALGO_UNDEFINED2,
+    SB_AUTHALGO_RSA_PKCS_1_5,
+};
+
 /** SPI Flash to Use to read the image */
 typedef enum
 {
@@ -84,8 +95,8 @@ typedef enum
 
 #define DI_CHECK_FAIL      1
 #define RLOG_LOAD_FROM_TAG0             (0x08000000u)
-#define ECFW_IMG_TAG0 0
-#define ECFW_IMG_TAG1 1
+#define SB_ECFW_IMG_TAG0 0
+#define SB_ECFW_IMG_TAG1 1
 #define SILICON_VER_A0 0x55
 #define SRAM_MBOX_HW_CONFIG_SIZE                      (0x04)
 
@@ -274,7 +285,7 @@ uint8_t di_request_smb_channel_busystatus(uint8_t channel_num);
 extern uint16_t smb_get_current_timestamp(void);
 #define tx_time_get()   smb_get_current_timestamp()
 uint8_t mctp_di_smb_configure_and_enable(uint8_t channel, uint16_t own_address, uint8_t speed, uint8_t port,
-        uint8_t configFlag);
+        uint8_t configFlag, uint8_t i2c_enable);
 uint8_t mctp_di_smb_protocol_execute(const uint8_t channel, uint8_t *buffer_ptr, const uint8_t smb_protocol,
                                      const uint8_t writecount,
                                      const uint8_t pecEnable);

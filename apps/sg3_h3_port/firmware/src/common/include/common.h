@@ -45,10 +45,12 @@
 #include "pmci.h"
 #include "platform.h"
 
+#define SHA_384_LEN     48u
+
 #include "../data_iso/data_iso_checks_rom_api.h"
 #include "config/cec1736_s0_2zw_ev19k07a/mctp/mctp.h"
 #include "spt/spt_drv.h"
-
+extern void zero_out_bss(void);
 #ifdef __cplusplus
 extern "C" {
 #endif

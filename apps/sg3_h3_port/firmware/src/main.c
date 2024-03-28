@@ -37,6 +37,7 @@
 
 int main ( void )
 {
+    zero_out_bss();
     /* Initialize all modules */
     SYS_Initialize(NULL);
     gpio_register_isr_handlers();

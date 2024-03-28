@@ -251,6 +251,7 @@ void DMA_GRP_InterruptHandler (void)
 void spt_register_isr_handlers(void)
 {
     SPT1_CallbackRegister(spt_isr, SPT1);
+    SPT0_CallbackRegister(spt_isr, SPT0);
 }
 
 /**   @}

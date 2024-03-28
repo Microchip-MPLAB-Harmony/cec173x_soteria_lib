@@ -49,6 +49,9 @@ enum MEC_GIRQ_IDS
     MEC_GIRQ_ID_MAX
 };
 
+/* Created as part of interrupt data isolation */
+#define GIRQ_RESET_IROUTE    (0xFFFFFFFFU)
+
 //Bitmask of GIRQ in ECIA Block Registers
 #define MEC_GIRQ08_BITMASK          (1UL << (MEC_GIRQ08_ID + 8))
 #define MEC_GIRQ09_BITMASK          (1UL << (MEC_GIRQ09_ID + 8))  
