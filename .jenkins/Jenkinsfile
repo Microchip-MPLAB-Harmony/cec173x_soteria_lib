@@ -1,5 +1,5 @@
 #!groovy
 
-@Library('jenkins-shared-library') _
+@Library('cec173x_jenkins_shared_lib') _
 
-jslRunH3AppRepoBuildTask(timeout:60)
+jslRunScgAppRepoBuildTaskSerial(timeout:60)
