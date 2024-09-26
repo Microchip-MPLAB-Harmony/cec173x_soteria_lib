@@ -37,15 +37,15 @@ uint8_t vtr_mon_get_vtr_pad_ctrl_ms( VTR_PAD_CTRL_VALUE pad_ctrl_bits )
     uint8_t pad_ctrl_ms = DISABLED;
     if(VTR_PAD_CTRL_1 == pad_ctrl_bits)
     {
-        pad_ctrl_ms = VTR_PAD_MON_DEB_CTRL_1MS;
+        pad_ctrl_ms = VTR_PAD_CTRL_1MS;
     }
     else if(VTR_PAD_CTRL_10 == pad_ctrl_bits)
     {
-        pad_ctrl_ms = VTR_PAD_MON_DEB_CTRL_10MS;
+        pad_ctrl_ms = VTR_PAD_CTRL_10MS;
     }
     else if(VTR_PAD_CTRL_100 == pad_ctrl_bits)
     {
-        pad_ctrl_ms = VTR_PAD_MON_DEB_CTRL_100MS;
+        pad_ctrl_ms = VTR_PAD_CTRL_100MS;
     }
 
     return pad_ctrl_ms;

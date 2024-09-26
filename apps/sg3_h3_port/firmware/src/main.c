@@ -45,6 +45,7 @@ int main ( void )
     vtr_mon_register_isr_handlers();
     wdt_register_isr_handler();
     spt_register_isr_handlers();
+    emc_register_isr_handlers();
     if(sg3_init())
     {
         goto main_exit;

@@ -103,6 +103,7 @@ void qmspi_register_isr_handlers(void);
 void spt_register_isr_handlers(void);
 void vtr_mon_register_isr_handlers(void);
 void wdt_register_isr_handler(void);
+void emc_register_isr_handlers(void);
 
 #ifdef __cplusplus
 }

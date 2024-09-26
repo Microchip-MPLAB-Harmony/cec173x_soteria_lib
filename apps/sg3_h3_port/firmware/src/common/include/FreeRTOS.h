@@ -653,7 +653,7 @@ typedef struct ST_DI_REQUEST_SPT_INIT
     uint8_t channel;
 
     /** SPT IO Mode */
-    uint16_t io_mode;
+    uint8_t io_mode;
 
     /** TAR Time*/
     uint8_t tar_time;

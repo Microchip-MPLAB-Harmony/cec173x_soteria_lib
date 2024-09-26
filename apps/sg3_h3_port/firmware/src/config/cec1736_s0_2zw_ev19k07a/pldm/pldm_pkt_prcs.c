@@ -781,7 +781,7 @@ void pldm_pkt_handle_activate_firmware(MCTP_PKT_BUF *pldm_buf_tx, PLDM_CONTEXT *
         pldmContext->pldm_status_reason_code = ACTIVATE_FIRMWARE_RECEIVED;
         req_activate_firmware_resp.est_time_for_self_contained_activation = 0x0000;
         in_update_mode = false;
-        pldm_restore_configs(request_update_component.comp_identifier, host_functionality_reduced , pldmContext->pldm_current_response_cmd);
+        pldmContext->pldm_tx_state = PLDM_TX_IDLE;
     }
     else
     {
@@ -1652,6 +1652,8 @@ void pldm_pkt_tx_packet(void)
             if (can_activate) {
                 timer_delay_ms(10);
                 pldm_activate_firmware();
+            } else {
+                pldm_restore_configs(request_update_component.comp_identifier, host_functionality_reduced , pldmContext->pldm_current_response_cmd);
             }
         }
 

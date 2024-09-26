@@ -90,6 +90,7 @@ void SPT1_GRP_InterruptHandler (void);
 void VTR1_PAD_MON_GRP_InterruptHandler (void);
 void VTR2_PAD_MON_GRP_InterruptHandler (void);
 void WDT_GRP_InterruptHandler (void);
+void EMC_GRP_InterruptHandler (void);
 
 
 

@@ -37,9 +37,11 @@ extern void sb_vtr2_pad_mon_isr(void);
 extern void qmspi_isr(uint8_t channel);
 extern void smb_isr(void);
 extern void smb_dma_isr(void);
-
+extern void sb_monitor_envmon_isr();
 static void I2CSMB_GRP_InterruptHandler (void);
 static void DMA_GRP_InterruptHandler (void);
+typedef void (*EMC_CALLBACK)(void);
+extern void EMC_CallbackRegister( EMC_CALLBACK callback);
 
 void I2CSMB0_GRP_InterruptHandler       ( void ) __attribute__((alias("I2CSMB_GRP_InterruptHandler")));
 void I2CSMB1_GRP_InterruptHandler       ( void ) __attribute__((alias("I2CSMB_GRP_InterruptHandler")));
@@ -252,6 +254,19 @@ void spt_register_isr_handlers(void)
 {
     SPT1_CallbackRegister(spt_isr, SPT1);
     SPT0_CallbackRegister(spt_isr, SPT0);
+}
+
+/******************************************************************************/
+/**  emc_isr_handlers
+ *
+ *  @return None
+ *
+ *  @details emc_isr_handlers is used to register EMC handlers
+ *  with Harmony 3 Interrupt handling framework
+ ******************************************************************************/
+void emc_register_isr_handlers(void)
+{
+    EMC_CallbackRegister(sb_monitor_envmon_isr);
 }
 
 /**   @}

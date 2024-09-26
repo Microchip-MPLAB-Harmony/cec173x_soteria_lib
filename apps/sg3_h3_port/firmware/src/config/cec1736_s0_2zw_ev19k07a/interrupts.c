@@ -203,6 +203,7 @@ static void GIRQ18_Handler( void )
     QMSPI0_GRP_InterruptHandler();
     QMSPI1_GRP_InterruptHandler();
     SPT1_GRP_InterruptHandler();
+    SPT0_GRP_InterruptHandler();
 }
 
 static void GIRQ20_Handler( void )
@@ -213,6 +214,7 @@ static void GIRQ20_Handler( void )
 
 static void GIRQ21_Handler( void )
 {
+    EMC_GRP_InterruptHandler();
     WDT_GRP_InterruptHandler();
 }
 
