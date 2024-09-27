@@ -3268,6 +3268,7 @@ uint8_t spdm_secure_session_finish(MCTP_PKT_BUF *spdm_buf_tx, SPDM_CONTEXT *spdm
     spdmContext->secure_session_get_requests_state = END_OF_HASH;
     spdm_crypto_ops_run_time_hashing(NULL, 0, spdmContext, &ctx_ptr_arr_ss[HASH_CTX_FINISH_VERIFY_DATA], spdmContext->secure_session_get_requests_state);
 
+    spdmContext->hmac_state = HASH_INIT_MODE;
     // take requesterverifydata out and verify it
     spdm_crypto_ops_run_time_hmac(spdmContext, &spdmContext->sha_digest[0],
                     &(spdmContext->secure_session_info.secure_session_handshake_secret.request_finished_key[0])); // fill responder verify data
@@ -5875,6 +5876,7 @@ void spdm_secure_session_cleanup(SPDM_CONTEXT *spdmContext)
     {
         return;
     }
+    exchange_data_offset = 0, opaq_size_remaining = 0, key_exchange_rsp_multiple_pkt_state = 0, remaining_bytes_to_sent = 0;
     memset(&(spdmContext->secure_session_info), 0, sizeof(SECURE_SESSION_INFO));
     memset(&ss_pub_key[0], 0, PUB_KEY_CODE_LENGTH);
     memset(&ss_pvt_key[0], 0, PVT_KEY_CODE_LENGTH);
