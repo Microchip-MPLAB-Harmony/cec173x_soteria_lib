@@ -3,6 +3,119 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## CEC173x_soteria_lib Release v3.4.0
+
+### New Features
+
+  - 0F00:
+
+    - Added SPDM secure sessions over MCTP
+
+  - 1100:
+
+    - Reuse 64K of SPIMON1 SRAM for SG3 data space.
+    - SPT0 and SPT1 bring up in SG3.
+
+  - 1101:
+
+    - None
+
+### Bug fixes
+
+  - 0F00:
+
+    - Handle cases during authentication where r/s term in signature is less than 48 bytes
+    - General call address (slave address 0) fix in i2c
+    - Validate uboot images in external flash as per hash table flow
+    - Coverity security fixes (medium, high and very high)
+    - Coverity CERT-C fixes (L1 and L2)
+    - Fixed bug in DMA channel IROUTE values
+    - Fixed SPIMON runtime region configuration failure
+    - Fixed LED status when system goes to fatal due to KHB or APCFG auth failure
+    - Fixed issue in AP base address pointer wherein 33rd byte is written with junk value
+    - Fixed issue when spi address is 0xFFFFFFF0
+    - Fixed an issue with golden image attribute
+    - Golden runtime hash match need not be configured as it is anyways used during recovery
+    - Fixed TAG1 base address to be read from OTP
+    - Fixed flow control issues in SPDM
+
+  - 1100:
+
+    - Byte match related bug fixes in mcopy and reauth sequence.
+    - Bug fixes in Secure Session, including crash when enabling data isolation.
+    - Secure Session coverity and Misra issues.
+    - Trace3 memfault issue resolved.
+    - Fixed spimon violations related issues in 3HT configuration.
+    - SPDM + reauth related issues are fixed.
+    - KHB status fixed.
+    - AP1 I2C issue with I2C command APFW validate fixed.
+    - Crash during AP1 reauth, with AP1 having byte match image fixed.
+    - PLDM update of 3HT issue fixed.
+    - Move Owner Container to internal flash for create_container_command.
+    - Configurable delay between AP0 and AP1 release.
+    - Skip restore location for firmware update.
+    - Image auth retries made configurable.
+
+  - 1101:
+
+    - Bug fixes in Secure Session during reattempts.
+    - Rev C Macronix flash commands updated.
+    - TOO EUT fix.
+    - Bug fix in padmon delay configurations.
+    - Bug fix in EMC interrupt handler.
+    - Rev C DEVAK signature fixed.
+    - Bug fix in spimon violation reauth crash.
+    - Byte match related bug fixes.
+
+### Improvements
+
+  - 0F00:
+
+    - APCFG size implementation for reserved bytes
+    - Upgraded FreeRTOS Kernel to v10.4.6
+    - Added option to disable I2C write to certificates in internal flash based on APCFG configuration
+    - Support SPDM before AP reset release
+    - Improvements to linker script
+    - Optimize the number of lines in files and functions
+    - REBOOT_FLAG implementation from OTP read
+    - Change default state of AP0 reset detection pin to pull down
+    - Allow PLDM crisis recovery without host ACTIVATE command
+    - Added support for receiving multiple packets from SPDM host
+    - Added check for maximum size of each received SPDM packet
+    - Optimize stack usage of tasks
+
+  - 1100:
+
+    - Freertos queue response code optimized.
+    - Coverity L3 fixes.
+    - Glitch protection implemented.
+
+  - 1101:
+
+    - Improvement in PLDM reauth.
+
+### Known Issues
+
+  - 0F00:
+
+    - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
+    - Trace3 causes memfault exception due to space constraint
+
+  - 1100 and 1101:
+
+    - MISRA-C mandatory checks will fail for third party source (FreeRTOS and CMSIS) files
+
+### Development Tools
+
+For CEC173x family of devices:
+
+  - [MPLAB® X IDE v6.20](https://www.microchip.com/mplab/mplab-x-ide)
+  - [MPLAB® XC32 C/C++ Compiler v4.45](https://www.microchip.com/mplab/compilers)
+
+### Notes
+
+  - None
+
 ## CEC173x_soteria_lib Release v3.3.1
 
 ### New Features
